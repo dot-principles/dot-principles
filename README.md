@@ -327,25 +327,45 @@ See [INSTALL.md](INSTALL.md) for full platform instructions (Linux, macOS, Windo
 
 ## 📚 Principle catalog
 
-150+ principles in the CODE namespace across 13 categories (SOLID, GoF, DDD, GRASP, OWASP, 12-Factor, and more ship in their own namespaces — see [DESIGN.md](DESIGN.md#-2-catalog-structure) for the full catalog):
+**278 principles across 22 namespaces.** The CODE-* prefix alone covers 128 principles across 13 sub-categories. SOLID, GoF, DDD, GRASP, OWASP, 12-Factor, EIP, and more ship in their own namespaces — see [DESIGN.md](DESIGN.md#-2-catalog-structure) for the full catalog:
 
-| ID Prefix   | Category                                              |
-|-------------|-------------------------------------------------------|
-| `CODE-SD-`  | Software Design (SOLID, GoF, composition, simplicity) |
-| `CODE-SEC-` | Security (OWASP Top 10, input validation, secrets)    |
-| `CODE-CS-`  | Code Smells & Refactoring                             |
-| `CODE-API-` | API Design                                            |
-| `CODE-CC-`  | Concurrency                                           |
-| `CODE-DM-`  | Domain Modeling                                       |
-| `CODE-AR-`  | Architecture                                          |
-| `CODE-RL-`  | Reliability & Error Handling                          |
-| `CODE-PF-`  | Performance                                           |
-| `CODE-TS-`  | Testing Strategy                                      |
-| `CODE-OB-`  | Observability & Operations                            |
-| `CODE-DX-`  | Developer Experience                                  |
-| `CODE-TP-`  | Type & Pattern Safety                                 |
+| Namespace prefix | Area |
+|---|---|
+| `CODE-CS-` | Computer Science fundamentals & code smells |
+| `CODE-API-` | API Design (REST, HTTP, gRPC) |
+| `CODE-CC-` | Concurrency |
+| `CODE-RL-` | Reliability & Error Handling |
+| `CODE-SEC-` | Security (input validation, secrets, cryptography) |
+| `CODE-TS-` | Testing Strategy |
+| `CODE-OB-` | Observability & Operations |
+| `CODE-DX-` | Developer Experience |
+| `CODE-TP-` | Type & Pattern Safety |
+| `CODE-AR-` | Architecture (messaging, modules, infrastructure) |
+| `CODE-PF-` | Performance |
+| `SOLID-` | SOLID principles |
+| `GOF-` | Gang of Four design patterns |
+| `DDD-` | Domain-Driven Design |
+| `GRASP-` | GRASP principles |
+| `OWASP-` | OWASP Top 10 |
+| `12FACTOR-` | Twelve-Factor App |
+| `EIP-` | Enterprise Integration Patterns (12 patterns) |
+| `SEC-ARCH-` | Security Architecture (all 8 Saltzer & Schroeder) |
+| `ARCH-` | System & solution architecture |
+| `INFRA-` | Infrastructure (IaC, containers, immutability) |
+| `CD-` | Continuous Delivery (trunk-based, semver, …) |
+| `PIPELINE-` | CI/CD pipeline (permissions, secrets, gates, …) |
+| `SCHEMA-` | Schema & contract design |
+| `CONFIG-` | Configuration management |
+| `DOC-` | Documentation |
+| `CODE-SMELLS-` | All 22 Fowler code smells |
+| `FP-` | Functional Programming |
+| `A11Y-` | Accessibility (WCAG 2.1 Level A/AA) |
+| `SIMPLE-DESIGN-` | Kent Beck's 4 Rules of Simple Design |
+| `CLEAN-ARCH-` | Clean Architecture |
+| `PKG-` | Package / module design |
+| `EFFECTIVE-JAVA-` | Effective Java patterns |
 
-Shipped groups (e.g., `@spring-boot`, `@react`, `@microservices`, `@security-focused`) bundle related principles for common stacks. See [DESIGN.md](DESIGN.md#-6-groups) for the full list.
+**52 shipped groups** (`@spring-boot`, `@react`, `@microservices`, `@security-focused`, `@a11y`, `@pipeline`, `@container`, `@schema`, `@eip`, `@fp`, `@db`, `@ddd`, `@cd`, `@docs-as-code`, and more) bundle related principles for common stacks. See [DESIGN.md](DESIGN.md#-6-groups) for the full list.
 
 Many principles include **code examples and diagrams** to make the guidance concrete — not just a definition, but a demonstration of the principle in practice.
 
@@ -382,24 +402,28 @@ Generated: C:/projects/app/audit-output.json
 
 Fork this repo and add a `principles/corp/` namespace (or any name) for corporate or domain-specific principles. Reference them with `CORP-0001` in your `.principles` files. See [DESIGN.md](DESIGN.md#-10-adding-a-new-namespace) for the full process.
 
-## 🚧 Catalog status — work in progress
+## 🚧 Catalog status
 
-The catalog is actively growing. Planned additions are tracked in [TODO.md](TODO.md) and include namespaces and principles not yet shipped:
+The catalog has grown substantially and now covers all major software engineering domains. All gap areas identified during initial development have been filled. The table below shows what's shipped:
 
-| Area | Examples |
-|---|---|
-| Functional programming | Pure functions, immutability as design, function composition |
-| Continuous delivery | Trunk-based development, feature flags, fast feedback loops |
-| Database / persistence | N+1 avoidance, index for access patterns, outbox pattern |
-| OOP / object design | Law of Demeter, Tell Don't Ask |
-| Architecture patterns | Hexagonal (Ports & Adapters), Saga, Strangler Fig |
-| Security architecture | Threat modelling, zero trust, supply chain security |
-| Testing | Test pyramid, contract testing, property-based testing |
-| Observability | USE method, RED method, error budgets |
-| Config principles | CONFIG-NO-HARDCODED-SECRETS, CONFIG-SCHEMA-VALIDATION |
-| Schema principles | SCHEMA-SELF-DESCRIBING |
-| Pipeline principles | PIPELINE-MINIMAL-PERMISSIONS, PIPELINE-NO-SECRETS-IN-LOGS |
-| API design | API versioning strategy, gRPC / Protobuf design |
+| Area | Status | Highlights |
+|---|---|---|
+| Functional programming | ✅ Shipped | Pure functions, immutability, referential transparency, higher-order functions |
+| Continuous delivery | ✅ Shipped | Trunk-based development, semver, feature flags, fast feedback, blue-green, canary |
+| Database / persistence | ✅ Shipped | N+1 avoidance, index for access patterns, schema migrations, outbox pattern |
+| OOP / object design | ✅ Shipped | Law of Demeter, Tell Don't Ask, CQS, design by contract |
+| Architecture patterns | ✅ Shipped | Hexagonal, Saga, Strangler Fig, Anti-Corruption Layer, Bulkhead, Sidecar, Database-per-Service |
+| Security architecture | ✅ Shipped | All 8 Saltzer & Schroeder principles (economy of mechanism, least common mechanism, open design, …) |
+| Testing | ✅ Shipped | Test-first, single behaviour, fast tests, test doubles, arrange-act-assert |
+| Observability | ✅ Shipped | Structured telemetry, distributed tracing, SLOs, RED method, four golden signals, error budgets |
+| Config principles | ✅ Shipped | Schema-first, environment parity, explicit defaults, no hardcoded secrets |
+| Schema principles | ✅ Shipped | Field optionality, no polymorphic blobs, enum evolution, self-describing |
+| Pipeline principles | ✅ Shipped | Minimal permissions, no secrets in logs, reproducible builds, deployment gates, environment isolation |
+| API design | ✅ Shipped | HTTP status codes, HATEOAS, resource nouns, backward compatibility, rate limiting, versioning, gRPC |
+| Enterprise Integration | ✅ Shipped | 12 EIP patterns — aggregator, splitter, wire tap, idempotent consumer, message translator, … |
+| Accessibility (WCAG 2.1) | ✅ Shipped | Alt text, semantic HTML, keyboard navigation, colour contrast (`@a11y` group) |
+| Error handling | ✅ Shipped | Exceptions for exceptional conditions, catch specific exceptions, fail fast |
+| Code smells | ✅ Shipped | All 22 Fowler smells (1st + 2nd edition) |
 
 Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
 

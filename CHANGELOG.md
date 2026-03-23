@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ### Added
 
+- **2 new error-handling principles** (`code/cs` namespace) — `CODE-CS-EXCEPTIONS-FOR-EXCEPTIONAL-CONDITIONS` and `CODE-CS-CATCH-SPECIFIC-EXCEPTIONS` (both layer 1). Completes the error-handling gap identified in the Tier 2 gap analysis. Sources: Bloch, *Effective Java* 3rd ed. items 69 & 73 (ISBN 978-0-13-468599-1); Martin, *Clean Code* ch. 7 (ISBN 978-0-13-235088-4). Inspection entries added to `principles/code/.context-inspect.md`.
 - **New `@docs-as-code` group** — focused profile for repos where documentation is versioned alongside code and built in CI (MkDocs, Docusaurus, Antora). Contains 7 principles: `DOC-AS-CODE`, `DOC-CLOSE-TO-CODE`, `DOC-UNIQUE`, `DOC-ADDRESSABLE`, `ARCH-DECISION-RECORDS`, `CODE-CS-DRY`, `PIPELINE-REPRODUCIBLE-BUILDS`. Distinct from the full `@docs` group, which covers writing-quality principles.
 
 ---

@@ -67,12 +67,12 @@ Gap analysis performed 2026-03-22. Criteria: established published source, code-
 - [x] `eip/content-enricher` — Augment messages with additional data at a dedicated pipeline stage. (extended)
 - [x] `eip/return-address` — Request message carries the reply channel address for dynamic async request-reply routing. (extended)
 
-### 7. Error handling principles
+### 7. ~~Error handling principles~~ DONE
 
-No dedicated error-handling sub-category. Relevant patterns are scattered (fail-fast, circuit-breaker) but some established practices are absent:
+`code/cs/` expanded with 2 error-handling principles. Sources: Bloch, *Effective Java* items 69 & 73; Martin, *Clean Code* ch. 7. Catalog, inspect file, and changelog updated.
 
-- [ ] `code/cs/exceptions-for-exceptional-conditions` — Do not use exceptions for ordinary control flow. Source: Effective Java item 69 (ISBN 978-0134685991), Clean Code ch. 7. Auditable: catch blocks used for branching logic, exception-driven loops, Pokemon catches.
-- [ ] `code/cs/catch-specific-exceptions` — Catch the most specific exception type possible; never catch generic `Exception`/`Throwable`/`BaseException`. Source: Effective Java item 73. Auditable: `catch (Exception e)`, `except Exception:`, `catch (\Throwable $e)`.
+- [x] `code/cs/exceptions-for-exceptional-conditions` — Do not use exceptions for ordinary control flow. Source: Effective Java item 69 (ISBN 978-0134685991), Clean Code ch. 7. Auditable: catch blocks used for branching logic, exception-driven loops, Pokemon catches.
+- [x] `code/cs/catch-specific-exceptions` — Catch the most specific exception type possible; never catch generic `Exception`/`Throwable`/`BaseException`. Source: Effective Java item 73. Auditable: `catch (Exception e)`, `except Exception:`, `catch (\Throwable $e)`.
 
 ### 8. Accessibility / WCAG
 

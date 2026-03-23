@@ -461,6 +461,12 @@ CODE-CS-BOY-SCOUT:
   categories: [maintainability, refactoring, craftsmanship]
   applies_to: [all]
 
+CODE-CS-CATCH-SPECIFIC-EXCEPTIONS:
+  title: "Catch the most specific exception type possible"
+  layer: 1
+  categories: [error-handling, reliability, code-quality]
+  applies_to: [all]
+
 CODE-CS-BROKEN-WINDOWS:
   title: "Broken Windows"
   layer: 1
@@ -483,6 +489,12 @@ CODE-CS-DRY:
   title: "DRY: Don't Repeat Yourself"
   layer: 1
   categories: [code-smells, maintainability, refactoring]
+  applies_to: [all]
+
+CODE-CS-EXCEPTIONS-FOR-EXCEPTIONAL-CONDITIONS:
+  title: "Exceptions for exceptional conditions only"
+  layer: 1
+  categories: [error-handling, reliability, code-quality]
   applies_to: [all]
 
 CODE-CS-FAIL-FAST:

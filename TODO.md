@@ -74,25 +74,25 @@ Gap analysis performed 2026-03-22. Criteria: established published source, code-
 - [x] `code/cs/exceptions-for-exceptional-conditions` — Do not use exceptions for ordinary control flow. Source: Effective Java item 69 (ISBN 978-0134685991), Clean Code ch. 7. Auditable: catch blocks used for branching logic, exception-driven loops, Pokemon catches.
 - [x] `code/cs/catch-specific-exceptions` — Catch the most specific exception type possible; never catch generic `Exception`/`Throwable`/`BaseException`. Source: Effective Java item 73. Auditable: `catch (Exception e)`, `except Exception:`, `catch (\Throwable $e)`.
 
-### 8. Accessibility / WCAG
+### 8. ~~Accessibility / WCAG~~ DONE
 
-No accessibility principles exist. Source: W3C WCAG 2.1 (authoritative URL). Relevant for frontend codebases. Code-auditable via HTML/JSX.
+New `a11y/` namespace created with 4 principles. `@a11y` group, `.context-inspect.md`, `.context-prime.md`, `.context-audit.md` created. `accessibility` context added to code layer-2-contexts; frontend extensions added to artifact-types. Source: W3C WCAG 2.1 (SC 1.1.1, 1.3.1, 1.4.3, 2.1.1, 4.1.2).
 
-- [ ] `a11y/alt-text` — Images must have meaningful alternative text. Auditable: `<img>` without `alt`, `alt=""` on informative images.
-- [ ] `a11y/semantic-html` — Use semantic HTML elements over generic `<div>`/`<span>` with ARIA roles. Auditable: `<div onclick=`, clickable divs without role/tabindex, missing landmark elements.
-- [ ] `a11y/keyboard-navigation` — Interactive elements must be keyboard-accessible. Auditable: `onClick` without `onKeyDown`/`onKeyPress`, non-focusable interactive elements, missing `tabIndex`.
-- [ ] `a11y/color-contrast` — Audit-scope: limited. Partially auditable via hardcoded color values in CSS/styled-components, but full evaluation requires rendering.
+- [x] `a11y/alt-text` — Images must have meaningful alternative text. Auditable: `<img>` without `alt`, `alt=""` on informative images.
+- [x] `a11y/semantic-html` — Use semantic HTML elements over generic `<div>`/`<span>` with ARIA roles. Auditable: `<div onclick=`, clickable divs without role/tabindex, missing landmark elements.
+- [x] `a11y/keyboard-navigation` — Interactive elements must be keyboard-accessible. Auditable: `onClick` without `onKeyDown`/`onKeyPress`, non-focusable interactive elements, missing `tabIndex`.
+- [x] `a11y/color-contrast` — Audit-scope: limited. Partially auditable via hardcoded color values in CSS/styled-components, but full evaluation requires rendering.
 
-### 9. Semantic Versioning
+### 9. ~~Semantic Versioning~~ DONE
 
-- [ ] `cd/semantic-versioning` — Version numbers must communicate the nature of changes (breaking, feature, fix). Source: semver.org (Tom Preston-Werner). Auditable: `0.x` in production dependencies, version strings not following semver pattern, CHANGELOG gaps.
+- [x] `cd/semantic-versioning` — Version numbers must communicate the nature of changes (breaking, feature, fix). Source: semver.org (Tom Preston-Werner). Auditable: `0.x` in production dependencies, version strings not following semver pattern, CHANGELOG gaps.
 
-### 10. Architecture — missing microservices patterns
+### 10. ~~Architecture — missing microservices patterns~~ DONE
 
-`arch/` is extensive but missing some highly auditable patterns from Richardson (*Microservices Patterns*, ISBN 978-1617294549):
+`arch/` expanded with 2 new microservices patterns. Sources: Burns et al. *Designing Distributed Systems*; Richardson *Microservices Patterns* ISBN 978-1617294549. Context files and `microservices.yaml` group updated.
 
-- [ ] `arch/sidecar` — Deploy auxiliary concerns (logging, proxying, config) as a co-located process rather than embedding in the service. Auditable: cross-cutting concerns baked into application code that should be sidecar-deployed.
-- [ ] `arch/database-per-service` — Each service owns its data store; no direct database sharing across service boundaries. Auditable: shared database connection strings, cross-service table joins, shared schemas.
+- [x] `arch/sidecar` — Deploy auxiliary concerns (logging, proxying, config) as a co-located process rather than embedding in the service. Auditable: cross-cutting concerns baked into application code that should be sidecar-deployed.
+- [x] `arch/database-per-service` — Each service owns its data store; no direct database sharing across service boundaries. Auditable: shared database connection strings, cross-service table joins, shared schemas.
 
 ---
 
@@ -100,11 +100,11 @@ No accessibility principles exist. Source: W3C WCAG 2.1 (authoritative URL). Rel
 
 Even when a principle exists in the catalog, it may not activate for certain project profiles if no group includes it. Review these:
 
-- [ ] `microservices.yaml` — Check whether EIP principles, saga, bulkhead, and service-mesh patterns are included
+- [x] `microservices.yaml` — EIP principles (all 12), ARCH-SIDECAR, ARCH-DATABASE-PER-SERVICE added
 - [x] `security-focused.yaml` — Saltzer & Schroeder principles added
-- [ ] Pipeline principles — No `pipeline.yaml` group exists; consider creating one
-- [ ] Container/infra principles — Review `infra`-related groups for container-specific inclusions
-- [ ] Schema principles — No `schema.yaml` group exists; the schema layer handles activation, but explicit group would help for `.principles` files targeting schema-heavy repos. Layer-2 contexts now activate schema principles for OpenAPI, Protobuf, GraphQL, Avro, and SQL contexts.
+- [x] Pipeline principles — `pipeline.yaml` group created (12 principles: all PIPELINE-* + key CD-*)
+- [x] Container/infra principles — `container.yaml` group created (10 principles: all container INFRA-* + pipeline security)
+- [x] Schema principles — `schema.yaml` group created (5 principles: all SCHEMA-* + backward compatibility)
 
 ---
 

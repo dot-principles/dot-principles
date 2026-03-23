@@ -1,7 +1,36 @@
 # .principles — Consolidated Catalog
-# Generated from principle files. 262 principles across 17 namespaces.
+# Generated from principle files. 278 principles across 19 namespaces.
 # Each entry maps a current principle ID to lightweight metadata.
 # Full principle text lives in the principle markdown files under principles/.
+
+# =============================================================================
+# A11Y
+# =============================================================================
+
+A11Y-ALT-TEXT:
+  title: "Images must have meaningful alternative text"
+  layer: 2
+  categories: [accessibility, wcag, html]
+  applies_to: [HTML, JSX, TSX, templates]
+
+A11Y-COLOR-CONTRAST:
+  title: "Text must meet minimum contrast ratio against its background"
+  layer: 2
+  audit_scope: limited
+  categories: [accessibility, wcag, css]
+  applies_to: [CSS, SCSS, styled-components, inline styles]
+
+A11Y-KEYBOARD-NAVIGATION:
+  title: "Interactive elements must be fully keyboard-accessible"
+  layer: 2
+  categories: [accessibility, wcag, html]
+  applies_to: [HTML, JSX, TSX, templates]
+
+A11Y-SEMANTIC-HTML:
+  title: "Use semantic HTML elements; do not build interactive controls from divs"
+  layer: 2
+  categories: [accessibility, wcag, html]
+  applies_to: [HTML, JSX, TSX, templates]
 
 # =============================================================================
 # FP
@@ -213,6 +242,12 @@ ARCH-CONWAYS-LAW:
   categories: [architecture, org-design, systems-thinking]
   applies_to: [system-design, team-structure]
 
+ARCH-DATABASE-PER-SERVICE:
+  title: "Each service owns its data store; no cross-service database sharing"
+  layer: 2
+  categories: [architecture, microservices, data-management, service-boundaries]
+  applies_to: [microservices, distributed-systems]
+
 ARCH-DECISION-RECORDS:
   title: "Record architecture decisions as ADRs"
   layer: 1
@@ -242,6 +277,12 @@ ARCH-SERVICE-BOUNDARIES:
   layer: 2
   categories: [architecture, distributed-systems, domain-driven-design]
   applies_to: [microservices, distributed-systems, service-oriented]
+
+ARCH-SIDECAR:
+  title: "Deploy cross-cutting concerns as co-located sidecars, not as embedded library code"
+  layer: 2
+  categories: [architecture, microservices, deployment, separation-of-concerns]
+  applies_to: [microservices, distributed-systems, cloud-native]
 
 ARCH-STATELESS-FIRST:
   title: "Design service instances to be stateless"
@@ -1857,6 +1898,12 @@ CD-BUILD-ONCE-DEPLOY-MANY:
   categories: [devops, continuous-delivery, deployment, reliability]
   applies_to: [all]
 
+CD-SEMANTIC-VERSIONING:
+  title: "Version numbers must communicate the nature of changes"
+  layer: 1
+  categories: [release-management, api-design, compatibility, continuous-delivery]
+  applies_to: [all]
+
 # =============================================================================
 # CONFIG
 # =============================================================================
@@ -1936,3 +1983,43 @@ SCHEMA-ENUM-EVOLUTION:
   layer: 1
   categories: [schema-design, reliability, api-design]
   applies_to: [schema]
+
+# =============================================================================
+# PIPELINE
+# =============================================================================
+
+PIPELINE-DEPLOYMENT-GATES:
+  title: "Require explicit approval or conditions before production deployment"
+  layer: 2
+  categories: [reliability, pipeline, security, deployment]
+  applies_to: [pipeline]
+
+PIPELINE-ENVIRONMENT-ISOLATION:
+  title: "Pipeline stages must not share mutable state"
+  layer: 1
+  categories: [reliability, pipeline, reproducibility]
+  applies_to: [pipeline]
+
+PIPELINE-FAIL-FAST-PIPELINE:
+  title: "Abort the pipeline on the first meaningful failure"
+  layer: 1
+  categories: [reliability, pipeline, feedback]
+  applies_to: [pipeline]
+
+PIPELINE-MINIMAL-PERMISSIONS:
+  title: "Run pipeline jobs with minimal permissions"
+  layer: 1
+  categories: [security, pipeline]
+  applies_to: [pipeline]
+
+PIPELINE-NO-SECRETS-IN-LOGS:
+  title: "Never expose secrets in pipeline logs"
+  layer: 1
+  categories: [security, pipeline]
+  applies_to: [pipeline]
+
+PIPELINE-REPRODUCIBLE-BUILDS:
+  title: "Ensure builds produce identical outputs from identical inputs"
+  layer: 1
+  categories: [reliability, pipeline, supply-chain]
+  applies_to: [pipeline]

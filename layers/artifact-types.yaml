@@ -25,7 +25,9 @@ types:
       extensions:
         - .java
         - .ts
+        - .tsx
         - .js
+        - .jsx
         - .mjs
         - .cjs
         - .py
@@ -50,6 +52,13 @@ types:
         - .r
         - .m
         - .mm
+        - .html
+        - .htm
+        - .vue
+        - .svelte
+        - .css
+        - .scss
+        - .sass
 
   docs:
     description: "Prose documentation — READMEs, guides, how-tos, architecture docs"

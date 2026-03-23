@@ -321,3 +321,32 @@ typed-language:
     - CODE-TP-PREFER-SUM-TYPES
     - CODE-TP-TYPE-STATE-MACHINES
     - CODE-TP-BRANDED-TYPES
+
+accessibility:
+  description: "HTML templates, JSX/TSX components, and CSS — frontend UI code requiring WCAG conformance"
+  signals:
+    - "<img"
+    - "<button"
+    - "<form"
+    - "<input"
+    - "<a href"
+    - "onClick"
+    - "aria-"
+    - "role="
+    - "tabIndex"
+    - "className="
+    - "JSX"
+    - "TSX"
+    - ".html"
+    - ".jsx"
+    - ".tsx"
+    - ".vue"
+    - ".svelte"
+    - "color:"
+    - "background-color:"
+    - "alt="
+  activate:
+    - A11Y-ALT-TEXT
+    - A11Y-SEMANTIC-HTML
+    - A11Y-KEYBOARD-NAVIGATION
+    - A11Y-COLOR-CONTRAST

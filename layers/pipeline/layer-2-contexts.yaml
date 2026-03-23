@@ -53,4 +53,5 @@ release:
     - "cargo publish"
   activate:
     - CD-DEPLOY-ON-EVERY-COMMIT
+    - CD-SEMANTIC-VERSIONING
     - CODE-API-BACKWARD-COMPATIBILITY

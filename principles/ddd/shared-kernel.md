@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, domain-driven-design, integration
 **Applies-to:** all
+**Summary:** Share only a minimal, explicitly agreed-upon subset of the domain model and require bilateral consent for any change.
 
 ## Principle
 

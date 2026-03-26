@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, maintainability
 **Applies-to:** all
+**Summary:** Break long navigation chains by moving logic closer to the data it needs, reducing coupling to structure.
 
 ## Principle
 

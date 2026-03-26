@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** database, reliability, distributed-systems, messaging
 **Applies-to:** distributed-systems, microservices, event-driven
+**Summary:** Write events to an outbox table in the same transaction as domain changes to eliminate dual-write failures.
 
 ## Principle
 

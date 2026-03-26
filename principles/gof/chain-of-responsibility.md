@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
 **Applies-to:** all
+**Summary:** Chain handlers and pass a request along the chain until one handles it, decoupling sender from receiver.
 
 ## Principle
 

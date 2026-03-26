@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** domain-modeling, domain-driven-design
 **Applies-to:** all
+**Summary:** Define explicit model boundaries and map inter-context relationships rather than forcing a single unified model.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** software-design, maintainability
 **Applies-to:** all
+**Summary:** Each module or class must have exactly one reason to change, serving a single stakeholder or concern.
 
 ## Principle
 

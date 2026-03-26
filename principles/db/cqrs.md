@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** database, architecture, scalability, performance
 **Applies-to:** distributed-systems, microservices, high-load-systems
+**Summary:** Separate command and query models when read and write paths have different scaling or structural requirements.
 
 ## Principle
 

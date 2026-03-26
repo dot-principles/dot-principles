@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, distributed-systems, reliability
 **Applies-to:** all
+**Summary:** Coordinate distributed transactions as a sequence of local transactions with compensating steps on failure.
 
 ## Principle
 

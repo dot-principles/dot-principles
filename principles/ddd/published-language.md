@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, domain-driven-design, api-design
 **Applies-to:** all
+**Summary:** Translate between bounded contexts using a shared, agreed-upon exchange format rather than exposing internal models.
 
 ## Principle
 

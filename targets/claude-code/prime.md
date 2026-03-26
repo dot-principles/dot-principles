@@ -44,8 +44,9 @@ Before walking `.principles` files, check for a pre-compiled block injected by `
 If the file contains `<!-- .principles: begin`, the compiled block is present. When found:
 
 1. Parse all principle IDs from the block — lines matching `- <ID>: ...` where the ID is uppercase letters and hyphens
-2. Use these as the **active principle set** — skip the tree walk below
-3. Record source as: `compiled-block: <filename>`
+2. Optionally cross-reference `.principles-catalog/index.tsv` (each line: `ID|LAYER|SUMMARY`) to get Layer groupings for display in the prime header (e.g. "Layer 1: N always-active, Layer 2: M stack-specific").
+3. Use these as the **active principle set** — skip the tree walk below
+4. Record source as: `compiled-block: <filename>`
 
 **Load principle content from the catalog:**
 

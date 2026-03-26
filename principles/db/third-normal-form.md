@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** database, data-modeling, correctness, maintainability
 **Applies-to:** all
+**Summary:** Design relational schemas to at least Third Normal Form by default; denormalise only when justified by measurement.
 
 ## Principle
 

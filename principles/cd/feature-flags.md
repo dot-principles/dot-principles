@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** devops, continuous-delivery, deployment, release-management
 **Applies-to:** all
+**Summary:** Decouple deployment from release by hiding incomplete features behind runtime flags, not branches.
 
 ## Principle
 

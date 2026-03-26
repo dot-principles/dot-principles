@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** integration, messaging
 **Applies-to:** all
+**Summary:** Remove unwanted messages in a dedicated Filter component; never duplicate filtering logic in consumers.
 
 ## Principle
 

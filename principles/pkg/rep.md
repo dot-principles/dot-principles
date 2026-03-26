@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, package-design, modularity
 **Applies-to:** all
+**Summary:** Group into a component only classes cohesive enough to be released, versioned, and maintained together.
 
 ## Principle
 

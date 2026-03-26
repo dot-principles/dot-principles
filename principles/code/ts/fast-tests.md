@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** testing, quality
 **Applies-to:** all
+**Summary:** Keep tests fast enough to run after every small change without degrading the developer feedback loop.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
 **Applies-to:** all
+**Summary:** Encapsulate state-specific behavior in separate state objects and delegate to the current state at runtime.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** devops, continuous-delivery, deployment, reliability, risk-management
 **Applies-to:** all
+**Summary:** Route a small fraction of traffic to the new version and roll back automatically if metrics degrade.
 **Audit-scope:** limited — traffic routing percentages are deployment infrastructure concerns; deployment configuration and progressive rollout specs are auditable.
 
 ## Principle

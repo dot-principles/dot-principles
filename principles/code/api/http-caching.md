@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** api-design, performance, rest
 **Applies-to:** all
+**Summary:** Set explicit `Cache-Control` and validation headers on every GET response; never rely on intermediary defaults.
 
 ## Principle
 

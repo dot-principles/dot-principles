@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** security, architecture, threat-modelling
 **Applies-to:** all
+**Summary:** Threat-model every feature before implementation and embed security controls at the architectural design level.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** object-oriented, correctness, java
 **Applies-to:** java, kotlin, scala
+**Summary:** Override `equals` only when fulfilling the full reflexive-symmetric-transitive contract, and always override `hashCode` too.
 
 ## Principle
 

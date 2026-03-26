@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** observability, operations, reliability
 **Applies-to:** all
+**Summary:** Define explicit SLOs quantifying reliability targets and continuously measure performance against them.
 
 ## Principle
 

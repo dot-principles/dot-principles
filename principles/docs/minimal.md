@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** documentation, simplicity
 **Applies-to:** docs
+**Summary:** Omit speculative, derivable, or duplicated content; every sentence must earn its place by serving the reader.
 
 ## Principle
 

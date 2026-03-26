@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** domain-modeling, domain-driven-design
 **Applies-to:** all
+**Summary:** Access and persist aggregates through a collection-like interface that hides all data-store implementation details.
 
 ## Principle
 

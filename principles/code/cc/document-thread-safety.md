@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** concurrency, thread-safety, performance
 **Applies-to:** all
+**Summary:** Document every class's thread-safety guarantees explicitly as part of its public contract.
 
 ## Principle
 

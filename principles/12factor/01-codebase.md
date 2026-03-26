@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, cloud-native, deployment
 **Applies-to:** cloud-native, twelve-factor-apps
+**Summary:** Maintain one codebase per app in version control; deploy it to many environments without branching.
 
 ## Principle
 

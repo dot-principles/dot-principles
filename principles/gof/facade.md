@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
 **Applies-to:** all
+**Summary:** Provide a unified, simplified interface to a subsystem so clients have a simple entry point to complex functionality.
 
 ## Principle
 

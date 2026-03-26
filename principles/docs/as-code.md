@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** documentation, maintainability, process
 **Applies-to:** docs
+**Summary:** Store documentation in version control alongside code and apply the same review and CI workflow.
 **Audit-scope:** limited — CI integration and external-wiki usage are not detectable from file contents; the presence of doc validation config and plain-text doc files is detectable
 
 ## Principle

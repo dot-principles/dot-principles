@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, package-design, modularity, architecture
 **Applies-to:** all
+**Summary:** Depend only on components more stable than yourself; keep volatile components at the system's edges.
 
 ## Principle
 

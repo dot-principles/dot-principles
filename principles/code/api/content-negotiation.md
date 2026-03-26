@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** api-design, rest, interoperability
 **Applies-to:** all
+**Summary:** Inspect the `Accept` header and respond with the negotiated media type, returning 406 if none is supported.
 
 ## Principle
 

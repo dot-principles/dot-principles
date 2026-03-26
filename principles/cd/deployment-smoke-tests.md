@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** devops, continuous-delivery, testing, deployment, reliability
 **Applies-to:** all
+**Summary:** Run automated smoke tests after every deployment to verify core functionality before routing real traffic.
 
 ## Principle
 

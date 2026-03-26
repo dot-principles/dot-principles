@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, migration, evolutionary-architecture
 **Applies-to:** all
+**Summary:** Incrementally replace legacy systems by routing traffic to a new implementation piece by piece; never big-bang rewrite.
 
 ## Principle
 

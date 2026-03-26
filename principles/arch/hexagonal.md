@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, ports-and-adapters, testability
 **Applies-to:** all
+**Summary:** Keep the application core free of infrastructure dependencies by exposing ports implemented by swappable adapters.
 
 ## Principle
 

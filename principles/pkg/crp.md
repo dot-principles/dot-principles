@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, package-design, modularity
 **Applies-to:** all
+**Summary:** Never bundle classes into a component unless all consumers of the component use all of them together.
 
 ## Principle
 

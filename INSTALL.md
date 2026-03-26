@@ -22,36 +22,16 @@ cd .principles
 
 ---
 
-## 2. Install
+## 2. Install into your project
+
+`.principles` is a **repo-local** install — there is no global install. A `<dir>` argument is always required. The primary command installs everything at once:
 
 ### Linux / macOS
 
-Bash is pre-installed on both platforms. Run the installer directly:
-
 ```bash
-# Claude Code — global (all projects)
-./install.sh claude
-
-# Claude Code — local (one project)
-./install.sh claude ~/projects/my-app
-
-# GitHub Copilot — global
-./install.sh copilot
-
-# GitHub Copilot — local (one project)
-./install.sh copilot ~/projects/my-app
-
-# Cursor — local only (global requires manual setup in Cursor settings)
-./install.sh cursor ~/projects/my-app
-
-# All tools — global
-./install.sh all
-
-# All tools — local
-./install.sh all ~/projects/my-app
+# Install all tools into a project
+./install.sh all <project-dir>
 ```
-
----
 
 ### Windows
 
@@ -64,132 +44,144 @@ Windows users need bash on `PATH`. The repo ships thin wrapper scripts for both 
 **PowerShell:**
 
 ```powershell
-# Claude Code — global
-.\install.ps1 claude
-
-# Claude Code — local
-.\install.ps1 claude ~/projects/my-app
-
-# GitHub Copilot — global
-.\install.ps1 copilot
-
-# GitHub Copilot — local
-.\install.ps1 copilot ~/projects/my-app
-
-# Cursor — local only
-.\install.ps1 cursor ~/projects/my-app
-
-# All tools — global
-.\install.ps1 all
-
-# All tools — local
-.\install.ps1 all ~/projects/my-app
+.\install.ps1 all C:\projects\my-app
 ```
 
 **Command Prompt:**
 
 ```cmd
-install.cmd claude
-install.cmd claude ~/projects/my-app
-install.cmd copilot
-install.cmd copilot ~/projects/my-app
-install.cmd cursor ~/projects/my-app
-install.cmd all ~/projects/my-app
+install.cmd all C:\projects\my-app
 ```
 
-> **Path note:** On Windows, `~` is equivalent to `%USERPROFILE%` (e.g. `C:\Users\YourName`). Both wrapper styles handle Windows absolute paths for you. `install.cmd` / `uninstall.cmd` normalize backslashes to forward slashes before calling bash, and `install.ps1` / `uninstall.ps1` convert `C:\...` paths to a bash-friendly absolute path.
+> **Path note:** `install.cmd` / `uninstall.cmd` normalize backslashes to forward slashes before calling bash. `install.ps1` / `uninstall.ps1` convert `C:\...` paths to a bash-friendly absolute path.
 
 ---
 
-## 3. Installation scopes
+## 3. What gets installed
 
-Every tool supports two scopes:
+`install.sh all <dir>` writes the following files into `<dir>`:
 
-| Command                    | Scope  | Where it installs                             |
-|----------------------------|--------|-----------------------------------------------|
-| `install.sh claude`        | Global | `~/.claude/commands/`                         |
-| `install.sh claude <dir>`  | Local  | `<dir>/.claude/commands/`                     |
-| `install.sh copilot`       | Global | `~/.copilot/copilot-instructions.md`          |
-| `install.sh copilot <dir>` | Local  | `<dir>/.github/` (instructions + skills + prompts) |
-| `install.sh cursor`        | —      | Not supported (see Cursor note below)         |
-| `install.sh cursor <dir>`  | Local  | `<dir>/.cursor/rules/principles.mdc`          |
-| `install.sh all`           | Global | Claude + Copilot globally; Cursor message     |
-| `install.sh all <dir>`     | Local  | All three tools in `<dir>`                    |
-
-### Claude Code — global commands work everywhere
-
-Claude Code stores commands in `~/.claude/commands/`. Once installed globally, `/scout`, `/prime`, and `/audit` are available in every project automatically — no per-project setup needed.
-
-### GitHub Copilot — global installation is passive only
-
-GitHub Copilot has no user-level location for skills or prompt files. The global installation (`install.sh copilot`) writes **only** `~/.copilot/copilot-instructions.md` — a brief Layer 1/2/3 summary that Copilot reads as background context. This gives Copilot passive awareness of the principle layers, but **`/scout`, `/prime`, and `/audit` are not available** from the global installation alone.
-
-To get the slash commands in a project, run the **local install** once per project:
-
-```bash
-./install.sh copilot ~/projects/my-app
-# Windows:
-.\install.ps1 copilot C:\projects\my-app
-```
-
-This writes into `.github/` inside that project:
-
-
-| File                              | Purpose                                      |
-|-----------------------------------|----------------------------------------------|
-| `.github/copilot-instructions.md` | Always-on context for all Copilot clients    |
+| File | Purpose |
+|------|---------|
+| `.claude/commands/scout.md` | `/scout` slash command for Claude Code |
+| `.claude/commands/prime.md` | `/prime` slash command for Claude Code |
+| `.claude/commands/audit.md` | `/audit` slash command for Claude Code |
+| `.github/copilot-instructions.md` | Always-on context for all Copilot clients |
+| `.github/prompts/scout.prompt.md` | `/scout` in VS Code / JetBrains Copilot Chat |
 | `.github/prompts/prime.prompt.md` | `/prime` in VS Code / JetBrains Copilot Chat |
 | `.github/prompts/audit.prompt.md` | `/audit` in VS Code / JetBrains Copilot Chat |
-| `.github/prompts/scout.prompt.md` | `/scout` in VS Code / JetBrains Copilot Chat |
-| `.github/skills/prime/SKILL.md`   | `/prime` in Copilot CLI                      |
-| `.github/skills/audit/SKILL.md`   | `/audit` in Copilot CLI                      |
-| `.github/skills/scout/SKILL.md`   | `/scout` in Copilot CLI                      |
-Commit these files to the repository so every team member gets the commands automatically.
+| `.github/skills/scout/SKILL.md` | `/scout` in Copilot CLI |
+| `.github/skills/prime/SKILL.md` | `/prime` in Copilot CLI |
+| `.github/skills/audit/SKILL.md` | `/audit` in Copilot CLI |
+| `.principles-catalog/` | Vendored principle data (see Section 4) |
 
-### Principles data directory
+**Commit all of these files** so every team member gets the commands automatically:
 
-Every Claude install (global or local) copies the `groups/` and `principles/` data files to `~/.principles`:
+```bash
+cd <project-dir>
+git add .claude/ .github/ .principles-catalog/
+git commit -m "Add .principles AI commands and compiled principle block"
+```
 
-| Platform                 | Path                        |
-|--------------------------|-----------------------------|
-| Linux / macOS            | `~/.principles`             |
-| Windows (Git Bash / WSL) | `%USERPROFILE%\.principles` |
+You can also install a subset if needed:
 
-The data directory is **created or refreshed on every install** — old files are replaced with the current repo content. The installed command files (`/scout`, `/prime`, `/audit`) reference this fixed path, so the AI tool can always find the data regardless of where the repo lives.
+```bash
+# Claude Code commands only
+./install.sh claude <dir>
 
-Running `./uninstall.sh` (global) removes `~/.principles` along with the command files. Local uninstalls (`./uninstall.sh <dir>`) do not remove it, since it is shared across all installations.
-
-### Cursor limitation
-
-Cursor has no file-based user-level config. For global principles, go to **Cursor → Settings → General → Rules for AI** and paste the principle content there manually. For a single project, use `install.sh cursor <dir>`.
+# GitHub Copilot files only
+./install.sh copilot <dir>
+```
 
 ---
 
-## 4. Verify
+## 4. Vendor subcommand — `.principles-catalog/`
+
+The `vendor` subcommand copies the subset of the principle catalog referenced by the project's `.principles` files into `<dir>/.principles-catalog/`:
 
 ```bash
-./install.sh --list
+./install.sh vendor <project-dir>
 ```
 
-Shows what is currently installed globally.
+`install.sh all` runs `vendor` automatically. You only need to run it manually if you add new principles to your `.principles` files after the initial install.
+
+As part of vendoring, `install.sh vendor` also generates `<dir>/.principles-catalog/index.tsv` — a pipe-delimited flat file (`ID|LAYER|SUMMARY`, one line per principle) covering every vendored principle. `/scout` reads this single file to build the compiled block in one pass, without walking hundreds of individual namespace files. Example entries:
+
+```
+CODE-SEC-VALIDATE-INPUT|1|Validate all input at every system boundary; never trust external data.
+DDD-AGGREGATE|2|Enforce business invariants within a single aggregate boundary per transaction.
+```
+
+**Why commit `.principles-catalog/`?** The installed commands (`/scout`, `/prime`, `/audit`) reference `.principles-catalog/` inside the project. Committing this directory means the commands work for every team member — even without access to the `.principles` repo — and the CI/CD environment gets the same principle data.
+
+`.principles-catalog/` contains the same file structure as the `principles/` directory in this repo, filtered to the namespaces and groups your project actually uses.
 
 ---
 
-## 5. Uninstall
+## 5. Claude Code
+
+After `install.sh all <dir>`, Claude Code slash commands are written to `<dir>/.claude/commands/`. Claude Code discovers these automatically when opened in that project directory.
+
+**Compiled block:** After running `/scout`, the active principle set is compiled into a compact block and injected into `.claude/rules/principles.md` (created if absent). Claude Code reads everything in `.claude/rules/` as always-on context — no further configuration needed.
+
+Run `/scout` once per project to populate `.principles` files and inject the compiled block:
+
+```
+/scout
+/prime     ← before writing code
+/audit     ← review against active principles
+```
+
+---
+
+## 6. GitHub Copilot
+
+`install.sh all <dir>` (or `install.sh copilot <dir>`) writes into `.github/` inside that project:
+
+| File | Consumed by |
+|------|-------------|
+| `.github/copilot-instructions.md` | All Copilot clients (always-on context) |
+| `.github/prompts/<name>.prompt.md` | VS Code / JetBrains / Visual Studio Copilot Chat |
+| `.github/skills/<name>/SKILL.md` | Copilot CLI (terminal slash commands) |
+
+This repo ships with pre-populated `.github/prompts/` and `.github/skills/` directories so contributors working in this repo get `/scout`, `/prime`, and `/audit` without running the installer.
+
+**Compiled block:** After `/scout`, the active principle block is injected into `.github/copilot-instructions.md` (unless that file is a pointer/redirect file). All Copilot clients pick this up automatically.
+
+---
+
+## 7. AGENTS.md — cross-agent injection target
+
+`AGENTS.md` is a standard instruction file read by multiple AI agents (OpenAI Codex, Claude Code, GitHub Copilot, and others). `/scout` Phase 6 injects the compiled principle block into `AGENTS.md` automatically, covering three cases:
+
+| Case | What happens |
+|------|-------------|
+| **Hub layout** — `AGENTS.md` contains an includes table | A `.ai/principles.md` file is created with the compiled block; a row linking to it is added to the table |
+| **Simple layout** — `AGENTS.md` is a flat instruction file | The compiled block is injected directly into the file |
+| **Absent** — no `AGENTS.md` exists | A new `AGENTS.md` is created containing the compiled block |
+
+The block is delimited by `<!-- .principles: begin -->` and `<!-- .principles: end -->` markers. Re-running `/scout` updates the block in place.
+
+---
+
+## 8. Uninstall
 
 ```bash
-# Remove global assets
-./uninstall.sh
-
-# Remove local assets from a project
-./uninstall.sh ~/projects/my-app
+# Remove all .principles assets from a project
+./uninstall.sh <project-dir>
 ```
+
+The uninstaller:
+- Removes `.claude/commands/scout.md`, `prime.md`, `audit.md`
+- Strips the compiled block from `.claude/rules/principles.md`, `.ai/principles.md`, `AGENTS.md`, `CLAUDE.md`
+- Removes `.principles-catalog/`
+- Removes legacy `~/.principles` if present from an older install
 
 On Windows, use `uninstall.ps1` or `uninstall.cmd` with the same arguments.
 
 ---
 
-## 6. Try it on a branch first
+## 9. Try it on a branch first
 
 Not ready to commit to a project? Install locally into a throwaway branch:
 
@@ -198,28 +190,27 @@ cd ~/projects/my-app
 git checkout -b try-principles
 
 # Install into this project directory only
-/path/to/.principles/install.sh claude .
+/path/to/.principles/install.sh all .
 # or on Windows:
-# \path\to\.principles\install.ps1 claude .
+# \path\to\.principles\install.ps1 all .
 
 # Run /scout, /prime, /audit — explore without touching your main branch
-# When done, delete the branch to remove the local .claude/commands/
+# When done, delete the branch to remove everything
 git checkout main && git branch -D try-principles
 ```
 
-Local installations write only into `<dir>/.claude/commands/` (or `.github/`, `.cursor/rules/`) — they leave your global setup untouched and disappear with the branch.
+---
 
-## 7. After installing
+## 10. After installing
 
 Open your AI tool and run the commands:
 
 ```
-/scout              → detect project profile and create .principles files
+/scout              → detect project profile, create .principles files, compile + inject
 /prime              → activate principles before writing code
 /audit              → review code with severity-categorized findings
 /audit DDD on src/  → force specific principles, ignoring .principles files
 ```
 
-> **Copilot users:** `/scout`, `/prime`, and `/audit` require a **local** installation in your project (`.github/prompts/` or `.github/skills/`). The global installation alone is not enough. Run `install.sh copilot <your-project>` first — see [Section 3](#3-installation-scopes) above.
-
 See [README.md](README.md) for a full walkthrough and examples.
+

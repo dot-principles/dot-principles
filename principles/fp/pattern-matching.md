@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, type-safety, software-design
 **Applies-to:** all
+**Summary:** Use exhaustive pattern matching on algebraic data types to eliminate missing-case bugs at compile time.
 
 ## Principle
 

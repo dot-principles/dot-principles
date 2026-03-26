@@ -3,6 +3,7 @@
 **Layer:** 3 (risk-elevated)
 **Categories:** performance
 **Applies-to:** all
+**Summary:** Arrange data in memory so that items accessed together are stored contiguously for cache efficiency.
 
 ## Principle
 

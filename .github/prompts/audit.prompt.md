@@ -1,6 +1,14 @@
 ---
-description: Review code against the active principles and group findings by severity. Supports explicit principle override with --with / @group / on syntax.
+description: Review code against the active principles and group findings by severity (Experimental)
 mode: agent
+---
+
+---
+description: Review a file, directory, or inline code against its activated principles. Supports explicit principle override with --with / @group / on syntax. Use when the user runs /audit [target] to check code or docs against quality principles.
+argument-hint: "[file|directory|inline-code] | <spec> on <target> | <target> --with <spec> | @<group> <target>"
+allowed-tools: Read, Write, Glob, Grep, Bash
+version: 0.6.0
+authors: Flemming N. Larsen (https://github.com/flemming-n-larsen)
 ---
 
 # Audit
@@ -32,7 +40,7 @@ Determine what to review from the target input resolved in 1.1:
 
 ### 1.3 — Detect Artifact Type
 
-For the target file(s), detect the artifact type by reading `{{PRINCIPLES_DIRECTORY}}/layers/artifact-types.yaml` and matching against its type definitions. Match by file extension, filename, or path pattern in precedence order (infra before config for ambiguous YAML).
+For the target file(s), detect the artifact type by reading `.principles-catalog/layers/artifact-types.yaml` and matching against its type definitions. Match by file extension, filename, or path pattern in precedence order (infra before config for ambiguous YAML).
 
 Record the detected type: **`code`** | **`docs`** | **`config`** | **`infra`** | **`schema`** | **`pipeline`**
 
@@ -43,9 +51,9 @@ If the target is a directory with mixed artifact types, note the mix; apply per-
 **Explicit mode (explicit-mode true):**
 
 For each item in the `<principle-spec>` (split on commas and spaces, trim whitespace):
-1. **Group match**: look for `{{PRINCIPLES_DIRECTORY}}/groups/<item-lowercase>.yaml`. If found, read it and expand its `principles` list into the active set; recursively process any `includes` (abort on cycles).
+1. **Group match**: look for `.principles-catalog/groups/<item-lowercase>.yaml`. If found, read it and expand its `principles` list into the active set; recursively process any `includes` (abort on cycles).
 2. **Principle ID match**: if no group file matched, add the item directly to the active set (case-insensitive).
-3. **No match**: report "Unknown principle or group: \<item\>. Check available groups in `{{PRINCIPLES_DIRECTORY}}/groups/`." and stop.
+3. **No match**: report "Unknown principle or group: \<item\>. Check available groups in `.principles-catalog/groups/`." and stop.
 
 Record source as: `explicit: <principle-spec>`. Skip Phase 3 and proceed to Phase 4.
 
@@ -62,8 +70,9 @@ Before walking `.principles` files, check for a compiled block in this order:
 Check the FIRST file that exists and contains `<!-- .principles: begin`. If found:
 
 1. Parse all principle IDs from the block (lines matching `- PRINCIPLE-ID: ...` — the ID is everything before the first colon).
-2. Use these as the **active principle set** — skip the `.principles` tree walk entirely.
-3. Record source as: `compiled-block: <filename>`
+2. Optionally cross-reference `.principles-catalog/index.tsv` (each line: `ID|LAYER|SUMMARY`) to get Layer groupings for each active ID — use these layer assignments to annotate the audit header (e.g. show "Layer 1: N principles, Layer 2: M principles").
+3. Use these as the **active principle set** — skip the `.principles` tree walk entirely.
+4. Record source as: `compiled-block: <filename>`
 
 If no compiled block is found, or if parsing fails for any reason, proceed with the tree walk below.
 
@@ -85,7 +94,7 @@ Lines starting with `:` are configuration directives. Parse them before processi
 
 **Step 1 — Universal principles** (active for ALL artifact types):
 
-Read `{{PRINCIPLES_DIRECTORY}}/layers/artifact-types.yaml` → `universal` section. Add all listed IDs to the active set:
+Read `.principles-catalog/layers/artifact-types.yaml` → `universal` section. Add all listed IDs to the active set:
 
 | ID | Title |
 |----|-------|
@@ -98,13 +107,13 @@ Read `{{PRINCIPLES_DIRECTORY}}/layers/artifact-types.yaml` → `universal` secti
 
 **Step 2 — Stack layer 1** (active for the detected artifact type):
 
-Read `{{PRINCIPLES_DIRECTORY}}/layers/<detected-type>/layer-1-universal.md`. Add all principle IDs from the table in that file to the active set.
+Read `.principles-catalog/layers/<detected-type>/layer-1-universal.md`. Add all principle IDs from the table in that file to the active set.
 
 ### Process Each .principles File (root → target)
 
 1. Skip blank lines and `#` comments.
 2. `:directive value` → parse as a configuration directive (see above).
-3. `@group` → read `{{PRINCIPLES_DIRECTORY}}/groups/<group>.yaml`, expand `principles` into the active set; recursively process `includes` (abort on cycles).
+3. `@group` → read `.principles-catalog/groups/<group>.yaml`, expand `principles` into the active set; recursively process `includes` (abort on cycles).
 4. Bare `ID` → add to active set (case-insensitive).
 5. `!ID` → add to exclusion set.
 
@@ -116,17 +125,17 @@ Read `{{PRINCIPLES_DIRECTORY}}/layers/<detected-type>/layer-1-universal.md`. Add
 
 ### Layer 1 — Seed
 
-Same as Phase 2 seeding: universal principles + stack layer 1 from `{{PRINCIPLES_DIRECTORY}}/layers/<detected-type>/layer-1-universal.md`.
+Same as Phase 2 seeding: universal principles + stack layer 1 from `.principles-catalog/layers/<detected-type>/layer-1-universal.md`.
 
 ### Layer 2 — Context-Dependent
 
-Read `{{PRINCIPLES_DIRECTORY}}/layers/<detected-type>/layer-2-contexts.yaml`.
+Read `.principles-catalog/layers/<detected-type>/layer-2-contexts.yaml`.
 
 Activate ALL matching contexts by scanning the target file(s) content for the signals listed in each context. For each matching context, add its `activate` principle IDs to the active set.
 
 ### Layer 3 — Risk-Elevated
 
-Check for `{{PRINCIPLES_DIRECTORY}}/layers/<detected-type>/layer-3-risk-signals.yaml`. If present, scan the target file(s) for the signals listed in each risk category. For each matching category, add its `elevate` principle IDs to the elevated set — violations of elevated principles are promoted one severity level (Low→Medium, Medium→High, High→Critical).
+Check for `.principles-catalog/layers/<detected-type>/layer-3-risk-signals.yaml`. If present, scan the target file(s) for the signals listed in each risk category. For each matching category, add its `elevate` principle IDs to the elevated set — violations of elevated principles are promoted one severity level (Low→Medium, Medium→High, High→Critical).
 
 Record source as: `dynamic detection (<type> stack)`
 
@@ -173,7 +182,7 @@ If `.principles-catalog/` is not present, fall back to the standard loading belo
 For each namespace in the active ID set, read one file:
 
 ```
-{{PRINCIPLES_DIRECTORY}}/principles/<namespace>/.context-audit.md
+.principles-catalog/principles/<namespace>/.context-audit.md
 ```
 
 Filter to entries whose `### ID` is in the final active set. Use the **Principle** and **Violations to detect** content in Phase 6.
@@ -191,7 +200,7 @@ Run deterministic, machine-executable commands to narrow the search space before
 For each namespace in the active ID set, check for:
 
 ```
-{{PRINCIPLES_DIRECTORY}}/principles/<namespace>/.context-inspect.md
+.principles-catalog/principles/<namespace>/.context-inspect.md
 ```
 
 Filter to entries whose `### ID` is in the final active set. Each entry contains one or more commands in this format:

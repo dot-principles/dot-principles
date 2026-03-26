@@ -4,6 +4,7 @@
 **Categories:** testing, quality, api-design
 
 **Applies-to:** all
+**Summary:** Let consumers define the API contracts they need and verify providers satisfy all contracts in CI.
 
 ## Principle
 

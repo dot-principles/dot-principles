@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
 **Applies-to:** all
+**Summary:** Define a factory method in the creator so subclasses decide which concrete class to instantiate.
 
 ## Principle
 

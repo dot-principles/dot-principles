@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** developer-experience, usability, ux-design
 **Applies-to:** all
+**Summary:** Always inform users what the system is doing through timely, appropriate feedback.
 
 ## Principle
 

@@ -4,6 +4,7 @@
 **Audit-scope:** full
 **Categories:** accessibility, wcag, html
 **Applies-to:** HTML, JSX, TSX, templates
+**Summary:** Ensure every interactive element is reachable, activatable, and escapable using keyboard alone.
 
 ## Principle
 

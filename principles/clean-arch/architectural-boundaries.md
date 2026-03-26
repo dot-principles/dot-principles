@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture
 **Applies-to:** all
+**Summary:** Draw explicit boundaries between components and enforce all cross-boundary communication through well-defined interfaces.
 
 ## Principle
 

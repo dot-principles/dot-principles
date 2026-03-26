@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** documentation, usability, information-architecture
 **Applies-to:** docs
+**Summary:** Structure documentation around user goals expressed as tasks, not around internal product components.
 
 ## Principle
 

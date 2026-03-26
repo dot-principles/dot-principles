@@ -3,6 +3,7 @@
 **Layer:** 1
 **Categories:** devops, continuous-delivery, testing, pipeline
 **Applies-to:** all
+**Summary:** Structure the pipeline to return a pass or fail signal to the developer within ten minutes.
 **Audit-scope:** limited — actual pipeline duration requires observing CI runs; code and pipeline config can reveal obvious serial bottlenecks or missing parallelization.
 
 ## Principle

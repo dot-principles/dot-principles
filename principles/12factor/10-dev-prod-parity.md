@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, cloud-native, quality
 **Applies-to:** cloud-native, twelve-factor-apps
+**Summary:** Keep development, staging, and production environments as similar as possible to prevent environment-specific bugs.
 **Audit-scope:** limited — can detect env-conditional branches and hard-coded local connection strings; cannot verify whether dev and prod use different backing services (requires deployment config)
 
 ## Principle

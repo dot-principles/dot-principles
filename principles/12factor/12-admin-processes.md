@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, cloud-native, operations
 **Applies-to:** cloud-native, twelve-factor-apps
+**Summary:** Run admin tasks as one-off processes using the same code, environment, and config as the running app.
 
 ## Principle
 

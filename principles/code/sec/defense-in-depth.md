@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** security
 **Applies-to:** all
+**Summary:** Layer independent security controls so that no single failure grants full access to a protected resource.
 
 ## Principle
 

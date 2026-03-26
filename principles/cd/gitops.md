@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** devops, infrastructure, continuous-delivery, version-control
 **Applies-to:** all
+**Summary:** Declare all infrastructure state in git and let an automated operator continuously reconcile the live environment.
 
 ## Principle
 

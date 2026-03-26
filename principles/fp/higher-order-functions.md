@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, software-design, abstraction
 **Applies-to:** all
+**Summary:** Treat functions as first-class values and abstract control structures via higher-order functions to eliminate boilerplate.
 
 ## Principle
 

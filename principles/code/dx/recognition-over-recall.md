@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** developer-experience, usability, ux-design
 **Applies-to:** all
+**Summary:** Make objects, actions, and options visible so users never need to recall them from memory.
 
 ## Principle
 

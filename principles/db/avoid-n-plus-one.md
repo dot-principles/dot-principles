@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** database, performance, query-optimization
 **Applies-to:** all
+**Summary:** Never issue a separate query per row; replace N+1 patterns with joins, batch loads, or eager loading.
 
 ## Principle
 

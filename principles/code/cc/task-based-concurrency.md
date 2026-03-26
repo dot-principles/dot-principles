@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** concurrency, thread-safety, performance
 **Applies-to:** all
+**Summary:** Express concurrent work as tasks submitted to an executor; never manage threads directly.
 
 ## Principle
 

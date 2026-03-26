@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** api-design, compatibility, maintainability
 **Applies-to:** apis, libraries, public interfaces
+**Summary:** Treat all observable behaviors as implicit API contract; any change may break a consumer.
 
 ## Principle
 

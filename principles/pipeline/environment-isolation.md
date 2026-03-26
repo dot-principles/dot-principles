@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** reliability, pipeline, security
 **Applies-to:** pipeline
+**Summary:** Run each pipeline stage in an isolated context with explicit artifact passing and per-stage credentials.
 
 ## Principle
 

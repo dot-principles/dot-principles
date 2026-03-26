@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** observability, operations, reliability
 **Applies-to:** all
+**Summary:** Assign a unique trace ID at every request entry point and propagate it through all services.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** software-design, modularity, encapsulation, maintainability
 **Applies-to:** all
+**Summary:** Hide design decisions behind module interfaces; expose only what callers must know.
 
 ## Principle
 

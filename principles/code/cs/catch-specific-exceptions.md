@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** error-handling, reliability, code-quality
 **Applies-to:** all
+**Summary:** Always catch the most specific exception type; never catch root exception types silently.
 
 ## Principle
 

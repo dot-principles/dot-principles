@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** observability, operations, reliability
 **Applies-to:** all
+**Summary:** Instrument every service with Rate, Errors, and Duration as the minimum request-scoped signals.
 
 ## Principle
 

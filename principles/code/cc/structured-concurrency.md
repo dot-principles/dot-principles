@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** concurrency, thread-safety, performance
 **Applies-to:** all
+**Summary:** Scope every concurrent task to a parent that awaits completion, propagates cancellation, and surfaces child errors.
 
 ## Principle
 

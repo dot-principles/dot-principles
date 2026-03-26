@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** security, architecture, maintainability
 **Applies-to:** all
+**Summary:** Keep security mechanisms as small and simple as possible; use established libraries, never custom cryptography.
 
 ## Principle
 

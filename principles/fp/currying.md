@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, software-design, abstraction
 **Applies-to:** all
+**Summary:** Use currying and partial application to progressively specialise generic functions without duplication.
 
 ## Principle
 

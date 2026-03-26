@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, readability
 **Applies-to:** all
+**Summary:** Replace imperative loops that filter, transform, or accumulate with declarative pipeline operations.
 **Audit-scope:** limited — imperative loops are detectable but whether a pipeline replacement is appropriate requires semantic judgment
 
 ## Principle

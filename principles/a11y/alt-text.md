@@ -4,6 +4,7 @@
 **Audit-scope:** full
 **Categories:** accessibility, wcag, html
 **Applies-to:** HTML, JSX, TSX, templates
+**Summary:** Provide meaningful alt text for every informative image; use empty alt="" for decorative images.
 
 ## Principle
 

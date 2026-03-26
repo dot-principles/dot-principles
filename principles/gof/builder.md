@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
 **Applies-to:** all
+**Summary:** Separate complex object construction from its representation using a Builder to support multiple representations.
 
 ## Principle
 

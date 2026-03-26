@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, integration, distributed-systems
 **Applies-to:** all
+**Summary:** Route all inter-service messages through a central broker to decouple producers from consumers.
 
 ## Principle
 

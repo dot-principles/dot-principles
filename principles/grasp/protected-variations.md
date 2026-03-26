@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, stability, extensibility
 **Applies-to:** all
+**Summary:** Wrap every predicted point of variation behind a stable interface so change is confined to one boundary.
 
 ## Principle
 

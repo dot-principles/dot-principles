@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, pragmatism, architecture
 **Applies-to:** all
+**Summary:** No single technique solves all problems; choose tools based on actual context and constraints.
 
 ## Principle
 

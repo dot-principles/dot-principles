@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, separation-of-concerns
 **Applies-to:** all
+**Summary:** Define application use cases in a service layer that coordinates domain objects and enforces transactional boundaries.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** dependency-management, pragmatism, simplicity
 **Applies-to:** all
+**Summary:** Prefer proven external solutions over building equivalent functionality in-house.
 
 ## Principle
 

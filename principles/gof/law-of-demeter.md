@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** software-design, object-oriented, coupling
 **Applies-to:** all
+**Summary:** Call methods only on direct collaborators; never chain through objects returned by other calls.
 
 ## Principle
 

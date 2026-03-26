@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, maintainability
 **Applies-to:** all
+**Summary:** Replace primitive types used as domain concepts with small, named domain objects that encapsulate behavior.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** api-design, rest, protocol-design
 **Applies-to:** all
+**Summary:** Identify resources with noun URIs and let HTTP methods express the action, never verbs in the path.
 
 ## Principle
 

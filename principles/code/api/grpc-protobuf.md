@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** api-design, protocol-design, backward-compatibility
 **Applies-to:** all
+**Summary:** Define gRPC contracts in `.proto` files and never reuse a field number after it has been retired.
 
 ## Principle
 

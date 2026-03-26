@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** testing, quality
 **Applies-to:** all
+**Summary:** Each test must run in any order and in isolation, sharing no mutable state with other tests.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** documentation, maintainability, consistency
 **Applies-to:** docs
+**Summary:** Maintain a single canonical source for every piece of content and link to it rather than duplicating.
 
 ## Principle
 

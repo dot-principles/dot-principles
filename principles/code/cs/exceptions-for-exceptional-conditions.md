@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** error-handling, reliability, code-quality
 **Applies-to:** all
+**Summary:** Use exceptions only for genuinely exceptional conditions, never for ordinary control flow.
 
 ## Principle
 

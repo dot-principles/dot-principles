@@ -4,6 +4,7 @@
 **Audit-scope:** limited
 **Categories:** accessibility, wcag, css
 **Applies-to:** CSS, SCSS, styled-components, inline styles
+**Summary:** Ensure normal text meets 4.5:1 contrast ratio and large text meets 3:1 against its background.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, domain-logic
 **Applies-to:** all
+**Summary:** Use Transaction Script only for simple low-complexity domains; avoid it as business logic grows and duplicates.
 
 ## Principle
 

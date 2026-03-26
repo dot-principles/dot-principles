@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** domain-modeling, domain-driven-design
 **Applies-to:** all
+**Summary:** Group related entities and value objects into small consistency boundaries and enforce invariants within each transaction.
 
 ## Principle
 

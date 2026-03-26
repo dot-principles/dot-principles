@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** reliability, distributed-systems
 **Applies-to:** all
+**Summary:** Set timeouts on all remote calls and design for graceful degradation when any dependency fails.
 
 ## Principle
 

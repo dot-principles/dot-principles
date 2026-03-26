@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, cloud-native, observability
 **Applies-to:** cloud-native, twelve-factor-apps
+**Summary:** Write all logs to stdout as an unbuffered event stream; let the platform handle routing and storage.
 
 ## Principle
 

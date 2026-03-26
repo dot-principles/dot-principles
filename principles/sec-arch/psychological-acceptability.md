@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** security, architecture, usability
 **Applies-to:** all
+**Summary:** Make the secure path the easiest path; security controls must never incentivize workarounds.
 **Audit-scope:** limited — fully auditable for overly complex configuration, excessive permission prompts, and convoluted security APIs; not auditable for subjective user experience friction
 
 ## Principle

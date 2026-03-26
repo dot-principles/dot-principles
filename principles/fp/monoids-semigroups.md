@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, abstraction, software-design
 **Applies-to:** all
+**Summary:** Identify associative binary operations and identity elements in domain types to enable generic, parallelisable aggregation.
 
 ## Principle
 

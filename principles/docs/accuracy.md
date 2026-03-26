@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** documentation, reliability
 **Applies-to:** docs
+**Summary:** Keep documentation synchronized with the system; never let it describe behavior that no longer exists.
 
 ## Principle
 

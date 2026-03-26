@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** infrastructure, observability, operations, monitoring
 **Applies-to:** all
+**Summary:** Emit structured, centralised telemetry from every infrastructure layer and alert on leading indicators.
 
 ## Principle
 

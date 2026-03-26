@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** software-design, simplicity, refactoring
 **Applies-to:** all
+**Summary:** Every piece of business logic must exist in exactly one place; eliminate all knowledge duplication.
 
 ## Principle
 

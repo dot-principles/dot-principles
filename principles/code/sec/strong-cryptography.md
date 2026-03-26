@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** security
 **Applies-to:** all
+**Summary:** Use only established cryptographic algorithms and libraries; never implement custom cryptographic primitives.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** software-design, readability, simplicity
 **Applies-to:** all
+**Summary:** Every name and structure must reveal its purpose so that readers need not decipher the code.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** architecture, infrastructure, devops
 **Applies-to:** all
+**Summary:** Test infrastructure code at every level — static analysis, unit, integration, and compliance — before applying it.
 
 ## Principle
 

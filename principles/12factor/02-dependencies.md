@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, cloud-native, dependency-management
 **Applies-to:** cloud-native, twelve-factor-apps
+**Summary:** Explicitly declare and isolate all dependencies; never rely on implicit system-wide packages.
 
 ## Principle
 

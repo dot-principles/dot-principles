@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** testing, quality
 **Applies-to:** all
+**Summary:** Prefer real collaborators over test doubles; only mock external dependencies like networks and databases.
 
 ## Principle
 

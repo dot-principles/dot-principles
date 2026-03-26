@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
 **Applies-to:** all
+**Summary:** Decouple abstraction from implementation via composition so both can vary independently without subclass explosion.
 
 ## Principle
 

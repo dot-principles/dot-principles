@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** developer-experience, usability, ux-design
 **Applies-to:** all
+**Summary:** Every interactive element must signal what it does and confirm the effect of every action.
 
 ## Principle
 

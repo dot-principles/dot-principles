@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
 **Applies-to:** all
+**Summary:** Traverse collections through an iterator object; never expose the collection's internal structure to callers.
 
 ## Principle
 

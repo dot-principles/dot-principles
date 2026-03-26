@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, abstraction, type-safety, error-handling
 **Applies-to:** all
+**Summary:** Use functor and monad abstractions to compose operations over contextual types uniformly via map and flatMap.
 
 ## Principle
 

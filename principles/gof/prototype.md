@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
 **Applies-to:** all
+**Summary:** Create new objects by cloning a pre-configured prototype rather than constructing them from scratch.
 
 ## Principle
 

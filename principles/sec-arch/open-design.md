@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** security, architecture
 **Applies-to:** all
+**Summary:** Design security to remain strong when fully disclosed; derive it from key secrecy, never from obscurity.
 
 ## Principle
 

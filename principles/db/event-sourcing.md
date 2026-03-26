@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** database, architecture, reliability, auditability
 **Applies-to:** event-driven, domain-driven-design, audit-critical-systems
+**Summary:** Store the full sequence of immutable events rather than current state; derive state by replaying the log.
 
 ## Principle
 

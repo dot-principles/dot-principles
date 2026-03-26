@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
 **Applies-to:** all
+**Summary:** Use a same-interface surrogate to control, defer, or augment access to the real subject transparently.
 
 ## Principle
 

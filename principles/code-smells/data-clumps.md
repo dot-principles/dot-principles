@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, maintainability
 **Applies-to:** all
+**Summary:** Extract recurring groups of related data fields into a named object rather than repeating them everywhere.
 
 ## Principle
 

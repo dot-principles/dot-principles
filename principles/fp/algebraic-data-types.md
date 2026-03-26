@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, type-safety, software-design
 **Applies-to:** all
+**Summary:** Model domain concepts with product and sum types to make invalid states unrepresentable at compile time.
 
 ## Principle
 

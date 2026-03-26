@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** reliability, distributed-systems
 **Applies-to:** all
+**Summary:** Design operations so repeated execution produces the same result, enabling safe retries without side effects.
 
 ## Principle
 

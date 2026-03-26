@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, object-oriented, design-patterns, null-safety
 **Applies-to:** all
+**Summary:** Replace null references with a do-nothing object implementing the same interface to eliminate null checks.
 
 ## Principle
 

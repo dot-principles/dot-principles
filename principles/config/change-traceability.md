@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** configuration, auditability, security, devops
 **Applies-to:** config
+**Summary:** Every configuration change must flow through version control and peer review, producing a full audit trail.
 
 ## Principle
 

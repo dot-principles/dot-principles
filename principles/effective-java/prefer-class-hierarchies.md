@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** api-design, developer-experience
 **Applies-to:** java
+**Summary:** Replace tagged classes that branch on a type field with a proper abstract class hierarchy.
 
 ## Principle
 

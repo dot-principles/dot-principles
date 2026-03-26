@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** schema-design, reliability, api-design
 **Applies-to:** schema
+**Summary:** Every enum must include an UNSPECIFIED sentinel and all consumers must handle unknown values without crashing.
 
 ## Principle
 

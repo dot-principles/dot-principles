@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, cloud-native, scalability
 **Applies-to:** cloud-native, twelve-factor-apps
+**Summary:** Run stateless, share-nothing processes; store all persistent state in external backing services.
 
 ## Principle
 

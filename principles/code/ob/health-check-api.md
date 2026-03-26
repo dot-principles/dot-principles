@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** observability, operations, reliability
 **Applies-to:** all
+**Summary:** Expose dedicated liveness and readiness endpoints on every service for orchestrators and load balancers.
 
 ## Principle
 

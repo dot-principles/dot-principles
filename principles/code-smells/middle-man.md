@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, object-oriented
 **Applies-to:** all
+**Summary:** Remove or inline classes that do nothing but delegate to another class without adding meaningful logic.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** documentation, usability, information-architecture
 **Applies-to:** docs
+**Summary:** Make every page intelligible in isolation by defining prerequisites and context without assuming prior reading.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** documentation, usability
 **Applies-to:** docs
+**Summary:** Accompany every abstract description with a concrete, runnable example that readers can try immediately.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** api-design, developer-experience
 **Applies-to:** java
+**Summary:** Return empty collections or zero-length arrays instead of `null` to eliminate mandatory null checks in callers.
 
 ## Principle
 

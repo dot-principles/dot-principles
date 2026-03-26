@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture
 **Applies-to:** all
+**Summary:** Defer binding to specific frameworks and databases by keeping them behind interfaces as long as possible.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** domain-modeling, domain-driven-design
 **Applies-to:** all
+**Summary:** Define domain objects by unique identity, not attribute values, and base equality exclusively on that identity.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** developer-experience, readability
 **Applies-to:** all
+**Summary:** Keep functions small, doing one thing only; extract additional responsibilities into named functions.
 
 ## Principle
 

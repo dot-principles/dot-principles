@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
 **Applies-to:** all
+**Summary:** Route all inter-component communication through a mediator; components must never reference each other directly.
 
 ## Principle
 

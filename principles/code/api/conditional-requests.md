@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** api-design, reliability, rest
 **Applies-to:** all
+**Summary:** Require `If-Match` on concurrent writes and honour `If-None-Match` on GETs to prevent lost updates and wasted bandwidth.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** software-design, maintainability
 **Applies-to:** all
+**Summary:** Keep each class focused on a single, closely related set of responsibilities; reject unrelated additions.
 
 ## Principle
 

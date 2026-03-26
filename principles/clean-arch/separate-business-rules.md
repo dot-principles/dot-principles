@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, maintainability
 **Applies-to:** all
+**Summary:** Keep business logic in framework-free code that can be tested without starting a web server or database.
 
 ## Principle
 

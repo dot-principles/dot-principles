@@ -83,7 +83,7 @@ flowchart LR
 
 ### 🤖 Let the AI scout your project
 
-You don't need to figure out which principles apply yourself. The `/scout` command analyzes your file structure, proposes `.principles` placements, and then writes them after your confirmation:
+You don't need to figure out which principles apply yourself. The `/scout` command analyzes your file structure, proposes `.principles` placements, and then writes them after your confirmation. It also compiles all active principles into a compact block and injects it directly into your AI tool's instruction files:
 
 ```
 /scout
@@ -95,6 +95,10 @@ You don't need to figure out which principles apply yourself. The `/scout` comma
 → Writing frontend/.principles  → @react + @typescript
 → Writing infra/.principles     → CODE-AR-INFRASTRUCTURE-AS-CODE + CODE-AR-IMMUTABLE-INFRASTRUCTURE
 → Writing backend/src/payments/.principles → CODE-RL-IDEMPOTENCY
+→ Compiling active principles into compiled block...
+→ Injecting into .claude/rules/principles.md
+→ Injecting into AGENTS.md
+→ Injecting into .github/copilot-instructions.md
 
 Done ✅  Run /prime before your next coding session.
 ```
@@ -242,6 +246,8 @@ AI agents are already technically capable of producing correct, working code. Th
 
 Think of it as: the AI instructions tell the agent *how to behave*; `.principles` tells it *which engineering lens to apply*.
 
+**AGENTS.md as the cross-agent standard:** `/scout` injects the compiled principle block into `AGENTS.md` — the emerging cross-agent instruction standard supported by OpenAI Codex, Claude Code, GitHub Copilot, and others. This means every agent that reads `AGENTS.md` automatically receives the active principle set without any per-tool configuration.
+
 `.principles` is built for the **"X as Code"** world. Modern projects treat far more than source code as version-controlled plain text: *docs as code* (READMEs, architecture docs, ADRs), *infrastructure as code* (Terraform, Helm, Dockerfiles), *configuration as code* (application settings, environment definitions), *pipeline as code* (GitHub Actions, Jenkinsfile), *schema as code* (Protobuf, OpenAPI, GraphQL). Each of these artifact types has its own engineering principles, and `.principles` applies the right ones automatically — the system ships with dedicated principle stacks for all six artifact types.
 
 ## ⚙️ How it works
@@ -276,9 +282,9 @@ Each artifact type has its own stack of layers in `layers/<type>/`. Within each 
 
 Because these are AI commands — not CLI tools — you speak to them in natural language. No need to specify exact file paths unless you want to. The AI understands context.
 
-- 🔭 **`/scout`** — Analyzes your project, detects language/framework/domain, and creates `.principles` files.
-- ⚡ **`/prime`** — Resolves your `.principles` hierarchy, reads full principle guidance, prepares your coding frame.
-- 🔎 **`/audit`** — Resolves your `.principles` hierarchy, reads principle content, reviews code, and groups findings by severity (Critical / High / Medium / Low). Supports explicit principle override to force a specific principle set regardless of `.principles` files.
+- 🔭 **`/scout`** — Analyzes your project, detects language/framework/domain, creates `.principles` files, then compiles all active principles into a block and injects it into `.claude/rules/principles.md`, `AGENTS.md`, and `.github/copilot-instructions.md`.
+- ⚡ **`/prime`** — Resolves your `.principles` hierarchy (or reads the compiled block fast path), loads full principle guidance, prepares your coding frame.
+- 🔎 **`/audit`** — Resolves your `.principles` hierarchy (or reads the compiled block fast path), loads principle content, reviews code, and groups findings by severity (Critical / High / Medium / Low). Supports explicit principle override to force a specific principle set regardless of `.principles` files.
 
 The AI figures out the scope from context:
 
@@ -303,31 +309,33 @@ The AI figures out the scope from context:
 # Clone the repo
 git clone https://github.com/dot-principles/principles.git
 
-# Install Claude Code slash commands globally
-./install.sh claude
+# Install into your project (Claude Code commands + Copilot files + vendor catalog)
+./install.sh all <project-dir>
 
-# Or install locally into a single project
-./install.sh claude <dir>
+# Commit the installed files so every team member gets the commands automatically
+cd <project-dir>
+git add .claude/ .github/ .principles-catalog/
+git commit -m "Add .principles AI commands and compiled principle block"
 
-# Use it — in Claude Code:
-#   /scout                      → detect profile and create .principles files
+# Use it — in Claude Code or Copilot Chat:
+#   /scout                      → detect profile, create .principles files, compile + inject
 #   /prime                      → before writing code
 #   /audit current changes      → review only what changed since last commit
 #   /audit directory            → review whatever you describe in conversation
 #   /audit DDD on src/          → force DDD principles regardless of .principles files
 ```
 
-**GitHub Copilot (VS Code / JetBrains):** The repo ships with `.github/prompts/` already populated — `/scout`, `/prime`, and `/audit` are available in Copilot Chat as soon as you clone. To install into your own project:
+**GitHub Copilot (VS Code / JetBrains / CLI):** The repo ships with `.github/prompts/` and `.github/skills/` already populated — `/scout`, `/prime`, and `/audit` are available in Copilot Chat (IDE) and Copilot CLI (terminal) as soon as you clone. To install into your own project:
 
 ```bash
-./install.sh copilot <dir>
+./install.sh all <dir>
 ```
 
-See [INSTALL.md](INSTALL.md) for full platform instructions (Linux, macOS, Windows), all supported tools, and how to try it on a branch before committing.
+See [INSTALL.md](INSTALL.md) for full platform instructions (Linux, macOS, Windows) and all supported tools.
 
 ## 📚 Principle catalog
 
-**278 principles across 22 namespaces.** The CODE-* prefix alone covers 128 principles across 13 sub-categories. SOLID, GoF, DDD, GRASP, OWASP, 12-Factor, EIP, and more ship in their own namespaces — see [DESIGN.md](DESIGN.md#-2-catalog-structure) for the full catalog:
+**373 principles across 24 namespaces.** The CODE-* prefix alone covers 128 principles across 13 sub-categories. SOLID, GoF, DDD, GRASP, OWASP, 12-Factor, EIP, and more ship in their own namespaces — see [DESIGN.md](DESIGN.md#-2-catalog-structure) for the full catalog:
 
 | Namespace prefix | Area |
 |---|---|

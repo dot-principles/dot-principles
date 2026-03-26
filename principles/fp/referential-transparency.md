@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** functional-programming, software-design, maintainability
 **Applies-to:** all
+**Summary:** Write expressions that can be replaced by their evaluated values anywhere without changing program behaviour.
 
 ## Principle
 

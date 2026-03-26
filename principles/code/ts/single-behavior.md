@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** testing, quality
 **Applies-to:** all
+**Summary:** Each test must assert exactly one logical behavior so failures pinpoint the broken condition immediately.
 
 ## Principle
 

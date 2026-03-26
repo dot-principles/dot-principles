@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, distributed-systems, domain-driven-design
 **Applies-to:** microservices, distributed-systems, service-oriented
+**Summary:** Own data exclusively within each service and communicate across boundaries only through versioned explicit contracts.
 
 ## Principle
 

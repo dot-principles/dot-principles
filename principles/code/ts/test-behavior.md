@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** testing, quality
 **Applies-to:** all
+**Summary:** Test observable behavior through the public contract, never internal implementation details.
 
 ## Principle
 

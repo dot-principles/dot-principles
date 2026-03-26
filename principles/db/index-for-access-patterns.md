@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** database, performance, query-optimization
 **Applies-to:** all
+**Summary:** Create indexes based on specific measured query access patterns, not schema shape or general intuition.
 
 ## Principle
 

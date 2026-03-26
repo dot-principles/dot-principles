@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, coupling
 **Applies-to:** all
+**Summary:** Decouple classes that access each other's private internals excessively by moving or hiding shared data.
 
 ## Principle
 

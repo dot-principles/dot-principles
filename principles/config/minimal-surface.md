@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** configuration, security, maintainability
 **Applies-to:** config
+**Summary:** Remove all unused, deprecated, and duplicated configuration keys to minimise the configuration attack surface.
 
 ## Principle
 

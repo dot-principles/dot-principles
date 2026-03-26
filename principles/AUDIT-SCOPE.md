@@ -1,5 +1,7 @@
 # Audit Scope
 
+**Summary:** Records which principles are fully excluded or partially limited in automated `/audit` scans, and why.
+
 The `/audit` command reviews a codebase against active principles using LLM reasoning and, where available, grep pre-scans. Not every principle can be meaningfully verified by inspecting a codebase snapshot — some require runtime data, git history, org-structure knowledge, or are purely process-based activities. This document records which principles are excluded or limited, and why.
 
 Principles in either table remain fully valid for `/prime` (educational reference) and for human code review. Only `/audit` skips or partially applies them.

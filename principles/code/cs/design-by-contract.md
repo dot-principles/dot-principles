@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, correctness, object-oriented
 **Applies-to:** all
+**Summary:** Specify preconditions, postconditions, and invariants for every operation and enforce them explicitly.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** security, architecture
 **Applies-to:** all
+**Summary:** Enumerate threats with STRIDE before implementation and document every mitigation in version-controlled artifacts.
 **Audit-scope:** excluded — threat modelling is a design-time process; whether it occurred cannot be determined from code alone
 
 ## Principle

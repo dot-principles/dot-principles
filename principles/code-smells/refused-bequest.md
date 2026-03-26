@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, object-oriented
 **Applies-to:** all
+**Summary:** Replace inheritance with composition when a subclass rejects significant portions of its parent's interface.
 
 ## Principle
 

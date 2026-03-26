@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, software-design, abstraction
 **Applies-to:** haskell, f#, scala, typescript, javascript, clojure, elm
+**Summary:** Define functions by composing transformations without naming arguments to focus on the pipeline, not the data.
 
 ## Principle
 

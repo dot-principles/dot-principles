@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, cloud-native, dependency-management
 **Applies-to:** cloud-native, twelve-factor-apps
+**Summary:** Treat all backing services as attached resources configurable via URL; swap them without code changes.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** functional-programming, software-design, concurrency, reliability
 **Applies-to:** all
+**Summary:** Prefer immutable data structures; produce new values on transformation and make mutation the explicit exception.
 
 ## Principle
 

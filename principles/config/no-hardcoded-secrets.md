@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** security, configuration
 **Applies-to:** config
+**Summary:** Never commit secrets to version control; supply them at runtime via dedicated secrets management tooling.
 
 ## Principle
 

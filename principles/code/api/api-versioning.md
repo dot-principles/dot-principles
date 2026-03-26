@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** api-design, backward-compatibility, rest
 **Applies-to:** all
+**Summary:** Version every API explicitly and maintain old versions through a documented deprecation period before removal.
 
 ## Principle
 

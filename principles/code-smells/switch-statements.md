@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, maintainability
 **Applies-to:** all
+**Summary:** Replace repeated switch/if-else type-dispatch chains with polymorphism so new variants require no edits.
 
 ## Principle
 

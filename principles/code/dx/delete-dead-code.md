@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** developer-experience, readability
 **Applies-to:** all
+**Summary:** Remove all code that is no longer executed or referenced; rely on version control for history.
 
 ## Principle
 

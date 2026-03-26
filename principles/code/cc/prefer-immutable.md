@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** concurrency, thread-safety, performance
 **Applies-to:** all
+**Summary:** Design shared objects to be immutable after construction so they require no synchronization to be thread-safe.
 
 ## Principle
 

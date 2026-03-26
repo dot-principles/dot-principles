@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, responsibility-assignment
 **Applies-to:** all
+**Summary:** Invent infrastructure classes with no domain equivalent to isolate technical concerns and keep domain objects clean.
 
 ## Principle
 

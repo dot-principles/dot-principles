@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
 **Applies-to:** all
+**Summary:** Capture and restore object state through an opaque memento; never expose internal fields for undo or rollback.
 
 ## Principle
 

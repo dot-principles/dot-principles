@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** developer-experience, usability, ux-design
 **Applies-to:** all
+**Summary:** Design to prevent errors from occurring in the first place, not to recover from them after.
 
 ## Principle
 

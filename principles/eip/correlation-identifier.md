@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** integration, observability, messaging
 **Applies-to:** all
+**Summary:** Attach and propagate a unique Correlation Identifier through every message, downstream call, log, and trace span.
 
 ## Principle
 

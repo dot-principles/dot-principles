@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** documentation, usability, information-architecture
 **Applies-to:** docs
+**Summary:** Give every meaningful document section a stable, direct link using consistent, non-duplicate headings.
 
 ## Principle
 

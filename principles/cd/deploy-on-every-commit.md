@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** devops, continuous-delivery, automation, deployment
 **Applies-to:** all
+**Summary:** Automate the pipeline so any green commit can be deployed to production without manual intervention.
 **Audit-scope:** limited — whether every commit is actually deployed requires observing pipeline runs; code can show whether automated deployment configuration exists at all.
 
 ## Principle

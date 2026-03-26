@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, cloud-native, scalability
 **Applies-to:** cloud-native, twelve-factor-apps
+**Summary:** Scale out by running more stateless process instances; assign distinct workloads to distinct process types.
 
 ## Principle
 

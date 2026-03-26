@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, maintainability
 **Applies-to:** all
+**Summary:** Never leave instance fields valid only sometimes; extract context-specific state into a dedicated class.
 
 ## Principle
 

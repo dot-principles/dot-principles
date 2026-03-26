@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** infrastructure, availability, resilience, disaster-recovery
 **Applies-to:** production-systems, cloud, internet-facing
+**Summary:** Deploy across independent failure domains and validate failover regularly against defined RTO and RPO targets.
 
 ## Principle
 

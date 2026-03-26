@@ -3,6 +3,7 @@
 **Layer:** 1
 **Categories:** security, container, infrastructure
 **Applies-to:** dockerfile
+**Summary:** Never pass secrets via ENV, ARG, COPY, or ADD in Dockerfiles; use BuildKit secret mounts instead.
 
 ## Principle
 

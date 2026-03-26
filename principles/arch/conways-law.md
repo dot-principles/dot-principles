@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, org-design, systems-thinking
 **Applies-to:** system-design, team-structure
+**Summary:** Align team structure with desired system architecture; design teams to produce the communication boundaries you want.
 **Audit-scope:** excluded — violations require knowing team and org structure, which is external to the codebase
 
 ## Principle

@@ -8,6 +8,38 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [v0.6.0] — 2026-03-24
+
+### Added
+
+- **`**Summary:**` field** — all 374 principle files now include a `**Summary:**` field: a one-line, actionable rule appearing after `**Applies-to:**`. Used in the compiled block and required for all new contributions (see [CONTRIBUTING.md](CONTRIBUTING.md)).
+- **Compact principle index** (`index.tsv`) — `install.sh vendor` generates a pipe-delimited flat file (`ID|LAYER|SUMMARY`) of all 373 principles at `.principles-catalog/index.tsv`; `/scout` reads this single file to build the compiled block in one pass, eliminating per-namespace file walking.
+- **Compiled block** — `/scout` Phase 6 compiles all active principles into a compact `<!-- .principles: begin --> … <!-- .principles: end -->` block and injects it into three targets:
+  - `.claude/rules/principles.md` — created if absent; Claude Code reads this directory automatically
+  - `AGENTS.md` — three-case handling: hub layout (`.ai/principles.md` created + table row added), simple layout (block injected directly), absent (file created from scratch)
+  - `.github/copilot-instructions.md` — injected unless the file is a pointer/redirect file
+- **`/audit` fast path** — reads compiled block (tier 1) instead of tree-walking `.principles` files; loads `.context-audit.md` per namespace (tier 2) for full guidance.
+- **`/prime` fast path** — same fast path: compiled block as tier 1, `.context-prime.md` per namespace as tier 2.
+- **`vendor` subcommand** — `install.sh vendor <dir>` copies the catalog subset referenced by the project's `.principles` files into `<dir>/.principles-catalog/`. Commit this directory so the compiled block and fast paths work without the full catalog repo present.
+- **AGENTS.md as cross-agent injection target** — AGENTS.md is now a first-class injection target for the compiled block, enabling any agent that reads AGENTS.md (OpenAI Codex, Claude Code, Copilot, etc.) to receive the active principle set automatically.
+
+### Changed
+
+- **Repo-only install** — `install.sh` now requires a `<dir>` argument; global install (without `<dir>`) is no longer supported. The primary install command is `./install.sh all <project-dir>`.
+- **No more `~/.principles`** — principle data is no longer copied to a global `~/.principles` directory. Commands reference `.principles-catalog/` inside the project. The `{{PRINCIPLES_DIRECTORY}}` placeholder now resolves to the project-local `.principles-catalog/`.
+
+### Removed
+
+- **Global install** — `./install.sh claude`, `./install.sh copilot`, and `./install.sh all` without a `<dir>` argument are no longer supported.
+- **`~/.principles` data directory** — removed from the install/uninstall flow.
+- **Cursor support** — Cursor is no longer a supported install target; the `.cursor/rules/principles.mdc` target has been dropped.
+
+### Fixed
+
+- **Uninstall** — now strips compiled blocks from `.claude/rules/principles.md`, `.ai/principles.md`, `AGENTS.md`, and `CLAUDE.md`; removes `.principles-catalog/`; removes legacy `~/.principles` if present.
+
+---
+
 ## [v0.5.0] — 2026-03-23
 
 ### Added
@@ -130,6 +162,8 @@ See [TODO.md](TODO.md) for the roadmap.
 
 ---
 
+[v0.6.0]: https://github.com/dot-principles/dot-principles/releases/tag/v0.6.0
+[v0.5.0]: https://github.com/dot-principles/dot-principles/releases/tag/v0.5.0
 [v0.4.0]: https://github.com/dot-principles/dot-principles/releases/tag/v0.4.0
 [v0.3.2]: https://github.com/dot-principles/dot-principles/releases/tag/v0.3.2
 [v0.3.1]: https://github.com/dot-principles/dot-principles/releases/tag/v0.3.1

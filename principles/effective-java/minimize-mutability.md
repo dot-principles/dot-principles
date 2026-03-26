@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** api-design, developer-experience
 **Applies-to:** java
+**Summary:** Make classes immutable by default: prevent extension, make fields final, and return new instances from operations.
 
 ## Principle
 

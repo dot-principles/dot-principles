@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** integration, messaging, maintainability
 **Applies-to:** all
+**Summary:** Enrich messages with additional data at a dedicated pipeline boundary before they reach downstream consumers.
 
 ## Principle
 

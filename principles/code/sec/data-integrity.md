@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** security
 **Applies-to:** all
+**Summary:** Verify the integrity of all software artifacts, dependencies, and data before consuming them.
 
 ## Principle
 

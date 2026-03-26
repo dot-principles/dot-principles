@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** api-design, developer-experience, rest
 **Applies-to:** all
+**Summary:** Return RFC 7807 Problem Details for all error responses; never expose stack traces or internal details.
 
 ## Principle
 

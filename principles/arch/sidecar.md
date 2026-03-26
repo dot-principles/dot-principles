@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, microservices, deployment, separation-of-concerns
 **Applies-to:** all
+**Summary:** Deploy cross-cutting operational concerns as independent co-located sidecar processes, not as in-process libraries.
 
 ## Principle
 

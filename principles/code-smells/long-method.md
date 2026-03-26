@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, maintainability
 **Applies-to:** all
+**Summary:** Extract logically distinct blocks from long methods into well-named, single-purpose methods.
 
 ## Principle
 

@@ -6,15 +6,15 @@ set -euo pipefail
 # uninstall.sh — Remove .principles assets from supported AI coding tools
 #
 # Usage:
-#   ./uninstall.sh             # Remove global assets:
-#                              #   Claude Code: ~/.claude/commands/<name>.md
-#                              #   Copilot CLI: ~/.copilot/skills/<name>/
 #   ./uninstall.sh <project>   # Remove local assets from <project>:
+#                              #   Compiled blocks: .claude/rules/principles.md
+#                              #                    .ai/principles.md (hub pattern)
+#                              #                    AGENTS.md / CLAUDE.md (inline block)
 #                              #   Claude Code: <project>/.claude/commands/<name>.md
 #                              #   Copilot CLI: .github/skills/<name>/SKILL.md
 #                              #   Copilot IDE: .github/prompts/<name>.prompt.md
 #                              #                .github/copilot-instructions.md (.principles block only)
-#                              #   Cursor:      .cursor/rules/principles.mdc
+#                              #   Vendor:      .principles-catalog/
 #   ./uninstall.sh --help      # Show this help
 
 # Convert a Windows-style path (C:\... or C:/...) to a path the current bash understands.
@@ -53,8 +53,6 @@ normalize_directory_path() {
 }
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-# Parse flags before positional arguments
 QUIET=false
 TARGET=""
 _args=()
@@ -76,32 +74,10 @@ set -- "${_args[@]+"${_args[@]}"}"
 # Output helper — suppressed in --quiet mode (errors always print via stderr)
 qecho() { [ "$QUIET" = false ] && echo -e "$@" || true; }
 
-# Resolve the home directory for global asset removal.
-# When invoked via WSL (e.g. PowerShell 7 finds the WSL bash instead of Git
-# Bash), $HOME is the Linux home (/home/<user>) but assets live in the
-# Windows user profile where they were installed.
-resolve_home() {
-    if [ -n "${PRINCIPLES_WIN_HOME:-}" ]; then
-        # Set by uninstall.ps1 — Windows USERPROFILE with forward slashes.
-        # normalize_path converts it to a bash-usable path (wslpath under WSL,
-        # pass-through under Git Bash which natively handles C:/... paths).
-        normalize_path "$PRINCIPLES_WIN_HOME"
-    elif command -v wslpath &>/dev/null && [ -n "${USERPROFILE:-}" ]; then
-        wslpath -u "$USERPROFILE"
-    else
-        echo "$HOME"
-    fi
-}
-EFFECTIVE_HOME="$(resolve_home)"
-DATA_DIR="$EFFECTIVE_HOME/.principles"
-
-CLAUDE_COMMANDS_DIR="$EFFECTIVE_HOME/.claude/commands"
 CLAUDE_TARGETS_DIR="$SCRIPT_DIR/targets/claude-code"
 
-UNINSTALL_SCOPE="global"
 PROJECT_DIR=""
 if [ -n "${1:-}" ] && [[ "${1:-}" != --* ]]; then
-    UNINSTALL_SCOPE="local"
     PROJECT_DIR="$(normalize_directory_path "$1")"
 fi
 
@@ -125,13 +101,6 @@ cleanup_dir_if_empty() {
     fi
 }
 
-require_project_dir() {
-    if [ -n "$PROJECT_DIR" ] && [ ! -d "$PROJECT_DIR" ]; then
-        echo -e "${RED}Error: Directory '$PROJECT_DIR' does not exist.${NC}"
-        exit 1
-    fi
-}
-
 print_header() {
     qecho ""
     qecho "${BOLD}.principles uninstaller${NC}"
@@ -141,38 +110,30 @@ print_header() {
 show_usage() {
     print_header
     echo ""
-    echo "Usage: $0 [project-dir]"
+    echo "Usage: $0 <dir>"
     echo ""
-    echo "Removes .principles assets for Claude Code, GitHub Copilot, and Cursor."
+    echo "Removes .principles assets for Claude Code, GitHub Copilot, and vendor catalog."
     echo ""
-    echo "  (no arg)            Remove global assets (~/.claude/commands/, ~/.copilot/)"
-    echo "  <dir>               Remove local assets from <dir>/.claude/, .github/, .cursor/"
+    echo "  <dir>               Remove local assets from <dir>:"
+    echo "                        Compiled blocks: .claude/rules/principles.md, .ai/principles.md,"
+    echo "                                         AGENTS.md, CLAUDE.md (stripped inline)"
+    echo "                        Claude Code:     .claude/commands/<name>.md"
+    echo "                        Copilot CLI:     .github/skills/<name>/SKILL.md"
+    echo "                        Copilot IDE:     .github/prompts/<name>.prompt.md"
+    echo "                                         .github/copilot-instructions.md (.principles block only)"
+    echo "                        Vendor:          .principles-catalog/"
     echo ""
     echo "Options:"
     echo "  --help              Show this help"
-}
-
-uninstall_data() {
-    if [ -d "$DATA_DIR" ]; then
-        rm -rf "$DATA_DIR"
-        qecho "  ${GREEN}✓${NC} Removed $DATA_DIR"
-    fi
+    echo "  --target <name>     Only remove assets for one target"
+    echo "                      (compiled | claude | copilot | vendor)"
 }
 
 uninstall_claude() {
-    local project_dir="${1:-}"
-    local target_dir
-    local scope_label
+    local project_dir="$1"
+    local target_dir="$project_dir/.claude/commands"
 
-    if [ -n "$project_dir" ]; then
-        target_dir="$project_dir/.claude/commands"
-        scope_label="local: $project_dir"
-    else
-        target_dir="$CLAUDE_COMMANDS_DIR"
-        scope_label="global"
-    fi
-
-    qecho "${BOLD}Removing Claude Code slash commands ($scope_label)...${NC}"
+    qecho "${BOLD}Removing Claude Code slash commands (local: $project_dir)...${NC}"
 
     local count=0
     local found_target=false
@@ -202,19 +163,13 @@ uninstall_claude() {
         qecho "Removed ${GREEN}$count${NC} commands."
     fi
 
-    if [ -n "$project_dir" ]; then
-        cleanup_dir_if_empty "$target_dir"
-        cleanup_dir_if_empty "$project_dir/.claude"
-    fi
+    cleanup_dir_if_empty "$target_dir"
+    cleanup_dir_if_empty "$project_dir/.claude"
 }
 
 uninstall_copilot() {
-    local project_dir="${1:-}"
-    if [ -n "$project_dir" ]; then
-        uninstall_copilot_local "$project_dir"
-    else
-        uninstall_copilot_global
-    fi
+    local project_dir="$1"
+    uninstall_copilot_local "$project_dir"
 }
 
 uninstall_copilot_local() {
@@ -304,61 +259,122 @@ uninstall_copilot_local() {
     cleanup_dir_if_empty "$project_dir/.github"
 }
 
-uninstall_copilot_global() {
-    local skills_base="$EFFECTIVE_HOME/.copilot/skills"
+uninstall_compiled_blocks() {
+    local project_dir="$1"
 
-    qecho "${BOLD}Removing Copilot CLI skills (global)...${NC}"
+    qecho "${BOLD}Removing compiled .principles blocks...${NC}"
 
-    local skill_count=0
-    local file
-    for file in "$CLAUDE_TARGETS_DIR/"*.md; do
-        if [ -f "$file" ]; then
-            local command_name
-            command_name="$(basename "$file" .md)"
-            local skill_dir="$skills_base/$command_name"
-            if [ -d "$skill_dir" ]; then
-                rm -rf "$skill_dir"
-                skill_count=$((skill_count + 1))
-                qecho "  ${GREEN}✓${NC} ~/.copilot/skills/$command_name/"
-            fi
-        fi
-    done
+    local found=false
 
-    if [ $skill_count -eq 0 ]; then
-        qecho "  ${NEUTRAL} No Copilot CLI skills found to remove."
+    # .claude/rules/principles.md — remove file entirely if it was created by scout
+    local claude_rules="$project_dir/.claude/rules/principles.md"
+    if [ -f "$claude_rules" ]; then
+        rm "$claude_rules"
+        found=true
+        qecho "  ${GREEN}✓${NC} .claude/rules/principles.md"
+        cleanup_dir_if_empty "$project_dir/.claude/rules"
+        cleanup_dir_if_empty "$project_dir/.claude"
     fi
 
-    cleanup_dir_if_empty "$EFFECTIVE_HOME/.copilot/skills"
-    cleanup_dir_if_empty "$EFFECTIVE_HOME/.copilot"
+    # .ai/principles.md — remove file, remove row from AGENTS.md table
+    local ai_principles="$project_dir/.ai/principles.md"
+    if [ -f "$ai_principles" ]; then
+        rm "$ai_principles"
+        found=true
+        qecho "  ${GREEN}✓${NC} .ai/principles.md"
+        cleanup_dir_if_empty "$project_dir/.ai"
+
+        # Remove the reference row from AGENTS.md if present
+        local agents_file="$project_dir/AGENTS.md"
+        if [ -f "$agents_file" ] && grep -q "\.ai/principles\.md" "$agents_file"; then
+            local tmp
+            tmp="$(mktemp)"
+            grep -v "\.ai/principles\.md" "$agents_file" > "$tmp"
+            mv "$tmp" "$agents_file"
+            qecho "  ${GREEN}✓${NC} AGENTS.md (removed .ai/principles.md reference)"
+        fi
+    fi
+
+    # AGENTS.md — strip block if injected directly (prefix match to handle stamped headers)
+    local agents_file="$project_dir/AGENTS.md"
+    if [ -f "$agents_file" ] && grep -q "^<!-- .principles: begin" "$agents_file"; then
+        local tmp result_file
+        tmp="$(mktemp)"
+        awk '
+            BEGIN { in_block=0; removed=0 }
+            /^<!-- \.principles: begin/ { in_block=1; removed=1; next }
+            /^<!-- \.principles: end -->$/ { if (in_block) { in_block=0; next } }
+            !in_block { print }
+            END { exit removed ? 0 : 1 }
+        ' "$agents_file" > "$tmp" && {
+            result_file="$(mktemp)"
+            awk '{lines[NR]=$0; if(/[^[:space:]]/) last=NR} END{for(i=1;i<=last;i++) print lines[i]}' \
+                "$tmp" > "$result_file"
+            if grep -q '[^[:space:]]' "$result_file"; then
+                mv "$result_file" "$agents_file"
+            else
+                rm -f "$result_file" "$agents_file"
+            fi
+            rm -f "$tmp"
+            found=true
+            qecho "  ${GREEN}✓${NC} AGENTS.md (removed .principles block)"
+        } || rm -f "$tmp"
+    fi
+
+    # CLAUDE.md — strip block if injected directly (prefix match to handle stamped headers)
+    local claude_file="$project_dir/CLAUDE.md"
+    if [ -f "$claude_file" ] && grep -q "^<!-- .principles: begin" "$claude_file"; then
+        local tmp result_file
+        tmp="$(mktemp)"
+        awk '
+            BEGIN { in_block=0; removed=0 }
+            /^<!-- \.principles: begin/ { in_block=1; removed=1; next }
+            /^<!-- \.principles: end -->$/ { if (in_block) { in_block=0; next } }
+            !in_block { print }
+            END { exit removed ? 0 : 1 }
+        ' "$claude_file" > "$tmp" && {
+            result_file="$(mktemp)"
+            awk '{lines[NR]=$0; if(/[^[:space:]]/) last=NR} END{for(i=1;i<=last;i++) print lines[i]}' \
+                "$tmp" > "$result_file"
+            if grep -q '[^[:space:]]' "$result_file"; then
+                mv "$result_file" "$claude_file"
+            else
+                rm -f "$result_file" "$claude_file"
+            fi
+            rm -f "$tmp"
+            found=true
+            qecho "  ${GREEN}✓${NC} CLAUDE.md (removed .principles block)"
+        } || rm -f "$tmp"
+    fi
+
+    if [ "$found" = false ]; then
+        qecho "  ${NEUTRAL} No compiled blocks found to remove."
+    fi
 }
 
-uninstall_cursor() {
-    local project_dir="${1:-}"
+uninstall_vendor() {
+    local project_dir="$1"
 
-    if [ -z "$project_dir" ]; then
-        qecho "${BOLD}Cursor — global/user scope not supported${NC}"
-        qecho ""
-        qecho "Cursor does not support file-based user-level rules."
-        qecho "Configure manually: Cursor > Settings > General > Rules for AI"
-        qecho ""
-        qecho "For project-level removal: ./uninstall.sh <project-dir>"
-        return 0
+    qecho "${BOLD}Removing vendor catalog...${NC}"
+
+    if [ -d "$project_dir/.principles-catalog" ]; then
+        rm -rf "$project_dir/.principles-catalog"
+        qecho "  ${GREEN}✓${NC} Removed .principles-catalog/"
+    else
+        qecho "  ${NEUTRAL} No .principles-catalog found to remove."
     fi
+}
 
-    local target_file="$project_dir/.cursor/rules/principles.mdc"
-
-    qecho "${BOLD}Removing Cursor rules...${NC}"
-
-    if [ ! -f "$target_file" ]; then
-        qecho "  ${NEUTRAL} No Cursor rule found to remove."
-        return
+require_project_dir() {
+    if [ -z "$PROJECT_DIR" ]; then
+        echo -e "${RED}Error: A project directory is required.${NC}"
+        echo "Usage: $0 <dir>"
+        exit 1
     fi
-
-    rm "$target_file"
-    qecho "  ${GREEN}✓${NC} .cursor/rules/principles.mdc"
-
-    cleanup_dir_if_empty "$project_dir/.cursor/rules"
-    cleanup_dir_if_empty "$project_dir/.cursor"
+    if [ ! -d "$PROJECT_DIR" ]; then
+        echo -e "${RED}Error: Directory '$PROJECT_DIR' does not exist.${NC}"
+        exit 1
+    fi
 }
 
 run_uninstall() {
@@ -367,6 +383,10 @@ run_uninstall() {
     print_header
     qecho ""
 
+    if [ -z "$TARGET" ] || [ "$TARGET" = "compiled" ]; then
+        uninstall_compiled_blocks "$PROJECT_DIR"
+        qecho ""
+    fi
     if [ -z "$TARGET" ] || [ "$TARGET" = "claude" ]; then
         uninstall_claude "$PROJECT_DIR"
         qecho ""
@@ -375,15 +395,15 @@ run_uninstall() {
         uninstall_copilot "$PROJECT_DIR"
         qecho ""
     fi
-    if [ -z "$TARGET" ] || [ "$TARGET" = "cursor" ]; then
-        uninstall_cursor "$PROJECT_DIR"
+    if [ -z "$TARGET" ] || [ "$TARGET" = "vendor" ]; then
+        uninstall_vendor "$PROJECT_DIR"
         qecho ""
     fi
 
-    # Always remove ~/.principles on global installs (no project dir)
-    if [ -z "$PROJECT_DIR" ]; then
-        qecho "${BOLD}Removing .principles data...${NC}"
-        uninstall_data
+    # Remove legacy ~/.principles if it exists
+    if [ -d "$HOME/.principles" ]; then
+        rm -rf "$HOME/.principles"
+        qecho "  ${GREEN}✓${NC} Removed legacy ~/.principles (no longer used)"
         qecho ""
     fi
 
@@ -395,7 +415,9 @@ case "${1:-}" in
         show_usage
         ;;
     "")
-        run_uninstall
+        echo -e "${RED}Error: A project directory is required.${NC}"
+        echo "Usage: $0 <dir>"
+        exit 1
         ;;
     *)
         if [[ "$1" == -* ]]; then

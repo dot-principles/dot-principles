@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** documentation, maintainability, cohesion
 **Applies-to:** docs
+**Summary:** Store documentation in the same directory as the artifact it describes to prevent drift.
 
 ## Principle
 

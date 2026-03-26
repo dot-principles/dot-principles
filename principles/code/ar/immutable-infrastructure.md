@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** architecture, infrastructure, devops
 **Applies-to:** all
+**Summary:** Replace infrastructure components by building new immutable instances; never modify running instances in place.
 
 ## Principle
 

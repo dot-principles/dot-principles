@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, maintainability
 **Applies-to:** all
+**Summary:** Split classes with too many responsibilities into focused, single-purpose classes.
 
 ## Principle
 

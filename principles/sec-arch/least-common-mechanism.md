@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** security, architecture, isolation
 **Applies-to:** all
+**Summary:** Minimize shared credentials, caches, and mechanisms between users or components at different trust levels.
 
 ## Principle
 

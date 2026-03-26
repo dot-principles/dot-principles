@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, ddd, object-oriented, domain-logic
 **Applies-to:** all
+**Summary:** Encapsulate business rules in named, combinable Specification objects with a single `isSatisfiedBy` method.
 
 ## Principle
 

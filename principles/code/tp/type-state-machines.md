@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** type-safety, correctness
 **Applies-to:** all (especially typed languages)
+**Summary:** Encode distinct object states as separate types so invalid state transitions become compile-time errors.
 
 ## Principle
 

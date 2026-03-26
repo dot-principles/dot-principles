@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** architecture, infrastructure, devops
 **Applies-to:** all
+**Summary:** Define all infrastructure as version-controlled code; never provision or modify environments through manual steps.
 
 ## Principle
 

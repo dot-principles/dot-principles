@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, scalability, cloud-native, resilience
 **Applies-to:** services, apis, web-applications
+**Summary:** Design service instances to hold no state beyond a single request; store all session state in an external store.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** security, architecture, access-control
 **Applies-to:** all
+**Summary:** Require two or more independent conditions to grant access to any sensitive resource or operation.
 
 ## Principle
 

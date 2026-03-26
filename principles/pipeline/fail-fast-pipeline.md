@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** reliability, pipeline, efficiency
 **Applies-to:** pipeline
+**Summary:** Abort the pipeline on the first stage failure; never suppress errors in build, test, or deploy steps.
 
 ## Principle
 

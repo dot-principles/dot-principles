@@ -3,6 +3,7 @@
 **Layer:** 1
 **Categories:** devops, continuous-delivery, automation, version-control
 **Applies-to:** all
+**Summary:** Commit every CI/CD pipeline step to version control and review it like application code.
 
 ## Principle
 

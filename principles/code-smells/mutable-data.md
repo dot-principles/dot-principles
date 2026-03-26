@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, reliability
 **Applies-to:** all
+**Summary:** Minimize mutable state scope; prefer immutability and confine mutation to a single, explicit location.
 
 ## Principle
 

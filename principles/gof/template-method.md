@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
 **Applies-to:** all
+**Summary:** Define the algorithm skeleton in a final base-class method; let subclasses override only the varying steps.
 
 ## Principle
 

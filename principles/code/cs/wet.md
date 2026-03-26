@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** code-smells, maintainability, refactoring
 **Applies-to:** all
+**Summary:** Eliminate duplicated knowledge; never encode the same rule or policy in multiple places.
 
 ## Principle
 

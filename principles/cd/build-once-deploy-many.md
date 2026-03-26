@@ -3,6 +3,7 @@
 **Layer:** 1
 **Categories:** devops, continuous-delivery, deployment, reliability
 **Applies-to:** all
+**Summary:** Build the artifact once and promote that same immutable artifact through every environment.
 
 ## Principle
 

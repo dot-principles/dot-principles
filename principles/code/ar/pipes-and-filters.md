@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, integration
 **Applies-to:** all
+**Summary:** Decompose complex processing into independent single-responsibility filter stages connected by message channels.
 
 ## Principle
 

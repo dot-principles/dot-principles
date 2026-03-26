@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** developer-experience, readability
 **Applies-to:** all
+**Summary:** Write code to be read by humans first; prioritize clarity over cleverness in every choice.
 
 ## Principle
 

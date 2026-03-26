@@ -10,7 +10,7 @@ authors: Flemming N. Larsen (https://github.com/flemming-n-larsen)
 
 You are analysing a project to determine which principles apply and creating or updating `.principles` files to encode that. Follow these five phases exactly.
 
-## Phase 1 — Resolve Target
+## Phase 1 — Resolve Target and Bootstrap Catalog
 
 Determine the target directory:
 
@@ -21,6 +21,28 @@ Determine the target directory:
 Confirm the target exists. If not, report an error and stop.
 
 Walk up from the target to find the **git root** (directory containing `.git/`). Record both the target directory and the git root — the hierarchy spans between them.
+
+### 1.1 — Bootstrap Catalog
+
+Check whether `.principles-catalog/index.tsv` exists at the git root.
+
+If **not present**, try to auto-vendor it now (before any other phase):
+
+1. Search for the dot-principles `install.sh` in these locations (in order):
+   - `<git-root>/../dot-principles/install.sh`
+   - `<git-root>/../../dot-principles/dot-principles/install.sh`
+   - `~/Code/dot-principles/dot-principles/install.sh`
+   - Run: `find ~ -maxdepth 5 -name "install.sh" -path "*/dot-principles/*" 2>/dev/null | head -1`
+
+2. If found: run `<path-to-install.sh> vendor <git-root>` and report:
+   > "✓ Catalog vendored to .principles-catalog/ — proceeding."
+
+3. If not found: report:
+   > "⚠️ `.principles-catalog/` not found. Group lookups will use the hardcoded catalog below."
+   > "  To vendor: clone dot-principles and run `./install.sh vendor <git-root>`"
+   > Continue using the hardcoded group list in Phase 3 (custom groups won't be available).
+
+Record whether the catalog is available: **catalog-available: true/false**
 
 ## Phase 2 — Detect Profile
 
@@ -173,16 +195,18 @@ Next steps:
 
 ### 6.1 — Resolve the Compiled Set
 
-Walk all `.principles` files written or confirmed in Phase 5. For each active principle ID in the resolved set, read its `**Summary:**` field from `.principles-catalog/principles/<namespace>/<file>.md`.
+If **catalog-available: false** (set in Phase 1), report:
+> "⚠️ Compiled block skipped — catalog not available. Run `./install.sh vendor <git-root>` and re-run /scout."
+> Skip the rest of Phase 6.
 
-If `.principles-catalog/` is not present at the git root, report:
-> "⚠️ Catalog not vendored. Run `./install.sh vendor <dir>` to enable compiled block generation."
-> Skip Phase 6.
+Read `.principles-catalog/index.tsv`. Each line is `ID|LAYER|SUMMARY`.
 
-Group active principles by Layer:
-- **Layer 1** — `**Layer:** 1` → "Always active"
-- **Layer 2** — `**Layer:** 2` → "This stack" (list the @groups that contributed them)  
-- **Layer 3** — `**Layer:** 3` → "Risk-elevated" (note which subdirectories triggered them)
+From the active principle set (resolved via `.principles` hierarchy), look up each active ID in the index to get its Layer and Summary. Build three groups:
+- **Layer 1** → "Always (Layer 1)"
+- **Layer 2** → "This stack" (note the @groups that activated them)
+- **Layer 3** → "Risk-elevated" (note which subdirectory triggered them)
+
+Any active IDs not found in index.tsv: include with summary "—" and log a warning.
 
 ### 6.2 — Detect AI Instruction Files and Injection Targets
 

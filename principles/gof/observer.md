@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
 **Applies-to:** all
+**Summary:** Notify observers automatically via subscription; never hard-code dependents inside the subject.
 
 ## Principle
 

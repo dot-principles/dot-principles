@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** api-design, reliability, security
 **Applies-to:** all
+**Summary:** Enforce rate limits on all APIs and return 429 with `Retry-After` when clients exceed their quota.
 
 ## Principle
 

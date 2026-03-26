@@ -65,8 +65,9 @@ Before walking `.principles` files, check for a compiled block in this order:
 Check the FIRST file that exists and contains `<!-- .principles: begin`. If found:
 
 1. Parse all principle IDs from the block (lines matching `- PRINCIPLE-ID: ...` — the ID is everything before the first colon).
-2. Use these as the **active principle set** — skip the `.principles` tree walk entirely.
-3. Record source as: `compiled-block: <filename>`
+2. Optionally cross-reference `.principles-catalog/index.tsv` (each line: `ID|LAYER|SUMMARY`) to get Layer groupings for each active ID — use these layer assignments to annotate the audit header (e.g. show "Layer 1: N principles, Layer 2: M principles").
+3. Use these as the **active principle set** — skip the `.principles` tree walk entirely.
+4. Record source as: `compiled-block: <filename>`
 
 If no compiled block is found, or if parsing fails for any reason, proceed with the tree walk below.
 

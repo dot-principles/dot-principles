@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** software-design, extensibility, maintainability
 **Applies-to:** all
+**Summary:** Add new behavior by writing new code that implements an abstraction; never modify existing proven code.
 
 ## Principle
 

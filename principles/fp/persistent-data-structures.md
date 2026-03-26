@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, performance, data-structures, concurrency
 **Applies-to:** all
+**Summary:** Use persistent data structures with structural sharing to get immutability guarantees at O(log n) update cost.
 
 ## Principle
 

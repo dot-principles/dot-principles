@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** integration, messaging, observability
 **Applies-to:** all
+**Summary:** Insert a Wire Tap to forward message copies to a secondary channel without affecting the primary flow.
 
 ## Principle
 

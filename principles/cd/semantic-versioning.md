@@ -3,6 +3,7 @@
 **Layer:** 1
 **Categories:** release-management, api-design, compatibility, continuous-delivery
 **Applies-to:** all
+**Summary:** Use MAJOR.MINOR.PATCH version numbers to communicate the scope and safety of changes to consumers.
 
 ## Principle
 

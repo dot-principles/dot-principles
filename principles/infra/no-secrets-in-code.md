@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** infrastructure, security, devops
 **Applies-to:** all
+**Summary:** Inject secrets at runtime from a secrets manager; never store credentials in code, config files, or logs.
 
 ## Principle
 

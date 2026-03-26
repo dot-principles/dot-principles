@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** security, architecture, networking
 **Applies-to:** all
+**Summary:** Authenticate and authorize every request explicitly; never grant implicit trust based on network location.
 
 ## Principle
 

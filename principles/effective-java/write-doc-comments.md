@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** api-design, developer-experience
 **Applies-to:** java
+**Summary:** Document every exported API element with a Javadoc comment covering contract, parameters, return value, and exceptions.
 
 ## Principle
 

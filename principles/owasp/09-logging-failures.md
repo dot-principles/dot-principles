@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** security, observability, incident-response
 **Applies-to:** all
+**Summary:** Log all security-relevant events with full context, aggregate centrally, and alert on anomalous patterns.
 
 ## Principle
 

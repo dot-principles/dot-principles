@@ -4,6 +4,7 @@
 **Categories:** testing, quality
 
 **Applies-to:** all
+**Summary:** Specify invariants that must hold for any valid input and let the framework generate and shrink test cases.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, object-oriented
 **Applies-to:** all
+**Summary:** Give data classes meaningful behavior; eliminate passive data holders that scatter logic into other classes.
 
 ## Principle
 

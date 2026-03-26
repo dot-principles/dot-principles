@@ -3,6 +3,7 @@
 **Layer:** 1
 **Categories:** devops, continuous-delivery, version-control, collaboration
 **Applies-to:** all
+**Summary:** Integrate to the main branch at least daily; use feature flags to hide incomplete work instead of branches.
 **Audit-scope:** limited — branch lifetime requires git history; code snapshot can reveal documented branching policies in CONTRIBUTING.md or README.
 
 ## Principle

@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** reliability, distributed-systems
 **Applies-to:** all
+**Summary:** Wrap calls to external dependencies in a circuit breaker to stop cascading failures automatically.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** documentation, api-design
 **Applies-to:** schema
+**Summary:** Every field, enum value, and method must be described clearly enough to understand without external documentation.
 
 ## Principle
 

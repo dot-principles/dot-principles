@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
 **Applies-to:** all
+**Summary:** Compose objects into tree structures so clients treat individual objects and compositions of objects uniformly.
 
 ## Principle
 

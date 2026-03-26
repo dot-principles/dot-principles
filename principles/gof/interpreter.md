@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
 **Applies-to:** all
+**Summary:** Map each grammar rule to a class and traverse the resulting tree to interpret domain-language expressions.
 
 ## Principle
 

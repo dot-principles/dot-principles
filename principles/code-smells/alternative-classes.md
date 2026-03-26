@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, maintainability
 **Applies-to:** all
+**Summary:** Unify classes that perform the same role under a common interface to eliminate hidden duplication.
 
 ## Principle
 

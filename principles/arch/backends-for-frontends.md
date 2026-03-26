@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, api-design, microservices
 **Applies-to:** all
+**Summary:** Create a dedicated backend service per client type; never build one general-purpose API for all clients.
 
 ## Principle
 

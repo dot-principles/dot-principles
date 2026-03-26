@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** security
 **Applies-to:** all
+**Summary:** Log all security-relevant events with full context and actively monitor for anomalous patterns and attacks.
 
 ## Principle
 

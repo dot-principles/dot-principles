@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** observability, operations, reliability
 **Applies-to:** all
+**Summary:** Instrument every service to expose Latency, Traffic, Errors, and Saturation as the minimum signals.
 
 ## Principle
 

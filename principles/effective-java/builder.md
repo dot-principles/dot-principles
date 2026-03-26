@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** api-design, developer-experience
 **Applies-to:** java
+**Summary:** Use the Builder pattern when constructors or factories require many parameters, especially optional ones.
 
 ## Principle
 

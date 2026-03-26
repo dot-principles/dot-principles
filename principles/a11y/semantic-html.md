@@ -4,6 +4,7 @@
 **Audit-scope:** full
 **Categories:** accessibility, wcag, html
 **Applies-to:** HTML, JSX, TSX, templates
+**Summary:** Use native HTML elements for their semantic meaning; never replace buttons and links with generic divs.
 
 ## Principle
 

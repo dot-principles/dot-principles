@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** database, concurrency, transactions, performance
 **Applies-to:** all
+**Summary:** Use optimistic concurrency in read-heavy workloads; detect conflicts at commit time and retry rather than locking.
 
 ## Principle
 

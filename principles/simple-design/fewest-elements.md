@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** software-design, simplicity
 **Applies-to:** all
+**Summary:** Include the fewest classes and abstractions possible once tests pass, intent is clear, and duplication is removed.
 
 ## Principle
 

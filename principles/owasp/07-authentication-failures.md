@@ -3,6 +3,7 @@
 **Layer:** 3 (risk-elevated)
 **Categories:** security, authentication, session-management
 **Applies-to:** all
+**Summary:** Use MFA, rate-limit login endpoints, use vetted auth libraries, and invalidate sessions on logout.
 
 ## Principle
 

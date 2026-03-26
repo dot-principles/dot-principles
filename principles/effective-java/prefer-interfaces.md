@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, object-oriented, api-design
 **Applies-to:** java, kotlin, scala
+**Summary:** Define types with interfaces rather than abstract classes; use abstract classes only for skeletal implementations.
 
 ## Principle
 

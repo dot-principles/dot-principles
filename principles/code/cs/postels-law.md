@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** api-design, interoperability, resilience
 **Applies-to:** apis, protocols, integrations
+**Summary:** Be conservative in what you send and liberal in what you accept.
 
 ## Principle
 

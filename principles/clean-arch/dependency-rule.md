@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, maintainability
 **Applies-to:** all
+**Summary:** Source code dependencies must always point inward toward business rules, never outward toward frameworks or details.
 
 ## Principle
 

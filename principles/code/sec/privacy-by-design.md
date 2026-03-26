@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** security, privacy, data-protection
 **Applies-to:** all
+**Summary:** Collect only required personal data, retain it minimally, and make privacy-protective behavior the default.
 
 ## Principle
 

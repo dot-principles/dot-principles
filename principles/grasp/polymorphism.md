@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, extensibility
 **Applies-to:** all
+**Summary:** Replace type-based conditionals with polymorphic dispatch; let each type handle its own variant behavior.
 
 ## Principle
 

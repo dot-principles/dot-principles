@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, software-design, testability, architecture
 **Applies-to:** all
+**Summary:** Put all business logic in a pure functional core and confine I/O and side effects to a thin imperative shell.
 
 ## Principle
 

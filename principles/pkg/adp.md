@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** software-design, package-design, modularity, architecture
 **Applies-to:** all
+**Summary:** Eliminate all cycles in the component dependency graph to enable independent builds and releases.
 
 ## Principle
 

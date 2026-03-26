@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, resilience, fault-tolerance, distributed-systems
 **Applies-to:** distributed-systems, microservices, cloud-native
+**Summary:** Assume every component will fail; design for graceful degradation rather than cascading outage.
 
 ## Principle
 

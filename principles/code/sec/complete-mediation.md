@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** security, access-control
 **Applies-to:** all
+**Summary:** Verify every access to every resource against the authorization policy on every request without exception.
 
 ## Principle
 

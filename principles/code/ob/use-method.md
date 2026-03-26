@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** observability, operations, reliability, performance
 **Applies-to:** all
+**Summary:** For every resource, measure Utilisation, Saturation, and Errors to systematically detect bottlenecks.
 
 ## Principle
 

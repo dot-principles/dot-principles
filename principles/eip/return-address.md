@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** integration, messaging
 **Applies-to:** all
+**Summary:** Include a Return Address in every request message so responders can route replies to the correct channel.
 
 ## Principle
 

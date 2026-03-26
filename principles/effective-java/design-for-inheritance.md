@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** object-oriented, maintainability, api-design
 **Applies-to:** java, kotlin, csharp
+**Summary:** Document self-use of overridable methods and mark classes `final` unless explicitly designed for inheritance.
 
 ## Principle
 

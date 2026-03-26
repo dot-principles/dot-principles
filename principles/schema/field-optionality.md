@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** schema-design, api-design, reliability
 **Applies-to:** schema
+**Summary:** Every new schema field must be optional with a sensible default; never add required fields to published schemas.
 
 ## Principle
 

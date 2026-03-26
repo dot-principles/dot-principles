@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** developer-experience, usability, ux-design
 **Applies-to:** all
+**Summary:** Maximize the data-ink ratio; remove every visual element that doesn't convey information.
 
 ## Principle
 

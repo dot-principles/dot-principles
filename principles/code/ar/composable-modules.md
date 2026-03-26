@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** architecture, infrastructure, devops
 **Applies-to:** all
+**Summary:** Organize infrastructure into small, focused, independently manageable modules with clear inputs and outputs.
 
 ## Principle
 

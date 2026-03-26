@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** security, reliability
 **Applies-to:** all
+**Summary:** Deny access by default; any error or ambiguity in an authorization check must result in denial, never access.
 
 ## Principle
 

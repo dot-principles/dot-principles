@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** security, architecture, devops
 **Applies-to:** all
+**Summary:** Verify artifact provenance by digest, generate SBOMs, sign releases, and use hermetic build pipelines.
 
 ## Principle
 

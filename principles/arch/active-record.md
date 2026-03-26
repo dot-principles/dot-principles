@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, data-access
 **Applies-to:** all
+**Summary:** Use Active Record only for simple CRUD domains where the data model and domain model are closely aligned.
 
 ## Principle
 

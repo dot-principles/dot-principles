@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** schema-design, type-safety, maintainability
 **Applies-to:** schema
+**Summary:** Never use untyped blobs or Any fields; define an explicit, validated schema for every structured payload.
 
 ## Principle
 

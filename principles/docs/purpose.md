@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** documentation, readability
 **Applies-to:** docs
+**Summary:** Assign each document exactly one purpose—tutorial, how-to, reference, or explanation—and never mix them.
 
 ## Principle
 

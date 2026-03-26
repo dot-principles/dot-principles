@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** database, distributed-systems, architecture, reliability
 **Applies-to:** distributed-systems, microservices, cloud-native
+**Summary:** Explicitly choose between consistency and availability during partitions before a distributed system is designed.
 
 ## Principle
 

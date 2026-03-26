@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, package-design, modularity, maintainability
 **Applies-to:** all
+**Summary:** Group into one component only the classes that change at the same time for the same reasons.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** type-safety, correctness
 **Applies-to:** all (especially typed languages)
+**Summary:** Design types so that invalid domain states cannot be constructed, not merely discouraged by convention.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, separation-of-concerns
 **Applies-to:** all
+**Summary:** Organize code into layers where each layer depends only on the layer directly below it; never skip layers.
 
 ## Principle
 

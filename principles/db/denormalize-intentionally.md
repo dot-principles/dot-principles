@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** database, performance, data-modeling, maintainability
 **Applies-to:** all
+**Summary:** Denormalise only when a measured performance problem justifies it and the redundancy is explicitly managed.
 
 ## Principle
 

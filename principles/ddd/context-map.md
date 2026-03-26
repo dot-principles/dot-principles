@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, domain-driven-design, integration
 **Applies-to:** all
+**Summary:** Document explicit relationships between Bounded Contexts using a Context Map with named integration patterns.
 **Audit-scope:** limited — the relationship type (Conformist vs ACL vs Partnership) is a team decision; what is detectable in code is whether a translation layer exists at all.
 
 ## Principle

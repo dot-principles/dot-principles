@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** testing, quality
 **Applies-to:** all
+**Summary:** Name tests as behavior specifications that state context, action, and expected outcome without reading the body.
 
 ## Principle
 

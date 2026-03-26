@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** security, dependency-management, supply-chain
 **Applies-to:** all
+**Summary:** Track all dependency versions, run SCA in CI, and fail builds on high-severity known vulnerabilities.
 
 ## Principle
 

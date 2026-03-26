@@ -3,6 +3,7 @@
 **Layer:** 1
 **Categories:** database, transactions, reliability, correctness
 **Applies-to:** all
+**Summary:** Ensure every database transaction satisfies Atomicity, Consistency, Isolation, and Durability guarantees.
 
 ## Principle
 

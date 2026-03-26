@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** infrastructure, devops, repeatability
 **Applies-to:** all
+**Summary:** Declare every infrastructure resource in version-controlled code and apply all changes through an automated pipeline.
 
 ## Principle
 

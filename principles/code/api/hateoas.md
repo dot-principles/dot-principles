@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** api-design, rest, protocol-design
 **Applies-to:** all
+**Summary:** Include hypermedia links in every response so clients discover available actions rather than hardcoding URIs.
 
 ## Principle
 

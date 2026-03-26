@@ -3,6 +3,7 @@
 **Layer:** 3 (risk-elevated)
 **Categories:** security, cryptography, data-protection
 **Applies-to:** all
+**Summary:** Use strong, current cryptographic algorithms with managed keys for all sensitive data in transit and at rest.
 
 ## Principle
 

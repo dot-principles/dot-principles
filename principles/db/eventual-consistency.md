@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** database, distributed-systems, reliability, architecture
 **Applies-to:** distributed-systems, microservices, cloud-native
+**Summary:** Design systems for eventual consistency explicitly; implement conflict detection and read guarantees where required.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** configuration, reliability, tooling
 **Applies-to:** config
+**Summary:** Define a schema declaring every config key before writing values; validate config files against it in CI.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** software-design, dependency-management, testability
 **Applies-to:** all
+**Summary:** High-level modules must depend on abstractions, never on concrete low-level implementations.
 
 ## Principle
 

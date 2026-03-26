@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
 **Applies-to:** all
+**Summary:** Declare all variables and parameters against abstract interfaces, never against concrete implementation types.
 
 ## Principle
 

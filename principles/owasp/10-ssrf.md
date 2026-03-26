@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** security, injection, network
 **Applies-to:** all
+**Summary:** Validate all server-side request URLs against a strict allowlist of permitted schemes, hosts, and ports.
 
 ## Principle
 

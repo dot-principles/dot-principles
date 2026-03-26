@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, api-design, encapsulation
 **Applies-to:** all
+**Summary:** Expose all module services through a uniform notation regardless of storage or computation.
 
 ## Principle
 

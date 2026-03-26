@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** software-design, object-oriented, testability
 **Applies-to:** all
+**Summary:** Pass dependencies into constructors rather than hardwiring them as singletons or static utilities.
 
 ## Principle
 

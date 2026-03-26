@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** testing, quality, reliability
 **Applies-to:** all
+**Summary:** Never add test-only branches to production code; use dependency injection or seams instead.
 
 ## Principle
 

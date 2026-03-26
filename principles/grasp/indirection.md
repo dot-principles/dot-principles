@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, coupling-reduction, architecture
 **Applies-to:** all
+**Summary:** Introduce an intermediary object to decouple two components so each can vary independently.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** security
 **Applies-to:** all
+**Summary:** Perform threat modeling and apply secure design patterns before implementation begins, not after.
 
 ## Principle
 

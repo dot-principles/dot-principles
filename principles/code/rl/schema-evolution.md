@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** reliability, distributed-systems
 **Applies-to:** all
+**Summary:** Design data schemas for forward and backward compatibility to enable independent service deployments.
 
 ## Principle
 

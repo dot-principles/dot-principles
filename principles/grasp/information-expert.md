@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** software-design, responsibility-assignment
 **Applies-to:** all
+**Summary:** Assign each responsibility to the class that already holds the data needed to fulfill it.
 
 ## Principle
 

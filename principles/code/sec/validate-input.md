@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** security, reliability, api-design
 **Applies-to:** all
+**Summary:** Validate all input at every system boundary; never trust external data.
 
 ## Principle
 

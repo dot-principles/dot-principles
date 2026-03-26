@@ -3,6 +3,7 @@
 **Layer:** 3 (risk-elevated)
 **Categories:** performance
 **Applies-to:** all
+**Summary:** Eliminate lock contention and GC pressure in hot paths to ensure consistent, predictable response times.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** infrastructure, security, iam, access-control
 **Applies-to:** all
+**Summary:** Grant every identity only the minimum permissions required for its function; no standing admin access.
 
 ## Principle
 

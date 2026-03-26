@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, type-safety, reliability, correctness
 **Applies-to:** all
+**Summary:** Write total functions that return a declared output type for every input; never throw, loop forever, or return null.
 
 ## Principle
 

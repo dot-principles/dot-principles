@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, microservices, data-management, service-boundaries
 **Applies-to:** all
+**Summary:** Each microservice must own its data exclusively; no other service may bypass its API to access its database.
 
 ## Principle
 

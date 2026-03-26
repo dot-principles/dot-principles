@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, cloud-native, deployment
 **Applies-to:** cloud-native, twelve-factor-apps
+**Summary:** Export services by binding to a port using an embedded server; never rely on external application servers.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
 **Applies-to:** all
+**Summary:** Prefer dependency injection of a shared instance over a global Singleton; avoid mutable global state.
 
 ## Principle
 

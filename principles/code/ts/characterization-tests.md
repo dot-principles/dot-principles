@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** testing, quality, maintainability
 **Applies-to:** all
+**Summary:** Before refactoring legacy code, write characterization tests that pin its current behaviour as a safety net.
 **Audit-scope:** limited — auditable as the absence of test coverage over code paths actively being modified; not detectable from static analysis alone
 
 ## Principle

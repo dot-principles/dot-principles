@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** concurrency, thread-safety, performance
 **Applies-to:** all
+**Summary:** Guard every access to shared mutable data with a consistent synchronization mechanism.
 
 ## Principle
 

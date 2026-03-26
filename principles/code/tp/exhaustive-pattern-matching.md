@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** type-safety, correctness
 **Applies-to:** all (especially typed languages)
+**Summary:** Use exhaustive pattern matching so the compiler enforces that every variant of a type is handled.
 
 ## Principle
 

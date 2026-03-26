@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, responsibility-assignment, architecture
 **Applies-to:** all
+**Summary:** Route system events through a dedicated controller class; never embed coordination logic in UI or domain objects.
 
 ## Principle
 

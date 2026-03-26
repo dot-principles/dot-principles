@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** observability, operations, reliability
 **Applies-to:** all
+**Summary:** Include high-cardinality fields like user IDs in telemetry to pinpoint exactly who and what is affected.
 
 ## Principle
 

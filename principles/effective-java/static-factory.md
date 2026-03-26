@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** api-design, developer-experience
 **Applies-to:** java
+**Summary:** Prefer static factory methods over constructors for named, cached, or polymorphic instance creation.
 
 ## Principle
 

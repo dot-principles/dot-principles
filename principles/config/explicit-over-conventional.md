@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** configuration, maintainability, readability
 **Applies-to:** config
+**Summary:** Make every configuration key and its effect explicit; never rely on undocumented framework conventions.
 
 ## Principle
 

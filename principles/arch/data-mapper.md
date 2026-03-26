@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, data-access, separation-of-concerns
 **Applies-to:** all
+**Summary:** Use a dedicated mapper to transfer data between domain objects and the database, keeping both fully independent.
 
 ## Principle
 

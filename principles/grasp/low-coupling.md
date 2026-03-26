@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** software-design, maintainability, dependency-management
 **Applies-to:** all
+**Summary:** Depend on stable abstractions and minimise the number of classes each class directly references.
 
 ## Principle
 

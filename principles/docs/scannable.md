@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** documentation, readability, usability
 **Applies-to:** docs
+**Summary:** Use descriptive headings, short paragraphs, and bold anchors so readers can locate information by scanning.
 
 ## Principle
 

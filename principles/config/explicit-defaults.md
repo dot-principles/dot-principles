@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** configuration, reliability, maintainability
 **Applies-to:** config
+**Summary:** Declare every optional config key's default explicitly in the schema, not buried in application fallback logic.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** software-design, api-design, coupling
 **Applies-to:** all
+**Summary:** Split fat interfaces into focused role interfaces so each client depends only on methods it actually uses.
 
 ## Principle
 

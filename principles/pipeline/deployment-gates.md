@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** reliability, pipeline, security, deployment
 **Applies-to:** pipeline
+**Summary:** Require explicit approval or automated policy checks before every deployment to a protected environment.
 
 ## Principle
 

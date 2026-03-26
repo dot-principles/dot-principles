@@ -4,6 +4,7 @@
 **Categories:** testing, quality, software-design
 
 **Applies-to:** all
+**Summary:** Extract logic from framework-coupled classes into a dependency-free Humble Object that is easy to test.
 
 ## Principle
 

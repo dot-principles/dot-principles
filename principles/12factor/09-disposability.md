@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, cloud-native, resilience
 **Applies-to:** cloud-native, twelve-factor-apps
+**Summary:** Design processes to start quickly, shut down gracefully on SIGTERM, and survive sudden death safely.
 **Audit-scope:** limited — can detect missing SIGTERM handlers, ack-before-process patterns, and startup migrations; cannot measure actual startup time (requires running the app)
 
 ## Principle

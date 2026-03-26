@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
 **Applies-to:** all
+**Summary:** Favour object composition over inheritance to keep classes focused and enable behaviour changes at runtime.
 
 ## Principle
 

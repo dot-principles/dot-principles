@@ -3,6 +3,7 @@
 **Layer:** 1
 **Categories:** security, container, supply-chain, infrastructure
 **Applies-to:** dockerfile
+**Summary:** Pin every FROM instruction to a specific digest or full version tag; never use mutable tags like latest.
 
 ## Principle
 

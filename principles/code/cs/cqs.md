@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** software-design, maintainability, predictability
 **Applies-to:** all
+**Summary:** Every method must be either a command or a query, never both.
 
 ## Principle
 

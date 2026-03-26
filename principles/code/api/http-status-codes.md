@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** api-design, rest, protocol-design
 **Applies-to:** all
+**Summary:** Use HTTP status codes precisely to communicate outcomes; never return 200 for errors.
 
 ## Principle
 

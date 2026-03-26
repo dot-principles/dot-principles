@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, maintainability
 **Applies-to:** all
+**Summary:** Consolidate scattered logic so that a single concept change requires editing only one location.
 
 ## Principle
 

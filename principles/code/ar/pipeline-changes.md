@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** architecture, infrastructure, devops
 **Applies-to:** all
+**Summary:** Apply all infrastructure changes through an automated pipeline; never run commands directly from a workstation.
 
 ## Principle
 

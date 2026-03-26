@@ -3,6 +3,7 @@
 **Layer:** 1
 **Categories:** devops, continuous-delivery, testing, quality
 **Applies-to:** all
+**Summary:** Treat a failing main branch build as the team's highest priority; nothing ships until it passes.
 
 ## Principle
 

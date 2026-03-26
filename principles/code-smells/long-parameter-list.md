@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, maintainability
 **Applies-to:** all
+**Summary:** Replace long parameter lists with parameter objects to reduce complexity and prevent call-site errors.
 
 ## Principle
 

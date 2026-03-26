@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, reliability, resilience
 **Applies-to:** all
+**Summary:** Isolate subsystem resources into separate pools so one failure cannot exhaust resources needed by others.
 
 ## Principle
 

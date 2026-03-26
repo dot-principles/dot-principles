@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** testing, quality
 **Applies-to:** all
+**Summary:** Structure every test in three explicit phases: Arrange, Act, and Assert.
 
 ## Principle
 

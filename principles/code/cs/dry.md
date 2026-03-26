@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** code-smells, maintainability, refactoring
 **Applies-to:** all
+**Summary:** Every piece of knowledge must have a single, authoritative representation in the system.
 
 ## Principle
 

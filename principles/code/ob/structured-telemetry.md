@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** observability, operations, reliability
 **Applies-to:** all
+**Summary:** Emit structured, machine-parseable telemetry with request-scoped context on every event.
 
 ## Principle
 

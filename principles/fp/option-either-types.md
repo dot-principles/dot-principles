@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, type-safety, error-handling, reliability
 **Applies-to:** all
+**Summary:** Use Option and Either types to make absence and failure explicit in signatures, forcing exhaustive handling by callers.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** architecture, governance, documentation
 **Applies-to:** all
+**Summary:** Capture every significant architectural decision as an ADR recording context, decision, and consequences.
 
 ## Principle
 

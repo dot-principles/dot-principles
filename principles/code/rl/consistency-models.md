@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** reliability, distributed-systems
 **Applies-to:** all
+**Summary:** Choose consistency models explicitly per operation based on correctness requirements, not by accident.
 
 ## Principle
 

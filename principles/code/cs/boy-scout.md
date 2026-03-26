@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** maintainability, refactoring, craftsmanship
 **Applies-to:** all
+**Summary:** Always leave the code cleaner than you found it by making small improvements on every touch.
 **Audit-scope:** excluded — violations require comparing code to a prior state (git history); a codebase snapshot cannot be audited
 
 ## Principle

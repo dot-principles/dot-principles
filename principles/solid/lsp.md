@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** software-design, correctness, inheritance
 **Applies-to:** all
+**Summary:** Subtypes must be fully substitutable for their base type without requiring special-case logic in callers.
 
 ## Principle
 

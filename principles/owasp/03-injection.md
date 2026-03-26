@@ -3,6 +3,7 @@
 **Layer:** 3 (risk-elevated)
 **Categories:** security, injection, input-validation
 **Applies-to:** all
+**Summary:** Use parameterised queries and structured APIs for all interpreter calls; never concatenate user data into commands.
 
 ## Principle
 

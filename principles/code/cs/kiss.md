@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** simplicity, software-design, maintainability
 **Applies-to:** all
+**Summary:** Choose the simplest solution that correctly solves the problem; never add unnecessary complexity.
 
 ## Principle
 

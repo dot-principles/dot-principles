@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, maintainability
 **Applies-to:** all
+**Summary:** Split classes that change for multiple unrelated reasons to enforce single responsibility.
 
 ## Principle
 

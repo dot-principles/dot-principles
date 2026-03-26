@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, correctness, software-design
 **Applies-to:** all
+**Summary:** Write pure, referentially transparent functions so program correctness can be verified by algebraic substitution.
 
 ## Principle
 

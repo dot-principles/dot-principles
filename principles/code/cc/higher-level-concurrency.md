@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** concurrency, thread-safety, performance
 **Applies-to:** all
+**Summary:** Use high-level concurrency utilities instead of raw wait/notify to avoid subtle synchronization bugs.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, data-access, reliability
 **Applies-to:** all
+**Summary:** Track all domain changes in a Unit of Work and commit them in one coordinated database transaction at completion.
 
 ## Principle
 

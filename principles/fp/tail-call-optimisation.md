@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, performance, reliability
 **Applies-to:** haskell, scala, erlang, elixir, f#, clojure, kotlin
+**Summary:** Use tail-recursive calls or trampolining to achieve O(1) stack space for deep recursive computations.
 
 ## Principle
 

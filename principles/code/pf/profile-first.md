@@ -3,6 +3,7 @@
 **Layer:** 3 (risk-elevated)
 **Categories:** performance
 **Applies-to:** all
+**Summary:** Always profile to identify actual bottlenecks before making any performance optimization.
 **Audit-scope:** excluded — the core violation ("optimized without profiling data") is a process event, not a code state; no artifact in the codebase proves or disproves whether profiling occurred
 
 ## Principle

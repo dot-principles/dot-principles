@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** observability, operations, reliability, performance
 **Applies-to:** all
+**Summary:** Report tail percentiles (p99, p99.9) for latency; never rely on mean or maximum values alone.
 
 ## Principle
 

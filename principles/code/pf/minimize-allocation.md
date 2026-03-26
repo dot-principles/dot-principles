@@ -3,6 +3,7 @@
 **Layer:** 3 (risk-elevated)
 **Categories:** performance
 **Applies-to:** all
+**Summary:** Minimize object creation in hot paths to reduce GC pressure and prevent unpredictable pauses.
 
 ## Principle
 

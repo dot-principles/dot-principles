@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, evolutionary-architecture, maintainability
 **Applies-to:** all
+**Summary:** Design every component to be replaceable without requiring changes to its neighbors; prefer explicit versioned interfaces.
 
 ## Principle
 

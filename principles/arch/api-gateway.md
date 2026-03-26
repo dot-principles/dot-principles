@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, api-design, microservices
 **Applies-to:** all
+**Summary:** Route all external traffic through a single API gateway that enforces authentication, rate limiting, and routing.
 
 ## Principle
 

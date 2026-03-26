@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** type-safety, correctness
 **Applies-to:** all (especially typed languages)
+**Summary:** Wrap primitive values in distinct types so the compiler rejects mismatched domain concepts at compile time.
 
 ## Principle
 

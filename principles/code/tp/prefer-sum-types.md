@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** type-safety, correctness
 **Applies-to:** all (especially typed languages)
+**Summary:** Model multi-variant values as sum types, not booleans, strings, or integer codes.
 
 ## Principle
 

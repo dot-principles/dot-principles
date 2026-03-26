@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** security, supply-chain, integrity
 **Applies-to:** all
+**Summary:** Verify checksums and signatures for all artifacts; never deserialize untrusted data into complex objects.
 
 ## Principle
 

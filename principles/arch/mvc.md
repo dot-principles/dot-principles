@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** architecture, separation-of-concerns, user-interface
 **Applies-to:** all
+**Summary:** Separate domain state, rendering, and user-input handling into Model, View, and Controller with no cross-responsibility.
 
 ## Principle
 

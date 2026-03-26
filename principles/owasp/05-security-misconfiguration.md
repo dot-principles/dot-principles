@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** security, configuration, hardening
 **Applies-to:** all
+**Summary:** Change defaults, disable unused features, and enforce hardening checklists across all components and environments.
 
 ## Principle
 

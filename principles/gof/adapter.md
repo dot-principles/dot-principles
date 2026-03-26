@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
 **Applies-to:** all
+**Summary:** Use Adapter to convert an incompatible interface into one clients expect, enabling unrelated classes to cooperate.
 
 ## Principle
 

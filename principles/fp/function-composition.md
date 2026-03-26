@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, software-design, maintainability
 **Applies-to:** all
+**Summary:** Build complex behaviour by composing small, single-purpose functions where each output feeds the next input.
 
 ## Principle
 

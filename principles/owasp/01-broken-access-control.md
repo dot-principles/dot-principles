@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** security, access-control, authorisation
 **Applies-to:** all
+**Summary:** Enforce server-side authorisation on every request; deny by default and verify resource ownership explicitly.
 
 ## Principle
 

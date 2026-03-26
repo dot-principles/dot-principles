@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** testing, quality
 **Applies-to:** all
+**Summary:** Use the Builder pattern to construct test fixtures, setting only the fields relevant to each scenario.
 
 ## Principle
 

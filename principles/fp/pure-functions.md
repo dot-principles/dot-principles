@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** functional-programming, software-design, maintainability, testability
 **Applies-to:** all
+**Summary:** Write functions that always return the same output for the same input and cause no observable side effects.
 
 ## Principle
 

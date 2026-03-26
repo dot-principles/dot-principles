@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** documentation, readability
 **Applies-to:** docs
+**Summary:** Write every document for a specific reader with a known background and a concrete goal in mind.
 
 ## Principle
 

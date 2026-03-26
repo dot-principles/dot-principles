@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** database, architecture, scalability
 **Applies-to:** microservices, large-scale-systems
+**Summary:** Choose the storage technology whose data model best fits each distinct access pattern in the system.
 
 ## Principle
 

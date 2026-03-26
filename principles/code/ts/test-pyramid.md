@@ -4,6 +4,7 @@
 **Categories:** testing, quality
 
 **Applies-to:** all
+**Summary:** Build test suites as a pyramid: many fast unit tests, fewer integration tests, minimal end-to-end tests.
 
 ## Principle
 

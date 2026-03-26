@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, responsibility-assignment, object-creation
 **Applies-to:** all
+**Summary:** Assign object-creation responsibility to the class that aggregates, contains, or holds initializing data for the new object.
 
 ## Principle
 

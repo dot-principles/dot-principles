@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** documentation, readability, usability
 **Applies-to:** docs
+**Summary:** Lead with the simplest case and layer increasing complexity so readers can stop when they have enough.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, package-design, modularity, architecture
 **Applies-to:** all
+**Summary:** Stable components must consist primarily of abstract types so they remain extensible without modification.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** functional-programming, concurrency, reliability, software-design
 **Applies-to:** all
+**Summary:** Eliminate shared mutable state; transform data through pipelines to prevent race conditions and action-at-a-distance bugs.
 
 ## Principle
 

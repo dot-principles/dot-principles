@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** api-design, developer-experience
 **Applies-to:** java
+**Summary:** Keep parameter lists to four or fewer, use enums instead of booleans, and choose method names carefully.
 
 ## Principle
 

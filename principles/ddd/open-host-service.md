@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, domain-driven-design, api-design
 **Applies-to:** all
+**Summary:** Expose a versioned, documented protocol for external contexts to consume while keeping the internal model free to evolve.
 
 ## Principle
 

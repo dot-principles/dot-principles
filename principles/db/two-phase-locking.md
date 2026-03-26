@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** database, concurrency, transactions, correctness
 **Applies-to:** relational-databases, high-conflict-systems
+**Summary:** Acquire all locks before releasing any; keep transactions short to prevent deadlocks and serializability violations.
 
 ## Principle
 

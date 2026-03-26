@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** reliability, distributed-systems
 **Applies-to:** all
+**Summary:** Signal producers to slow down when consumers are overwhelmed; never buffer unboundedly or drop silently.
 
 ## Principle
 

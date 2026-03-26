@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** api-design, maintainability
 **Applies-to:** java, kotlin
+**Summary:** Audit every default method added to an existing interface against all known implementations before release.
 
 ## Principle
 

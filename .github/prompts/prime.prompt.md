@@ -3,6 +3,14 @@ description: Activate code principles before writing code (Experimental)
 mode: agent
 ---
 
+---
+description: Activate principles before working on a file or task. Use when the user runs /prime [target] to load the relevant principles into the active frame before writing or editing.
+argument-hint: "[file|directory|description]"
+allowed-tools: Read, Glob, Grep, Bash
+version: 0.6.0
+authors: Flemming N. Larsen (https://github.com/flemming-n-larsen)
+---
+
 # Prime
 
 You are activating principles before working on a file or task. Follow these five phases exactly.
@@ -13,7 +21,7 @@ If `$ARGUMENTS` is provided, use it as the context (file path, directory, or des
 
 ### Artifact type detection
 
-Detect the artifact type of the target file(s) by reading `{{PRINCIPLES_DIRECTORY}}/layers/artifact-types.yaml` and matching against its type definitions.
+Detect the artifact type of the target file(s) by reading `.principles-catalog/layers/artifact-types.yaml` and matching against its type definitions.
 
 Record the detected type: **`code`** | **`docs`** | **`config`** | **`infra`** | **`schema`** | **`pipeline`**
 
@@ -41,8 +49,9 @@ Before walking `.principles` files, check for a pre-compiled block injected by `
 If the file contains `<!-- .principles: begin`, the compiled block is present. When found:
 
 1. Parse all principle IDs from the block — lines matching `- <ID>: ...` where the ID is uppercase letters and hyphens
-2. Use these as the **active principle set** — skip the tree walk below
-3. Record source as: `compiled-block: <filename>`
+2. Optionally cross-reference `.principles-catalog/index.tsv` (each line: `ID|LAYER|SUMMARY`) to get Layer groupings for display in the prime header (e.g. "Layer 1: N always-active, Layer 2: M stack-specific").
+3. Use these as the **active principle set** — skip the tree walk below
+4. Record source as: `compiled-block: <filename>`
 
 **Load principle content from the catalog:**
 
@@ -81,7 +90,7 @@ For each namespace, read:
 ```
 Filter to only entries whose `### ID` heading is in the active set.
 
-If `.principles-catalog/` is absent, fall back to Phase 4 logic (using `{{PRINCIPLES_DIRECTORY}}`).
+If `.principles-catalog/` is absent, fall back to Phase 4 logic (using `.principles-catalog`).
 
 **→ Active set and principle content are now loaded. Skip to Phase 5.**
 
@@ -99,7 +108,7 @@ Walk **up** from the target path to the git repo root (directory containing `.gi
 
 **Step 1 — Universal principles** (active for ALL artifact types):
 
-Read `{{PRINCIPLES_DIRECTORY}}/layers/artifact-types.yaml` → `universal` section. Seed the active set with:
+Read `.principles-catalog/layers/artifact-types.yaml` → `universal` section. Seed the active set with:
 
 | ID | Title |
 |----|-------|
@@ -112,14 +121,14 @@ Read `{{PRINCIPLES_DIRECTORY}}/layers/artifact-types.yaml` → `universal` secti
 
 **Step 2 — Stack layer 1** (active for the detected artifact type):
 
-Read `{{PRINCIPLES_DIRECTORY}}/layers/<detected-type>/layer-1-universal.md`. Add all principle IDs from the table in that file to the active set.
+Read `.principles-catalog/layers/<detected-type>/layer-1-universal.md`. Add all principle IDs from the table in that file to the active set.
 
 ### Process Each .principles File (root → target)
 
 For each `.principles` file encountered:
 
 1. Skip blank lines and `#` comment lines
-2. For each `@group` entry: read `{{PRINCIPLES_DIRECTORY}}/groups/<group>.yaml`, expand its `principles` list into the active set. Recursively process any `includes` entries (detect and abort on cycles).
+2. For each `@group` entry: read `.principles-catalog/groups/<group>.yaml`, expand its `principles` list into the active set. Recursively process any `includes` entries (detect and abort on cycles).
 3. For each bare `ID` entry: add the ID to the active set (case-insensitive)
 4. For each `!ID` entry: add the ID to an exclusion set
 
@@ -133,17 +142,17 @@ Record source as: `.principles hierarchy (N files)`
 
 ### Layer 1 — Seed
 
-Same as Phase 2 seeding: universal principles + stack layer 1 from `{{PRINCIPLES_DIRECTORY}}/layers/<detected-type>/layer-1-universal.md`.
+Same as Phase 2 seeding: universal principles + stack layer 1 from `.principles-catalog/layers/<detected-type>/layer-1-universal.md`.
 
 ### Layer 2 — Context-Dependent
 
-Read `{{PRINCIPLES_DIRECTORY}}/layers/<detected-type>/layer-2-contexts.yaml`.
+Read `.principles-catalog/layers/<detected-type>/layer-2-contexts.yaml`.
 
 Based on the context detected in Phase 1, activate ALL principles from matching contexts. Scan the target file(s) content and the Phase 1 context signals for matches.
 
 ### Layer 3 — Risk-Elevated
 
-Check for `{{PRINCIPLES_DIRECTORY}}/layers/<detected-type>/layer-3-risk-signals.yaml`. If present, apply matching risk categories based on Phase 1 signals. Elevated principles carry extra weight during generation.
+Check for `.principles-catalog/layers/<detected-type>/layer-3-risk-signals.yaml`. If present, apply matching risk categories based on Phase 1 signals. Elevated principles carry extra weight during generation.
 
 Record source as: `dynamic detection (<type> stack)`
 
@@ -153,7 +162,7 @@ Determine the namespaces present in the active ID set (e.g. `CODE-CS-DRY` → `c
 
 For each namespace, read its single pre-compiled context file:
 ```
-{{PRINCIPLES_DIRECTORY}}/principles/<namespace>/.context-prime.md
+.principles-catalog/principles/<namespace>/.context-prime.md
 ```
 
 Filter to only the entries whose `### ID` is in the final active set. Do not load entries for inactive principles.

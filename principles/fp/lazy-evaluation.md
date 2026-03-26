@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, performance, software-design
 **Applies-to:** haskell, scala, clojure, python, javascript, typescript
+**Summary:** Defer computations until results are needed to decouple producers from consumers and enable infinite sequences.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** security, pipeline
 **Applies-to:** pipeline
+**Summary:** Grant each pipeline job only the minimum permissions and secrets required for its specific task.
 
 ## Principle
 

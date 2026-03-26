@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** architecture, observability, operations, distributed-systems
 **Applies-to:** all
+**Summary:** Design every system to expose structured logs, metrics, and distributed traces from the outset, not as an afterthought.
 
 ## Principle
 

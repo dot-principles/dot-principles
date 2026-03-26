@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** integration, messaging, performance
 **Applies-to:** all
+**Summary:** Store large payloads externally and pass only a lightweight claim-check reference through the message bus.
 
 ## Principle
 

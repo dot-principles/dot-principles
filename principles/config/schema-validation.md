@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** reliability, configuration
 **Applies-to:** config
+**Summary:** Validate all configuration against a schema at startup and fail immediately on any missing or malformed value.
 
 ## Principle
 

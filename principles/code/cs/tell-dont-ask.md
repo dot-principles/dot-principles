@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** software-design, object-oriented, encapsulation
 **Applies-to:** all
+**Summary:** Tell objects what to do; never ask for their data to make decisions externally.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** reliability, pipeline, supply-chain
 **Applies-to:** pipeline
+**Summary:** Pin all dependency versions and build tool images so identical inputs always produce identical artifacts.
 
 ## Principle
 

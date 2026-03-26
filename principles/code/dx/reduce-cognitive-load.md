@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** developer-experience, readability
 **Applies-to:** all
+**Summary:** Structure code so developers hold as few concepts in working memory as possible at any point.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** api-design, rest, protocol-design
 **Applies-to:** all
+**Summary:** Honor HTTP method semantics — GET must be safe, PUT and DELETE must be idempotent.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** concurrency, thread-safety, performance
 **Applies-to:** all
+**Summary:** Hold locks only for the minimum time needed; never perform I/O or long operations inside a critical section.
 
 ## Principle
 

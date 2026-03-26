@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, software-design
 **Applies-to:** all
+**Summary:** Express repetition through recursive functions with explicit base and recursive cases instead of mutable loop variables.
 
 ## Principle
 

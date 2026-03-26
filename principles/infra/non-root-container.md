@@ -3,6 +3,7 @@
 **Layer:** 1
 **Categories:** security, container, infrastructure
 **Applies-to:** dockerfile, kubernetes
+**Summary:** Every container must switch to a dedicated non-root user with the USER directive before runtime.
 
 ## Principle
 

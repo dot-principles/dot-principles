@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** domain-modeling, domain-driven-design
 **Applies-to:** all
+**Summary:** Record meaningful domain occurrences as immutable past-tense events and publish them to decouple bounded contexts.
 
 ## Principle
 

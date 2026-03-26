@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, cloud-native, deployment
 **Applies-to:** cloud-native, twelve-factor-apps
+**Summary:** Strictly separate build, release, and run stages; every release must be immutable and uniquely identified.
 
 ## Principle
 

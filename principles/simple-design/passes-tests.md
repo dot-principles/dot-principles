@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** software-design, testing, simplicity
 **Applies-to:** all
+**Summary:** All code must pass every test before any other design quality concern is addressed.
 
 ## Principle
 

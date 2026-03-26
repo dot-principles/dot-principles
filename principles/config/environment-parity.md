@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** configuration, reliability, devops
 **Applies-to:** config
+**Summary:** Keep config schema identical across all environments; vary only values, never structure or branching behaviour.
 
 ## Principle
 

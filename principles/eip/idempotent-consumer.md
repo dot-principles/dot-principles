@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** integration, messaging, reliability
 **Applies-to:** all
+**Summary:** Track processed message IDs and discard duplicates to achieve effectively-once processing under at-least-once delivery.
 
 ## Principle
 

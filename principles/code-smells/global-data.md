@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** code-smells, refactoring, coupling, maintainability
 **Applies-to:** all
+**Summary:** Eliminate global mutable state; restrict data access and modification to narrowly scoped locations.
 
 ## Principle
 

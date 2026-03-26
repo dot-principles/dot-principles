@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** maintainability, craftsmanship, team-culture
 **Applies-to:** all
+**Summary:** Fix quality lapses immediately; never let visible disorder signal that standards have dropped.
 
 ## Principle
 

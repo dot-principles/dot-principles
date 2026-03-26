@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** documentation, readability, trust
 **Applies-to:** docs
+**Summary:** Use only factual, demonstrable claims and omit marketing adjectives like "easy", "simple", or "powerful".
 
 ## Principle
 

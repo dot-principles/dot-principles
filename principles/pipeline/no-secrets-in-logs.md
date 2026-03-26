@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** security, pipeline
 **Applies-to:** pipeline
+**Summary:** Never echo secrets in pipeline output; use masked variables and pass credentials via stdin or credential helpers.
 
 ## Principle
 

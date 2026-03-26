@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** pragmatism, performance, prioritisation
 **Applies-to:** all
+**Summary:** Focus effort on the high-impact 20% of code paths, bugs, and features; deprioritize the rest.
 
 ## Principle
 

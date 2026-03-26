@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** observability, operations, reliability
 **Applies-to:** all
+**Summary:** Emit rich contextual events for every unit of work rather than relying on pre-aggregated metrics.
 
 ## Principle
 

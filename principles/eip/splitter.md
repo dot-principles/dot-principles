@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** integration, messaging
 **Applies-to:** all
+**Summary:** Decompose composite messages into individual sub-messages and emit a correlation identifier on each one.
 
 ## Principle
 

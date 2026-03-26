@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** devops, continuous-delivery, deployment, reliability
 **Applies-to:** all
+**Summary:** Deploy to an idle environment first, run smoke tests, then switch traffic; keep the previous environment for instant rollback.
 **Audit-scope:** limited — whether two environments are maintained requires inspecting deployment infrastructure; deployment scripts and pipeline config are partially auditable.
 
 ## Principle

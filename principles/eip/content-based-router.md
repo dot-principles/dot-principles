@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** integration, messaging
 **Applies-to:** all
+**Summary:** Route messages to downstream channels based on content in a dedicated Router, never inside consumers.
 
 ## Principle
 

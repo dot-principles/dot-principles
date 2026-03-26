@@ -3,6 +3,7 @@
 **Layer:** 3 (risk-elevated)
 **Categories:** performance
 **Applies-to:** all
+**Summary:** Write code that works with hardware characteristics like cache lines and branch prediction, not against them.
 
 ## Principle
 

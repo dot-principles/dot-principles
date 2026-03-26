@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** api-design, developer-experience
 **Applies-to:** java
+**Summary:** Eliminate all unchecked warnings; suppress only when type-safety is proven and suppression is scoped as narrowly as possible.
 
 ## Principle
 

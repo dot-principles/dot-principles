@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
 **Applies-to:** all
+**Summary:** Use Abstract Factory to create families of related objects without coupling client code to concrete classes.
 
 ## Principle
 

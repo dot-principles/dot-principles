@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
 **Applies-to:** all
+**Summary:** Add new operations to a stable object hierarchy via a new Visitor class; never modify the element classes.
 
 ## Principle
 

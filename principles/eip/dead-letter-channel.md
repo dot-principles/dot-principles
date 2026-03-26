@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** integration, messaging, reliability
 **Applies-to:** all
+**Summary:** Route undeliverable messages to a Dead Letter Channel for inspection and replay instead of discarding them.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** reliability, error-handling, debugging
 **Applies-to:** all
+**Summary:** Detect errors as early as possible and report them clearly; never silently continue in a broken state.
 
 ## Principle
 

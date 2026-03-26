@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** observability, operations, reliability
 **Applies-to:** all
+**Summary:** Alert on user-visible symptoms like error rates and latency SLOs, not on internal resource signals.
 **Audit-scope:** limited — alert rule files (Prometheus rules, Grafana alerts, PagerDuty policies) are readable and inspectable; on-call behaviour and escalation processes are not
 
 ## Principle

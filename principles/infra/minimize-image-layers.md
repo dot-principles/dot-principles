@@ -3,6 +3,7 @@
 **Layer:** 1
 **Categories:** container, performance, infrastructure
 **Applies-to:** dockerfile
+**Summary:** Use multi-stage builds and combine RUN instructions to minimize container image size and attack surface.
 
 ## Principle
 

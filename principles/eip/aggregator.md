@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** integration, messaging, reliability
 **Applies-to:** all
+**Summary:** Always define a correlation expression, completeness condition, and timeout strategy for every Aggregator.
 
 ## Principle
 

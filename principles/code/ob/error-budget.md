@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** observability, operations, reliability
 **Applies-to:** all
+**Summary:** Alert on SLO burn rate and treat reliability as highest priority when the error budget is exhausted.
 
 ## Principle
 

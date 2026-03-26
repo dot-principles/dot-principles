@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** api-design, developer-experience
 **Applies-to:** java
+**Summary:** Declare every class and member as inaccessible as possible to enforce encapsulation and hide implementation details.
 
 ## Principle
 

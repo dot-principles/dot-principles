@@ -104,7 +104,7 @@ principles/
 
 ### Pre-compiled context files
 
-Each namespace contains two pre-compiled files that consolidate all its principle guidance into a single read per command invocation:
+Each namespace contains three pre-compiled files that consolidate all its principle guidance into a single read per command invocation:
 
 | File | Used by | Contains |
 |------|---------|----------|
@@ -113,6 +113,14 @@ Each namespace contains two pre-compiled files that consolidate all its principl
 | `.context-inspect.md` | `/audit` Phase 5 | Machine-executable pre-scan patterns (grep/awk/find commands) — for principles with deterministic inspection patterns |
 
 The command reads one file per namespace and filters to only the entries in the final active set. This avoids reading N individual principle files.
+
+### `.principles-catalog/` — vendored project subset
+
+When `install.sh all <dir>` (or `install.sh vendor <dir>`) is run, it copies the subset of `principles/` and `groups/` referenced by the project's `.principles` files into `<dir>/.principles-catalog/`. This directory mirrors the structure of the full catalog but contains only the namespaces and groups the project actually uses. It also generates `index.tsv` — a flat pipe-delimited file listing every vendored principle in `ID|LAYER|SUMMARY` format, one line per principle. `/scout` reads this single file to compile the active block without walking individual namespace files.
+
+**Commit `.principles-catalog/` to your repo.** The installed commands reference it as their data source. With it committed, every team member and CI environment gets the correct principle data without needing access to the `.principles` repo.
+
+The `{{PRINCIPLES_DIRECTORY}}` placeholder in command source files resolves to `<dir>/.principles-catalog/` at install time.
 
 ### `.context-inspect.md` Format
 
@@ -148,6 +156,53 @@ description: "Human-readable description of this namespace"
 | `description` | Yes | Human-readable description of the namespace |
 
 The namespace is the directory name. IDs are derived from file paths (see Section 4) — no explicit `namespace` or `id-prefix` fields are needed. The system discovers all `principles/*/catalog.yaml` files automatically.
+
+---
+
+## 🧱 2b. Compiled Block
+
+After `/scout` writes `.principles` files, Phase 6 compiles all active principles into a **compiled block** — a compact, self-contained representation of the active principle set — and injects it into the project's AI instruction files. The `**Summary:**` field from each principle file is extracted verbatim into `.principles-catalog/index.tsv` by `install.sh vendor`; Phase 6 reads `index.tsv` once (not per-namespace files) to build the block in a single pass.
+
+### Block format
+
+```markdown
+<!-- .principles: begin -->
+Active principles compiled by /scout on <date>.
+Re-run /scout to refresh.
+
+| ID | Summary |
+|----|---------|
+| SOLID-SRP | A class must have exactly one reason to change. |
+| CODE-SEC-VALIDATE-INPUT | Validate and sanitise all input at the trust boundary. |
+| ... | ... |
+<!-- .principles: end -->
+```
+
+The block is delimited by `<!-- .principles: begin -->` and `<!-- .principles: end -->` markers. Re-running `/scout` replaces the block in place.
+
+### Injection targets
+
+| Target | Behaviour |
+|--------|-----------|
+| `.claude/rules/principles.md` | Created if absent; Claude Code reads all files in `.claude/rules/` automatically |
+| `AGENTS.md` (hub layout) | `.ai/principles.md` created with block; table row linking to it added in `AGENTS.md` |
+| `AGENTS.md` (simple layout) | Block injected directly into the file |
+| `AGENTS.md` (absent) | New `AGENTS.md` created from scratch containing the block |
+| `.github/copilot-instructions.md` | Block injected unless the file is a pointer/redirect |
+
+**AGENTS.md** is the cross-agent standard — a single instruction file read by OpenAI Codex, Claude Code, GitHub Copilot, and others. Injecting the compiled block there means every AI agent on the project receives the active principle set without per-tool configuration.
+
+### Three-tier context system
+
+The compiled block acts as **tier 1** context — always present, always fast. It is the primary source for `/prime` and `/audit` fast paths:
+
+| Tier | Source | Loaded by |
+|------|--------|-----------|
+| 1 — Compiled block | Injected into AI instruction files by `/scout` | `/prime`, `/audit` (always) |
+| 2 — Namespace context | `.context-prime.md` / `.context-audit.md` per namespace | `/prime` Phase 4, `/audit` Phase 4 |
+| 3 — Inspection patterns | `.context-inspect.md` per namespace | `/audit` Phase 5 only |
+
+`/prime` and `/audit` read the compiled block first (tier 1) then load the relevant namespace context files (tier 2) for full principle guidance. The compiled block avoids tree-walking `.principles` files on every invocation.
 
 ---
 
@@ -263,6 +318,7 @@ Every principle file follows this template:
 **Layer**: [1 | 2 | 3]
 **Categories**: [comma-separated]
 **Applies-to**: [all | comma-separated — languages, platforms, domains, or contexts]
+**Summary**: [One actionable sentence — max ~15 words, written as a rule]
 
 ## Principle
 
@@ -299,6 +355,7 @@ Every principle file follows this template:
 | `Layer`                | 1 = always active, 2 = context-dependent, 3 = risk-elevated                |
 | `Categories`           | Semantic tags for detection (e.g., `api-design`, `security`, `testing`)    |
 | `Applies-to`           | `all` or specific languages, platforms, domains, or architectural contexts |
+| `Summary`              | One actionable sentence (max ~15 words). Used in the compiled block. Required. |
 | `Violations to detect` | Concrete patterns for AI to look for during review                         |
 | `Inspection`           | Optional. Machine-executable pre-scan commands for `/audit` Phase 5. See guidance below |
 | `Good practice`        | Positive example (AI uses this for generation guidance)                    |
@@ -518,7 +575,7 @@ Reviews code against activated principles. Outputs findings grouped by severity.
 
 ### 🔍 `/scout`
 
-Analyses a project directory and creates or updates `.principles` files.
+Analyses a project directory and creates or updates `.principles` files, then compiles and injects the active principle set.
 
 **Phases:**
 
@@ -529,44 +586,36 @@ Analyses a project directory and creates or updates `.principles` files.
 | 3     | Propose Placements | Proposes `.principles` placements — root + overrides for test dirs, security dirs, submodules |
 | 4     | Check Existing     | Merges additions only; never removes or touches `!exclusions`                                 |
 | 5     | Write Files        | Creates or updates files; reports created/updated/unchanged per path                          |
+| 6     | Compile & Inject   | Reads `index.tsv` to compile active principles into a `<!-- .principles: begin/end -->` block in one pass; injects into `.claude/rules/principles.md`, `AGENTS.md`, and `.github/copilot-instructions.md` |
 
 ---
 
 ## 📦 9. Installer Targets
 
-`install.sh` deploys the three commands (`/scout`, `/prime`, `/audit`) to three AI tool families. Each target writes different files because each tool family has its own discovery mechanism.
+`install.sh` deploys the three commands (`/scout`, `/prime`, `/audit`) to supported AI tool families. Each target writes different files because each tool family has its own discovery mechanism.
 
 **Prerequisites:** Bash 4+. See [REQUIREMENTS.md](REQUIREMENTS.md). On Windows, use `install.ps1` (PowerShell) or `install.cmd` (CMD) — thin wrappers that detect bash and forward all arguments to `install.sh`. See [INSTALL.md](INSTALL.md) for platform-specific instructions.
 
-Every target supports two scopes — **global** (no directory argument) applies across all projects, **local** (with a directory argument) applies to a single project:
+Install is **repo-local only** — a `<dir>` argument is always required. There is no global install.
 
-| Command | Scope | Where |
-|---|---|---|
-| `./install.sh claude` | Global | `~/.claude/commands/` |
-| `./install.sh claude <dir>` | Local | `<dir>/.claude/commands/` |
-| `./install.sh copilot` | Global | `~/.copilot/copilot-instructions.md` |
-| `./install.sh copilot <dir>` | Local | `<dir>/.github/` |
-| `./install.sh cursor` | — | Not supported (see below) |
-| `./install.sh cursor <dir>` | Local | `<dir>/.cursor/rules/principles.mdc` |
-| `./install.sh all` | Global | Claude + Copilot globally; Cursor message |
-| `./install.sh all <dir>` | Local | All three tools in `<dir>` |
-| `./install.sh --list` | — | Reports what is currently installed globally |
+| Command | What it installs |
+|---|---|
+| `./install.sh all <dir>` | Claude Code commands + Copilot files + vendor catalog (recommended) |
+| `./install.sh claude <dir>` | Claude Code commands only (`<dir>/.claude/commands/`) |
+| `./install.sh copilot <dir>` | Copilot files only (`<dir>/.github/`) |
+| `./install.sh vendor <dir>` | Vendor catalog only (`<dir>/.principles-catalog/`) |
 
-### 🤖 Claude Code (`./install.sh claude [dir]`)
+### 🤖 Claude Code (`./install.sh claude <dir>`)
 
-Copies `targets/claude-code/*.md` to the commands directory, substituting the `{{PRINCIPLES_DIRECTORY}}` placeholder with the data directory path.
+Copies `targets/claude-code/*.md` to `<dir>/.claude/commands/`, substituting the `{{PRINCIPLES_DIRECTORY}}` placeholder with `<dir>/.principles-catalog/`.
 
-**Data directory (`~/.principles`):** Every Claude install (global or local) also copies `groups/` and `principles/` from the repo into `~/.principles` (`%USERPROFILE%\.principles` on Windows). This is done via `install_data()` before the command files are written. The data directory is refreshed on every install — old files are removed and current repo files are copied in.
+**Compiled block:** `/scout` Phase 6 injects the compiled block into `<dir>/.claude/rules/principles.md` (created if absent). Claude Code reads all files in `.claude/rules/` as always-on context.
 
-**Placeholder substitution:** The source files in `targets/claude-code/` contain the literal string `{{PRINCIPLES_DIRECTORY}}` wherever they reference the data catalog. `install.sh` runs `sed "s|{{PRINCIPLES_DIRECTORY}}|$DATA_DIR|g"` when writing to the commands directory, so the installed copies always reference the correct absolute path. The placeholder is left untouched in the source files.
+Claude Code discovers slash commands by scanning `<dir>/.claude/commands/` for `.md` files. The file body is the full prompt.
 
-Claude Code discovers slash commands by scanning `~/.claude/commands/` (global) or `<dir>/.claude/commands/` (local) for `.md` files. The file body is the full prompt. No frontmatter is required.
+### 🐙 GitHub Copilot (`./install.sh copilot <dir>`)
 
-### 🐙 GitHub Copilot (`./install.sh copilot [dir]`)
-
-**Global** (`copilot` with no argument): writes `~/.copilot/copilot-instructions.md` with the Layer 1–3 principle summary. This is consumed by all Copilot clients as always-on background context.
-
-**Local** (`copilot <dir>`): writes three sets of files:
+Writes three sets of files into `<dir>/.github/`:
 
 | File | Location | Consumed by |
 |------|----------|-------------|
@@ -574,23 +623,25 @@ Claude Code discovers slash commands by scanning `~/.claude/commands/` (global) 
 | `SKILL.md` | `.github/skills/<name>/SKILL.md` | **Copilot CLI** (terminal slash commands) |
 | `<name>.prompt.md` | `.github/prompts/<name>.prompt.md` | **VS Code / JetBrains / Visual Studio** (IDE chat) |
 
-**Skills** (`.github/skills/<name>/SKILL.md`) are the CLI mechanism. The Copilot CLI scans `.github/skills/` at startup, reads each `SKILL.md`, and exposes the skill as a `/skill-name` slash command. Skills require a YAML frontmatter with `name` and `description`; the `description` is also used by Copilot to decide when to invoke the skill automatically.
+**Compiled block:** `/scout` Phase 6 injects the compiled block into `.github/copilot-instructions.md` (unless the file is a pointer/redirect). All Copilot clients pick this up automatically.
 
-**Prompt files** (`.github/prompts/<name>.prompt.md`) are the IDE mechanism. Copilot Chat in VS Code, JetBrains, and Visual Studio discovers `.prompt.md` files in `.github/prompts/` and exposes them as slash commands in the chat panel. They use YAML frontmatter with `description:` and `mode: agent` — agent mode enables file reading, tool use, and shell execution, which `/audit` (pre-scan commands, writing `audit-output.json`) and `/scout` (writing `.principles` files) require.
+**Skills** (`.github/skills/<name>/SKILL.md`) are the CLI mechanism. **Prompt files** (`.github/prompts/<name>.prompt.md`) are the IDE mechanism. Both use YAML frontmatter; prompt files use `mode: agent` to enable file reading, tool use, and shell execution.
 
-This repo ships with pre-populated `.github/prompts/` and `.github/skills/` directories so that contributors working in this repo itself get `/scout`, `/prime`, and `/audit` in Copilot without running the installer.
+This repo ships with pre-populated `.github/prompts/` and `.github/skills/` directories so contributors working in this repo itself get `/scout`, `/prime`, and `/audit` without running the installer.
 
-### 🖱️ Cursor (`./install.sh cursor <dir>`)
+### 📦 Vendor (`./install.sh vendor <dir>`)
 
-Writes to `<dir>/.cursor/rules/principles.mdc`.
+Copies the subset of `principles/` and `groups/` referenced by the project's `.principles` files into `<dir>/.principles-catalog/`, and generates `<dir>/.principles-catalog/index.tsv` — a pipe-delimited flat file (`ID|LAYER|SUMMARY`) of every vendored principle. Run by `install.sh all` automatically. Commit `.principles-catalog/` to the repo.
 
-Cursor discovers rules by scanning `.cursor/rules/` for `.mdc` files. The frontmatter `alwaysApply: true` makes the rule active in all contexts.
+### 🗑️ Uninstall (`./uninstall.sh <dir>`)
 
-**Cursor limitation:** Cursor has no file-based user-level config. Global principles require manual setup via **Cursor → Settings → General → Rules for AI**.
+Removes all assets written by `install.sh`:
+- Command files from `<dir>/.claude/commands/`
+- Compiled block from `<dir>/.claude/rules/principles.md`, `<dir>/.ai/principles.md`, `AGENTS.md`, `CLAUDE.md`
+- `<dir>/.principles-catalog/`
+- Legacy `~/.principles` if present from an older install
 
-### 🗑️ Uninstall (`./uninstall.sh [dir]`)
-
-Removes the assets written by `install.sh`. Without an argument, removes global assets — command files from `~/.claude/commands/` and the `~/.principles` data directory. With a directory argument, removes local assets from that project only; the shared data directory is left intact. On Windows, use `uninstall.ps1` or `uninstall.cmd`.
+On Windows, use `uninstall.ps1` or `uninstall.cmd`.
 
 ---
 

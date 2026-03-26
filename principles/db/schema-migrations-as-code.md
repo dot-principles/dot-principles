@@ -3,6 +3,7 @@
 **Layer:** 1
 **Categories:** database, devops, maintainability, reliability
 **Applies-to:** all
+**Summary:** Express every schema change as a versioned migration file reviewed and applied exclusively by automated pipelines.
 
 ## Principle
 

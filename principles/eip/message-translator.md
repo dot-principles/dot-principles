@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** integration, messaging, maintainability
 **Applies-to:** all
+**Summary:** Translate between message formats in a dedicated Translator so producers and consumers remain fully decoupled.
 
 ## Principle
 

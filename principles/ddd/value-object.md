@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** domain-modeling, domain-driven-design
 **Applies-to:** all
+**Summary:** Model descriptive domain concepts without identity as immutable objects compared by full attribute equality.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, maintainability
 **Applies-to:** all
+**Summary:** Refactor code to make intent self-evident; use comments only to explain why, never what.
 
 ## Principle
 

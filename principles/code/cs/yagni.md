@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** software-design, simplicity, agile
 **Applies-to:** all
+**Summary:** Never add functionality until it is actually needed; implement only what current requirements demand.
 
 ## Principle
 

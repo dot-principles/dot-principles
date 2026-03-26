@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, cloud-native, security, configuration
 **Applies-to:** cloud-native, twelve-factor-apps
+**Summary:** Store all config in environment variables; never hardcode credentials or environment-specific values in code.
 
 ## Principle
 

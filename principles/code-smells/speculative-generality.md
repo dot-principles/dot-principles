@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, maintainability
 **Applies-to:** all
+**Summary:** Build only for today's known requirements; remove unused abstractions and speculative dead flexibility.
 
 ## Principle
 

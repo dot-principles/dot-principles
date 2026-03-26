@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, integration, distributed-systems
 **Applies-to:** all
+**Summary:** Prefer asynchronous messaging over synchronous calls whenever the sender does not need an immediate response.
 
 ## Principle
 

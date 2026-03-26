@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** concurrency, thread-safety, performance
 **Applies-to:** all
+**Summary:** Never let `this` escape a constructor; publish object references to other threads only after construction completes.
 
 ## Principle
 

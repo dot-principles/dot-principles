@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** domain-modeling, domain-driven-design
 **Applies-to:** all
+**Summary:** Route all external access and modifications to an aggregate exclusively through its single root entity.
 
 ## Principle
 

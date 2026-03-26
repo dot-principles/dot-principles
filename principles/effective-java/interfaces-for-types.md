@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** api-design, developer-experience
 **Applies-to:** java
+**Summary:** Use interfaces to define behavioral types; never use them solely as containers for constants.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** api-design, performance, reliability
 **Applies-to:** all
+**Summary:** Paginate every collection endpoint with a server-enforced maximum page size; never return unbounded results.
 
 ## Principle
 

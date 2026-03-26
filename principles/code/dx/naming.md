@@ -3,6 +3,7 @@
 **Layer:** 1 (universal)
 **Categories:** developer-experience, readability, maintainability
 **Applies-to:** all
+**Summary:** Every name must reveal intent; never use a name that requires a comment to explain it.
 
 ## Principle
 

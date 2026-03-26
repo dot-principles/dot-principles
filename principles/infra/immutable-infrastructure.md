@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** infrastructure, devops, reliability
 **Applies-to:** cloud, containerised, vm-based
+**Summary:** Never modify running infrastructure; replace it by deploying a freshly built, versioned artifact from a pipeline.
 
 ## Principle
 

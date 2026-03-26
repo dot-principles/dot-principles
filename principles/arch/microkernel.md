@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, extensibility, plugin
 **Applies-to:** all
+**Summary:** Separate a minimal stable core from plugin modules that extend it only through the published plugin API.
 
 ## Principle
 

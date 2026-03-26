@@ -3,6 +3,7 @@
 **Layer:** 2
 **Categories:** api-design, rest, protocol-design
 **Applies-to:** all
+**Summary:** Only add to published APIs; never remove, rename, or change fields without introducing a new version.
 
 ## Principle
 

@@ -3,6 +3,7 @@
 **Layer:** 2 (contextual)
 **Categories:** architecture, domain-driven-design, integration
 **Applies-to:** all
+**Summary:** Introduce a translation layer at every external integration boundary to protect your domain model from leakage.
 
 ## Principle
 

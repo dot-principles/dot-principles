@@ -54,6 +54,22 @@ Record source as: `explicit: <principle-spec>`. Skip Phase 3 and proceed to Phas
 
 **Normal mode (explicit-mode false):**
 
+### Fast Path — Check for Compiled Block
+
+Before walking `.principles` files, check for a compiled block in this order:
+1. `.claude/rules/principles.md`
+2. `.ai/principles.md`
+3. `AGENTS.md`
+4. `.github/copilot-instructions.md`
+
+Check the FIRST file that exists and contains `<!-- .principles: begin`. If found:
+
+1. Parse all principle IDs from the block (lines matching `- PRINCIPLE-ID: ...` — the ID is everything before the first colon).
+2. Use these as the **active principle set** — skip the `.principles` tree walk entirely.
+3. Record source as: `compiled-block: <filename>`
+
+If no compiled block is found, or if parsing fails for any reason, proceed with the tree walk below.
+
 Walk up from the target path to the git repo root (`.git/`) or max 10 levels, collecting every `.principles` file. Order: root → target.
 
 **If no `.principles` files found: skip to Phase 3.**
@@ -118,6 +134,44 @@ Check for `{{PRINCIPLES_DIRECTORY}}/layers/<detected-type>/layer-3-risk-signals.
 Record source as: `dynamic detection (<type> stack)`
 
 ## Phase 4 — Load Principle Content
+
+**Compiled-block fast path (source is `compiled-block: <filename>`):**
+
+Derive unique namespaces from the active principle ID prefixes. Use the longest-prefix match from this table:
+
+| ID prefix | Directory |
+|-----------|-----------|
+| `CODE-SMELLS-*` | `code-smells/` |
+| `SEC-ARCH-*` | `sec-arch/` |
+| `CLEAN-ARCH-*` | `clean-arch/` |
+| `SIMPLE-DESIGN-*` | `simple-design/` |
+| `EFFECTIVE-JAVA-*` | `effective-java/` |
+| `12FACTOR-*` | `12factor/` |
+| `PIPELINE-*` | `pipeline/` |
+| `SEC-ARCH-*` | `sec-arch/` |
+| `CODE-*` | `code/` |
+| `SOLID-*` | `solid/` |
+| `DDD-*` | `ddd/` |
+| `GOF-*` | `gof/` |
+| `GRASP-*` | `grasp/` |
+| `OWASP-*` | `owasp/` |
+| `EIP-*` | `eip/` |
+| `FP-*` | `fp/` |
+| `A11Y-*` | `a11y/` |
+| `INFRA-*` | `infra/` |
+| `CONFIG-*` | `config/` |
+| `SCHEMA-*` | `schema/` |
+| `DOCS-*` | `docs/` |
+| `DB-*` | `db/` |
+| `CD-*` | `cd/` |
+| `ARCH-*` | `arch/` |
+| `PKG-*` | `pkg/` |
+
+For each unique namespace, read `.principles-catalog/principles/<namespace>/.context-audit.md` and filter to entries whose `### ID` is in the active set. Use the **Principle** and **Violations to detect** content in Phase 6.
+
+If `.principles-catalog/` is not present, fall back to the standard loading below.
+
+**Standard loading (all other sources):**
 
 For each namespace in the active ID set, read one file:
 

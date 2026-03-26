@@ -164,3 +164,91 @@ Next steps:
   - Run /audit <file> to review against these principles
   - Edit .principles files manually to add !exclusions or direct principle IDs
 ```
+
+
+## Phase 6 — Compile Principles Block and Inject into AI Instruction Files
+
+### 6.1 — Resolve the Compiled Set
+
+Walk all `.principles` files written or confirmed in Phase 5. For each active principle ID in the resolved set, read its `**Summary:**` field from `.principles-catalog/principles/<namespace>/<file>.md`.
+
+If `.principles-catalog/` is not present at the git root, report:
+> "⚠️ Catalog not vendored. Run `./install.sh vendor <dir>` to enable compiled block generation."
+> Skip Phase 6.
+
+Group active principles by Layer:
+- **Layer 1** — `**Layer:** 1` → "Always active"
+- **Layer 2** — `**Layer:** 2` → "This stack" (list the @groups that contributed them)  
+- **Layer 3** — `**Layer:** 3` → "Risk-elevated" (note which subdirectories triggered them)
+
+### 6.2 — Detect AI Instruction Files and Injection Targets
+
+Scan the git root for the following files and classify each:
+
+**Claude Code target:**
+- Check for `CLAUDE.md` (root) or `.claude/CLAUDE.md`
+- If found and is a **pointer file** (>80% of non-empty lines are `@<ref>` imports): note it delegates, do not inject into it
+- Inject into `.claude/rules/principles.md` — create the file if it does not exist
+- Ensure CLAUDE.md (or `.claude/CLAUDE.md`) has `@.claude/rules/principles.md` in it — add if absent
+
+**AGENTS.md target** (de facto cross-agent standard):
+- **Case A — Hub**: AGENTS.md exists and has a structured instruction table (markdown table with file links, or `## Instruction Files` section) → create `.ai/principles.md` with the compiled block → add row to AGENTS.md's instruction table: `| [.ai/principles.md](.ai/principles.md) | Active engineering principles (compiled by /scout) |`
+- **Case B — Simple**: AGENTS.md exists with direct content, no instruction table → inject block directly into AGENTS.md
+- **Case C — Absent**: AGENTS.md does not exist → create it with the compiled block
+
+**Copilot target:**
+- Check `.github/copilot-instructions.md`
+- If it is a **pointer file** (primarily delegates via `@<ref>` or markdown links to another hub file): skip injection
+- Otherwise: inject compiled block directly
+
+### 6.3 — Compiled Block Format
+
+The block to inject (replacing any existing `<!-- .principles: begin -->...<!-- .principles: end -->` block, or appending if absent):
+
+```
+<!-- .principles: begin — compiled by /scout vVERSION, DATE -->
+## Active Principles
+
+**Always (Layer 1):**
+- PRINCIPLE-ID: Summary text here
+- PRINCIPLE-ID: Summary text here
+
+**This stack (@group1 + @group2):**
+- PRINCIPLE-ID: Summary text here
+
+**Risk-elevated (subdir/):**
+- PRINCIPLE-ID: Summary text here
+<!-- .principles: end -->
+```
+
+- VERSION from `.principles-catalog/` or the repo's VERSION file
+- DATE as YYYY-MM-DD
+- Omit a layer section if it has no principles
+- Keep summaries on one line — ID: summary
+
+### 6.4 — Report
+
+After injection, output:
+
+```
+Compiled block written to:
+  ✓ .claude/rules/principles.md        (N principles — Layer 1: X, Layer 2: Y, Layer 3: Z)
+  ✓ .ai/principles.md                  (hub pattern — added to AGENTS.md instruction table)
+  ✓ .github/copilot-instructions.md    (N principles)
+  — CLAUDE.md                          (pointer to AGENTS.md — skipped; @.claude/rules/principles.md added)
+  ⚠ .github/copilot-instructions.md   (pointer file — skipped)
+
+Tip: commit .principles-catalog/ so CI and PR bots can use it without local install.
+```
+
+---
+
+## Pointer file detection logic
+
+A file is a **pointer** if, among its non-empty non-comment lines:
+- More than 80% are `@<filepath>` import lines (Claude Code style)
+- OR the file consists primarily of a single `> Use the context in X` directive plus `@<filepath>` references
+
+Examples of pointer files:
+- `CLAUDE.md` containing just `@AGENTS.md` and a brief note
+- `.github/copilot-instructions.md` containing `Use the context in /AGENTS.md for all tasks`

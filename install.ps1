@@ -28,10 +28,11 @@ Push-Location $scriptDir
 try {
     if ($isWSL) {
         $winHome = ($env:USERPROFILE -replace '\\', '/') -replace "'", "'\''"
-        $quotedArgs = ($args | ForEach-Object { "'" + ($_ -replace "'", "'\\''") + "'" }) -join ' '
+        $quotedArgs = ($args | ForEach-Object { "'" + (($_ -replace '\\', '/') -replace "'", "'\\''") + "'" }) -join ' '
         bash -c "PRINCIPLES_WIN_HOME='$winHome' bash install.sh $quotedArgs"
     } else {
-        & bash install.sh @args
+        $convertedArgs = $args | ForEach-Object { $_ -replace '\\', '/' }
+        & bash install.sh @convertedArgs
     }
     $exit = $LASTEXITCODE
 } finally {

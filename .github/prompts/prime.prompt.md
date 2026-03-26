@@ -29,6 +29,68 @@ Record the **target path** for use in Phase 2.
 
 ## Phase 2 — Resolve .principles Hierarchy
 
+### Fast Path — Compiled Block
+
+Before walking `.principles` files, check for a pre-compiled block injected by `/scout`. Search in this order — stop at the **first file that exists**:
+
+1. `.claude/rules/principles.md`
+2. `.ai/principles.md`
+3. `AGENTS.md`
+4. `.github/copilot-instructions.md`
+
+If the file contains `<!-- .principles: begin`, the compiled block is present. When found:
+
+1. Parse all principle IDs from the block — lines matching `- <ID>: ...` where the ID is uppercase letters and hyphens
+2. Use these as the **active principle set** — skip the tree walk below
+3. Record source as: `compiled-block: <filename>`
+
+**Load principle content from the catalog:**
+
+Determine the namespace for each active ID using this mapping:
+
+| ID Prefix | Directory |
+|-----------|-----------|
+| `CODE-*` | `code/` |
+| `DDD-*` | `ddd/` |
+| `SOLID-*` | `solid/` |
+| `GOF-*` | `gof/` |
+| `GRASP-*` | `grasp/` |
+| `CLEAN-ARCH-*` | `clean-arch/` |
+| `SIMPLE-DESIGN-*` | `simple-design/` |
+| `EFFECTIVE-JAVA-*` | `effective-java/` |
+| `CODE-SMELLS-*` | `code-smells/` |
+| `OWASP-*` | `owasp/` |
+| `EIP-*` | `eip/` |
+| `FP-*` | `fp/` |
+| `12FACTOR-*` | `12factor/` |
+| `A11Y-*` | `a11y/` |
+| `PIPELINE-*` | `pipeline/` |
+| `INFRA-*` | `infra/` |
+| `CONFIG-*` | `config/` |
+| `SCHEMA-*` | `schema/` |
+| `DOCS-*` | `docs/` |
+| `DB-*` | `db/` |
+| `CD-*` | `cd/` |
+| `ARCH-*` | `arch/` |
+| `PKG-*` | `pkg/` |
+| `SEC-ARCH-*` | `sec-arch/` |
+
+For each namespace, read:
+```
+.principles-catalog/principles/<namespace>/.context-prime.md
+```
+Filter to only entries whose `### ID` heading is in the active set.
+
+If `.principles-catalog/` is absent, fall back to Phase 4 logic (using `{{PRINCIPLES_DIRECTORY}}`).
+
+**→ Active set and principle content are now loaded. Skip to Phase 5.**
+
+---
+
+If no compiled block is found in any of the four files above, continue with the normal resolution below.
+
+### Normal Resolution
+
 Walk **up** from the target path to the git repo root (directory containing `.git/`) or a maximum of 10 levels, collecting every `.principles` file found along the way. Order them **root → target** (outermost first, innermost last).
 
 **If no `.principles` files are found, skip to Phase 3.**

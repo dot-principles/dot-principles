@@ -378,10 +378,11 @@ The commit message and PR body **must** follow this exact structure:
 #### PR title
 
 ```
-IIP-xxx: fix(<target>): resolve <N> audit findings (<severities>)
+fix(<target>): resolve <N> audit findings (<severities>)
 ```
 
-- `IIP-xxx` is the Jira ticket ID. Use `IIP-000` if no ticket exists.
+- Prepend any project-specific ticket prefix required by the repo's contributing guidelines
+  (e.g. `PROJ-123: fix(...)` or `IIP-000: fix(...)`). If the repo has no such convention, omit the prefix.
 - `<severities>` summarises the breakdown, e.g. `HIGH×3, MEDIUM×2, LOW×1`.
 
 #### PR body

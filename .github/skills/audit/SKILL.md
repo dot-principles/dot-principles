@@ -324,3 +324,99 @@ Generated: {absolute path}/audit-output.json
 - Principle ID in brackets: `[DOC-PURPOSE]`.
 - One line per finding.
 - If no findings: output `Audit complete — 0 findings.` followed by the Summary and Generated lines.
+
+## Phase 8 — Fix Workflow (interactive)
+
+**Only run this phase after Phase 7 output is complete and the user has seen the findings.**
+
+### Step 1 — Offer to fix
+
+If there are any findings, ask the user:
+
+> "Would you like me to fix these findings?"
+
+If the user declines, stop here. If no findings exist, skip this phase entirely.
+
+### Step 2 — Create a fix branch
+
+Before making any changes, create and check out a new git branch:
+
+```
+git checkout -b fix-<target-slug>
+```
+
+Where `<target-slug>` is a short kebab-case name derived from the audit target
+(e.g. `fix-data-fetcher`, `fix-auth-service`).
+
+### Step 3 — Implement fixes
+
+Fix every finding recorded in `audit-output.json`. Work file by file. For each fix:
+
+- Apply the concrete fix from the finding's `fix` field.
+- Do not change unrelated code.
+- Run existing tests after all fixes are applied to confirm nothing is broken.
+
+### Step 4 — Ask to commit and create PR
+
+Present the proposed commit message and PR body to the user **before** committing.
+Ask: "Shall I commit and create the PR?"
+
+If the user confirms, commit and push:
+
+```
+git add -A
+git commit -m "<PR title>\n\n<PR body>"
+git push origin fix-<target-slug>
+```
+
+Then open a pull request targeting the default branch.
+
+### Commit message & PR body format
+
+The commit message and PR body **must** follow this exact structure:
+
+#### PR title
+
+```
+IIP-xxx: fix(<target>): resolve <N> audit findings (<severities>)
+```
+
+- `IIP-xxx` is the Jira ticket ID. Use `IIP-000` if no ticket exists.
+- `<severities>` summarises the breakdown, e.g. `HIGH×3, MEDIUM×2, LOW×1`.
+
+#### PR body
+
+```markdown
+## Summary
+
+Brief description of what was audited and what was fixed.
+
+---
+
+## Why each change was required
+
+### 🔴 HIGH — <finding title> (<PRINCIPLE-ID>)
+One paragraph explaining the root cause and the production impact of leaving it unfixed.
+
+### 🟡 MEDIUM — <finding title> (<PRINCIPLE-ID>)
+...
+
+### 🔵 LOW — <finding title> (<PRINCIPLE-ID>)
+...
+
+---
+
+## Changes
+
+| Severity | Finding | Change |
+|----------|---------|--------|
+| 🔴 HIGH  | <what was wrong> | <what was done> |
+| 🟡 MEDIUM| ...              | ...             |
+| 🔵 LOW   | ...              | ...             |
+
+---
+
+**Files changed:** N production + M test | **Tests:** X/X passing
+```
+
+Severity emoji: 🔴 CRITICAL/HIGH · 🟡 MEDIUM · 🔵 LOW

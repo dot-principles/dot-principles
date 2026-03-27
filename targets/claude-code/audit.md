@@ -8,7 +8,7 @@ authors: Flemming N. Larsen (https://github.com/flemming-n-larsen)
 
 # Audit
 
-Review a file, directory, or inline code against its activated principles in seven phases. Optionally force specific principles using explicit spec syntax.
+Review a file, directory, or inline code against its activated principles. Core review runs in seven phases (1–7). Three optional gated phases (8–10) handle fix, commit, and PR — each requires explicit user approval before entry.
 
 ## Phase 1 — Parse Arguments, Resolve Input, and Detect Artifact Type
 
@@ -321,111 +321,111 @@ Generated: {absolute path}/audit-output.json
 
 ## GATED WORKFLOW — Mandatory Approval Checkpoints
 
-This skill operates as a strict state machine with discrete, non-mergeable phases. Each phase boundary is a mandatory stop point. The **default action at every boundary is to stop and ask** — never to proceed.
+Phases 8–10 form a strict state machine. Each gate is a mandatory stop point — the **default is to stop and ask**, never to proceed.
 
-**Forbidden assumptions:**
+**Rules:**
 - Identifying issues does **not** grant permission to fix them.
 - Fixing does **not** grant permission to commit.
-- Committing does **not** grant permission to open a PR.
-
-Silence, hints, context, or likely intent do **not** count as approval. Explicit user consent is required before entering each phase. Never skip ahead. Never combine phases. Never infer permission from context.
+- Committing does **not** grant permission to push or open a PR.
+- Silence, hints, context, or likely intent do **not** count as approval.
+- Never skip ahead. Never combine phases. Never infer permission.
 
 ---
 
 ## Phase 8 — Fix
 
-**GATE 1 — Entry forbidden until explicit user approval.**
+**GATE — Requires explicit user approval.**
 
-After Phase 7 output is complete and the user has seen the findings, use the `ask_user` tool to ask:
+After Phase 7 output, if there are no findings, stop — skip remaining phases.
 
-> "Would you like me to fix any of these findings?"
+Otherwise ask:
 
-With choices: `["Yes, fix them all", "No, just the report"]`
+> Would you like me to fix these findings?
 
-**Stop. Do not proceed until the user answers.**
+**Stop and wait for the user to respond.**
 
-- No findings exist → call `task_complete` now. Skip remaining phases.
-- User declines → call `task_complete` now. Skip remaining phases.
-- User approves → proceed with the steps below.
+- User declines → stop. Skip remaining phases.
+- User approves → proceed.
 
-### Step 1 — Create a fix branch
-
-Before making any changes, create and check out a new git branch:
+### 8.1 — Create a fix branch
 
 ```
 git checkout -b fix-<target-slug>
 ```
 
-Where `<target-slug>` is a short kebab-case name derived from the audit target (e.g. `fix-data-fetcher`, `fix-auth-service`).
+`<target-slug>` is a short kebab-case name derived from the audit target (e.g. `fix-data-fetcher`, `fix-auth-service`).
 
-### Step 2 — Implement fixes
+### 8.2 — Implement fixes
 
-Fix every finding recorded in `audit-output.json`. Work file by file:
+Fix every finding from `audit-output.json`, file by file:
 
-- Apply the concrete fix from the finding's `fix` field.
+- Apply the concrete fix from each finding's `fix` field.
 - Do not change unrelated code.
-- Run existing tests after all fixes are applied to confirm nothing is broken.
-
-Then stop. Proceed to Phase 9.
+- Run existing tests after all fixes to confirm nothing is broken.
 
 ---
 
 ## Phase 9 — Commit
 
-**GATE 2 — Entry forbidden until explicit user approval.**
+**GATE — Requires explicit user approval.**
 
-After fixes are applied and tests pass, compose the commit message and PR body (see format below). Present both **in full inline** so the user can read them before deciding.
+Compose the commit message and PR body (see format below). Present both **in full inline** so the user can review before deciding.
 
-Then use the `ask_user` tool to ask:
+Then ask:
 
-> "Shall I commit these changes?"
+> How would you like to proceed?
+> 1. **Commit only** — commit to the local branch
+> 2. **Commit and push** — commit and push to origin
+> 3. **Exit** — leave changes uncommitted
 
-With choices: `["Yes, commit", "No, leave as uncommitted changes"]`
+**Stop and wait for the user to respond.**
 
-**Stop. Do not proceed until the user answers.**
+- User chooses **exit** → stop. Skip Phase 10.
+- User chooses **commit only** → run the commit commands below. Stop. Skip Phase 10.
+- User chooses **commit and push** → run the commit commands below, then push. Proceed to Phase 10.
 
-- User declines → call `task_complete` now leaving the branch with uncommitted changes. Skip Phase 10.
-- User approves → commit and push:
+### 9.1 — Commit
 
 ```
 git add -A
-git commit -m "<PR title>\n\n<PR body>"
-git push origin fix-<target-slug>
+git commit -m "<commit message>"
 ```
 
-Then stop. Proceed to Phase 10.
+### 9.2 — Push (only if user chose "commit and push")
+
+```
+git push -u origin fix-<target-slug>
+```
 
 ---
 
-## Phase 10 — PR
+## Phase 10 — Pull Request
 
-**GATE 3 — Entry forbidden until explicit user approval.**
+**GATE — Requires explicit user approval.**
 
-After the commit is pushed, use the `ask_user` tool to ask:
+Ask:
 
-> "Shall I open a pull request?"
+> Shall I open a pull request?
 
-With choices: `["Yes, open PR", "No, just leave the branch pushed"]`
+**Stop and wait for the user to respond.**
 
-**Stop. Do not proceed until the user answers.**
-
-- User declines → call `task_complete` now.
-- User approves → open a pull request targeting the default branch, then call `task_complete`.
+- User declines → stop.
+- User approves → create a PR targeting the default branch using the PR body from Phase 9, then stop.
 
 ---
 
 ## Commit Message & PR Body Format
 
-The commit message and PR body **must** follow this exact structure:
-
-### PR title
+### Commit message
 
 ```
 fix(<target>): resolve <N> audit findings (<severities>)
+
+- [PRINCIPLE-ID] one-line description (file:line)
+- ...
 ```
 
-- Prepend any project-specific ticket prefix required by the repo's contributing guidelines
-  (e.g. `PROJ-123: fix(...)`). If the repo has no such convention, omit the prefix.
+- Prepend any project-specific ticket prefix required by the repo's contributing guidelines (e.g. `PROJ-123: fix(...)`). Omit if no convention exists.
 - `<severities>` summarises the breakdown, e.g. `HIGH×3, MEDIUM×2, LOW×1`.
 
 ### PR body
@@ -440,7 +440,7 @@ Brief description of what was audited and what was fixed.
 ## Why each change was required
 
 ### 🔴 HIGH — <finding title> (<PRINCIPLE-ID>)
-One paragraph explaining the root cause and the production impact of leaving it unfixed.
+One paragraph: root cause and production impact of leaving it unfixed.
 
 ### 🟡 MEDIUM — <finding title> (<PRINCIPLE-ID>)
 ...

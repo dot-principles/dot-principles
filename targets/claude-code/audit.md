@@ -149,7 +149,17 @@ Derive unique namespaces from the active principle ID prefixes. Use the longest-
 | `EFFECTIVE-JAVA-*` | `effective-java/` |
 | `12FACTOR-*` | `12factor/` |
 | `PIPELINE-*` | `pipeline/` |
-| `SEC-ARCH-*` | `sec-arch/` |
+| `CODE-API-*` | `code/api/` |
+| `CODE-AR-*` | `code/ar/` |
+| `CODE-CC-*` | `code/cc/` |
+| `CODE-CS-*` | `code/cs/` |
+| `CODE-DX-*` | `code/dx/` |
+| `CODE-OB-*` | `code/ob/` |
+| `CODE-PF-*` | `code/pf/` |
+| `CODE-RL-*` | `code/rl/` |
+| `CODE-SEC-*` | `code/sec/` |
+| `CODE-TP-*` | `code/tp/` |
+| `CODE-TS-*` | `code/ts/` |
 | `CODE-*` | `code/` |
 | `SOLID-*` | `solid/` |
 | `DDD-*` | `ddd/` |
@@ -182,7 +192,7 @@ For each namespace in the active ID set, read one file:
 
 Filter to entries whose `### ID` is in the final active set. Use the **Principle** and **Violations to detect** content in Phase 6.
 
-Namespace derivation: `CODE-CS-DRY` → namespace `code`, `SOLID-SRP` → namespace `solid`, `DOC-PURPOSE` → namespace `docs`, `CONFIG-NO-HARDCODED-SECRETS` → namespace `config`, `SCHEMA-SELF-DESCRIBING` → namespace `schema`, `PIPELINE-MINIMAL-PERMISSIONS` → namespace `pipeline`.
+Namespace derivation: `CODE-CS-DRY` → namespace `code/cs`, `CODE-API-HATEOAS` → namespace `code/api`, `SOLID-SRP` → namespace `solid`, `DOC-PURPOSE` → namespace `docs`, `CONFIG-NO-HARDCODED-SECRETS` → namespace `config`, `SCHEMA-SELF-DESCRIBING` → namespace `schema`, `PIPELINE-MINIMAL-PERMISSIONS` → namespace `pipeline`.
 
 ## Phase 5 — Pre-Scan
 

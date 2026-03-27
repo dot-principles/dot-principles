@@ -8,6 +8,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [v0.7.1] — 2026-03-28
+
+### Changed
+
+- **Split `code/.context-audit.md` into sub-namespace files** — the monolithic 1102-line audit context file for the `code` namespace has been split into 11 per-sub-namespace files (`code/api/`, `code/ar/`, `code/cc/`, `code/cs/`, `code/dx/`, `code/ob/`, `code/pf/`, `code/rl/`, `code/sec/`, `code/tp/`, `code/ts/`). The largest file (`code/cs/`) is now ~230 lines. This fixes "file is too large" errors during `/audit` when many `CODE-*` principles are active.
+- **Split `code/.context-prime.md` into sub-namespace files** — the 1454-line prime context file was similarly split into 11 per-sub-namespace files. The same prefix table update applies to the `/prime` skill.
+
+### Fixed
+
+- **Namespace prefix table** — added 11 sub-namespace entries (`CODE-CS-*` → `code/cs/`, `CODE-API-*` → `code/api/`, etc.) to the longest-prefix-match table in both the audit and prime skills. `CODE-*` remains as a fallback. Updated in `targets/claude-code/audit.md`, `targets/claude-code/prime.md`, `.github/prompts/audit.prompt.md`, and `.github/prompts/prime.prompt.md`.
+- **Duplicate `CODE-API-*` entries removed** — 5 API principles that were duplicated between `code/.context-audit.md` and `code/api/.context-audit.md` now exist only in `code/api/`.
+
+---
+
 ## [v0.7.0] — 2026-03-27
 
 ### Added

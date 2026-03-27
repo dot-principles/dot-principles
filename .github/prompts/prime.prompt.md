@@ -59,6 +59,17 @@ Determine the namespace for each active ID using this mapping:
 
 | ID Prefix | Directory |
 |-----------|-----------|
+| `CODE-API-*` | `code/api/` |
+| `CODE-AR-*`  | `code/ar/`  |
+| `CODE-CC-*`  | `code/cc/`  |
+| `CODE-CS-*`  | `code/cs/`  |
+| `CODE-DX-*`  | `code/dx/`  |
+| `CODE-OB-*`  | `code/ob/`  |
+| `CODE-PF-*`  | `code/pf/`  |
+| `CODE-RL-*`  | `code/rl/`  |
+| `CODE-SEC-*` | `code/sec/` |
+| `CODE-TP-*`  | `code/tp/`  |
+| `CODE-TS-*`  | `code/ts/`  |
 | `CODE-*` | `code/` |
 | `DDD-*` | `ddd/` |
 | `SOLID-*` | `solid/` |

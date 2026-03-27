@@ -8,6 +8,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [v0.7.0] — 2026-03-27
+
+### Added
+
+- **Gated fix-to-PR workflow** (Phases 8–10) — after the read-only review (Phases 1–7), `/audit` now offers three optional gated phases that handle fix, commit, and PR creation. Each phase is a mandatory approval checkpoint — the default is always to stop and ask:
+  - **Phase 8 — Fix** — asks "Would you like me to fix these findings?"; on approval creates a `fix-<target-slug>` branch, applies every finding's `fix` field, and runs existing tests.
+  - **Phase 9 — Commit** — presents the commit message and PR body for review, then offers three choices: *commit only*, *commit and push*, or *exit*.
+  - **Phase 10 — Pull Request** — asks "Shall I open a pull request?"; on approval creates a PR targeting the default branch with a structured body (summary, per-finding rationale, changes table).
+- **Structured commit message and PR body formats** — gated workflow produces a `fix(<target>): resolve <N> audit findings (<severities>)` commit message with per-finding line items, and a PR body with severity-grouped rationale sections and a changes table.
+
+### Changed
+
+- **Strict state-machine semantics** — identifying issues ≠ permission to fix; fixing ≠ permission to commit; committing ≠ permission to push or open a PR. Silence, hints, context, or likely intent do not count as approval. Phases cannot be skipped, combined, or inferred.
+
+---
+
 ## [v0.6.0] — 2026-03-24
 
 ### Added
@@ -162,6 +178,7 @@ See [TODO.md](TODO.md) for the roadmap.
 
 ---
 
+[v0.7.0]: https://github.com/dot-principles/dot-principles/releases/tag/v0.7.0
 [v0.6.0]: https://github.com/dot-principles/dot-principles/releases/tag/v0.6.0
 [v0.5.0]: https://github.com/dot-principles/dot-principles/releases/tag/v0.5.0
 [v0.4.0]: https://github.com/dot-principles/dot-principles/releases/tag/v0.4.0

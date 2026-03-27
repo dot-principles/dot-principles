@@ -4,7 +4,7 @@
 **Categories:** maintainability, refactoring, craftsmanship
 **Applies-to:** all
 **Summary:** Always leave the code cleaner than you found it by making small improvements on every touch.
-**Audit-scope:** excluded — violations require comparing code to a prior state (git history); a codebase snapshot cannot be audited
+**Audit-scope:** limited — git diff context (`$GIT_DIFF`) is loaded in Phase 1.4 and used for detection; new smells introduced in changed lines are detectable; whether the contributor made every possible improvement is a subjective judgment that cannot be automated
 
 ## Principle
 

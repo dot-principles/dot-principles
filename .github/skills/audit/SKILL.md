@@ -174,19 +174,19 @@ Derive unique namespaces from the active principle ID prefixes. Use the longest-
 | `ARCH-*` | `arch/` |
 | `PKG-*` | `pkg/` |
 
-For each unique namespace, read `.principles-catalog/principles/<namespace>/.context-audit.md` and filter to entries whose `### ID` is in the active set. Use the **Principle** and **Violations to detect** content in Phase 6.
+For each unique namespace, use the **Read tool** to load `.principles-catalog/principles/<namespace>/.context-audit.md`, then filter entries whose `### ID` is in the active set. Do not use bash, grep, or any shell command for this step — read the file and filter in your reasoning. Use the **Principle** and **Violations to detect** content in Phase 6.
 
 If `.principles-catalog/` is not present, fall back to the standard loading below.
 
 **Standard loading (all other sources):**
 
-For each namespace in the active ID set, read one file:
+For each namespace in the active ID set, use the **Read tool** to load:
 
 ```
 .principles-catalog/principles/<namespace>/.context-audit.md
 ```
 
-Filter to entries whose `### ID` is in the final active set. Use the **Principle** and **Violations to detect** content in Phase 6.
+Filter entries whose `### ID` is in the final active set. Do not use bash, grep, or any shell command for this step — read the file and filter in your reasoning. Use the **Principle** and **Violations to detect** content in Phase 6.
 
 Namespace derivation: `CODE-CS-DRY` → namespace `code`, `SOLID-SRP` → namespace `solid`, `DOC-PURPOSE` → namespace `docs`, `CONFIG-NO-HARDCODED-SECRETS` → namespace `config`, `SCHEMA-SELF-DESCRIBING` → namespace `schema`, `PIPELINE-MINIMAL-PERMISSIONS` → namespace `pipeline`.
 

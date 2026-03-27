@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 - **Split `code/.context-audit.md` into sub-namespace files** — the monolithic 1102-line audit context file for the `code` namespace has been split into 11 per-sub-namespace files (`code/api/`, `code/ar/`, `code/cc/`, `code/cs/`, `code/dx/`, `code/ob/`, `code/pf/`, `code/rl/`, `code/sec/`, `code/tp/`, `code/ts/`). The largest file (`code/cs/`) is now ~230 lines. This fixes "file is too large" errors during `/audit` when many `CODE-*` principles are active.
 - **Split `code/.context-prime.md` into sub-namespace files** — the 1454-line prime context file was similarly split into 11 per-sub-namespace files. The same prefix table update applies to the `/prime` skill.
+- **`CODE-CS-BOY-SCOUT` promoted from fully excluded to partially limited** — the audit skill now loads git diff context in Phase 1.4 (`$GIT_DIFF`, `$GIT_LOG`) and uses it to detect diff-visible violations: new TODO/FIXME/magic-number markers in changed lines, and functions growing without extraction. A new `principles/code/cs/.context-inspect.md` file provides the grep-over-diff patterns for Phase 5.
 
 ### Fixed
 

@@ -36,12 +36,22 @@ The `principles/` directory is a **namespace container**. Each subdirectory is a
 
 ```
 principles/
-  code/                  ← general catalog (~88 principles)
+  code/                  ← general catalog (128 principles across 11 sub-namespaces)
     catalog.yaml         ← description only
-    sec/
-      validate-input.md
     api/
       standard-http-methods.md
+    ar/
+    cc/
+    cs/
+      dry.md
+    dx/
+    ob/
+    pf/
+    rl/
+    sec/
+      validate-input.md
+    tp/
+    ts/
     ...
   solid/                 ← SOLID principles (5 principles)
     catalog.yaml         ← description only
@@ -113,6 +123,8 @@ Each namespace contains three pre-compiled files that consolidate all its princi
 | `.context-inspect.md` | `/audit` Phase 5 | Machine-executable pre-scan patterns (grep/awk/find commands) — for principles with deterministic inspection patterns |
 
 The command reads one file per namespace and filters to only the entries in the final active set. This avoids reading N individual principle files.
+
+**`code/` sub-namespace split:** Because the `code/` namespace contains 128 principles across 11 sub-categories, its context files are split per sub-namespace rather than held in a single file. Each of `code/api/`, `code/ar/`, `code/cc/`, `code/cs/`, `code/dx/`, `code/ob/`, `code/pf/`, `code/rl/`, `code/sec/`, `code/tp/`, and `code/ts/` has its own `.context-prime.md`, `.context-audit.md`, and (where applicable) `.context-inspect.md`. The root `code/.context-*.md` files contain only a pointer comment listing the sub-namespace directories. `/prime` and `/audit` use a longest-prefix-match table to resolve `CODE-<sub>-*` IDs to the correct sub-namespace file before falling back to `code/` for unrecognised sub-prefixes.
 
 ### `.principles-catalog/` — vendored project subset
 
@@ -554,7 +566,7 @@ Activates principles before writing code. Run it before starting work on a task.
 | 1     | Scan Context                  | Examines the coding context: language, framework, domain, risk signals                         |
 | 2     | Resolve .principles Hierarchy | Walks to git root, expands groups, builds active ID set                                        |
 | 3     | Dynamic Detection (fallback)  | Only runs if Phase 2 found no `.principles` files; uses signal-based detection                 |
-| 4     | Load Principle Content        | Reads one `.context-prime.md` per namespace (pre-compiled); filters to active IDs              |
+| 4     | Load Principle Content        | Reads one `.context-prime.md` per namespace (pre-compiled); for `CODE-<sub>-*` IDs reads per-sub-namespace file under `code/<sub>/`; filters to active IDs |
 | 5     | Output                        | Presents active principles table with source column; states coding frame                       |
 
 ### 🔎 `/audit`
@@ -568,7 +580,7 @@ Reviews code against activated principles. Outputs findings grouped by severity.
 | 1     | Parse Arguments               | Detects explicit spec (`--with`, `@group`, or `on` syntax); resolves target and artifact type  |
 | 2     | Resolve Principles            | Explicit mode: resolves spec directly; normal mode: walks `.principles` hierarchy              |
 | 3     | Dynamic Detection (fallback)  | Only if explicit-mode is false and no `.principles` files found                                |
-| 4     | Load Principle Content        | Reads one `.context-audit.md` per namespace (pre-compiled); filters to active IDs             |
+| 4     | Load Principle Content        | Reads one `.context-audit.md` per namespace (pre-compiled); for `CODE-<sub>-*` IDs reads per-sub-namespace file under `code/<sub>/`; filters to active IDs |
 | 5     | Pre-Scan                      | Reads `.context-inspect.md` per namespace; runs bash commands to build pre-scan manifest       |
 | 6     | Review                        | Guided review (hits) + semantic-only review + opportunistic findings                           |
 | 7     | Output                        | Compact text report + `audit-output.json` written to repo root; reports principle source       |

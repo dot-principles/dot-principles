@@ -195,6 +195,7 @@ See [TODO.md](TODO.md) for the roadmap.
 
 ---
 
+[v0.7.1]: https://github.com/dot-principles/dot-principles/releases/tag/v0.7.1
 [v0.7.0]: https://github.com/dot-principles/dot-principles/releases/tag/v0.7.0
 [v0.6.0]: https://github.com/dot-principles/dot-principles/releases/tag/v0.6.0
 [v0.5.0]: https://github.com/dot-principles/dot-principles/releases/tag/v0.5.0

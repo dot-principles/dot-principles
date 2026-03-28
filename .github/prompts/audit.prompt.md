@@ -285,7 +285,13 @@ For each violation found, record: principle ID, severity (Critical/High/Medium/L
 
 ## Phase 7 — Output
 
-**Step 1.** Write `audit-output.json` to the **repository root** (where `.git/` is) with this structure:
+**Step 1.** Delete any existing `audit-output.json` at the repository root, then write a fresh one. Run this first:
+
+```bash
+rm -f <repo-root>/audit-output.json
+```
+
+Then write it with this structure:
 
 ```json
 {

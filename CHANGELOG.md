@@ -20,6 +20,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 - **Namespace prefix table** — added 11 sub-namespace entries (`CODE-CS-*` → `code/cs/`, `CODE-API-*` → `code/api/`, etc.) to the longest-prefix-match table in both the audit and prime skills. `CODE-*` remains as a fallback. Updated in `targets/claude-code/audit.md`, `targets/claude-code/prime.md`, `.github/prompts/audit.prompt.md`, and `.github/prompts/prime.prompt.md`.
 - **Duplicate `CODE-API-*` entries removed** — 5 API principles that were duplicated between `code/.context-audit.md` and `code/api/.context-audit.md` now exist only in `code/api/`.
+- **Copilot audit and prime skills support `CODE-*` sub-namespaces** — `.github/skills/audit/SKILL.md` and `.github/skills/prime/SKILL.md` now include the 11 `CODE-<sub>-*` prefix entries in their namespace lookup tables, matching the source templates.
+- **`install vendor` copies sub-namespace context files** — `.context-audit.md`, `.context-prime.md`, and `.context-inspect.md` files in two-level-deep directories (e.g. `code/api/`, `code/cs/`) are now included in `.principles-catalog/`.
 
 ---
 

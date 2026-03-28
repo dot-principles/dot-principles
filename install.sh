@@ -332,21 +332,22 @@ install_vendor() {
     local principles_dst="$catalog_dir/principles"
     mkdir -p "$principles_dst"
 
-    for ns_dir in "$principles_src"/*/; do
-        [ -d "$ns_dir" ] || continue
-        local ns
-        ns="$(basename "$ns_dir")"
-        local ns_dst="$principles_dst/$ns"
+    for dir in "$principles_src"/*/ "$principles_src"/*/*/; do
+        [ -d "$dir" ] || continue
+        local rel
+        rel="${dir#$principles_src/}"
+        rel="${rel%/}"
+        local dst="$principles_dst/$rel"
         local copied=false
         for context_file in ".context-audit.md" ".context-prime.md" ".context-inspect.md" "catalog.yaml"; do
-            if [ -f "$ns_dir/$context_file" ]; then
-                mkdir -p "$ns_dst"
-                cp "$ns_dir/$context_file" "$ns_dst/"
+            if [ -f "$dir/$context_file" ]; then
+                mkdir -p "$dst"
+                cp "$dir/$context_file" "$dst/"
                 copied=true
             fi
         done
         if [ "$copied" = true ]; then
-            echo -e "  ${GREEN}✓${NC} principles/$ns/"
+            echo -e "  ${GREEN}✓${NC} principles/$rel/"
         fi
     done
 

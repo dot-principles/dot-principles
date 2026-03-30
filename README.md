@@ -83,7 +83,7 @@ flowchart LR
 
 ### 🤖 Let the AI scout your project
 
-You don't need to figure out which principles apply yourself. The `/scout` command analyzes your file structure, proposes `.principles` placements, and then writes them after your confirmation. It also compiles all active principles into a compact block and injects it directly into your AI tool's instruction files:
+You don't need to figure out which principles apply yourself. The `/scout` command analyzes your file structure, proposes `.principles` placements, and then writes them after your confirmation. It also emits per-group principle files to `.github/instructions/` and `.claude/rules/` — one file per active group, each targeting only the relevant file types:
 
 ```
 /scout
@@ -95,10 +95,12 @@ You don't need to figure out which principles apply yourself. The `/scout` comma
 → Writing frontend/.principles  → @react + @typescript
 → Writing infra/.principles     → CODE-AR-INFRASTRUCTURE-AS-CODE + CODE-AR-IMMUTABLE-INFRASTRUCTURE
 → Writing backend/src/payments/.principles → CODE-RL-IDEMPOTENCY
-→ Compiling active principles into compiled block...
-→ Injecting into .claude/rules/principles.md
-→ Injecting into AGENTS.md
-→ Injecting into .github/copilot-instructions.md
+→ Emitting per-group files to .github/instructions/ and .claude/rules/...
+→   ✓ .github/instructions/spring-boot.instructions.md   (20 principles, **/*.java)
+→   ✓ .github/instructions/react.instructions.md          (18 principles, **/*.tsx, **/*.ts)
+→   ✓ .github/instructions/container.instructions.md      (10 principles, Dockerfile, **/*.yaml)
+→   ✓ .claude/rules/spring-boot.md                        (20 principles, **/*.java)
+→   ... (14 files total)
 
 Done ✅  Run /prime before your next coding session.
 ```
@@ -242,11 +244,9 @@ AI agents are already technically capable of producing correct, working code. Th
 
 ## 🧠 Philosophy
 
-`.principles` does **not** teach the AI anything. Modern AI agents already know SOLID, OWASP, DDD, and the rest. The point is to **focus and trigger** that knowledge — to give the AI context about *which* principles matter for *this* codebase, alongside the other AI instructions it receives (AGENTS.md, CLAUDE.md, `.github/copilot-instructions.md`, etc.).
+`.principles` does **not** teach the AI anything. Modern AI agents already know SOLID, OWASP, DDD, and the rest. The point is to **focus and trigger** that knowledge — to give the AI context about *which* principles matter for *this* codebase, delivered as per-group principle files in `.github/instructions/` (Copilot Code Review) and `.claude/rules/` (Claude Code).
 
 Think of it as: the AI instructions tell the agent *how to behave*; `.principles` tells it *which engineering lens to apply*.
-
-**AGENTS.md as the cross-agent standard:** `/scout` injects the compiled principle block into `AGENTS.md` — the emerging cross-agent instruction standard supported by OpenAI Codex, Claude Code, GitHub Copilot, and others. This means every agent that reads `AGENTS.md` automatically receives the active principle set without any per-tool configuration.
 
 `.principles` is built for the **"X as Code"** world. Modern projects treat far more than source code as version-controlled plain text: *docs as code* (READMEs, architecture docs, ADRs), *infrastructure as code* (Terraform, Helm, Dockerfiles), *configuration as code* (application settings, environment definitions), *pipeline as code* (GitHub Actions, Jenkinsfile), *schema as code* (Protobuf, OpenAPI, GraphQL). Each of these artifact types has its own engineering principles, and `.principles` applies the right ones automatically — the system ships with dedicated principle stacks for all six artifact types.
 
@@ -282,9 +282,9 @@ Each artifact type has its own stack of layers in `layers/<type>/`. Within each 
 
 Because these are AI commands — not CLI tools — you speak to them in natural language. No need to specify exact file paths unless you want to. The AI understands context.
 
-- 🔭 **`/scout`** — Analyzes your project, detects language/framework/domain, creates `.principles` files, then compiles all active principles into a block and injects it into `.claude/rules/principles.md`, `AGENTS.md`, and `.github/copilot-instructions.md`.
-- ⚡ **`/prime`** — Resolves your `.principles` hierarchy (or reads the compiled block fast path), loads full principle guidance, prepares your coding frame.
-- 🔎 **`/audit`** — Resolves your `.principles` hierarchy (or reads the compiled block fast path), loads principle content, reviews code, and groups findings by severity (Critical / High / Medium / Low). Supports explicit principle override to force a specific principle set regardless of `.principles` files.
+- 🔭 **`/scout`** — Analyzes your project, detects language/framework/domain, creates `.principles` files, then emits per-group principle files to `.github/instructions/` (Copilot Code Review) and `.claude/rules/` (Claude Code) — each file targeting only the relevant file types.
+- ⚡ **`/prime`** — Resolves your `.principles` hierarchy (using per-group files fast path), loads full principle guidance, prepares your coding frame.
+- 🔎 **`/audit`** — Resolves your `.principles` hierarchy (using per-group files fast path), loads principle content, reviews code, and groups findings by severity (Critical / High / Medium / Low). Supports explicit principle override to force a specific principle set regardless of `.principles` files.
 
 The AI figures out the scope from context:
 
@@ -315,10 +315,10 @@ git clone https://github.com/dot-principles/principles.git
 # Commit the installed files so every team member gets the commands automatically
 cd <project-dir>
 git add .claude/ .github/ .principles-catalog/
-git commit -m "Add .principles AI commands and compiled principle block"
+git commit -m "Add .principles AI commands and principle files"
 
 # Use it — in Claude Code or Copilot Chat:
-#   /scout                      → detect profile, create .principles files, compile + inject
+#   /scout                      → detect profile, create .principles files, emit per-group files
 #   /prime                      → before writing code
 #   /audit current changes      → review only what changed since last commit
 #   /audit directory            → review whatever you describe in conversation

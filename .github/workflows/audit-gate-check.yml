@@ -1,0 +1,22 @@
+name: Audit Gate Check
+
+on:
+  pull_request:
+    paths:
+      - '.github/skills/audit/**'
+      - '.github/prompts/audit.prompt.md'
+      - 'targets/claude-code/audit.md'
+      - 'tests/check-audit-gates.sh'
+      - 'tests/check-audit-gates.ps1'
+
+jobs:
+  check-audit-gates:
+    name: Verify Phase 8–10 gate markers
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run audit gate check
+        run: |
+          chmod +x tests/check-audit-gates.sh
+          ./tests/check-audit-gates.sh

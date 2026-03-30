@@ -404,13 +404,25 @@ Fix every finding from `audit-output.json`, file by file:
 - Do not change unrelated code.
 - Run existing tests after all fixes to confirm nothing is broken.
 
+After all fixes are applied, briefly summarise what was changed (one line per file). Then use the `ask_user` tool to ask:
+
+> "Fixes applied. Ready to commit — how would you like to proceed?"
+
+With choices: `["Commit only", "Commit and push", "Exit"]`
+
+**Stop. Do not call any tools. Do not proceed to Phase 9 automatically. Wait for the user's answer.**
+
+- User chooses **Exit** → call `task_complete`. Skip Phase 9 and Phase 10.
+- User chooses **Commit only** → proceed to Phase 9 (commit only path). Skip Phase 10.
+- User chooses **Commit and push** → proceed to Phase 9 (commit and push path).
+
 ---
 
 ## Phase 9 — Commit
 
-**GATE — Requires explicit user approval.**
+**GATE — Requires explicit user approval. Only enter this phase after the user replied to the Phase 8.2 prompt.**
 
-Compose the commit message and PR body (see format below). Present both **in full inline** so the user can review before deciding.
+Compose the commit message and PR body (see format below). Present both **in full inline** so the user can review.
 
 Then use the `ask_user` tool to ask:
 

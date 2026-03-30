@@ -402,11 +402,17 @@ Fix every finding from `audit-output.json`, file by file:
 - Do not change unrelated code.
 - Run existing tests after all fixes to confirm nothing is broken.
 
+After all fixes are applied, briefly summarise what was changed (one line per file). Then output:
+
+> Fixes applied. Ready to commit — how would you like to proceed?
+
+**End your response here. Do not call any tools. Do not proceed to Phase 9 automatically. Wait for the user's next message.**
+
 ---
 
 ## Phase 9 — Commit
 
-**GATE — Requires explicit user approval.**
+**GATE — Requires explicit user approval. Only enter this phase after the user replies to the Phase 8.2 prompt.**
 
 Compose the commit message and PR body (see format below). Present both **in full inline** so the user can review before deciding.
 

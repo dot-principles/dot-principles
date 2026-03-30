@@ -6,15 +6,17 @@ param(
 )
 
 $AuditFiles = @(
+    Join-Path $RepoRoot ".agents\skills\audit\SKILL.md"
     Join-Path $RepoRoot ".github\skills\audit\SKILL.md"
     Join-Path $RepoRoot ".github\prompts\audit.prompt.md"
-    Join-Path $RepoRoot "targets\claude-code\audit.md"
+    Join-Path $RepoRoot "commands\audit.md"
 )
 
 # Files that use plain-text output (not ask_user tool) must include the hard-stop phrase.
 $PlainTextFiles = @(
+    Join-Path $RepoRoot ".agents\skills\audit\SKILL.md"
     Join-Path $RepoRoot ".github\skills\audit\SKILL.md"
-    Join-Path $RepoRoot "targets\claude-code\audit.md"
+    Join-Path $RepoRoot "commands\audit.md"
 )
 
 $Errors = 0

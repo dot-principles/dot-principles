@@ -8,6 +8,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Unreleased]
+
+---
+
+## [v0.8.1] — 2026-03-30
+
+### Added
+
+- **Codex target** — `install.sh codex <dir>` now writes repo-scoped Codex skills to `.agents/skills/<name>/SKILL.md`, and `install.sh all <dir>` includes Codex alongside Claude Code, Copilot, and the vendored catalog.
+
+### Changed
+
+- **Shared command source renamed** — the common command source files used to generate Claude, Copilot, and Codex assets now live under `commands/` instead of a target-specific path.
+- **`uninstall.sh`** — now cleans Codex skills in addition to the existing Claude, Copilot, compiled-block, and vendor cleanup.
+- **Installer and docs** — `README.md`, `INSTALL.md`, and `DESIGN.md` now document Codex support and the shared command source.
+- **Audit gate checks** — the gate regression scripts now validate the Codex audit skill and the shared command source path.
+
+---
+
 ## [v0.8.0] — 2026-03-30
 
 ### Added
@@ -222,6 +241,9 @@ See [TODO.md](TODO.md) for the roadmap.
 
 ---
 
+[Unreleased]: https://github.com/dot-principles/dot-principles/compare/v0.8.1...HEAD
+[v0.8.1]: https://github.com/dot-principles/dot-principles/releases/tag/v0.8.1
+[v0.8.0]: https://github.com/dot-principles/dot-principles/releases/tag/v0.8.0
 [v0.7.1]: https://github.com/dot-principles/dot-principles/releases/tag/v0.7.1
 [v0.7.0]: https://github.com/dot-principles/dot-principles/releases/tag/v0.7.0
 [v0.6.0]: https://github.com/dot-principles/dot-principles/releases/tag/v0.6.0

@@ -83,7 +83,7 @@ flowchart LR
 
 ### 🤖 Let the AI scout your project
 
-You don't need to figure out which principles apply yourself. The `/scout` command analyzes your file structure, proposes `.principles` placements, and then writes them after your confirmation. It also emits per-group principle files to `.github/instructions/` and `.claude/rules/` — one file per active group, each targeting only the relevant file types:
+You don't need to figure out which principles apply yourself. The `scout` workflow analyzes your file structure, proposes `.principles` placements, and then writes them after your confirmation. In Claude and Copilot you invoke it as `/scout`; in Codex you invoke it as `$scout`. It also emits per-group principle files to `.github/instructions/` and `.claude/rules/` — one file per active group, each targeting only the relevant file types:
 
 ```
 /scout
@@ -102,7 +102,7 @@ You don't need to figure out which principles apply yourself. The `/scout` comma
 →   ✓ .claude/rules/spring-boot.md                        (20 principles, **/*.java)
 →   ... (14 files total)
 
-Done ✅  Run /prime before your next coding session.
+Done ✅  Run `/prime` (or `$prime` in Codex) before your next coding session.
 ```
 
 Of course you can also write these files manually — the format is just plain text.
@@ -282,9 +282,9 @@ Each artifact type has its own stack of layers in `layers/<type>/`. Within each 
 
 Because these are AI commands — not CLI tools — you speak to them in natural language. No need to specify exact file paths unless you want to. The AI understands context.
 
-- 🔭 **`/scout`** — Analyzes your project, detects language/framework/domain, creates `.principles` files, then emits per-group principle files to `.github/instructions/` (Copilot Code Review) and `.claude/rules/` (Claude Code) — each file targeting only the relevant file types.
-- ⚡ **`/prime`** — Resolves your `.principles` hierarchy (using per-group files fast path), loads full principle guidance, prepares your coding frame.
-- 🔎 **`/audit`** — Resolves your `.principles` hierarchy (using per-group files fast path), loads principle content, reviews code, and groups findings by severity (Critical / High / Medium / Low). Supports explicit principle override to force a specific principle set regardless of `.principles` files.
+- 🔭 **`scout`** — `/scout` in Claude/Copilot, `$scout` in Codex. Detects language/framework/domain, creates `.principles` files, then emits per-group principle files to `.github/instructions/` (Copilot Code Review) and `.claude/rules/` (Claude Code).
+- ⚡ **`prime`** — `/prime` in Claude/Copilot, `$prime` in Codex. Resolves your `.principles` hierarchy (using per-group files fast path), loads full principle guidance, prepares your coding frame.
+- 🔎 **`audit`** — `/audit` in Claude/Copilot, `$audit` in Codex. Resolves your `.principles` hierarchy (using per-group files fast path), loads principle content, reviews code, and groups findings by severity (Critical / High / Medium / Low).
 
 The AI figures out the scope from context:
 
@@ -309,23 +309,28 @@ The AI figures out the scope from context:
 # Clone the repo
 git clone https://github.com/dot-principles/principles.git
 
-# Install into your project (Claude Code commands + Copilot files + vendor catalog)
+# Install into your project (Claude Code commands + Copilot files + Codex skills + vendor catalog)
 ./install.sh all <project-dir>
 
 # Commit the installed files so every team member gets the commands automatically
 cd <project-dir>
-git add .claude/ .github/ .principles-catalog/
+git add .claude/ .github/ .agents/ .principles-catalog/
 git commit -m "Add .principles AI commands and principle files"
 
-# Use it — in Claude Code or Copilot Chat:
+# Use it — in Claude Code, Copilot, or Codex:
 #   /scout                      → detect profile, create .principles files, emit per-group files
 #   /prime                      → before writing code
 #   /audit current changes      → review only what changed since last commit
 #   /audit directory            → review whatever you describe in conversation
 #   /audit DDD on src/          → force DDD principles regardless of .principles files
+#   $scout / $prime / $audit    → same workflows in Codex CLI or IDE
 ```
 
-**GitHub Copilot (VS Code / JetBrains / CLI):** The repo ships with `.github/prompts/` and `.github/skills/` already populated — `/scout`, `/prime`, and `/audit` are available in Copilot Chat (IDE) and Copilot CLI (terminal) as soon as you clone. To install into your own project:
+**GitHub Copilot (VS Code / JetBrains / CLI):** The repo ships with `.github/prompts/` and `.github/skills/` already populated — `/scout`, `/prime`, and `/audit` are available in Copilot Chat (IDE) and Copilot CLI (terminal) as soon as you clone.
+
+**Codex (CLI + IDE):** The repo also ships with `.agents/skills/` populated — use `$scout`, `$prime`, and `$audit` in Codex.
+
+To install into your own project:
 
 ```bash
 ./install.sh all <dir>

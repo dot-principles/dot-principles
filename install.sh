@@ -11,8 +11,9 @@ set -euo pipefail
 #                                  #   .github/instructions/             (per-group files directory)
 #                                  #   .github/skills/<name>/SKILL.md   (Copilot CLI slash commands)
 #                                  #   .github/prompts/<name>.prompt.md (VS Code / JetBrains / Visual Studio)
+#   ./install.sh codex <dir>       # Generate Codex skills in <dir>/.agents/skills/
 #   ./install.sh vendor <dir>      # Copy catalog subset to <dir>/.principles-catalog/
-#   ./install.sh all <dir>         # Run claude + copilot + vendor in <dir>
+#   ./install.sh all <dir>         # Run claude + copilot + codex + vendor in <dir>
 #   ./install.sh --list <dir>      # Show what's installed in <dir>
 #   ./uninstall.sh <dir>           # Remove local assets from <dir>
 
@@ -54,7 +55,7 @@ normalize_directory_path() {
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VERSION="$(cat "$SCRIPT_DIR/VERSION" | tr -d '[:space:]')"
 
-CLAUDE_TARGETS_DIR="$SCRIPT_DIR/targets/claude-code"
+COMMAND_SOURCE_DIR="$SCRIPT_DIR/commands"
 
 # Colors (if terminal supports them)
 if [ -t 1 ]; then
@@ -107,6 +108,58 @@ copilot_skill_description() {
     esac
 }
 
+codex_skill_description() {
+    case "$1" in
+        scout)
+            echo "Analyse the project, detect language/framework/domain, and create or update .principles files. Use when asked to scout or set up principles in Codex."
+            ;;
+        prime)
+            echo "Resolve the .principles hierarchy, load full principle guidance, and prepare a coding frame. Use when asked to prime or activate principles in Codex."
+            ;;
+        audit)
+            echo "Resolve the .principles hierarchy, load principle content, review code, and group findings by severity (Critical/High/Medium/Low). Use when asked to audit or review code against principles in Codex."
+            ;;
+        *)
+            echo "Run the $1 .principles workflow in Codex."
+            ;;
+    esac
+}
+
+strip_leading_frontmatter() {
+    local source_file="$1"
+
+    awk '
+        BEGIN { in_frontmatter = 0; saw_frontmatter = 0 }
+        NR == 1 && $0 == "---" { in_frontmatter = 1; saw_frontmatter = 1; next }
+        in_frontmatter && $0 == "---" { in_frontmatter = 0; next }
+        !in_frontmatter { print }
+    ' "$source_file"
+}
+
+write_codex_skill() {
+    local source_file="$1"
+    local skill_dir="$2"
+    local command_name="$3"
+
+    mkdir -p "$skill_dir"
+    local skill_file="$skill_dir/SKILL.md"
+
+    cat > "$skill_file" <<EOF
+---
+name: $command_name
+description: $(codex_skill_description "$command_name")
+license: MIT
+---
+
+Codex note:
+- Treat \`\$ARGUMENTS\` below as the user's request text after invoking this skill.
+- References to \`/scout\`, \`/prime\`, and \`/audit\` map to \`\$scout\`, \`\$prime\`, and \`\$audit\` in Codex.
+
+EOF
+
+    cat "$source_file" >> "$skill_file"
+}
+
 
 write_copilot_skill() {
     local source_file="$1"
@@ -145,6 +198,46 @@ EOF
     cat "$source_file" >> "$prompt_file"
 }
 
+install_codex_local() {
+    local project_dir="$1"
+
+    if [ ! -d "$project_dir" ]; then
+        echo -e "${RED}Error: Directory '$project_dir' does not exist.${NC}"
+        exit 1
+    fi
+
+    echo -e "${BOLD}Installing Codex skills (local: $project_dir)...${NC}"
+
+    local skills_dir="$project_dir/.agents/skills"
+    mkdir -p "$skills_dir"
+
+    local skill_count=0
+    local file
+
+    for file in "$COMMAND_SOURCE_DIR/"*.md; do
+        if [ -f "$file" ]; then
+            local command_name
+            local stripped_file
+            command_name="$(basename "$file" .md)"
+            stripped_file="$(mktemp)"
+            strip_leading_frontmatter "$file" | sed \
+                -e "s|{{PRINCIPLES_DIRECTORY}}|.principles-catalog|g" \
+                -e "s|{{VERSION}}|$VERSION|g" \
+                > "$stripped_file"
+            write_codex_skill "$stripped_file" "$skills_dir/$command_name" "$command_name"
+            rm -f "$stripped_file"
+            skill_count=$((skill_count + 1))
+            echo -e "  ${GREEN}✓${NC} \$$command_name"
+        fi
+    done
+
+    echo ""
+    echo "Codex assets written:"
+    echo "  - .agents/skills/<name>/SKILL.md  (${skill_count} skills — Codex CLI + IDE extension)"
+    echo ""
+    echo "In Codex: mention \$scout, \$prime, or \$audit (CLI or IDE extension)"
+}
+
 install_claude() {
     local project_dir="$1"
 
@@ -158,7 +251,7 @@ install_claude() {
     mkdir -p "$target_dir"
 
     local count=0
-    for file in "$CLAUDE_TARGETS_DIR/"*.md; do
+    for file in "$COMMAND_SOURCE_DIR/"*.md; do
         if [ -f "$file" ]; then
             sed -e "s|{{PRINCIPLES_DIRECTORY}}|.principles-catalog|g" -e "s|{{VERSION}}|$VERSION|g" "$file" > "$target_dir/$(basename "$file")"
             count=$((count + 1))
@@ -199,7 +292,7 @@ install_copilot_local() {
     local file
     local skills_dir="$target_dir/skills"
 
-    for file in "$CLAUDE_TARGETS_DIR/"*.md; do
+    for file in "$COMMAND_SOURCE_DIR/"*.md; do
         if [ -f "$file" ]; then
             local command_name
             local prompt_file
@@ -318,7 +411,7 @@ list_installed() {
 
     echo "Claude Code commands (.claude/commands/):"
     local found=false
-    for file in "$CLAUDE_TARGETS_DIR/"*.md; do
+    for file in "$COMMAND_SOURCE_DIR/"*.md; do
         if [ -f "$file" ] && [ -f "$project_dir/.claude/commands/$(basename "$file")" ]; then
             echo -e "  ${GREEN}✓${NC} /$(basename "$file" .md)"
             found=true
@@ -331,7 +424,7 @@ list_installed() {
     echo ""
     echo "Copilot skills (.github/skills/):"
     local copilot_found=false
-    for file in "$CLAUDE_TARGETS_DIR/"*.md; do
+    for file in "$COMMAND_SOURCE_DIR/"*.md; do
         if [ -f "$file" ]; then
             local command_name
             command_name="$(basename "$file" .md)"
@@ -343,6 +436,24 @@ list_installed() {
         fi
     done
     if [ "$copilot_found" = false ]; then
+        echo "  (none)"
+    fi
+
+    echo ""
+    echo "Codex skills (.agents/skills/):"
+    local codex_found=false
+    for file in "$COMMAND_SOURCE_DIR/"*.md; do
+        if [ -f "$file" ]; then
+            local command_name
+            command_name="$(basename "$file" .md)"
+            local skill_file="$project_dir/.agents/skills/$command_name/SKILL.md"
+            if [ -f "$skill_file" ]; then
+                echo -e "  ${GREEN}✓${NC} .agents/skills/$command_name/SKILL.md"
+                codex_found=true
+            fi
+        fi
+    done
+    if [ "$codex_found" = false ]; then
         echo "  (none)"
     fi
 
@@ -362,8 +473,9 @@ show_usage() {
     echo "Targets:"
     echo "  claude <dir>        Install slash commands in <dir>/.claude/commands/"
     echo "  copilot <dir>       Generate Copilot assets in <dir>/.github/"
+    echo "  codex <dir>         Generate Codex skills in <dir>/.agents/skills/"
     echo "  vendor <dir>        Copy catalog subset to <dir>/.principles-catalog/"
-    echo "  all <dir>           Run claude + copilot + vendor in <dir>"
+    echo "  all <dir>           Run claude + copilot + codex + vendor in <dir>"
     echo ""
     echo "Management:"
     echo "  --list <dir>        Show what's installed in <dir>"
@@ -373,6 +485,7 @@ show_usage() {
     echo "Examples:"
     echo "  ./install.sh claude ~/projects/my-app"
     echo "  ./install.sh copilot ~/projects/my-app"
+    echo "  ./install.sh codex ~/projects/my-app"
     echo "  ./install.sh vendor ~/projects/my-app"
     echo "  ./install.sh all ~/projects/my-app"
 }
@@ -402,6 +515,11 @@ case "${1:-}" in
         "$SCRIPT_DIR/uninstall.sh" --quiet --target copilot "$DIR_ARG"
         install_copilot_local "$DIR_ARG"
         ;;
+    codex)
+        require_dir "$DIR_ARG"
+        "$SCRIPT_DIR/uninstall.sh" --quiet --target codex "$DIR_ARG"
+        install_codex_local "$DIR_ARG"
+        ;;
     vendor)
         require_dir "$DIR_ARG"
         "$SCRIPT_DIR/uninstall.sh" --quiet --target vendor "$DIR_ARG"
@@ -413,6 +531,8 @@ case "${1:-}" in
         install_claude "$DIR_ARG"
         echo ""
         install_copilot_local "$DIR_ARG"
+        echo ""
+        install_codex_local "$DIR_ARG"
         echo ""
         install_vendor "$DIR_ARG"
         ;;

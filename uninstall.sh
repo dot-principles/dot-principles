@@ -16,6 +16,7 @@ set -euo pipefail
 #                              #   Copilot CLI: .github/skills/<name>/SKILL.md
 #                              #   Copilot IDE: .github/prompts/<name>.prompt.md
 #                              #                .github/copilot-instructions.md (.principles block only)
+#                              #   Codex:       .agents/skills/<name>/SKILL.md
 #                              #   Vendor:      .principles-catalog/
 #   ./uninstall.sh --help      # Show this help
 
@@ -76,7 +77,7 @@ set -- "${_args[@]+"${_args[@]}"}"
 # Output helper — suppressed in --quiet mode (errors always print via stderr)
 qecho() { [ "$QUIET" = false ] && echo -e "$@" || true; }
 
-CLAUDE_TARGETS_DIR="$SCRIPT_DIR/targets/claude-code"
+COMMAND_SOURCE_DIR="$SCRIPT_DIR/commands"
 
 PROJECT_DIR=""
 if [ -n "${1:-}" ] && [[ "${1:-}" != --* ]]; then
@@ -114,7 +115,7 @@ show_usage() {
     echo ""
     echo "Usage: $0 <dir>"
     echo ""
-    echo "Removes .principles assets for Claude Code, GitHub Copilot, and vendor catalog."
+    echo "Removes .principles assets for Claude Code, GitHub Copilot, Codex, and vendor catalog."
     echo ""
     echo "  <dir>               Remove local assets from <dir>:"
     echo "                        Per-group files: .github/instructions/*.instructions.md (scout-generated)"
@@ -125,12 +126,13 @@ show_usage() {
     echo "                        Copilot CLI:     .github/skills/<name>/SKILL.md"
     echo "                        Copilot IDE:     .github/prompts/<name>.prompt.md"
     echo "                                         .github/copilot-instructions.md (.principles block only)"
+    echo "                        Codex:           .agents/skills/<name>/SKILL.md"
     echo "                        Vendor:          .principles-catalog/"
     echo ""
     echo "Options:"
     echo "  --help              Show this help"
     echo "  --target <name>     Only remove assets for one target"
-    echo "                      (compiled | claude | copilot | vendor)"
+    echo "                      (compiled | claude | copilot | codex | vendor)"
 }
 
 uninstall_claude() {
@@ -143,7 +145,7 @@ uninstall_claude() {
     local found_target=false
     local file
 
-    for file in "$CLAUDE_TARGETS_DIR/"*.md; do
+    for file in "$COMMAND_SOURCE_DIR/"*.md; do
         if [ -f "$file" ]; then
             found_target=true
             local installed_file="$target_dir/$(basename "$file")"
@@ -156,7 +158,7 @@ uninstall_claude() {
     done
 
     if [ "$found_target" = false ]; then
-        echo -e "${RED}Error: No Claude Code command templates found in $CLAUDE_TARGETS_DIR.${NC}" >&2
+        echo -e "${RED}Error: No shared command source files found in $COMMAND_SOURCE_DIR.${NC}" >&2
         exit 1
     fi
 
@@ -222,7 +224,7 @@ uninstall_copilot_local() {
 
     local skill_count=0
     local file
-    for file in "$CLAUDE_TARGETS_DIR/"*.md; do
+    for file in "$COMMAND_SOURCE_DIR/"*.md; do
         if [ -f "$file" ]; then
             local command_name
             command_name="$(basename "$file" .md)"
@@ -243,7 +245,7 @@ uninstall_copilot_local() {
     qecho "${BOLD}Removing GitHub Copilot prompt commands...${NC}"
 
     local prompt_count=0
-    for file in "$CLAUDE_TARGETS_DIR/"*.md; do
+    for file in "$COMMAND_SOURCE_DIR/"*.md; do
         if [ -f "$file" ]; then
             local prompt_file="$prompts_dir/$(basename "$file" .md).prompt.md"
             if [ -f "$prompt_file" ]; then
@@ -261,6 +263,35 @@ uninstall_copilot_local() {
     cleanup_dir_if_empty "$skills_dir"
     cleanup_dir_if_empty "$prompts_dir"
     cleanup_dir_if_empty "$project_dir/.github"
+}
+
+uninstall_codex() {
+    local project_dir="$1"
+    local skills_dir="$project_dir/.agents/skills"
+
+    qecho "${BOLD}Removing Codex skills...${NC}"
+
+    local skill_count=0
+    local file
+    for file in "$COMMAND_SOURCE_DIR/"*.md; do
+        if [ -f "$file" ]; then
+            local command_name
+            command_name="$(basename "$file" .md)"
+            local skill_dir="$skills_dir/$command_name"
+            if [ -d "$skill_dir" ]; then
+                rm -rf "$skill_dir"
+                skill_count=$((skill_count + 1))
+                qecho "  ${GREEN}✓${NC} .agents/skills/$command_name/"
+            fi
+        fi
+    done
+
+    if [ $skill_count -eq 0 ]; then
+        qecho "  ${NEUTRAL} No Codex skills found to remove."
+    fi
+
+    cleanup_dir_if_empty "$skills_dir"
+    cleanup_dir_if_empty "$project_dir/.agents"
 }
 
 uninstall_compiled_blocks() {
@@ -428,6 +459,10 @@ run_uninstall() {
     fi
     if [ -z "$TARGET" ] || [ "$TARGET" = "copilot" ]; then
         uninstall_copilot "$PROJECT_DIR"
+        qecho ""
+    fi
+    if [ -z "$TARGET" ] || [ "$TARGET" = "codex" ]; then
+        uninstall_codex "$PROJECT_DIR"
         qecho ""
     fi
     if [ -z "$TARGET" ] || [ "$TARGET" = "vendor" ]; then

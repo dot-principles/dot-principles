@@ -611,6 +611,8 @@ Activates principles before writing code. Run it before starting work on a task.
 
 Reviews code against activated principles. Outputs findings grouped by severity. Supports explicit principle override via `--with <spec>`, `@<group>`, or `<spec> on <target>` syntax to force a specific principle set regardless of `.principles` files.
 
+**Interactive use only.** `/audit` is a chat-based, on-demand command — run it in Copilot Chat, Claude Code, or any interactive AI session when you want a deep, targeted review with optional fix and PR workflow. It is not automatically invoked during pull request review; that role belongs to the per-group instruction files emitted by `/scout`.
+
 **Phases:**
 
 | Phase | Name                          | Description                                                                                    |
@@ -622,6 +624,13 @@ Reviews code against activated principles. Outputs findings grouped by severity.
 | 5     | Pre-Scan                      | Reads `.context-inspect.md` per namespace; runs bash commands to build pre-scan manifest       |
 | 6     | Review                        | Guided review (hits) + semantic-only review + opportunistic findings                           |
 | 7     | Output                        | Compact text report + `audit-output.json` written to repo root; reports principle source       |
+| 8     | Fix *(optional, gated)*       | Asks "Would you like me to fix these findings?"; on approval creates a `fix-<slug>` branch and applies every finding's `fix` field |
+| 9     | Commit *(optional, gated)*    | Presents commit message + PR body for review; offers commit-only, commit-and-push, or exit    |
+| 10    | Pull Request *(optional, gated)* | Asks "Shall I open a pull request?"; on approval creates a PR targeting the default branch |
+
+**Gated workflow rules (Phases 8–10):** Each phase is a mandatory stop — the default is always to ask, never to proceed. Identifying issues ≠ permission to fix; fixing ≠ permission to commit; committing ≠ permission to push or open a PR. Silence or likely intent never count as approval.
+
+> **Automatic vs. interactive review:** Copilot Code Review and Claude Code's automatic review use the per-group files from `/scout` (`.github/instructions/*.instructions.md`, `REVIEW.md`) — these are passive and post findings as review comments. They do not run `/audit` and cannot trigger Phases 8–10. The fix gate is intentionally interactive: you invoke `/audit` when you are ready to decide whether to apply fixes.
 
 ### 🔍 `/scout`
 

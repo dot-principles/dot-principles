@@ -362,11 +362,13 @@ Phases 8–10 form a strict state machine. Each gate is a mandatory stop point �
 
 After Phase 7 output, if there are no findings, stop — skip remaining phases.
 
-Otherwise ask:
+Otherwise output this question as plain text — call no tools, write nothing else, and end your response:
 
 > Would you like me to fix these findings?
+> - Yes, fix them
+> - No, just the report
 
-**Stop and wait for the user to respond.**
+**End your response here. Do not call any tools. Wait for the user's reply before continuing.**
 
 - User declines → stop. Skip remaining phases.
 - User approves → proceed.
@@ -395,14 +397,14 @@ Fix every finding from `audit-output.json`, file by file:
 
 Compose the commit message and PR body (see format below). Present both **in full inline** so the user can review before deciding.
 
-Then ask:
+Then output this question as plain text — call no tools, write nothing else, and end your response:
 
 > How would you like to proceed?
 > 1. **Commit only** — commit to the local branch
 > 2. **Commit and push** — commit and push to origin
 > 3. **Exit** — leave changes uncommitted
 
-**Stop and wait for the user to respond.**
+**End your response here. Do not call any tools. Wait for the user's reply before continuing.**
 
 - User chooses **exit** → stop. Skip Phase 10.
 - User chooses **commit only** → run the commit commands below. Stop. Skip Phase 10.
@@ -427,11 +429,13 @@ git push -u origin fix-<target-slug>
 
 **GATE — Requires explicit user approval.**
 
-Ask:
+Output this question as plain text — call no tools, write nothing else, and end your response:
 
 > Shall I open a pull request?
+> - Yes, open PR
+> - No, keep the branch
 
-**Stop and wait for the user to respond.**
+**End your response here. Do not call any tools. Wait for the user's reply before continuing.**
 
 - User declines → stop.
 - User approves → create a PR targeting the default branch using the PR body from Phase 9, then stop.

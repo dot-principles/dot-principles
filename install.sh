@@ -8,7 +8,7 @@ set -euo pipefail
 # Usage:
 #   ./install.sh claude <dir>      # Install Claude Code slash commands in <dir>/.claude/commands/
 #   ./install.sh copilot <dir>     # Generate Copilot assets in <dir>/.github/
-#                                  #   .github/copilot-instructions.md  (all Copilot clients)
+#                                  #   .github/instructions/             (per-group files directory)
 #                                  #   .github/skills/<name>/SKILL.md   (Copilot CLI slash commands)
 #                                  #   .github/prompts/<name>.prompt.md (VS Code / JetBrains / Visual Studio)
 #   ./install.sh vendor <dir>      # Copy catalog subset to <dir>/.principles-catalog/
@@ -107,27 +107,6 @@ copilot_skill_description() {
     esac
 }
 
-write_principles_body() {
-    local target_file="$1"
-    cat >> "$target_file" << 'PRINCIPLES_EOF'
-# Code Principles — AI Coding Guidelines
-
-When writing or reviewing code, follow the layered principle system below.
-
-## Layer 1 — Always Active
-
-Non-negotiable fundamentals that apply to every line of code: single responsibility, no duplication, reveal intention, fail fast, validate input, delete dead code.
-
-## Layer 2 — Context-Dependent
-
-Additional principles activated by what you're building. Covers API design, concurrency, domain modeling, testing, cloud-native, and infrastructure patterns.
-
-## Layer 3 — Risk-Elevated
-
-Extra scrutiny for high-risk areas where mistakes are costly or hard to reverse: authentication, financial transactions, personal data (PII), public APIs, performance-critical paths, and distributed systems.
-PRINCIPLES_EOF
-}
-
 
 write_copilot_skill() {
     local source_file="$1"
@@ -207,45 +186,12 @@ install_copilot_local() {
     echo -e "${BOLD}Generating Copilot instructions for: $project_dir${NC}"
 
     local target_dir="$project_dir/.github"
-    local target_file="$target_dir/copilot-instructions.md"
     local prompts_dir="$target_dir/prompts"
+    local instructions_dir="$target_dir/instructions"
 
     mkdir -p "$target_dir"
     mkdir -p "$prompts_dir"
-
-    # Build the new block in a temp file
-    local block_file
-    block_file="$(mktemp)"
-    echo "<!-- .principles: begin -->" > "$block_file"
-    write_principles_body "$block_file"
-    echo "<!-- .principles: end -->" >> "$block_file"
-
-    if [ ! -f "$target_file" ] || [ ! -s "$target_file" ]; then
-        # New or empty file: create with just the block
-        cp "$block_file" "$target_file"
-    elif grep -q "^<!-- .principles: begin -->$" "$target_file"; then
-        # Existing block found: replace it in-place
-        local result_file
-        result_file="$(mktemp)"
-        awk '
-            BEGIN { in_block=0 }
-            /^<!-- .principles: begin -->$/ { in_block=1; next }
-            /^<!-- .principles: end -->$/ { if (in_block) { in_block=0; next } }
-            !in_block { print }
-        ' "$target_file" > "$result_file"
-        # Trim trailing blank lines, then append the new block
-        awk '{lines[NR]=$0; if(/[^[:space:]]/) last=NR} END{for(i=1;i<=last;i++) print lines[i]}' \
-            "$result_file" > "${result_file}.t" && mv "${result_file}.t" "$result_file"
-        [ -s "$result_file" ] && echo "" >> "$result_file"
-        cat "$block_file" >> "$result_file"
-        mv "$result_file" "$target_file"
-    else
-        # Existing file without our block: append
-        echo "" >> "$target_file"
-        cat "$block_file" >> "$target_file"
-    fi
-
-    rm -f "$block_file"
+    mkdir -p "$instructions_dir"
 
     echo -e "${BOLD}Installing Copilot skills and prompt commands...${NC}"
 
@@ -275,10 +221,10 @@ install_copilot_local() {
         fi
     done
 
-    echo -e "  ${GREEN}✓${NC} $target_file"
+    echo -e "  ${GREEN}✓${NC} $instructions_dir/"
     echo ""
     echo "Copilot assets written:"
-    echo "  - .github/copilot-instructions.md"
+    echo "  - .github/instructions/             (per-group files written by /scout)"
     echo "  - .github/skills/<name>/SKILL.md  (${prompt_count} skills  — Copilot CLI slash commands)"
     echo "  - .github/prompts/*.prompt.md      (${prompt_count} prompts — VS Code prompt files)"
     echo ""

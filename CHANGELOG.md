@@ -8,6 +8,33 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [v0.8.0] — unreleased
+
+### Added
+
+- **Per-group principle files** — `/scout` Phase 6 emits one file per `@group` into `.github/instructions/` (Copilot Code Review, `applyTo:` frontmatter) and `.claude/rules/` (Claude Code, `paths:` frontmatter), each targeting only the relevant file globs.
+- **AI tool detection** — Phase 6.0 scans the git root for Copilot/Claude signals before generating files; asks the user to confirm which tools to target.
+- **4,000-char enforcement** — Phase 6.3 enforces Copilot Code Review's per-file limit; files exceeding it are split into numbered parts (`microservices-1.instructions.md`, etc.).
+- **`REVIEW.md` generation** — Phase 6.4 generates a priority-ranked `REVIEW.md` at the git root for Claude Code Review (~10,000 chars, ~150 instructions). Only when Claude is detected.
+- **`globs:` field in group YAML** — 34 language/framework groups declare applicable file globs; cross-cutting groups omit it and default to `**/*`.
+- **`principles-core` files** — Layer 1 universals and ungrouped bare IDs emitted as `principles-core.instructions.md` / `principles-core.md` with `**/*` globs.
+- **Per-group files fast path** — `/prime` and `/audit` Phase 2 discover principles from per-group files before falling back to the `.principles` tree walk.
+
+### Changed
+
+- **`/scout` Phase 6 fully rewritten** — replaces compiled block injection with per-group file emission (sub-phases 6.0–6.5: detect, resolve, clean stale, Copilot files, Claude `REVIEW.md`, report).
+- **`install.sh`** — `copilot` mode creates `.github/instructions/` instead of writing a compiled block into `copilot-instructions.md`.
+- **`uninstall.sh`** — cleans per-group files (marker-aware) plus legacy `.ai/`, `AGENTS.md` blocks, and old `principles.md` files.
+- **DESIGN.md, README.md, INSTALL.md** — updated to reflect per-group file delivery; removed compiled-block and AGENTS.md references.
+
+### Removed
+
+- **Compiled block injection** — no longer writes `<!-- .principles: begin/end -->` blocks into `copilot-instructions.md`, `AGENTS.md`, `.claude/rules/principles.md`, or `.ai/principles.md`.
+- **`.ai/` folder support** and **AGENTS.md injection** — no longer generated or read.
+- **`.claude/rules/` per-group files** — replaced by `REVIEW.md` as the Claude-facing review integration.
+
+---
+
 ## [v0.7.1] — 2026-03-28
 
 ### Changed

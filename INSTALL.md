@@ -66,7 +66,7 @@ install.cmd all C:\projects\my-app
 | `.claude/commands/scout.md` | `/scout` slash command for Claude Code |
 | `.claude/commands/prime.md` | `/prime` slash command for Claude Code |
 | `.claude/commands/audit.md` | `/audit` slash command for Claude Code |
-| `.github/copilot-instructions.md` | Always-on context for all Copilot clients |
+| `.github/instructions/` | Per-group principle files for Copilot Code Review (written by `/scout`) |
 | `.github/prompts/scout.prompt.md` | `/scout` in VS Code / JetBrains Copilot Chat |
 | `.github/prompts/prime.prompt.md` | `/prime` in VS Code / JetBrains Copilot Chat |
 | `.github/prompts/audit.prompt.md` | `/audit` in VS Code / JetBrains Copilot Chat |
@@ -80,7 +80,7 @@ install.cmd all C:\projects\my-app
 ```bash
 cd <project-dir>
 git add .claude/ .github/ .principles-catalog/
-git commit -m "Add .principles AI commands and compiled principle block"
+git commit -m "Add .principles AI commands and principle files"
 ```
 
 You can also install a subset if needed:
@@ -105,7 +105,7 @@ The `vendor` subcommand copies the subset of the principle catalog referenced by
 
 `install.sh all` runs `vendor` automatically. You only need to run it manually if you add new principles to your `.principles` files after the initial install.
 
-As part of vendoring, `install.sh vendor` also generates `<dir>/.principles-catalog/index.tsv` — a pipe-delimited flat file (`ID|LAYER|SUMMARY`, one line per principle) covering every vendored principle. `/scout` reads this single file to build the compiled block in one pass, without walking hundreds of individual namespace files. Example entries:
+As part of vendoring, `install.sh vendor` also generates `<dir>/.principles-catalog/index.tsv` — a pipe-delimited flat file (`ID|LAYER|SUMMARY`, one line per principle) covering every vendored principle. `/scout` reads this single file to resolve active principles and emit per-group files in one pass, without walking hundreds of individual namespace files. Example entries:
 
 ```
 CODE-SEC-VALIDATE-INPUT|1|Validate all input at every system boundary; never trust external data.
@@ -122,9 +122,9 @@ DDD-AGGREGATE|2|Enforce business invariants within a single aggregate boundary p
 
 After `install.sh all <dir>`, Claude Code slash commands are written to `<dir>/.claude/commands/`. Claude Code discovers these automatically when opened in that project directory.
 
-**Compiled block:** After running `/scout`, the active principle set is compiled into a compact block and injected into `.claude/rules/principles.md` (created if absent). Claude Code reads everything in `.claude/rules/` as always-on context — no further configuration needed.
+**Per-group files:** After running `/scout`, per-group principle files are emitted to `.claude/rules/` with `paths:` frontmatter targeting the relevant file types. Claude Code reads everything in `.claude/rules/` as always-on context — no further configuration needed.
 
-Run `/scout` once per project to populate `.principles` files and inject the compiled block:
+Run `/scout` once per project to populate `.principles` files and emit per-group principle files:
 
 ```
 /scout
@@ -140,31 +140,17 @@ Run `/scout` once per project to populate `.principles` files and inject the com
 
 | File | Consumed by |
 |------|-------------|
-| `.github/copilot-instructions.md` | All Copilot clients (always-on context) |
+| `.github/instructions/<group>.instructions.md` | Copilot Code Review (path-targeted, written by `/scout`) |
 | `.github/prompts/<name>.prompt.md` | VS Code / JetBrains / Visual Studio Copilot Chat |
 | `.github/skills/<name>/SKILL.md` | Copilot CLI (terminal slash commands) |
 
 This repo ships with pre-populated `.github/prompts/` and `.github/skills/` directories so contributors working in this repo get `/scout`, `/prime`, and `/audit` without running the installer.
 
-**Compiled block:** After `/scout`, the active principle block is injected into `.github/copilot-instructions.md` (unless that file is a pointer/redirect file). All Copilot clients pick this up automatically.
+**Per-group files:** After `/scout`, one file per active `@group` is written to `.github/instructions/` with `applyTo:` frontmatter listing the file globs for that group. Copilot Code Review activates each file only when reviewing paths that match its globs — keeping each file within the context budget.
 
 ---
 
-## 7. AGENTS.md — cross-agent injection target
-
-`AGENTS.md` is a standard instruction file read by multiple AI agents (OpenAI Codex, Claude Code, GitHub Copilot, and others). `/scout` Phase 6 injects the compiled principle block into `AGENTS.md` automatically, covering three cases:
-
-| Case | What happens |
-|------|-------------|
-| **Hub layout** — `AGENTS.md` contains an includes table | A `.ai/principles.md` file is created with the compiled block; a row linking to it is added to the table |
-| **Simple layout** — `AGENTS.md` is a flat instruction file | The compiled block is injected directly into the file |
-| **Absent** — no `AGENTS.md` exists | A new `AGENTS.md` is created containing the compiled block |
-
-The block is delimited by `<!-- .principles: begin -->` and `<!-- .principles: end -->` markers. Re-running `/scout` updates the block in place.
-
----
-
-## 8. Uninstall
+## 7. Uninstall
 
 ```bash
 # Remove all .principles assets from a project
@@ -172,16 +158,17 @@ The block is delimited by `<!-- .principles: begin -->` and `<!-- .principles: e
 ```
 
 The uninstaller:
+- Removes per-group principle files from `.github/instructions/` and `.claude/rules/` (files with `<!-- generated by /scout -->` marker)
 - Removes `.claude/commands/scout.md`, `prime.md`, `audit.md`
-- Strips the compiled block from `.claude/rules/principles.md`, `.ai/principles.md`, `AGENTS.md`, `CLAUDE.md`
 - Removes `.principles-catalog/`
+- Cleans up legacy assets: `.ai/`, compiled blocks from `AGENTS.md`/`CLAUDE.md`/`copilot-instructions.md`
 - Removes legacy `~/.principles` if present from an older install
 
 On Windows, use `uninstall.ps1` or `uninstall.cmd` with the same arguments.
 
 ---
 
-## 9. Try it on a branch first
+## 8. Try it on a branch first
 
 Not ready to commit to a project? Install locally into a throwaway branch:
 
@@ -201,12 +188,12 @@ git checkout main && git branch -D try-principles
 
 ---
 
-## 10. After installing
+## 9. After installing
 
 Open your AI tool and run the commands:
 
 ```
-/scout              → detect project profile, create .principles files, compile + inject
+/scout              → detect project profile, create .principles files, emit per-group principle files
 /prime              → activate principles before writing code
 /audit              → review code with severity-categorized findings
 /audit DDD on src/  → force specific principles, ignoring .principles files

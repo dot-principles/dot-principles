@@ -45,14 +45,29 @@ foreach ($file in $AuditFiles) {
     Check-Marker $file "Yes, fix them"                                 "$name: Phase 8 Yes choice"
     Check-Marker $file "No, just the report"                          "$name: Phase 8 No choice"
     Check-Marker $file "## Phase 9"                                    "$name: Phase 9 heading"
+    Check-Marker $file "How would you like to proceed"                 "$name: Phase 9 commit question"
+    Check-Marker $file "Commit only"                                   "$name: Phase 9 Commit-only choice"
+    Check-Marker $file "Commit and push"                               "$name: Phase 9 Commit-and-push choice"
+    Check-Marker $file "Exit"                                          "$name: Phase 9 Exit choice"
     Check-Marker $file "## Phase 10"                                   "$name: Phase 10 heading"
+    Check-Marker $file "Shall I open a pull request"                   "$name: Phase 10 PR question"
+    Check-Marker $file "Yes, open PR"                                  "$name: Phase 10 Yes choice"
+    Check-Marker $file "No, keep the branch"                           "$name: Phase 10 No choice"
 }
 
-# Plain-text output files (not using ask_user tool) must include the explicit hard-stop phrase.
+# Plain-text output files (not using ask_user tool) must include the explicit hard-stop phrase
+# for all three gates (Phases 8, 9, and 10 each end with this instruction).
 foreach ($file in $PlainTextFiles) {
     if (-not (Test-Path $file)) { continue }
     $name = Split-Path -Leaf $file
-    Check-Marker $file "End your response here. Do not call any tools" "$name: Phase 8 hard-stop"
+    $content = Get-Content $file -Raw -ErrorAction SilentlyContinue
+    $count = ([regex]::Matches($content, [regex]::Escape("End your response here. Do not call any tools"))).Count
+    if ($count -lt 3) {
+        Write-Host "FAIL [$name: hard-stop count]"
+        Write-Host "     File   : $file"
+        Write-Host "     Expected: 3 occurrences of hard-stop (Phases 8, 9, 10); found: $count"
+        $script:Errors++
+    }
 }
 
 if ($Errors -eq 0) {

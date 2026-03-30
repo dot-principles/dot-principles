@@ -48,14 +48,28 @@ for file in "${AUDIT_FILES[@]}"; do
   check "$file" "Yes, fix them"                                 "$name: Phase 8 Yes choice"
   check "$file" "No, just the report"                          "$name: Phase 8 No choice"
   check "$file" "## Phase 9"                                    "$name: Phase 9 heading"
+  check "$file" "How would you like to proceed"                 "$name: Phase 9 commit question"
+  check "$file" "Commit only"                                   "$name: Phase 9 Commit-only choice"
+  check "$file" "Commit and push"                               "$name: Phase 9 Commit-and-push choice"
+  check "$file" "Exit"                                          "$name: Phase 9 Exit choice"
   check "$file" "## Phase 10"                                   "$name: Phase 10 heading"
+  check "$file" "Shall I open a pull request"                   "$name: Phase 10 PR question"
+  check "$file" "Yes, open PR"                                  "$name: Phase 10 Yes choice"
+  check "$file" "No, keep the branch"                           "$name: Phase 10 No choice"
 done
 
-# Plain-text output files (not using ask_user tool) must include the explicit hard-stop phrase.
+# Plain-text output files (not using ask_user tool) must include the explicit hard-stop phrase
+# for all three gates (Phase 8, 9, and 10 each end with this instruction).
 for file in "${PLAIN_TEXT_FILES[@]}"; do
   [[ -f "$file" ]] || continue
   name="$(basename "$file")"
-  check "$file" "End your response here. Do not call any tools" "$name: Phase 8 hard-stop"
+  count=$(grep -cF "End your response here. Do not call any tools" "$file" || true)
+  if [[ "$count" -lt 3 ]]; then
+    echo "FAIL [$name: hard-stop count]"
+    echo "     File   : $file"
+    echo "     Expected: 3 occurrences of hard-stop (Phases 8, 9, 10); found: $count"
+    ERRORS=$((ERRORS + 1))
+  fi
 done
 
 if [[ $ERRORS -eq 0 ]]; then

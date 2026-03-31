@@ -62,3 +62,12 @@ Not acceptable:
 - Blog posts without named authors
 - Stack Overflow answers
 - Undated sources
+
+## Contribution License
+
+By submitting a pull request, you agree that:
+
+- Contributions to `principles/` are licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
+- Contributions outside `principles/` (scripts, tooling, docs) are licensed under [MIT](https://opensource.org/licenses/MIT).
+
+This matches the dual-license structure defined in [LICENSE](LICENSE).

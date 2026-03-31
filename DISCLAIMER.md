@@ -24,5 +24,7 @@ You are encouraged to fork this repository and adapt it for your own context:
 
 The `.principles` system is designed to be extended. Nothing here is authoritative or mandatory — it is a starting point.
 
+> **Namespace ownership:** Original files you create in your own namespace (e.g., `principles/corp/`, `principles/mycompany/`) are your own work, not adaptations of this project's content. Only modifications to existing shipped principle files are considered adaptations under CC BY-SA 4.0.
+
 License note: for explicit rules on `internal use` and `distribution`, including what users/developers may do and must do, see [LICENSE-INTERPRETATION.md](LICENSE-INTERPRETATION.md).
 

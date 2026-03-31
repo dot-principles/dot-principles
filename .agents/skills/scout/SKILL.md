@@ -189,7 +189,7 @@ Active groups resolved:
 
 Next steps:
   - Run /prime to activate principles before writing
-  - Run /audit <file> to review against these principles
+  - Run /audit <target> to review against these principles
   - Edit .principles files manually to add !exclusions or direct principle IDs
 ```
 

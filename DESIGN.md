@@ -651,7 +651,7 @@ Analyses a project directory and creates or updates `.principles` files, then co
 
 ## 📦 9. Installer Targets
 
-`install.sh` deploys the three commands (`/scout`, `/prime`, `/audit`) to supported AI tool families. Each target writes different files because each tool family has its own discovery mechanism.
+`install.sh` deploys the three commands (`/scout`, `/prime`, `/audit`) to supported AI tool families. Each target writes different files because each tool family has its own discovery mechanism. The installer is **template-driven** — each tool's output format is defined by two files in `templates/<tool>/` (see [Template System](#-template-system) below).
 
 **Prerequisites:** Bash 4+. See [REQUIREMENTS.md](REQUIREMENTS.md). On Windows, use `install.ps1` (PowerShell) or `install.cmd` (CMD) — thin wrappers that detect bash and forward all arguments to `install.sh`. See [INSTALL.md](INSTALL.md) for platform-specific instructions.
 
@@ -659,34 +659,49 @@ Install is **repo-local only** — a `<dir>` argument is always required. There 
 
 | Command | What it installs |
 |---|---|
-| `./install.sh all <dir>` | Claude Code commands + Copilot files + Codex skills + vendor catalog (recommended) |
+| `./install.sh <dir>` | Interactive menu — select which tools to install |
+| `./install.sh all <dir>` | Claude Code + Copilot CLI + Copilot IDE + Codex + vendor catalog |
 | `./install.sh claude <dir>` | Claude Code commands only (`<dir>/.claude/commands/`) |
-| `./install.sh copilot <dir>` | Copilot files only (`<dir>/.github/`) |
+| `./install.sh copilot <dir>` | Copilot CLI + IDE (backward-compatible alias) |
+| `./install.sh copilot-cli <dir>` | Copilot CLI skills only (`<dir>/.github/skills/`) |
+| `./install.sh copilot-ide <dir>` | Copilot IDE prompts only (`<dir>/.github/prompts/`) |
 | `./install.sh codex <dir>` | Codex skills only (`<dir>/.agents/skills/`) |
 | `./install.sh vendor <dir>` | Vendor catalog only (`<dir>/.principles-catalog/`) |
+| `./install.sh --list <dir>` | Show what's installed in `<dir>` |
+
+**Interactive mode:** When invoked with just a directory and no target (`./install.sh <dir>`), the installer presents a numbered menu for selecting which tools to install.
 
 ### 🤖 Claude Code (`./install.sh claude <dir>`)
 
-Copies the shared command source files from `commands/*.md` to `<dir>/.claude/commands/`, substituting the `{{PRINCIPLES_DIRECTORY}}` placeholder with `<dir>/.principles-catalog/`.
+Copies the shared command source files from `commands/*.md` to `<dir>/.claude/commands/`, substituting the `{{PRINCIPLES_DIRECTORY}}` placeholder with `.principles-catalog`.
 
 **Per-group files:** `/scout` Phase 6 emits per-group principle files into `<dir>/.claude/rules/` with `paths:` frontmatter. Claude Code reads all files in `.claude/rules/` as always-on context, but only surfaces each file when editing paths matching its globs.
 
 Claude Code discovers slash commands by scanning `<dir>/.claude/commands/` for `.md` files. The file body is the full prompt.
 
-### 🐙 GitHub Copilot (`./install.sh copilot <dir>`)
+### 🐙 Copilot CLI (`./install.sh copilot-cli <dir>`)
 
-Writes skill and prompt files into `<dir>/.github/`:
+Writes skill files into `<dir>/.github/skills/`:
 
 | File | Location | Consumed by |
 |------|----------|-------------|
 | `SKILL.md` | `.github/skills/<name>/SKILL.md` | **Copilot CLI** (terminal slash commands) |
+
+Copilot CLI discovers skills by scanning `.github/skills/` for directories containing `SKILL.md`. The YAML frontmatter provides skill metadata (`name`, `description`, `license`).
+
+### 🖥️ Copilot IDE (`./install.sh copilot-ide <dir>`)
+
+Writes prompt files into `<dir>/.github/prompts/`:
+
+| File | Location | Consumed by |
+|------|----------|-------------|
 | `<name>.prompt.md` | `.github/prompts/<name>.prompt.md` | **VS Code / JetBrains / Visual Studio** (IDE chat) |
 
-**Per-group files:** `/scout` Phase 6 emits per-group principle files into `.github/instructions/` with `applyTo:` frontmatter. Copilot Code Review and other Copilot clients read these files and apply them when reviewing matching paths.
+Prompt files use `mode: agent` to enable file reading, tool use, and shell execution.
 
-**Skills** (`.github/skills/<name>/SKILL.md`) are the CLI mechanism. **Prompt files** (`.github/prompts/<name>.prompt.md`) are the IDE mechanism. Both use YAML frontmatter; prompt files use `mode: agent` to enable file reading, tool use, and shell execution.
+**Per-group files (shared by CLI and IDE):** `/scout` Phase 6 emits per-group principle files into `.github/instructions/` with `applyTo:` frontmatter. Copilot Code Review and other Copilot clients read these files and apply them when reviewing matching paths.
 
-This repo ships with pre-populated `.github/prompts/` and `.github/skills/` directories so contributors working in this repo itself get `/scout`, `/prime`, and `/audit` without running the installer.
+The `copilot` sub-command installs both CLI skills and IDE prompts (backward-compatible). This repo ships with pre-populated `.github/prompts/` and `.github/skills/` directories so contributors working in this repo itself get `/scout`, `/prime`, and `/audit` without running the installer.
 
 ### 🧠 Codex (`./install.sh codex <dir>`)
 
@@ -707,12 +722,66 @@ Copies the subset of `principles/` and `groups/` referenced by the project's `.p
 Removes all assets written by `install.sh`:
 - Per-group principle files from `<dir>/.github/instructions/` and `<dir>/.claude/rules/` (files with `<!-- generated by /scout -->` marker)
 - Command files from `<dir>/.claude/commands/`
+- Copilot skills from `<dir>/.github/skills/` and prompts from `<dir>/.github/prompts/`
 - Codex skills from `<dir>/.agents/skills/`
 - `<dir>/.principles-catalog/`
 - Legacy assets: `<dir>/.ai/`, compiled blocks from `AGENTS.md`/`CLAUDE.md`/`copilot-instructions.md`
 - Legacy `~/.principles` if present from an older install
 
 On Windows, use `uninstall.ps1` or `uninstall.cmd`.
+
+### 🧩 Template System
+
+The installer is template-driven. Each AI tool is defined by two files in `templates/<tool>/`:
+
+```
+templates/
+├── claude/
+│   ├── manifest.cfg          # Key=value config (output paths, patches)
+│   └── wrapper.md            # Output skeleton with {{PLACEHOLDERS}}
+├── copilot-cli/
+│   ├── manifest.cfg
+│   └── wrapper.md
+├── copilot-ide/
+│   ├── manifest.cfg
+│   └── wrapper.md
+└── codex/
+    ├── manifest.cfg
+    └── wrapper.md
+```
+
+**`manifest.cfg`** — bash-sourceable key=value config:
+- `TOOL_ID` — unique identifier (e.g. `claude`, `copilot-cli`)
+- `TOOL_LABEL` — human-readable name for installer output
+- `OUTPUT_DIR` — target directory pattern (may contain `{{COMMAND_NAME}}`)
+- `OUTPUT_FILE` — target filename pattern (may contain `{{COMMAND_NAME}}`)
+- `PATCHES` — optional sed expressions applied to the command body
+
+**`wrapper.md`** — output skeleton using three placeholders:
+- `{{COMMAND_NAME}}` — the command basename (e.g. `audit`, `prime`, `scout`)
+- `{{FRONTMATTER}}` — replaced with the consistent frontmatter fields from the source
+- `{{COMMAND_BODY}}` — replaced with the command content (everything after the source frontmatter)
+
+#### Consistent Frontmatter
+
+Every generated file contains the same core frontmatter fields from `commands/*.md`:
+
+| Field | Example | Present in |
+|-------|---------|------------|
+| `description` | "Review a file, directory, or inline code against..." | All tools |
+| `argument-hint` | "[file\|directory\|inline-code]..." | All tools |
+| `allowed-tools` | "Read, Write, Glob, Grep, Bash" | All tools |
+| `version` | "0.8.1" | All tools |
+| `authors` | "Flemming N. Larsen (...)" | All tools |
+| `name` | "audit" | Copilot CLI, Codex |
+| `license` | "MIT" | Copilot CLI, Codex |
+| `mode` | "agent" | Copilot IDE |
+
+Tool-specific extra fields (`name`, `license`, `mode`) are defined in each tool's `wrapper.md`, not in the source commands.
+
+#### Adding a New AI Tool
+
+To support a new AI tool, create `templates/<newtool>/manifest.cfg` + `wrapper.md`. No changes to `install.sh` are needed — the installer discovers templates automatically via the sub-command → template directory mapping.
 
 ---
 

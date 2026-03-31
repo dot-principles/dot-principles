@@ -196,12 +196,20 @@ Next steps:
 
 Scan the git root for signals that indicate which AI coding/review tools are active.
 
-**Copilot detection** — any match = Copilot active:
+**Install config** — if `{{PRINCIPLES_DIRECTORY}}/install.cfg` exists, read it first. Each non-comment line is a target ID written by `install.sh`. The review-relevant targets are:
+- `copilot-review` → Copilot Code Review enabled
+- `claude-review`  → Claude Code Review enabled
+
+If `install.cfg` contains the target, that review tool is **enabled** regardless of other signals.
+If `install.cfg` exists but does **not** contain the target, that review tool is **disabled** — skip it even if signal files exist.
+If `install.cfg` does **not** exist, fall back to file-based detection below.
+
+**Copilot detection** (fallback when no install.cfg) — any match = Copilot active:
 - `.github/copilot-instructions.md` exists
 - `.github/copilot-setup-steps.yml` exists
 - Any `.github/instructions/*.instructions.md` file exists (previous /scout run)
 
-**Claude detection** — any match = Claude active:
+**Claude detection** (fallback when no install.cfg) — any match = Claude active:
 - `CLAUDE.md` exists at git root
 - `.claude/` directory exists
 - `REVIEW.md` exists at git root (previous /scout run)

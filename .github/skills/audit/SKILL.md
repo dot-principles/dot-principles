@@ -1,16 +1,13 @@
 ---
 name: audit
-description: Resolve the .principles hierarchy, load principle content, review code, and group findings by severity (Critical/High/Medium/Low). Use this skill when asked to audit or review code against principles.
-license: MIT
----
-
----
 description: Review a file, directory, or inline code against its activated principles. Supports explicit principle override with --with / @group / on syntax. Use when the user runs /audit [target] to check code or docs against quality principles.
 argument-hint: "[file|directory|inline-code] | <spec> on <target> | <target> --with <spec> | @<group> <target>"
 allowed-tools: Read, Write, Glob, Grep, Bash
-version: {{VERSION}}
+version: 0.8.1
 authors: Flemming N. Larsen (https://github.com/flemming-n-larsen)
+license: MIT
 ---
+
 
 # Audit
 
@@ -167,18 +164,17 @@ Derive unique namespaces from the active principle ID prefixes. Use the longest-
 | `EFFECTIVE-JAVA-*` | `effective-java/` |
 | `12FACTOR-*` | `12factor/` |
 | `PIPELINE-*` | `pipeline/` |
-| `SEC-ARCH-*` | `sec-arch/` |
 | `CODE-API-*` | `code/api/` |
-| `CODE-AR-*`  | `code/ar/`  |
-| `CODE-CC-*`  | `code/cc/`  |
-| `CODE-CS-*`  | `code/cs/`  |
-| `CODE-DX-*`  | `code/dx/`  |
-| `CODE-OB-*`  | `code/ob/`  |
-| `CODE-PF-*`  | `code/pf/`  |
-| `CODE-RL-*`  | `code/rl/`  |
+| `CODE-AR-*` | `code/ar/` |
+| `CODE-CC-*` | `code/cc/` |
+| `CODE-CS-*` | `code/cs/` |
+| `CODE-DX-*` | `code/dx/` |
+| `CODE-OB-*` | `code/ob/` |
+| `CODE-PF-*` | `code/pf/` |
+| `CODE-RL-*` | `code/rl/` |
 | `CODE-SEC-*` | `code/sec/` |
-| `CODE-TP-*`  | `code/tp/`  |
-| `CODE-TS-*`  | `code/ts/`  |
+| `CODE-TP-*` | `code/tp/` |
+| `CODE-TS-*` | `code/ts/` |
 | `CODE-*` | `code/` |
 | `SOLID-*` | `solid/` |
 | `DDD-*` | `ddd/` |
@@ -283,13 +279,7 @@ For each violation found, record: principle ID, severity (Critical/High/Medium/L
 
 ## Phase 7 — Output
 
-**Step 1.** Delete any existing `audit-output.json` at the repository root, then write a fresh one. Run this first:
-
-```bash
-rm -f <repo-root>/audit-output.json
-```
-
-Then write it with this structure:
+**Step 1.** Write `audit-output.json` to the **repository root** (where `.git/` is) with this structure:
 
 ```json
 {
@@ -384,7 +374,7 @@ Otherwise output this question as plain text — call no tools, write nothing el
 **End your response here. Do not call any tools. Wait for the user's reply before continuing.**
 
 - User declines → stop. Skip remaining phases.
-- User approves → proceed to Phase 8.1.
+- User approves → proceed.
 
 ### 8.1 — Create a fix branch
 
@@ -419,15 +409,15 @@ Compose the commit message and PR body (see format below). Present both **in ful
 Then output this question as plain text — call no tools, write nothing else, and end your response:
 
 > How would you like to proceed?
-> - Commit only — commit to the local branch
-> - Commit and push — commit and push to origin
-> - Exit — leave changes uncommitted
+> 1. **Commit only** — commit to the local branch
+> 2. **Commit and push** — commit and push to origin
+> 3. **Exit** — leave changes uncommitted
 
 **End your response here. Do not call any tools. Wait for the user's reply before continuing.**
 
-- User chooses **Exit** → stop. Skip Phase 10.
-- User chooses **Commit only** → run the commit commands below. Stop. Skip Phase 10.
-- User chooses **Commit and push** → run the commit commands below, then push. Proceed to Phase 10.
+- User chooses **exit** → stop. Skip Phase 10.
+- User chooses **commit only** → run the commit commands below. Stop. Skip Phase 10.
+- User chooses **commit and push** → run the commit commands below, then push. Proceed to Phase 10.
 
 ### 9.1 — Commit
 

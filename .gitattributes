@@ -3,3 +3,6 @@
 
 # Markdown files — treat as UTF-8 text with LF line endings
 *.md text eol=lf working-tree-encoding=UTF-8
+
+# Shell-sourceable config — must use LF (sourced by bash)
+*.cfg text eol=lf

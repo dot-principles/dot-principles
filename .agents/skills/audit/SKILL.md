@@ -1,6 +1,10 @@
 ---
 name: audit
-description: Resolve the .principles hierarchy, load principle content, review code, and group findings by severity (Critical/High/Medium/Low). Use when asked to audit or review code against principles in Codex.
+description: Review a file, directory, or inline code against its activated principles. Supports explicit principle override with --with / @group / on syntax. Use when the user runs /audit [target] to check code or docs against quality principles.
+argument-hint: "[file|directory|inline-code] | <spec> on <target> | <target> --with <spec> | @<group> <target>"
+allowed-tools: Read, Write, Glob, Grep, Bash
+version: 0.8.1
+authors: Flemming N. Larsen (https://github.com/flemming-n-larsen)
 license: MIT
 ---
 

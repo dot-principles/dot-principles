@@ -1,19 +1,16 @@
 ---
-description: Detect project profile and create or update .principles files (Experimental)
-mode: agent
----
-
----
 description: Analyse a project to detect which principles apply and create or update .principles files encoding that analysis. Use when the user runs /scout [path] to map principles to a codebase.
 argument-hint: "[directory-path]"
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash
-version: {{VERSION}}
+version: 0.8.1
 authors: Flemming N. Larsen (https://github.com/flemming-n-larsen)
+mode: agent
 ---
+
 
 # Scout
 
-You are analysing a project to determine which principles apply and creating or updating `.principles` files to encode that. Follow these five phases exactly.
+You are analysing a project to determine which principles apply and creating or updating `.principles` files to encode that. Follow these six phases exactly.
 
 ## Phase 1 — Resolve Target and Bootstrap Catalog
 

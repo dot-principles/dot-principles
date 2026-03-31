@@ -1,16 +1,13 @@
 ---
 name: scout
-description: Analyse the project, detect language/framework/domain, and create or update .principles files. Use this skill when asked to scout, detect project profile, or set up principles.
-license: MIT
----
-
----
 description: Analyse a project to detect which principles apply and create or update .principles files encoding that analysis. Use when the user runs /scout [path] to map principles to a codebase.
 argument-hint: "[directory-path]"
 allowed-tools: Read, Write, Edit, Glob, Grep, Bash
-version: {{VERSION}}
+version: 0.8.1
 authors: Flemming N. Larsen (https://github.com/flemming-n-larsen)
+license: MIT
 ---
+
 
 # Scout
 

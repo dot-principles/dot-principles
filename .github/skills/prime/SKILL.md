@@ -1,16 +1,13 @@
 ---
 name: prime
-description: Resolve the .principles hierarchy, load full principle guidance, and prepare a coding frame. Use this skill when asked to prime, activate principles, or before writing code.
-license: MIT
----
-
----
 description: Activate principles before working on a file or task. Use when the user runs /prime [target] to load the relevant principles into the active frame before writing or editing.
 argument-hint: "[file|directory|description]"
 allowed-tools: Read, Glob, Grep, Bash
-version: {{VERSION}}
+version: 0.8.1
 authors: Flemming N. Larsen (https://github.com/flemming-n-larsen)
+license: MIT
 ---
+
 
 # Prime
 

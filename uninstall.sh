@@ -87,14 +87,16 @@ fi
 # Colors (if terminal supports them)
 if [ -t 1 ]; then
     GREEN='\033[0;32m'
+    YELLOW='\033[1;33m'
     RED='\033[0;31m'
     BOLD='\033[1m'
+    DIM='\033[0;90m'
     NC='\033[0m'
 else
-    GREEN='' RED='' BOLD='' NC=''
+    GREEN='' YELLOW='' RED='' BOLD='' DIM='' NC=''
 fi
 
-NEUTRAL='-'
+NEUTRAL="${DIM}-${NC}"
 
 cleanup_dir_if_empty() {
     local dir="$1"
@@ -113,25 +115,25 @@ print_header() {
 show_usage() {
     print_header
     echo ""
-    echo "Usage: $0 <dir>"
+    echo -e "Usage: $0 ${BOLD}<dir>${NC}"
     echo ""
     echo "Removes .principles assets for Claude Code, GitHub Copilot, Codex, and vendor catalog."
     echo ""
-    echo "  <dir>               Remove local assets from <dir>:"
-    echo "                        Per-group files: .github/instructions/*.instructions.md (scout-generated)"
-    echo "                                         .claude/rules/*.md (scout-generated)"
-    echo "                        Legacy blocks:   .claude/rules/principles.md, .ai/principles.md,"
+    echo -e "  ${BOLD}<dir>${NC}               Remove local assets from <dir>:"
+    echo -e "                        ${DIM}Per-group files:${NC} .github/instructions/*.instructions.md (scout-generated)"
+    echo -e "                                         .claude/rules/*.md (scout-generated)"
+    echo -e "                        ${DIM}Legacy blocks:${NC}   .claude/rules/principles.md, .ai/principles.md,"
     echo "                                         AGENTS.md, CLAUDE.md (stripped inline)"
-    echo "                        Claude Code:     .claude/commands/<name>.md"
-    echo "                        Copilot CLI:     .github/skills/<name>/SKILL.md"
-    echo "                        Copilot IDE:     .github/prompts/<name>.prompt.md"
+    echo -e "                        ${DIM}Claude Code:${NC}     .claude/commands/<name>.md"
+    echo -e "                        ${DIM}Copilot CLI:${NC}     .github/skills/<name>/SKILL.md"
+    echo -e "                        ${DIM}Copilot IDE:${NC}     .github/prompts/<name>.prompt.md"
     echo "                                         .github/copilot-instructions.md (.principles block only)"
-    echo "                        Codex:           .agents/skills/<name>/SKILL.md"
-    echo "                        Vendor:          .principles-catalog/"
+    echo -e "                        ${DIM}Codex:${NC}           .agents/skills/<name>/SKILL.md"
+    echo -e "                        ${DIM}Vendor:${NC}          .principles-catalog/"
     echo ""
     echo "Options:"
-    echo "  --help              Show this help"
-    echo "  --target <name>     Only remove assets for one target"
+    echo -e "  ${BOLD}--help${NC}              Show this help"
+    echo -e "  ${BOLD}--target <name>${NC}     Only remove assets for one target"
     echo "                      (compiled | claude | copilot | codex | vendor)"
 }
 

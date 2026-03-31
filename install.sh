@@ -6,16 +6,16 @@ set -euo pipefail
 # install.sh — Deploy .principles to AI coding tools
 #
 # Usage:
-#   ./install.sh claude <dir>      # Install Claude Code slash commands in <dir>/.claude/commands/
-#   ./install.sh copilot <dir>     # Generate Copilot assets in <dir>/.github/
-#                                  #   .github/instructions/             (per-group files directory)
-#                                  #   .github/skills/<name>/SKILL.md   (Copilot CLI slash commands)
-#                                  #   .github/prompts/<name>.prompt.md (VS Code / JetBrains / Visual Studio)
-#   ./install.sh codex <dir>       # Generate Codex skills in <dir>/.agents/skills/
-#   ./install.sh vendor <dir>      # Copy catalog subset to <dir>/.principles-catalog/
-#   ./install.sh all <dir>         # Run claude + copilot + codex + vendor in <dir>
-#   ./install.sh --list <dir>      # Show what's installed in <dir>
-#   ./uninstall.sh <dir>           # Remove local assets from <dir>
+#   ./install.sh <dir>              # Interactive: select which tools to install
+#   ./install.sh claude <dir>       # Install Claude Code slash commands in <dir>/.claude/commands/
+#   ./install.sh copilot <dir>      # Generate all Copilot assets in <dir>/.github/ (CLI + IDE)
+#   ./install.sh copilot-cli <dir>  # Generate Copilot CLI skills in <dir>/.github/skills/
+#   ./install.sh copilot-ide <dir>  # Generate Copilot IDE prompts in <dir>/.github/prompts/
+#   ./install.sh codex <dir>        # Generate Codex skills in <dir>/.agents/skills/
+#   ./install.sh vendor <dir>       # Copy catalog subset to <dir>/.principles-catalog/
+#   ./install.sh all <dir>          # Run claude + copilot + codex + vendor in <dir>
+#   ./install.sh --list <dir>       # Show what's installed in <dir>
+#   ./uninstall.sh <dir>            # Remove local assets from <dir>
 
 # Convert a Windows-style path (C:\... or C:/...) to a path the current bash understands.
 # Under WSL, uses wslpath. Under Git Bash / native Linux/macOS, returns the path unchanged.
@@ -63,9 +63,10 @@ if [ -t 1 ]; then
     YELLOW='\033[1;33m'
     RED='\033[0;31m'
     BOLD='\033[1m'
+    DIM='\033[0;90m'
     NC='\033[0m'
 else
-    GREEN='' YELLOW='' RED='' BOLD='' NC=''
+    GREEN='' YELLOW='' RED='' BOLD='' DIM='' NC=''
 fi
 
 print_header() {
@@ -74,255 +75,190 @@ print_header() {
     echo "─────────────────────────"
 }
 
-copilot_prompt_description() {
-    case "$1" in
-        scout)
-            echo "Detect project profile and create or update .principles files (Experimental)"
-            ;;
-        prime)
-            echo "Activate code principles before writing code (Experimental)"
-            ;;
-        audit)
-            echo "Review code against the active principles and group findings by severity (Experimental)"
-            ;;
-        *)
-            echo "Run the $1 .principles workflow (Experimental)"
-            ;;
-    esac
-}
+TEMPLATE_DIR="$SCRIPT_DIR/templates"
 
-copilot_skill_description() {
-    case "$1" in
-        scout)
-            echo "Analyse the project, detect language/framework/domain, and create or update .principles files. Use this skill when asked to scout, detect project profile, or set up principles."
-            ;;
-        prime)
-            echo "Resolve the .principles hierarchy, load full principle guidance, and prepare a coding frame. Use this skill when asked to prime, activate principles, or before writing code."
-            ;;
-        audit)
-            echo "Resolve the .principles hierarchy, load principle content, review code, and group findings by severity (Critical/High/Medium/Low). Use this skill when asked to audit or review code against principles."
-            ;;
-        *)
-            echo "Run the $1 .principles workflow."
-            ;;
-    esac
-}
+# ---------------------------------------------------------------------------
+# Template-driven installer
+# ---------------------------------------------------------------------------
+# Each AI tool is defined by two files in templates/<tool>/:
+#   manifest.cfg  — key=value config (OUTPUT_DIR, OUTPUT_FILE, PATCHES, etc.)
+#   wrapper.md    — output skeleton with {{COMMAND_NAME}}, {{FRONTMATTER}}, {{COMMAND_BODY}}
+#
+# The source of truth is commands/*.md with YAML frontmatter containing:
+#   description, argument-hint, allowed-tools, version, authors
+# ---------------------------------------------------------------------------
 
-codex_skill_description() {
-    case "$1" in
-        scout)
-            echo "Analyse the project, detect language/framework/domain, and create or update .principles files. Use when asked to scout or set up principles in Codex."
-            ;;
-        prime)
-            echo "Resolve the .principles hierarchy, load full principle guidance, and prepare a coding frame. Use when asked to prime or activate principles in Codex."
-            ;;
-        audit)
-            echo "Resolve the .principles hierarchy, load principle content, review code, and group findings by severity (Critical/High/Medium/Low). Use when asked to audit or review code against principles in Codex."
-            ;;
-        *)
-            echo "Run the $1 .principles workflow in Codex."
-            ;;
-    esac
-}
-
-strip_leading_frontmatter() {
+# Extract the YAML frontmatter body (lines between the --- delimiters, exclusive).
+extract_frontmatter_body() {
     local source_file="$1"
-
     awk '
-        BEGIN { in_frontmatter = 0; saw_frontmatter = 0 }
-        NR == 1 && $0 == "---" { in_frontmatter = 1; saw_frontmatter = 1; next }
-        in_frontmatter && $0 == "---" { in_frontmatter = 0; next }
-        !in_frontmatter { print }
+        BEGIN { in_fm = 0; saw_fm = 0 }
+        NR == 1 && $0 == "---" { in_fm = 1; saw_fm = 1; next }
+        in_fm && $0 == "---" { in_fm = 0; next }
+        in_fm { print }
     ' "$source_file"
 }
 
-write_codex_skill() {
+# Extract everything after the closing --- of the leading frontmatter.
+extract_command_body() {
     local source_file="$1"
-    local skill_dir="$2"
-    local command_name="$3"
-
-    mkdir -p "$skill_dir"
-    local skill_file="$skill_dir/SKILL.md"
-
-    cat > "$skill_file" <<EOF
----
-name: $command_name
-description: $(codex_skill_description "$command_name")
-license: MIT
----
-
-Codex note:
-- Treat \`\$ARGUMENTS\` below as the user's request text after invoking this skill.
-- References to \`/scout\`, \`/prime\`, and \`/audit\` map to \`\$scout\`, \`\$prime\`, and \`\$audit\` in Codex.
-
-EOF
-
-    cat "$source_file" >> "$skill_file"
+    awk '
+        BEGIN { in_fm = 0; saw_fm = 0; done_fm = 0 }
+        NR == 1 && $0 == "---" { in_fm = 1; saw_fm = 1; next }
+        in_fm && $0 == "---" { in_fm = 0; done_fm = 1; next }
+        done_fm { print }
+    ' "$source_file"
 }
 
-
-write_copilot_skill() {
-    local source_file="$1"
-    local skill_dir="$2"
-    local command_name="$3"
-
-    mkdir -p "$skill_dir"
-    local skill_file="$skill_dir/SKILL.md"
-
-    cat > "$skill_file" <<EOF
----
-name: $command_name
-description: $(copilot_skill_description "$command_name")
-license: MIT
----
-
-EOF
-
-    cat "$source_file" >> "$skill_file"
-}
-
-
-write_copilot_prompt() {
-    local source_file="$1"
-    local prompt_file="$2"
-    local command_name="$3"
-
-    cat > "$prompt_file" <<EOF
----
-description: $(copilot_prompt_description "$command_name")
-mode: agent
----
-
-EOF
-
-    cat "$source_file" >> "$prompt_file"
-}
-
-install_codex_local() {
-    local project_dir="$1"
+# Install commands for one tool using its template directory.
+# Usage: install_from_template <template_dir> <project_dir>
+install_from_template() {
+    local template_dir="$1"
+    local project_dir="$2"
 
     if [ ! -d "$project_dir" ]; then
         echo -e "${RED}Error: Directory '$project_dir' does not exist.${NC}"
         exit 1
     fi
 
-    echo -e "${BOLD}Installing Codex skills (local: $project_dir)...${NC}"
+    # Source the manifest (sets TOOL_ID, TOOL_LABEL, OUTPUT_DIR, OUTPUT_FILE, PATCHES)
+    local TOOL_ID="" TOOL_LABEL="" OUTPUT_DIR="" OUTPUT_FILE="" PATCHES="" INSTALL_SUBCOMMAND=""
+    # shellcheck disable=SC1090
+    source "$template_dir/manifest.cfg"
 
-    local skills_dir="$project_dir/.agents/skills"
-    mkdir -p "$skills_dir"
-
-    local skill_count=0
-    local file
-
-    for file in "$COMMAND_SOURCE_DIR/"*.md; do
-        if [ -f "$file" ]; then
-            local command_name
-            local stripped_file
-            command_name="$(basename "$file" .md)"
-            stripped_file="$(mktemp)"
-            strip_leading_frontmatter "$file" | sed \
-                -e "s|{{PRINCIPLES_DIRECTORY}}|.principles-catalog|g" \
-                -e "s|{{VERSION}}|$VERSION|g" \
-                > "$stripped_file"
-            write_codex_skill "$stripped_file" "$skills_dir/$command_name" "$command_name"
-            rm -f "$stripped_file"
-            skill_count=$((skill_count + 1))
-            echo -e "  ${GREEN}✓${NC} \$$command_name"
-        fi
-    done
-
-    echo ""
-    echo "Codex assets written:"
-    echo "  - .agents/skills/<name>/SKILL.md  (${skill_count} skills — Codex CLI + IDE extension)"
-    echo ""
-    echo "In Codex: mention \$scout, \$prime, or \$audit (CLI or IDE extension)"
-}
-
-install_claude() {
-    local project_dir="$1"
-
-    if [ ! -d "$project_dir" ]; then
-        echo -e "${RED}Error: Directory '$project_dir' does not exist.${NC}"; exit 1
+    local wrapper_file="$template_dir/wrapper.md"
+    if [ ! -f "$wrapper_file" ]; then
+        echo -e "${RED}Error: Missing wrapper.md in $template_dir${NC}"
+        exit 1
     fi
 
-    local target_dir="$project_dir/.claude/commands"
-    echo -e "${BOLD}Installing Claude Code slash commands (local: $project_dir)...${NC}"
-
-    mkdir -p "$target_dir"
+    echo -e "${BOLD}Installing $TOOL_LABEL commands (local: $project_dir)...${NC}"
 
     local count=0
+    local file
+
     for file in "$COMMAND_SOURCE_DIR/"*.md; do
-        if [ -f "$file" ]; then
-            sed -e "s|{{PRINCIPLES_DIRECTORY}}|.principles-catalog|g" -e "s|{{VERSION}}|$VERSION|g" "$file" > "$target_dir/$(basename "$file")"
-            count=$((count + 1))
-            echo -e "  ${GREEN}✓${NC} /$(basename "$file" .md)"
+        [ -f "$file" ] || continue
+        local command_name
+        command_name="$(basename "$file" .md)"
+
+        # Temp files for intermediate content
+        local tmp_fm tmp_body tmp_output
+        tmp_fm="$(mktemp)"
+        tmp_body="$(mktemp)"
+        tmp_output="$(mktemp)"
+
+        # 1. Extract frontmatter and command body from source into temp files
+        extract_frontmatter_body "$file" > "$tmp_fm"
+        extract_command_body "$file" > "$tmp_body"
+
+        # 2. Apply standard substitutions to frontmatter
+        sed -i -e "s|{{VERSION}}|$VERSION|g" "$tmp_fm"
+
+        # 3. Apply standard substitutions to command body
+        sed -i \
+            -e "s|{{PRINCIPLES_DIRECTORY}}|.principles-catalog|g" \
+            -e "s|{{VERSION}}|$VERSION|g" \
+            "$tmp_body"
+
+        # 4. Apply tool-specific patches (if any)
+        if [ -n "$PATCHES" ]; then
+            sed -i -e "$PATCHES" "$tmp_body"
         fi
+
+        # 5. Expand wrapper template: replace placeholders with file contents
+        #    Process line by line: {{COMMAND_NAME}} is inline, {{FRONTMATTER}}
+        #    and {{COMMAND_BODY}} replace the entire line with file contents.
+        while IFS= read -r line || [ -n "$line" ]; do
+            local expanded
+            expanded="${line//\{\{COMMAND_NAME\}\}/$command_name}"
+            if [[ "$expanded" == *'{{FRONTMATTER}}'* ]]; then
+                # Output prefix before {{FRONTMATTER}}, then file, then suffix
+                local prefix="${expanded%%\{\{FRONTMATTER\}\}*}"
+                local suffix="${expanded#*\{\{FRONTMATTER\}\}}"
+                [ -n "$prefix" ] && printf '%s' "$prefix"
+                cat "$tmp_fm"
+                [ -n "$suffix" ] && printf '%s\n' "$suffix"
+            elif [[ "$expanded" == *'{{COMMAND_BODY}}'* ]]; then
+                local prefix="${expanded%%\{\{COMMAND_BODY\}\}*}"
+                local suffix="${expanded#*\{\{COMMAND_BODY\}\}}"
+                [ -n "$prefix" ] && printf '%s' "$prefix"
+                cat "$tmp_body"
+                [ -n "$suffix" ] && printf '%s' "$suffix"
+            else
+                printf '%s\n' "$expanded"
+            fi
+        done < "$wrapper_file" > "$tmp_output"
+
+        # 6. Resolve output path and write
+        local resolved_dir resolved_file
+        resolved_dir="$(echo "$OUTPUT_DIR" | sed "s|{{COMMAND_NAME}}|$command_name|g")"
+        resolved_file="$(echo "$OUTPUT_FILE" | sed "s|{{COMMAND_NAME}}|$command_name|g")"
+
+        local target_path="$project_dir/$resolved_dir"
+        mkdir -p "$target_path"
+        cp "$tmp_output" "$target_path/$resolved_file"
+
+        rm -f "$tmp_fm" "$tmp_body" "$tmp_output"
+
+        count=$((count + 1))
+        echo -e "  ${GREEN}✓${NC} $command_name"
     done
 
     echo ""
-    echo -e "Installed ${BOLD}$count${NC} commands to $target_dir"
-    echo ""
-    echo "Available commands:"
-    echo "  /scout  — Detect project profile and generate .principles placements"
-    echo "  /prime  — Activate principles before writing code"
-    echo "  /audit  — Review code with severity-categorized findings; use /audit <spec> on <target> to force specific principles"
+    echo -e "Installed ${BOLD}$count${NC} commands to $resolved_dir"
 }
 
-install_copilot_local() {
-    local project_dir="$1"
+# ---------------------------------------------------------------------------
+# install.cfg — records which targets are installed
+# ---------------------------------------------------------------------------
+# Written to .principles-catalog/install.cfg so /scout Phase 6 knows which
+# review outputs to emit. Each line is a target ID (e.g. claude, copilot-cli).
 
-    if [ ! -d "$project_dir" ]; then
-        echo -e "${RED}Error: Directory '$project_dir' does not exist.${NC}"
-        exit 1
+# Read existing install.cfg into an associative array.  Returns target IDs in
+# the INSTALLED_TARGETS associative array (keys = target IDs, values = "1").
+declare -A INSTALLED_TARGETS
+read_install_cfg() {
+    local cfg_file="$1/.principles-catalog/install.cfg"
+    INSTALLED_TARGETS=()
+    if [ -f "$cfg_file" ]; then
+        while IFS= read -r line || [ -n "$line" ]; do
+            # Skip comments and blank lines
+            [[ "$line" =~ ^[[:space:]]*# ]] && continue
+            [[ -z "${line// /}" ]] && continue
+            INSTALLED_TARGETS["$line"]="1"
+        done < "$cfg_file"
     fi
+}
 
-    echo -e "${BOLD}Generating Copilot instructions for: $project_dir${NC}"
+# Write install.cfg from the INSTALLED_TARGETS associative array.
+write_install_cfg() {
+    local project_dir="$1"
+    local cfg_dir="$project_dir/.principles-catalog"
+    mkdir -p "$cfg_dir"
+    local cfg_file="$cfg_dir/install.cfg"
+    {
+        echo "# .principles install.cfg — installed targets"
+        echo "# Auto-generated by install.sh — do not edit manually."
+        echo "# /scout Phase 6 reads this to decide which review outputs to emit."
+        for target in "${!INSTALLED_TARGETS[@]}"; do
+            echo "$target"
+        done
+    } | sort > "$cfg_file"
+}
 
-    local target_dir="$project_dir/.github"
-    local prompts_dir="$target_dir/prompts"
-    local instructions_dir="$target_dir/instructions"
-
-    mkdir -p "$target_dir"
-    mkdir -p "$prompts_dir"
-    mkdir -p "$instructions_dir"
-
-    echo -e "${BOLD}Installing Copilot skills and prompt commands...${NC}"
-
-    local prompt_count=0
-    local file
-    local skills_dir="$target_dir/skills"
-
-    for file in "$COMMAND_SOURCE_DIR/"*.md; do
-        if [ -f "$file" ]; then
-            local command_name
-            local prompt_file
-            command_name="$(basename "$file" .md)"
-            prompt_file="$prompts_dir/$command_name.prompt.md"
-            # For audit: rewrite ~/.claude/ paths to project-relative paths
-            local patched_file
-            patched_file="$(mktemp)"
-            sed \
-                -e "s|{{PRINCIPLES_DIRECTORY}}|.principles-catalog|g" \
-                -e "s|{{VERSION}}|$VERSION|g" \
-                -e 's|~/.claude/audit-output\.json|.github/scripts/audit-output.json|g' \
-                "$file" > "$patched_file"
-            write_copilot_prompt "$patched_file" "$prompt_file" "$command_name"
-            write_copilot_skill "$patched_file" "$skills_dir/$command_name" "$command_name"
-            rm -f "$patched_file"
-            prompt_count=$((prompt_count + 1))
-            echo -e "  ${GREEN}✓${NC} /$command_name"
-        fi
+# Mark targets as installed.  Call before write_install_cfg.
+mark_targets() {
+    for t in "$@"; do
+        INSTALLED_TARGETS["$t"]="1"
     done
+}
 
-    echo -e "  ${GREEN}✓${NC} $instructions_dir/"
-    echo ""
-    echo "Copilot assets written:"
-    echo "  - .github/instructions/             (per-group files written by /scout)"
-    echo "  - .github/skills/<name>/SKILL.md  (${prompt_count} skills  — Copilot CLI slash commands)"
-    echo "  - .github/prompts/*.prompt.md      (${prompt_count} prompts — VS Code prompt files)"
-    echo ""
-    echo "In Copilot CLI: use /audit, /prime, /scout  (or run '/skills reload' if already in a session)"
-    echo "In VS Code:     type /audit, /prime, /scout  in Copilot Chat"
+# Remove targets.  Call before write_install_cfg.
+unmark_targets() {
+    for t in "$@"; do
+        unset "INSTALLED_TARGETS[$t]"
+    done
 }
 
 generate_compact_index() {
@@ -422,8 +358,8 @@ list_installed() {
     fi
 
     echo ""
-    echo "Copilot skills (.github/skills/):"
-    local copilot_found=false
+    echo "Copilot CLI skills (.github/skills/):"
+    local copilot_cli_found=false
     for file in "$COMMAND_SOURCE_DIR/"*.md; do
         if [ -f "$file" ]; then
             local command_name
@@ -431,11 +367,29 @@ list_installed() {
             local skill_file="$project_dir/.github/skills/$command_name/SKILL.md"
             if [ -f "$skill_file" ]; then
                 echo -e "  ${GREEN}✓${NC} .github/skills/$command_name/SKILL.md"
-                copilot_found=true
+                copilot_cli_found=true
             fi
         fi
     done
-    if [ "$copilot_found" = false ]; then
+    if [ "$copilot_cli_found" = false ]; then
+        echo "  (none)"
+    fi
+
+    echo ""
+    echo "Copilot IDE prompts (.github/prompts/):"
+    local copilot_ide_found=false
+    for file in "$COMMAND_SOURCE_DIR/"*.md; do
+        if [ -f "$file" ]; then
+            local command_name
+            command_name="$(basename "$file" .md)"
+            local prompt_file="$project_dir/.github/prompts/$command_name.prompt.md"
+            if [ -f "$prompt_file" ]; then
+                echo -e "  ${GREEN}✓${NC} .github/prompts/$command_name.prompt.md"
+                copilot_ide_found=true
+            fi
+        fi
+    done
+    if [ "$copilot_ide_found" = false ]; then
         echo "  (none)"
     fi
 
@@ -464,30 +418,215 @@ list_installed() {
     else
         echo "  (none)"
     fi
+
+    echo ""
+    echo "Review integration (emitted by /scout at runtime):"
+    read_install_cfg "$project_dir"
+    local review_found=false
+    if [ "${INSTALLED_TARGETS[copilot-review]:-}" = "1" ]; then
+        echo -e "  ${GREEN}✓${NC} Copilot Code Review → .github/instructions/"
+        review_found=true
+    fi
+    if [ "${INSTALLED_TARGETS[claude-review]:-}" = "1" ]; then
+        echo -e "  ${GREEN}✓${NC} Claude Code Review  → REVIEW.md"
+        review_found=true
+    fi
+    if [ "$review_found" = false ]; then
+        echo "  (none — re-run installer to enable review targets)"
+    fi
 }
 
 show_usage() {
     echo ""
-    echo "Usage: $0 <target> <dir>"
+    echo -e "Usage: $0 [${BOLD}<target>${NC}] ${BOLD}<dir>${NC}"
     echo ""
-    echo "Targets:"
-    echo "  claude <dir>        Install slash commands in <dir>/.claude/commands/"
-    echo "  copilot <dir>       Generate Copilot assets in <dir>/.github/"
-    echo "  codex <dir>         Generate Codex skills in <dir>/.agents/skills/"
-    echo "  vendor <dir>        Copy catalog subset to <dir>/.principles-catalog/"
-    echo "  all <dir>           Run claude + copilot + codex + vendor in <dir>"
+    echo -e "${BOLD}Targets:${NC}"
+    echo -e "  ${BOLD}claude${NC} <dir>        Install slash commands in <dir>/.claude/commands/"
+    echo -e "  ${BOLD}copilot${NC} <dir>       Install Copilot CLI + IDE (same as copilot-cli + copilot-ide)"
+    echo -e "  ${BOLD}copilot-cli${NC} <dir>   Install Copilot CLI skills in <dir>/.github/skills/"
+    echo -e "  ${BOLD}copilot-ide${NC} <dir>   Install Copilot IDE prompts in <dir>/.github/prompts/"
+    echo -e "  ${BOLD}codex${NC} <dir>         Install Codex skills in <dir>/.agents/skills/"
+    echo -e "  ${BOLD}vendor${NC} <dir>        Copy catalog subset to <dir>/.principles-catalog/"
+    echo -e "  ${BOLD}all${NC} <dir>           All commands + review + vendor in <dir>"
     echo ""
-    echo "Management:"
-    echo "  --list <dir>        Show what's installed in <dir>"
-    echo "  --help              Show this help"
+    echo -e "${BOLD}Interactive:${NC}"
+    echo -e "  ${BOLD}<dir>${NC}               Select tools interactively (includes review options)"
+    echo ""
+    echo -e "${BOLD}Management:${NC}"
+    echo -e "  ${BOLD}--list${NC} <dir>        Show what's installed in <dir>"
+    echo -e "  ${BOLD}--help${NC}              Show this help"
     echo "  ./uninstall.sh <dir> Remove local assets from <dir>"
     echo ""
-    echo "Examples:"
+    echo -e "${DIM}Review integration (controlled via interactive mode or 'all'):${NC}"
+    echo -e "  Copilot Code Review → .github/instructions/ ${DIM}(emitted by /scout)${NC}"
+    echo -e "  Claude Code Review  → REVIEW.md             ${DIM}(emitted by /scout)${NC}"
+    echo ""
+    echo -e "${BOLD}Examples:${NC}"
+    echo "  ./install.sh ~/projects/my-app           # Interactive"
     echo "  ./install.sh claude ~/projects/my-app"
     echo "  ./install.sh copilot ~/projects/my-app"
     echo "  ./install.sh codex ~/projects/my-app"
-    echo "  ./install.sh vendor ~/projects/my-app"
     echo "  ./install.sh all ~/projects/my-app"
+}
+
+# Interactive tool selection — two-level menu
+interactive_install() {
+    local project_dir="$1"
+
+    if ! [ -t 0 ]; then
+        echo -e "${RED}Error: Interactive mode requires a terminal. Use a named target instead.${NC}"
+        show_usage
+        exit 1
+    fi
+
+    # Load existing install.cfg to preserve previous selections
+    read_install_cfg "$project_dir"
+
+    # ── Step 1: Select AI agents ──────────────────────────────────────────
+    echo ""
+    echo "Which AI agents do you use?"
+    echo ""
+    echo "  1) GitHub Copilot   (CLI, IDE, Code Review)"
+    echo "  2) Claude Code      (commands, Code Review)"
+    echo "  3) Codex            (CLI / IDE skills)"
+    echo ""
+    echo "  a) All of the above"
+    echo "  q) Quit"
+    echo ""
+    printf "Select agents (e.g. 1 2, or 'a' for all): "
+    read -r agent_selection
+
+    if [ -z "$agent_selection" ] || [ "$agent_selection" = "q" ]; then
+        echo "Cancelled."
+        exit 0
+    fi
+
+    local do_copilot=false do_claude=false do_codex=false
+
+    if [ "$agent_selection" = "a" ] || [ "$agent_selection" = "A" ]; then
+        do_copilot=true; do_claude=true; do_codex=true
+    else
+        for token in $agent_selection; do
+            case "$token" in
+                1) do_copilot=true ;;
+                2) do_claude=true ;;
+                3) do_codex=true ;;
+                *) echo -e "${YELLOW}Warning: Unknown selection '$token' — skipped${NC}" ;;
+            esac
+        done
+    fi
+
+    local installed_any=false
+
+    # ── Step 2a: Copilot sub-menu ─────────────────────────────────────────
+    if [ "$do_copilot" = true ]; then
+        echo ""
+        echo "GitHub Copilot — what to install?"
+        echo ""
+        echo "  1) Copilot CLI              → .github/skills/"
+        echo "  2) Copilot IDE              → .github/prompts/"
+        echo "  3) Copilot Code Review      → .github/instructions/  (emitted by /scout)"
+        echo "  4) Copilot CLI (1) + Review (3)"
+        echo "  5) Copilot IDE (2) + Review (3)"
+        echo "  6) All (1, 2, 3)"
+        echo ""
+        printf "Select (1-6): "
+        read -r copilot_choice
+
+        local cp_cli=false cp_ide=false cp_review=false
+        case "${copilot_choice:-}" in
+            1) cp_cli=true ;;
+            2) cp_ide=true ;;
+            3) cp_review=true ;;
+            4) cp_cli=true; cp_review=true ;;
+            5) cp_ide=true; cp_review=true ;;
+            6) cp_cli=true; cp_ide=true; cp_review=true ;;
+            *) echo -e "${YELLOW}Invalid choice — installing all Copilot targets${NC}"
+               cp_cli=true; cp_ide=true; cp_review=true ;;
+        esac
+
+        if [ "$cp_cli" = true ]; then
+            "$SCRIPT_DIR/uninstall.sh" --quiet --target copilot "$project_dir"
+            install_from_template "$TEMPLATE_DIR/copilot-cli" "$project_dir"
+            mark_targets copilot-cli
+            echo ""; installed_any=true
+        fi
+        if [ "$cp_ide" = true ]; then
+            install_from_template "$TEMPLATE_DIR/copilot-ide" "$project_dir"
+            mark_targets copilot-ide
+            echo ""; installed_any=true
+        fi
+        if [ "$cp_review" = true ]; then
+            mark_targets copilot-review
+            installed_any=true
+        fi
+    fi
+
+    # ── Step 2b: Claude sub-menu ──────────────────────────────────────────
+    if [ "$do_claude" = true ]; then
+        echo ""
+        echo "Claude Code — what to install?"
+        echo ""
+        echo "  1) Claude Code              → .claude/commands/"
+        echo "  2) Claude Code Review       → REVIEW.md              (emitted by /scout)"
+        echo "  3) All (1, 2)"
+        echo ""
+        printf "Select (1-3): "
+        read -r claude_choice
+
+        local cl_code=false cl_review=false
+        case "${claude_choice:-}" in
+            1) cl_code=true ;;
+            2) cl_review=true ;;
+            3) cl_code=true; cl_review=true ;;
+            *) echo -e "${YELLOW}Invalid choice — installing all Claude targets${NC}"
+               cl_code=true; cl_review=true ;;
+        esac
+
+        if [ "$cl_code" = true ]; then
+            "$SCRIPT_DIR/uninstall.sh" --quiet --target claude "$project_dir"
+            install_from_template "$TEMPLATE_DIR/claude" "$project_dir"
+            mark_targets claude
+            echo ""; installed_any=true
+        fi
+        if [ "$cl_review" = true ]; then
+            mark_targets claude-review
+            installed_any=true
+        fi
+    fi
+
+    # ── Step 2c: Codex (no sub-menu) ──────────────────────────────────────
+    if [ "$do_codex" = true ]; then
+        echo ""
+        "$SCRIPT_DIR/uninstall.sh" --quiet --target codex "$project_dir"
+        install_from_template "$TEMPLATE_DIR/codex" "$project_dir"
+        mark_targets codex
+        echo ""; installed_any=true
+    fi
+
+    # ── Auto: vendor catalog ──────────────────────────────────────────────
+    if [ "$installed_any" = true ]; then
+        echo ""
+        "$SCRIPT_DIR/uninstall.sh" --quiet --target vendor "$project_dir"
+        install_vendor "$project_dir"
+        mark_targets vendor
+
+        write_install_cfg "$project_dir"
+
+        # Summary
+        local has_review=false
+        if [ "${INSTALLED_TARGETS[copilot-review]:-}" = "1" ] || [ "${INSTALLED_TARGETS[claude-review]:-}" = "1" ]; then
+            has_review=true
+        fi
+        if [ "$has_review" = true ]; then
+            echo ""
+            echo -e "${BOLD}Review integration enabled — run /scout to emit review files:${NC}"
+            [ "${INSTALLED_TARGETS[copilot-review]:-}" = "1" ] && echo "  Copilot Code Review  → .github/instructions/   (applyTo: frontmatter)"
+            [ "${INSTALLED_TARGETS[claude-review]:-}" = "1" ]  && echo "  Claude Code Review   → REVIEW.md               (severity-grouped)"
+        fi
+    else
+        echo "Nothing selected."
+    fi
 }
 
 require_dir() {
@@ -502,56 +641,108 @@ require_dir() {
 # Main
 print_header
 
-DIR_ARG="$(normalize_directory_path "${2:-}")"
+# Detect whether arg 1 is a known target or a directory (for interactive mode).
+# If arg 1 is a directory that exists (and not a known target), treat as interactive.
+ARG1="${1:-}"
+ARG2="${2:-}"
 
-case "${1:-}" in
-    claude)
-        require_dir "$DIR_ARG"
-        "$SCRIPT_DIR/uninstall.sh" --quiet --target claude "$DIR_ARG"
-        install_claude "$DIR_ARG"
-        ;;
-    copilot)
-        require_dir "$DIR_ARG"
-        "$SCRIPT_DIR/uninstall.sh" --quiet --target copilot "$DIR_ARG"
-        install_copilot_local "$DIR_ARG"
-        ;;
-    codex)
-        require_dir "$DIR_ARG"
-        "$SCRIPT_DIR/uninstall.sh" --quiet --target codex "$DIR_ARG"
-        install_codex_local "$DIR_ARG"
-        ;;
-    vendor)
-        require_dir "$DIR_ARG"
-        "$SCRIPT_DIR/uninstall.sh" --quiet --target vendor "$DIR_ARG"
-        install_vendor "$DIR_ARG"
-        ;;
-    all)
-        require_dir "$DIR_ARG"
-        "$SCRIPT_DIR/uninstall.sh" --quiet "$DIR_ARG"
-        install_claude "$DIR_ARG"
-        echo ""
-        install_copilot_local "$DIR_ARG"
-        echo ""
-        install_codex_local "$DIR_ARG"
-        echo ""
-        install_vendor "$DIR_ARG"
-        ;;
-    --list|-l)
-        require_dir "$DIR_ARG"
-        list_installed "$DIR_ARG"
-        ;;
-    --help|-h)
-        show_usage
-        ;;
-    "")
-        show_usage
-        ;;
-    *)
-        echo -e "${RED}Unknown target: $1${NC}"
-        show_usage
-        exit 1
-        ;;
-esac
+is_known_target() {
+    case "$1" in
+        claude|copilot|copilot-cli|copilot-ide|codex|vendor|all|--list|-l|--help|-h) return 0 ;;
+        *) return 1 ;;
+    esac
+}
+
+if [ -n "$ARG1" ] && ! is_known_target "$ARG1" && [ -d "$(normalize_directory_path "$ARG1")" ]; then
+    # Interactive mode: first arg is a directory
+    DIR_ARG="$(normalize_directory_path "$ARG1")"
+    interactive_install "$DIR_ARG"
+else
+    DIR_ARG="$(normalize_directory_path "$ARG2")"
+
+    case "$ARG1" in
+        claude)
+            require_dir "$DIR_ARG"
+            read_install_cfg "$DIR_ARG"
+            "$SCRIPT_DIR/uninstall.sh" --quiet --target claude "$DIR_ARG"
+            install_from_template "$TEMPLATE_DIR/claude" "$DIR_ARG"
+            mark_targets claude
+            write_install_cfg "$DIR_ARG"
+            ;;
+        copilot)
+            require_dir "$DIR_ARG"
+            read_install_cfg "$DIR_ARG"
+            "$SCRIPT_DIR/uninstall.sh" --quiet --target copilot "$DIR_ARG"
+            install_from_template "$TEMPLATE_DIR/copilot-cli" "$DIR_ARG"
+            echo ""
+            install_from_template "$TEMPLATE_DIR/copilot-ide" "$DIR_ARG"
+            mark_targets copilot-cli copilot-ide
+            write_install_cfg "$DIR_ARG"
+            ;;
+        copilot-cli)
+            require_dir "$DIR_ARG"
+            read_install_cfg "$DIR_ARG"
+            "$SCRIPT_DIR/uninstall.sh" --quiet --target copilot "$DIR_ARG"
+            install_from_template "$TEMPLATE_DIR/copilot-cli" "$DIR_ARG"
+            mark_targets copilot-cli
+            write_install_cfg "$DIR_ARG"
+            ;;
+        copilot-ide)
+            require_dir "$DIR_ARG"
+            read_install_cfg "$DIR_ARG"
+            install_from_template "$TEMPLATE_DIR/copilot-ide" "$DIR_ARG"
+            mark_targets copilot-ide
+            write_install_cfg "$DIR_ARG"
+            ;;
+        codex)
+            require_dir "$DIR_ARG"
+            read_install_cfg "$DIR_ARG"
+            "$SCRIPT_DIR/uninstall.sh" --quiet --target codex "$DIR_ARG"
+            install_from_template "$TEMPLATE_DIR/codex" "$DIR_ARG"
+            mark_targets codex
+            write_install_cfg "$DIR_ARG"
+            ;;
+        vendor)
+            require_dir "$DIR_ARG"
+            read_install_cfg "$DIR_ARG"
+            "$SCRIPT_DIR/uninstall.sh" --quiet --target vendor "$DIR_ARG"
+            install_vendor "$DIR_ARG"
+            mark_targets vendor
+            write_install_cfg "$DIR_ARG"
+            ;;
+        all)
+            require_dir "$DIR_ARG"
+            read_install_cfg "$DIR_ARG"
+            "$SCRIPT_DIR/uninstall.sh" --quiet "$DIR_ARG"
+            install_from_template "$TEMPLATE_DIR/claude" "$DIR_ARG"
+            echo ""
+            install_from_template "$TEMPLATE_DIR/copilot-cli" "$DIR_ARG"
+            echo ""
+            install_from_template "$TEMPLATE_DIR/copilot-ide" "$DIR_ARG"
+            echo ""
+            install_from_template "$TEMPLATE_DIR/codex" "$DIR_ARG"
+            echo ""
+            install_vendor "$DIR_ARG"
+            mark_targets claude copilot-cli copilot-ide codex copilot-review claude-review vendor
+            write_install_cfg "$DIR_ARG"
+            ;;
+        --list|-l)
+            require_dir "$DIR_ARG"
+            list_installed "$DIR_ARG"
+            ;;
+        --help|-h)
+            show_usage
+            ;;
+        "")
+            show_usage
+            ;;
+        *)
+            echo -e "${RED}Unknown target: $ARG1${NC}"
+            show_usage
+            exit 1
+            ;;
+    esac
+fi
 
 echo ""
 echo "Done."

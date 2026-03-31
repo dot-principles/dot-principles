@@ -12,6 +12,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [v0.9.0] — 2026-03-31
+
+### Added
+
+- **Template system** — new `templates/` directory with per-tool `manifest.cfg` + `wrapper.md` pairs for Claude Code, Copilot CLI, Copilot IDE, and Codex. Single `install_from_template()` function replaces 6+ hardcoded install functions.
+- **Two-level interactive installer** — running `install.sh <dir>` without a target opens an interactive menu: pick AI agent (Copilot / Claude / Codex) → pick components (e.g. CLI, IDE, Code Review). Requires TTY.
+- **Copilot CLI / IDE split** — `copilot-cli` and `copilot-ide` are now separate sub-commands; `copilot` installs both for backward compatibility.
+- **Review integration config** — installer writes `.principles-catalog/install.cfg` listing enabled targets; `/scout` Phase 6.0 reads it to decide which review outputs to emit.
+- **DIM color** (`\033[0;90m`) added to both `install.sh` and `uninstall.sh` for neutral/informational output.
+
+### Changed
+
+- **Consistent frontmatter** — all generated skill/prompt files now carry the same core fields (`description`, `argument-hint`, `allowed-tools`, `version`, `authors`) regardless of tool. Tool-specific extras (`name`, `license`, `mode`) added by each wrapper template.
+- **Single frontmatter block** — Copilot CLI skills and IDE prompts no longer have double `---` frontmatter; one unified block per file.
+- **`install.sh` rewritten** (~700 → ~770 lines) — template-driven generation, `--list` shows review status, `--help` colorized with BOLD/DIM.
+- **`uninstall.sh` colors** — added YELLOW and DIM; help text uses BOLD for sub-commands and DIM for category labels; `NEUTRAL` marker upgraded from plain `-` to dim-colored.
+- **`/scout` Phase 6.0** — reads `install.cfg` (if present) as authoritative source for enabled review targets before falling back to file-based detection.
+- **`.gitattributes`** — added `*.cfg text eol=lf` to prevent CRLF issues in template config files.
+- **DESIGN.md** — new "Template System" section (§9) with schema docs and "Adding a New AI Tool" guide; updated installer targets table.
+- **INSTALL.md** — documents `copilot-cli`, `copilot-ide`, interactive mode, and `--list`; split Copilot section into CLI + IDE.
+
+---
+
 ## [v0.8.1] — 2026-03-30
 
 ### Added

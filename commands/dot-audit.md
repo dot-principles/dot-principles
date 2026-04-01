@@ -23,6 +23,15 @@ Check `$ARGUMENTS` for an explicit principle spec using this precedence:
 
 If an explicit spec was detected, record **principle-spec** and set **explicit-mode: true**. Otherwise set **explicit-mode: false**.
 
+### 1.1.1 — Scout guard (normal mode only)
+
+**Skip this step if explicit-mode is true.**
+
+Check `{{PRINCIPLES_DIRECTORY}}/install.cfg`. If the file exists, look for a line containing `scout`. If the file does not exist or `scout` is not present, stop immediately and respond:
+
+> ⚠️ `/dot-audit` requires `/dot-scout` to have been run first.
+> Run `/dot-scout` to analyse the project and generate the principle files that this command needs, then retry.
+
 ### 1.2 — Resolve Input
 
 Determine what to review from the target input resolved in 1.1:

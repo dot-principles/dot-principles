@@ -36,7 +36,7 @@ The `principles/` directory is a **namespace container**. Each subdirectory is a
 
 ```
 principles/
-  code/                  ← general catalog (128 principles across 11 sub-namespaces)
+  code/                  ← general catalog (110 principles across 11 sub-namespaces)
     catalog.yaml         ← description only
     api/
       standard-http-methods.md
@@ -60,12 +60,12 @@ principles/
     lsp.md               → SOLID-LSP
     isp.md               → SOLID-ISP
     dip.md               → SOLID-DIP
-  gof/                   ← Gang of Four (25 entries)
+  gof/                   ← Gang of Four (27 entries)
     catalog.yaml         ← description only
     strategy.md          → GOF-STRATEGY
     observer.md          → GOF-OBSERVER
     ...
-  ddd/                   ← Domain-Driven Design (8 principles)
+  ddd/                   ← Domain-Driven Design (13 principles)
     catalog.yaml         ← description only
     aggregate.md         → DDD-AGGREGATE
     repository.md        → DDD-REPOSITORY
@@ -78,11 +78,11 @@ principles/
     catalog.yaml         ← description only
     dependency-rule.md   → CLEAN-ARCH-DEPENDENCY-RULE
     ...
-  effective-java/        ← Effective Java (10 principles)
+  effective-java/        ← Effective Java (15 principles)
     catalog.yaml         ← description only
     static-factory.md    → EFFECTIVE-JAVA-STATIC-FACTORY
     ...
-  code-smells/           ← Fowler code smells (9 principles)
+  code-smells/           ← Fowler code smells (22 principles)
     catalog.yaml         ← description only
     long-method.md       → CODE-SMELLS-LONG-METHOD
     feature-envy.md      → CODE-SMELLS-FEATURE-ENVY
@@ -124,7 +124,7 @@ Each namespace contains three pre-compiled files that consolidate all its princi
 
 The command reads one file per namespace and filters to only the entries in the final active set. This avoids reading N individual principle files.
 
-**`code/` sub-namespace split:** Because the `code/` namespace contains 128 principles across 11 sub-categories, its context files are split per sub-namespace rather than held in a single file. Each of `code/api/`, `code/ar/`, `code/cc/`, `code/cs/`, `code/dx/`, `code/ob/`, `code/pf/`, `code/rl/`, `code/sec/`, `code/tp/`, and `code/ts/` has its own `.context-prime.md`, `.context-audit.md`, and (where applicable) `.context-inspect.md`. The root `code/.context-*.md` files contain only a pointer comment listing the sub-namespace directories. `/dot-prime` and `/dot-audit` use a longest-prefix-match table to resolve `CODE-<sub>-*` IDs to the correct sub-namespace file before falling back to `code/` for unrecognised sub-prefixes.
+**`code/` sub-namespace split:** Because the `code/` namespace contains 110 principles across 11 sub-namespaces, its context files are split per sub-namespace rather than held in a single file. Each of `code/api/`, `code/ar/`, `code/cc/`, `code/cs/`, `code/dx/`, `code/ob/`, `code/pf/`, `code/rl/`, `code/sec/`, `code/tp/`, and `code/ts/` has its own `.context-prime.md`, `.context-audit.md`, and (where applicable) `.context-inspect.md`. The root `code/.context-*.md` files contain only a pointer comment listing the sub-namespace directories. `/dot-prime` and `/dot-audit` use a longest-prefix-match table to resolve `CODE-<sub>-*` IDs to the correct sub-namespace file before falling back to `code/` for unrecognised sub-prefixes.
 
 ### `.principles-catalog/` — vendored project subset
 
@@ -474,15 +474,15 @@ principles:
 | Group              | Includes         | Purpose                                         |
 |--------------------|------------------|-------------------------------------------------|
 | `solid`            | —                | All five SOLID principles                       |
-| `gof`              | —                | All 25 GoF entries (2 principles + 23 patterns) |
+| `gof`              | —                | All 27 GoF entries                              |
 | `gof-creational`   | —                | 5 GoF creational patterns                       |
 | `gof-structural`   | —                | 7 GoF structural patterns                       |
 | `gof-behavioral`   | —                | 11 GoF behavioral patterns                      |
-| `ddd`              | —                | 8 Domain-Driven Design building blocks          |
+| `ddd`              | —                | 13 Domain-Driven Design building blocks         |
 | `simple-design`    | —                | Kent Beck's 4 Rules of Simple Design            |
 | `clean-arch`       | —                | 4 Clean Architecture principles                 |
-| `effective-java`   | —                | 10 Effective Java best practices                |
-| `code-smells`      | —                | 9 Fowler code smells                            |
+| `effective-java`   | —                | 15 Effective Java best practices                |
+| `code-smells`      | —                | 22 Fowler code smells                           |
 | `grasp`            | —                | All nine GRASP responsibility patterns          |
 | `12factor`         | —                | All twelve Twelve-Factor App practices          |
 | `owasp`            | —                | OWASP Top 10 (2021) security risks              |

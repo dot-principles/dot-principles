@@ -66,7 +66,6 @@ install.cmd all C:\projects\my-app
 | `.claude/commands/dot-scout.md` | `/dot-scout` slash command for Claude Code |
 | `.claude/commands/dot-prime.md` | `/dot-prime` slash command for Claude Code |
 | `.claude/commands/dot-audit.md` | `/dot-audit` slash command for Claude Code |
-| `.github/instructions/` | Per-group principle files for Copilot Code Review (written by `/dot-scout`) |
 | `.github/prompts/dot-scout.prompt.md` | `/dot-scout` in VS Code / JetBrains Copilot Chat |
 | `.github/prompts/dot-prime.prompt.md` | `/dot-prime` in VS Code / JetBrains Copilot Chat |
 | `.github/prompts/dot-audit.prompt.md` | `/dot-audit` in VS Code / JetBrains Copilot Chat |

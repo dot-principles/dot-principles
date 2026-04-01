@@ -342,7 +342,7 @@ See [INSTALL.md](INSTALL.md) for full platform instructions (Linux, macOS, Windo
 
 ## 📚 Principle catalog
 
-**373 principles across 24 namespaces.** The CODE-* prefix alone covers 128 principles across 13 sub-categories. SOLID, GoF, DDD, GRASP, OWASP, 12-Factor, EIP, and more ship in their own namespaces — see [DESIGN.md](DESIGN.md#-2-catalog-structure) for the full catalog:
+**373 principles across 24 namespaces.** The CODE-* prefix alone covers 110 principles across 11 sub-namespaces. SOLID, GoF, DDD, GRASP, OWASP, 12-Factor, EIP, and more ship in their own namespaces — see [DESIGN.md](DESIGN.md#-2-catalog-structure) for the full catalog:
 
 | Namespace prefix | Area |
 |---|---|

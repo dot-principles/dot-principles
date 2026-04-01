@@ -85,10 +85,10 @@ flowchart LR
 
 ### 🤖 Let the AI scout your project
 
-You don't need to figure out which principles apply yourself. The `scout` workflow analyzes your file structure, proposes `.principles` placements, and then writes them after your confirmation. In Claude and Copilot you invoke it as `/scout`; in Codex you invoke it as `$scout`. It also emits per-group principle files to `.github/instructions/` and `.claude/rules/` — one file per active group, each targeting only the relevant file types:
+You don't need to figure out which principles apply yourself. The `scout` workflow analyzes your file structure, proposes `.principles` placements, and then writes them after your confirmation. In Claude and Copilot you invoke it as `/dot-scout`; in Codex you invoke it as `$dot-scout`. It also emits per-group principle files to `.github/instructions/` and `.claude/rules/` — one file per active group, each targeting only the relevant file types:
 
 ```
-/scout
+/dot-scout
 
 → Analyzing file structure and detecting stack...
 → Detected: Spring Boot backend · React frontend · Terraform infra · Payment domain
@@ -104,7 +104,7 @@ You don't need to figure out which principles apply yourself. The `scout` workfl
 →   ✓ .claude/rules/spring-boot.md                        (20 principles, **/*.java)
 →   ... (14 files total)
 
-Done ✅  Run `/prime` (or `$prime` in Codex) before your next coding session.
+Done ✅  Run `/dot-prime` (or `$dot-prime` in Codex) before your next coding session.
 ```
 
 Of course you can also write these files manually — the format is just plain text.
@@ -126,7 +126,7 @@ The system detects the artifact type of the file being reviewed and selects the 
 | **Schema** | `.proto`, `.graphql`, `openapi.yaml`, `schema.sql`, … | Backward compatibility, self-describing, consistent naming, … |
 | **Pipeline** | `.github/workflows/`, `Jenkinsfile`, … | Idempotency, minimal permissions, no secrets in logs, … |
 
-Run `/audit README.md` and you get doc-specific findings. Run `/audit main.tf` and you get IaC-specific findings. The right principles fire for the right artifact — without any manual configuration.
+Run `/dot-audit README.md` and you get doc-specific findings. Run `/dot-audit main.tf` and you get IaC-specific findings. The right principles fire for the right artifact — without any manual configuration.
 
 ---
 
@@ -214,19 +214,19 @@ Traditional code review is valuable. But it happens *after* the code is already 
 
 ```mermaid
 flowchart LR
-    S["🔭 /scout<br>Analyze project<br>write .principles"]
-    P["⚡ /prime<br>Load principles<br>into coding frame"]
+    S["🔭 /dot-scout<br>Analyze project<br>write .principles"]
+    P["⚡ /dot-prime<br>Load principles<br>into coding frame"]
     C["✍️ Write code<br>with the right<br>mindset active"]
-    A["🔎 /audit<br>Review against<br>active principles"]
+    A["🔎 /dot-audit<br>Review against<br>active principles"]
     F["🔧 Fix issues"]
     D["✅ Done"]
 
     S --> P --> C --> A --> F --> A --> D
 ```
 
-`/prime` is the key step. It resolves the full `.principles` hierarchy and loads the complete principle guidance into the AI's context *before* a single line is written. The AI doesn't just know the principles in the abstract — it has them front-of-mind as it generates code, the same way an experienced senior developer does when they sit down to work.
+`/dot-prime` is the key step. It resolves the full `.principles` hierarchy and loads the complete principle guidance into the AI's context *before* a single line is written. The AI doesn't just know the principles in the abstract — it has them front-of-mind as it generates code, the same way an experienced senior developer does when they sit down to work.
 
-`/audit` then gives you the gut-check: not just "does this compile?" or "are there obvious bugs?" — but *"does this code reflect good engineering?"* Critical findings need immediate attention. But you also want the broader signal: is this code well-structured, secure, maintainable, and consistent with the architecture? That's quality assurance, not just bug hunting.
+`/dot-audit` then gives you the gut-check: not just "does this compile?" or "are there obvious bugs?" — but *"does this code reflect good engineering?"* Critical findings need immediate attention. But you also want the broader signal: is this code well-structured, secure, maintainable, and consistent with the architecture? That's quality assurance, not just bug hunting.
 
 ---
 
@@ -284,23 +284,23 @@ Each artifact type has its own stack of layers in `layers/<type>/`. Within each 
 
 Because these are AI commands — not CLI tools — you speak to them in natural language. No need to specify exact file paths unless you want to. The AI understands context.
 
-- 🔭 **`scout`** — `/scout` in Claude/Copilot, `$scout` in Codex. Detects language/framework/domain, creates `.principles` files, then emits per-group principle files to `.github/instructions/` (Copilot Code Review) and `.claude/rules/` (Claude Code).
-- ⚡ **`prime`** — `/prime` in Claude/Copilot, `$prime` in Codex. Resolves your `.principles` hierarchy (using per-group files fast path), loads full principle guidance, prepares your coding frame.
-- 🔎 **`audit`** — `/audit` in Claude/Copilot, `$audit` in Codex. Resolves your `.principles` hierarchy (using per-group files fast path), loads principle content, reviews code, and groups findings by severity (Critical / High / Medium / Low).
+- 🔭 **`dot-scout`** — `/dot-scout` in Claude/Copilot, `$dot-scout` in Codex. Detects language/framework/domain, creates `.principles` files, then emits per-group principle files to `.github/instructions/` (Copilot Code Review) and `.claude/rules/` (Claude Code).
+- ⚡ **`dot-prime`** — `/dot-prime` in Claude/Copilot, `$dot-prime` in Codex. Resolves your `.principles` hierarchy (using per-group files fast path), loads full principle guidance, prepares your coding frame.
+- 🔎 **`dot-audit`** — `/dot-audit` in Claude/Copilot, `$dot-audit` in Codex. Resolves your `.principles` hierarchy (using per-group files fast path), loads principle content, reviews code, and groups findings by severity (Critical / High / Medium / Low).
 
 The AI figures out the scope from context:
 
 ```
-/audit current changes          → reviews only what has changed since last commit
-/audit the payment module       → reviews the payments subtree
-/audit                          → you decide the scope in conversation
-/prime                          → loads principles for whatever you're about to work on
+/dot-audit current changes          → reviews only what has changed since last commit
+/dot-audit the payment module       → reviews the payments subtree
+/dot-audit                          → you decide the scope in conversation
+/dot-prime                          → loads principles for whatever you're about to work on
 
 # Force specific principles (ignores .principles files):
-/audit DDD on src/orders        → review src/orders against DDD principles
-/audit src/orders --with ddd    → same, flag syntax
-/audit @ddd src/orders          → same, group-prefix syntax
-/audit clean-arch, solid on src → multiple groups, comma-separated
+/dot-audit DDD on src/orders        → review src/orders against DDD principles
+/dot-audit src/orders --with ddd    → same, flag syntax
+/dot-audit @ddd src/orders          → same, group-prefix syntax
+/dot-audit clean-arch, solid on src → multiple groups, comma-separated
 ```
 
 ## 🚀 Quick start
@@ -320,17 +320,17 @@ git add .claude/ .github/ .agents/ .principles-catalog/
 git commit -m "Add .principles AI commands and principle files"
 
 # Use it — in Claude Code, Copilot, or Codex:
-#   /scout                      → detect profile, create .principles files, emit per-group files
-#   /prime                      → before writing code
-#   /audit current changes      → review only what changed since last commit
-#   /audit directory            → review whatever you describe in conversation
-#   /audit DDD on src/          → force DDD principles regardless of .principles files
-#   $scout / $prime / $audit    → same workflows in Codex CLI or IDE
+#   /dot-scout                      → detect profile, create .principles files, emit per-group files
+#   /dot-prime                      → before writing code
+#   /dot-audit current changes      → review only what changed since last commit
+#   /dot-audit directory            → review whatever you describe in conversation
+#   /dot-audit DDD on src/          → force DDD principles regardless of .principles files
+#   $dot-scout / $dot-prime / $dot-audit    → same workflows in Codex CLI or IDE
 ```
 
-**GitHub Copilot (VS Code / JetBrains / CLI):** The repo ships with `.github/prompts/` and `.github/skills/` already populated — `/scout`, `/prime`, and `/audit` are available in Copilot Chat (IDE) and Copilot CLI (terminal) as soon as you clone.
+**GitHub Copilot (VS Code / JetBrains / CLI):** The repo ships with `.github/prompts/` and `.github/skills/` already populated — `/dot-scout`, `/dot-prime`, and `/dot-audit` are available in Copilot Chat (IDE) and Copilot CLI (terminal) as soon as you clone.
 
-**Codex (CLI + IDE):** The repo also ships with `.agents/skills/` populated — use `$scout`, `$prime`, and `$audit` in Codex.
+**Codex (CLI + IDE):** The repo also ships with `.agents/skills/` populated — use `$dot-scout`, `$dot-prime`, and `$dot-audit` in Codex.
 
 To install into your own project:
 

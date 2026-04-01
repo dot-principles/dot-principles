@@ -63,19 +63,19 @@ install.cmd all C:\projects\my-app
 
 | File | Purpose |
 |------|---------|
-| `.claude/commands/scout.md` | `/scout` slash command for Claude Code |
-| `.claude/commands/prime.md` | `/prime` slash command for Claude Code |
-| `.claude/commands/audit.md` | `/audit` slash command for Claude Code |
-| `.github/instructions/` | Per-group principle files for Copilot Code Review (written by `/scout`) |
-| `.github/prompts/scout.prompt.md` | `/scout` in VS Code / JetBrains Copilot Chat |
-| `.github/prompts/prime.prompt.md` | `/prime` in VS Code / JetBrains Copilot Chat |
-| `.github/prompts/audit.prompt.md` | `/audit` in VS Code / JetBrains Copilot Chat |
-| `.github/skills/scout/SKILL.md` | `/scout` in Copilot CLI |
-| `.github/skills/prime/SKILL.md` | `/prime` in Copilot CLI |
-| `.github/skills/audit/SKILL.md` | `/audit` in Copilot CLI |
-| `.agents/skills/scout/SKILL.md` | `$scout` in Codex CLI and Codex IDE |
-| `.agents/skills/prime/SKILL.md` | `$prime` in Codex CLI and Codex IDE |
-| `.agents/skills/audit/SKILL.md` | `$audit` in Codex CLI and Codex IDE |
+| `.claude/commands/dot-scout.md` | `/dot-scout` slash command for Claude Code |
+| `.claude/commands/dot-prime.md` | `/dot-prime` slash command for Claude Code |
+| `.claude/commands/dot-audit.md` | `/dot-audit` slash command for Claude Code |
+| `.github/instructions/` | Per-group principle files for Copilot Code Review (written by `/dot-scout`) |
+| `.github/prompts/dot-scout.prompt.md` | `/dot-scout` in VS Code / JetBrains Copilot Chat |
+| `.github/prompts/dot-prime.prompt.md` | `/dot-prime` in VS Code / JetBrains Copilot Chat |
+| `.github/prompts/dot-audit.prompt.md` | `/dot-audit` in VS Code / JetBrains Copilot Chat |
+| `.github/skills/dot-scout/SKILL.md` | `/dot-scout` in Copilot CLI |
+| `.github/skills/dot-prime/SKILL.md` | `/dot-prime` in Copilot CLI |
+| `.github/skills/dot-audit/SKILL.md` | `/dot-audit` in Copilot CLI |
+| `.agents/skills/dot-scout/SKILL.md` | `$dot-scout` in Codex CLI and Codex IDE |
+| `.agents/skills/dot-prime/SKILL.md` | `$dot-prime` in Codex CLI and Codex IDE |
+| `.agents/skills/dot-audit/SKILL.md` | `$dot-audit` in Codex CLI and Codex IDE |
 | `.principles-catalog/` | Vendored principle data (see Section 4) |
 
 **Commit all of these files** so every team member gets the commands automatically:
@@ -123,14 +123,14 @@ The `vendor` subcommand copies the subset of the principle catalog referenced by
 
 `install.sh all` runs `vendor` automatically. You only need to run it manually if you add new principles to your `.principles` files after the initial install.
 
-As part of vendoring, `install.sh vendor` also generates `<dir>/.principles-catalog/index.tsv` — a pipe-delimited flat file (`ID|LAYER|SUMMARY`, one line per principle) covering every vendored principle. `/scout` reads this single file to resolve active principles and emit per-group files in one pass, without walking hundreds of individual namespace files. Example entries:
+As part of vendoring, `install.sh vendor` also generates `<dir>/.principles-catalog/index.tsv` — a pipe-delimited flat file (`ID|LAYER|SUMMARY`, one line per principle) covering every vendored principle. `/dot-scout` reads this single file to resolve active principles and emit per-group files in one pass, without walking hundreds of individual namespace files. Example entries:
 
 ```
 CODE-SEC-VALIDATE-INPUT|1|Validate all input at every system boundary; never trust external data.
 DDD-AGGREGATE|2|Enforce business invariants within a single aggregate boundary per transaction.
 ```
 
-**Why commit `.principles-catalog/`?** The installed commands (`/scout`, `/prime`, `/audit`) reference `.principles-catalog/` inside the project. Committing this directory means the commands work for every team member — even without access to the `.principles` repo — and the CI/CD environment gets the same principle data.
+**Why commit `.principles-catalog/`?** The installed commands (`/dot-scout`, `/dot-prime`, `/dot-audit`) reference `.principles-catalog/` inside the project. Committing this directory means the commands work for every team member — even without access to the `.principles` repo — and the CI/CD environment gets the same principle data.
 
 `.principles-catalog/` contains the same file structure as the `principles/` directory in this repo, filtered to the namespaces and groups your project actually uses.
 
@@ -140,14 +140,14 @@ DDD-AGGREGATE|2|Enforce business invariants within a single aggregate boundary p
 
 After `install.sh all <dir>`, Claude Code slash commands are written to `<dir>/.claude/commands/`. Claude Code discovers these automatically when opened in that project directory.
 
-**Per-group files:** After running `/scout`, per-group principle files are emitted to `.claude/rules/` with `paths:` frontmatter targeting the relevant file types. Claude Code reads everything in `.claude/rules/` as always-on context — no further configuration needed.
+**Per-group files:** After running `/dot-scout`, per-group principle files are emitted to `.claude/rules/` with `paths:` frontmatter targeting the relevant file types. Claude Code reads everything in `.claude/rules/` as always-on context — no further configuration needed.
 
-Run `/scout` once per project to populate `.principles` files and emit per-group principle files:
+Run `/dot-scout` once per project to populate `.principles` files and emit per-group principle files:
 
 ```
-/scout
-/prime     ← before writing code
-/audit     ← review against active principles
+/dot-scout
+/dot-prime     ← before writing code
+/dot-audit     ← review against active principles
 ```
 
 ---
@@ -170,9 +170,9 @@ Writes prompt files into `.github/prompts/`:
 |------|-------------|
 | `.github/prompts/<name>.prompt.md` | VS Code / JetBrains / Visual Studio Copilot Chat |
 
-The `copilot` sub-command installs both CLI skills and IDE prompts. This repo ships with pre-populated `.github/prompts/` and `.github/skills/` directories so contributors working in this repo get `/scout`, `/prime`, and `/audit` without running the installer.
+The `copilot` sub-command installs both CLI skills and IDE prompts. This repo ships with pre-populated `.github/prompts/` and `.github/skills/` directories so contributors working in this repo get `/dot-scout`, `/dot-prime`, and `/dot-audit` without running the installer.
 
-**Per-group files:** After `/scout`, one file per active `@group` is written to `.github/instructions/` with `applyTo:` frontmatter listing the file globs for that group. Copilot Code Review activates each file only when reviewing paths that match its globs — keeping each file within the context budget.
+**Per-group files:** After `/dot-scout`, one file per active `@group` is written to `.github/instructions/` with `applyTo:` frontmatter listing the file globs for that group. Copilot Code Review activates each file only when reviewing paths that match its globs — keeping each file within the context budget.
 
 ---
 
@@ -184,7 +184,7 @@ The `copilot` sub-command installs both CLI skills and IDE prompts. This repo sh
 |------|-------------|
 | `.agents/skills/<name>/SKILL.md` | Codex CLI and Codex IDE extension |
 
-Codex reads repo skills from `.agents/skills/`. After install, invoke the workflows as `$scout`, `$prime`, and `$audit` in Codex.
+Codex reads repo skills from `.agents/skills/`. After install, invoke the workflows as `$dot-scout`, `$dot-prime`, and `$dot-audit` in Codex.
 
 ---
 
@@ -196,10 +196,10 @@ Codex reads repo skills from `.agents/skills/`. After install, invoke the workfl
 ```
 
 The uninstaller:
-- Removes per-group principle files from `.github/instructions/` and `.claude/rules/` (files with `<!-- generated by /scout -->` marker)
-- Removes `.claude/commands/scout.md`, `prime.md`, `audit.md`
-- Removes `.github/skills/scout/`, `prime/`, `audit/` and `.github/prompts/*.prompt.md`
-- Removes `.agents/skills/scout/`, `prime/`, `audit/`
+- Removes per-group principle files from `.github/instructions/` and `.claude/rules/` (files with `<!-- generated by /dot-scout -->` marker)
+- Removes `.claude/commands/dot-scout.md`, `dot-prime.md`, `dot-audit.md`
+- Removes `.github/skills/dot-scout/`, `dot-prime/`, `dot-audit/` and `.github/prompts/*.prompt.md`
+- Removes `.agents/skills/dot-scout/`, `dot-prime/`, `dot-audit/`
 - Removes `.principles-catalog/`
 - Cleans up legacy assets: `.ai/`, compiled blocks from `AGENTS.md`/`CLAUDE.md`/`copilot-instructions.md`
 - Removes legacy `~/.principles` if present from an older install
@@ -221,7 +221,7 @@ git checkout -b try-principles
 # or on Windows:
 # \path\to\.principles\install.ps1 all .
 
-# Run /scout, /prime, /audit — explore without touching your main branch
+# Run /dot-scout, /dot-prime, /dot-audit — explore without touching your main branch
 # When done, delete the branch to remove everything
 git checkout main && git branch -D try-principles
 ```
@@ -233,10 +233,10 @@ git checkout main && git branch -D try-principles
 Open your AI tool and run the commands:
 
 ```
-/scout              → detect project profile, create .principles files, emit per-group principle files
-/prime              → activate principles before writing code
-/audit              → review code with severity-categorized findings
-/audit DDD on src/  → force specific principles, ignoring .principles files
+/dot-scout              → detect project profile, create .principles files, emit per-group principle files
+/dot-prime              → activate principles before writing code
+/dot-audit              → review code with severity-categorized findings
+/dot-audit DDD on src/  → force specific principles, ignoring .principles files
 ```
 
 See [README.md](README.md) for a full walkthrough and examples.

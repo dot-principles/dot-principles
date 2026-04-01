@@ -8,17 +8,17 @@ REPO_ROOT="${1:-$(cd "$(dirname "$0")/.." && pwd)}"
 
 # All three interactive audit files must be checked.
 AUDIT_FILES=(
-  "$REPO_ROOT/.agents/skills/audit/SKILL.md"
-  "$REPO_ROOT/.github/skills/audit/SKILL.md"
-  "$REPO_ROOT/.github/prompts/audit.prompt.md"
-  "$REPO_ROOT/commands/audit.md"
+  "$REPO_ROOT/.agents/skills/dot-audit/SKILL.md"
+  "$REPO_ROOT/.github/skills/dot-audit/SKILL.md"
+  "$REPO_ROOT/.github/prompts/dot-audit.prompt.md"
+  "$REPO_ROOT/commands/dot-audit.md"
 )
 
 # Files that use plain-text output (not ask_user tool) must include the hard-stop phrase.
 PLAIN_TEXT_FILES=(
-  "$REPO_ROOT/.agents/skills/audit/SKILL.md"
-  "$REPO_ROOT/.github/skills/audit/SKILL.md"
-  "$REPO_ROOT/commands/audit.md"
+  "$REPO_ROOT/.agents/skills/dot-audit/SKILL.md"
+  "$REPO_ROOT/.github/skills/dot-audit/SKILL.md"
+  "$REPO_ROOT/commands/dot-audit.md"
 )
 
 ERRORS=0

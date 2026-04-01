@@ -1,0 +1,4 @@
+- /dot-prime - does it work -> fix?
+- /dot-prime @xxx
+- run .principles on this repo!
+- .md docs DRY and to-the-point

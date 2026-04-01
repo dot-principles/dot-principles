@@ -3,9 +3,9 @@ name: Audit Gate Check
 on:
   pull_request:
     paths:
-      - '.github/skills/audit/**'
-      - '.github/prompts/audit.prompt.md'
-      - 'targets/claude-code/audit.md'
+      - '.github/skills/dot-audit/**'
+      - '.github/prompts/dot-audit.prompt.md'
+      - 'targets/claude-code/dot-audit.md'
       - 'tests/check-audit-gates.sh'
       - 'tests/check-audit-gates.ps1'
 

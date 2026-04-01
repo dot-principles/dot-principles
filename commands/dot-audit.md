@@ -8,6 +8,17 @@ authors: Flemming N. Larsen (https://github.com/flemming-n-larsen)
 
 # Audit
 
+> **⛔ PREREQUISITE — CHECK THIS BEFORE ANYTHING ELSE**
+>
+> Before parsing arguments or doing any work, determine whether an explicit principle spec is present in `$ARGUMENTS`:
+> - Explicit spec = `$ARGUMENTS` contains ` --with `, one or more `@`-prefixed tokens, or ` on ` (space–on–space)
+>
+> If **no explicit spec** is present, read `{{PRINCIPLES_DIRECTORY}}/install.cfg` and check whether any line contains the word `scout`.
+> - If the file does not exist, or `scout` is not found → **STOP. Do not proceed. Respond only with:**
+>
+> > ⚠️ `/dot-audit` requires `/dot-scout` to have been run first.
+> > Run `/dot-scout` to analyse the project and generate the principle files that this command needs, then retry.
+
 Review a file, directory, or inline code against its activated principles. Core review runs in seven phases (1–7). Three optional gated phases (8–10) handle fix, commit, and PR — each requires explicit user approval before entry.
 
 ## Phase 1 — Parse Arguments, Resolve Input, and Detect Artifact Type
@@ -22,15 +33,6 @@ Check `$ARGUMENTS` for an explicit principle spec using this precedence:
 4. **No spec** — treat all of `$ARGUMENTS` as the target input (normal mode).
 
 If an explicit spec was detected, record **principle-spec** and set **explicit-mode: true**. Otherwise set **explicit-mode: false**.
-
-### 1.1.1 — Scout guard (normal mode only)
-
-**Skip this step if explicit-mode is true.**
-
-Check `{{PRINCIPLES_DIRECTORY}}/install.cfg`. If the file exists, look for a line containing `scout`. If the file does not exist or `scout` is not present, stop immediately and respond:
-
-> ⚠️ `/dot-audit` requires `/dot-scout` to have been run first.
-> Run `/dot-scout` to analyse the project and generate the principle files that this command needs, then retry.
 
 ### 1.2 — Resolve Input
 

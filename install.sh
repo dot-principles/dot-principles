@@ -666,7 +666,10 @@ else
             read_install_cfg "$DIR_ARG"
             "$SCRIPT_DIR/uninstall.sh" --quiet --target claude "$DIR_ARG"
             install_from_template "$TEMPLATE_DIR/claude" "$DIR_ARG"
-            mark_targets claude
+            echo ""
+            "$SCRIPT_DIR/uninstall.sh" --quiet --target vendor "$DIR_ARG"
+            install_vendor "$DIR_ARG"
+            mark_targets claude vendor
             write_install_cfg "$DIR_ARG"
             ;;
         copilot)
@@ -676,7 +679,10 @@ else
             install_from_template "$TEMPLATE_DIR/copilot-cli" "$DIR_ARG"
             echo ""
             install_from_template "$TEMPLATE_DIR/copilot-ide" "$DIR_ARG"
-            mark_targets copilot-cli copilot-ide
+            echo ""
+            "$SCRIPT_DIR/uninstall.sh" --quiet --target vendor "$DIR_ARG"
+            install_vendor "$DIR_ARG"
+            mark_targets copilot-cli copilot-ide vendor
             write_install_cfg "$DIR_ARG"
             ;;
         copilot-cli)
@@ -684,14 +690,20 @@ else
             read_install_cfg "$DIR_ARG"
             "$SCRIPT_DIR/uninstall.sh" --quiet --target copilot "$DIR_ARG"
             install_from_template "$TEMPLATE_DIR/copilot-cli" "$DIR_ARG"
-            mark_targets copilot-cli
+            echo ""
+            "$SCRIPT_DIR/uninstall.sh" --quiet --target vendor "$DIR_ARG"
+            install_vendor "$DIR_ARG"
+            mark_targets copilot-cli vendor
             write_install_cfg "$DIR_ARG"
             ;;
         copilot-ide)
             require_dir "$DIR_ARG"
             read_install_cfg "$DIR_ARG"
             install_from_template "$TEMPLATE_DIR/copilot-ide" "$DIR_ARG"
-            mark_targets copilot-ide
+            echo ""
+            "$SCRIPT_DIR/uninstall.sh" --quiet --target vendor "$DIR_ARG"
+            install_vendor "$DIR_ARG"
+            mark_targets copilot-ide vendor
             write_install_cfg "$DIR_ARG"
             ;;
         codex)
@@ -699,7 +711,10 @@ else
             read_install_cfg "$DIR_ARG"
             "$SCRIPT_DIR/uninstall.sh" --quiet --target codex "$DIR_ARG"
             install_from_template "$TEMPLATE_DIR/codex" "$DIR_ARG"
-            mark_targets codex
+            echo ""
+            "$SCRIPT_DIR/uninstall.sh" --quiet --target vendor "$DIR_ARG"
+            install_vendor "$DIR_ARG"
+            mark_targets codex vendor
             write_install_cfg "$DIR_ARG"
             ;;
         vendor)

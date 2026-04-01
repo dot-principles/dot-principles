@@ -8,6 +8,17 @@ authors: Flemming N. Larsen (https://github.com/flemming-n-larsen)
 
 # Prime
 
+> **⛔ PREREQUISITE — CHECK THIS BEFORE ANYTHING ELSE**
+>
+> Before parsing arguments or doing any work, determine whether an explicit principle spec is present in `$ARGUMENTS`:
+> - Explicit spec = `$ARGUMENTS` contains one or more `@`-prefixed tokens, or tokens matching `[A-Z][A-Z0-9]*(-[A-Z0-9]+)+` (bare principle IDs like `CODE-CS-DRY`)
+>
+> If **no explicit spec** is present, read `{{PRINCIPLES_DIRECTORY}}/install.cfg` and check whether any **non-comment, non-blank** line is exactly `scout` (comment lines start with `#`).
+> - If the file does not exist, or `scout` is not found → **STOP. Do not proceed. Respond only with:**
+>
+> > ⚠️ `/dot-prime` requires `/dot-scout` to have been run first.
+> > Run `/dot-scout` to analyse the project and generate the principle files that this command needs, then retry.
+
 You are activating a compact set of principles before working on a file or task. Follow these four phases exactly.
 
 ## Phase 1 — Parse Arguments and Guard
@@ -21,15 +32,6 @@ Scan `$ARGUMENTS` for explicit principle specs:
 3. **No spec** — treat all of `$ARGUMENTS` as target context. This is normal mode.
 
 If a spec was detected: set **explicit-mode: true**. Otherwise: **explicit-mode: false**.
-
-### 1.2 — Scout guard (normal mode only)
-
-**Skip this step if explicit-mode is true.**
-
-Check `{{PRINCIPLES_DIRECTORY}}/install.cfg`. If the file exists, look for a line containing `scout`. If the file does not exist or `scout` is not present, stop immediately and respond:
-
-> ⚠️ `/dot-prime` requires `/dot-scout` to have been run first.
-> Run `/dot-scout` to analyse the project and generate the principle files that this command needs, then retry.
 
 ### 1.3 — Detect artifact type
 

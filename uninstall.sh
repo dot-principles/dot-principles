@@ -79,6 +79,12 @@ qecho() { [ "$QUIET" = false ] && echo -e "$@" || true; }
 
 COMMAND_SOURCE_DIR="$SCRIPT_DIR/commands"
 
+# Command names that were used in previous versions and may still be installed.
+# These are removed in addition to any names found in COMMAND_SOURCE_DIR.
+# TODO: Remove this list once enough time has passed for users to have upgraded
+#       (added in v0.10.0 after rename from audit/prime/scout → dot-audit/dot-prime/dot-scout).
+LEGACY_COMMAND_NAMES=("audit" "prime" "scout")
+
 PROJECT_DIR=""
 if [ -n "${1:-}" ] && [[ "${1:-}" != --* ]]; then
     PROJECT_DIR="$(normalize_directory_path "$1")"
@@ -164,6 +170,17 @@ uninstall_claude() {
         exit 1
     fi
 
+    # Remove legacy command names
+    local legacy_name
+    for legacy_name in "${LEGACY_COMMAND_NAMES[@]}"; do
+        local legacy_file="$target_dir/${legacy_name}.md"
+        if [ -f "$legacy_file" ]; then
+            rm "$legacy_file"
+            count=$((count + 1))
+            qecho "  ${GREEN}✓${NC} /$legacy_name (legacy)"
+        fi
+    done
+
     if [ $count -eq 0 ]; then
         qecho "  ${NEUTRAL} No current commands found to remove."
     else
@@ -239,6 +256,17 @@ uninstall_copilot_local() {
         fi
     done
 
+    # Remove legacy skill dirs
+    local legacy_name
+    for legacy_name in "${LEGACY_COMMAND_NAMES[@]}"; do
+        local legacy_skill_dir="$skills_dir/$legacy_name"
+        if [ -d "$legacy_skill_dir" ]; then
+            rm -rf "$legacy_skill_dir"
+            skill_count=$((skill_count + 1))
+            qecho "  ${GREEN}✓${NC} .github/skills/$legacy_name/ (legacy)"
+        fi
+    done
+
     if [ $skill_count -eq 0 ]; then
         qecho "  ${NEUTRAL} No Copilot skills found to remove."
     fi
@@ -255,6 +283,16 @@ uninstall_copilot_local() {
                 prompt_count=$((prompt_count + 1))
                 qecho "  ${GREEN}✓${NC} .github/prompts/$(basename "$prompt_file")"
             fi
+        fi
+    done
+
+    # Remove legacy prompt files
+    for legacy_name in "${LEGACY_COMMAND_NAMES[@]}"; do
+        local legacy_prompt="$prompts_dir/${legacy_name}.prompt.md"
+        if [ -f "$legacy_prompt" ]; then
+            rm "$legacy_prompt"
+            prompt_count=$((prompt_count + 1))
+            qecho "  ${GREEN}✓${NC} .github/prompts/${legacy_name}.prompt.md (legacy)"
         fi
     done
 
@@ -285,6 +323,17 @@ uninstall_codex() {
                 skill_count=$((skill_count + 1))
                 qecho "  ${GREEN}✓${NC} .agents/skills/$command_name/"
             fi
+        fi
+    done
+
+    # Remove legacy skill dirs
+    local legacy_name
+    for legacy_name in "${LEGACY_COMMAND_NAMES[@]}"; do
+        local legacy_skill_dir="$skills_dir/$legacy_name"
+        if [ -d "$legacy_skill_dir" ]; then
+            rm -rf "$legacy_skill_dir"
+            skill_count=$((skill_count + 1))
+            qecho "  ${GREEN}✓${NC} .agents/skills/$legacy_name/ (legacy)"
         fi
     done
 

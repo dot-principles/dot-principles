@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 ### Fixed
 
 - **Catalog always vendored** — `install.sh claude`, `copilot`, `copilot-cli`, `copilot-ide`, and `codex` now automatically run the vendor step, ensuring `.principles-catalog/` is always present after any named install. Previously, skills like `/dot-prime` would silently fail unless `install.sh vendor` had been run separately.
+- **Uninstaller cleans legacy command names** — `uninstall.sh` now removes old `audit/`, `prime/`, and `scout/` skill directories, prompt files, and Claude commands left over from before the `dot-` rename. Running `install.sh all <dir>` (which calls uninstall first) now fully cleans up stale installs.
 
 ### Changed
 

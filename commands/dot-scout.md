@@ -353,4 +353,4 @@ Tip: commit .principles-catalog/ so CI and PR bots can use it without local inst
 
 Append `scout` to `{{PRINCIPLES_DIRECTORY}}/install.cfg` (create the file if it does not exist). Use one target per line; do not add a duplicate if `scout` is already present.
 
-This marker tells `/dot-prime` and `/dot-audit` that scout has been run and its output files are available.
+This marker is kept for compatibility, and `/dot-prime` and `/dot-audit` accept both the legacy `/scout` and current `/dot-scout` generated files.

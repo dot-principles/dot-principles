@@ -8,6 +8,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [v0.10.1] — 2026-04-13
+
+### Fixed
+
+- **`/dot-prime` and `/dot-audit` prereq gate** — both commands now key off scout-generated instruction/rules files instead of relying on `install.cfg`, which could be overwritten by later installs. Legacy `/scout` output and current `/dot-scout` output both satisfy the gate.
+- **Scout marker note clarified** — the `/dot-scout` docs now describe the `install.cfg` entry as a compatibility marker rather than the source of truth.
+
+---
+
 ## [v0.10.0] — 2026-04-01
 
 ### Added

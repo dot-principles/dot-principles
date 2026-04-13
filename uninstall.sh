@@ -150,27 +150,21 @@ uninstall_claude() {
     qecho "${BOLD}Removing Claude Code slash commands (local: $project_dir)...${NC}"
 
     local count=0
-    local found_target=false
     local file
 
-    for file in "$COMMAND_SOURCE_DIR/"*.md; do
-        if [ -f "$file" ]; then
-            found_target=true
-            local installed_file="$target_dir/$(basename "$file")"
-            if [ -f "$installed_file" ]; then
-                rm "$installed_file"
+    # Content-based detection: remove any command file bearing the .principles watermark
+    if [ -d "$target_dir" ]; then
+        for file in "$target_dir/"*.md; do
+            [ -f "$file" ] || continue
+            if grep -q "^generated-by: \.principles$" "$file" 2>/dev/null; then
+                rm "$file"
                 count=$((count + 1))
                 qecho "  ${GREEN}✓${NC} /$(basename "$file" .md)"
             fi
-        fi
-    done
-
-    if [ "$found_target" = false ]; then
-        echo -e "${RED}Error: No shared command source files found in $COMMAND_SOURCE_DIR.${NC}" >&2
-        exit 1
+        done
     fi
 
-    # Remove legacy command names
+    # Fallback: remove legacy command names (pre-watermark installs)
     local legacy_name
     for legacy_name in "${LEGACY_COMMAND_NAMES[@]}"; do
         local legacy_file="$target_dir/${legacy_name}.md"
@@ -243,20 +237,22 @@ uninstall_copilot_local() {
 
     local skill_count=0
     local file
-    for file in "$COMMAND_SOURCE_DIR/"*.md; do
-        if [ -f "$file" ]; then
-            local command_name
-            command_name="$(basename "$file" .md)"
-            local skill_dir="$skills_dir/$command_name"
-            if [ -d "$skill_dir" ]; then
+
+    # Content-based detection: remove skill dirs whose SKILL.md bears the .principles watermark
+    if [ -d "$skills_dir" ]; then
+        for file in "$skills_dir"/*/SKILL.md; do
+            [ -f "$file" ] || continue
+            if grep -q "^generated-by: \.principles$" "$file" 2>/dev/null; then
+                local skill_dir
+                skill_dir="$(dirname "$file")"
                 rm -rf "$skill_dir"
                 skill_count=$((skill_count + 1))
-                qecho "  ${GREEN}✓${NC} .github/skills/$command_name/"
+                qecho "  ${GREEN}✓${NC} .github/skills/$(basename "$skill_dir")/"
             fi
-        fi
-    done
+        done
+    fi
 
-    # Remove legacy skill dirs
+    # Fallback: remove legacy skill dirs (pre-watermark installs)
     local legacy_name
     for legacy_name in "${LEGACY_COMMAND_NAMES[@]}"; do
         local legacy_skill_dir="$skills_dir/$legacy_name"
@@ -275,18 +271,20 @@ uninstall_copilot_local() {
     qecho "${BOLD}Removing GitHub Copilot prompt commands...${NC}"
 
     local prompt_count=0
-    for file in "$COMMAND_SOURCE_DIR/"*.md; do
-        if [ -f "$file" ]; then
-            local prompt_file="$prompts_dir/$(basename "$file" .md).prompt.md"
-            if [ -f "$prompt_file" ]; then
-                rm "$prompt_file"
-                prompt_count=$((prompt_count + 1))
-                qecho "  ${GREEN}✓${NC} .github/prompts/$(basename "$prompt_file")"
-            fi
-        fi
-    done
 
-    # Remove legacy prompt files
+    # Content-based detection: remove prompt files bearing the .principles watermark
+    if [ -d "$prompts_dir" ]; then
+        for file in "$prompts_dir/"*.prompt.md; do
+            [ -f "$file" ] || continue
+            if grep -q "^generated-by: \.principles$" "$file" 2>/dev/null; then
+                rm "$file"
+                prompt_count=$((prompt_count + 1))
+                qecho "  ${GREEN}✓${NC} .github/prompts/$(basename "$file")"
+            fi
+        done
+    fi
+
+    # Fallback: remove legacy prompt files (pre-watermark installs)
     for legacy_name in "${LEGACY_COMMAND_NAMES[@]}"; do
         local legacy_prompt="$prompts_dir/${legacy_name}.prompt.md"
         if [ -f "$legacy_prompt" ]; then
@@ -313,20 +311,22 @@ uninstall_codex() {
 
     local skill_count=0
     local file
-    for file in "$COMMAND_SOURCE_DIR/"*.md; do
-        if [ -f "$file" ]; then
-            local command_name
-            command_name="$(basename "$file" .md)"
-            local skill_dir="$skills_dir/$command_name"
-            if [ -d "$skill_dir" ]; then
+
+    # Content-based detection: remove skill dirs whose SKILL.md bears the .principles watermark
+    if [ -d "$skills_dir" ]; then
+        for file in "$skills_dir"/*/SKILL.md; do
+            [ -f "$file" ] || continue
+            if grep -q "^generated-by: \.principles$" "$file" 2>/dev/null; then
+                local skill_dir
+                skill_dir="$(dirname "$file")"
                 rm -rf "$skill_dir"
                 skill_count=$((skill_count + 1))
-                qecho "  ${GREEN}✓${NC} .agents/skills/$command_name/"
+                qecho "  ${GREEN}✓${NC} .agents/skills/$(basename "$skill_dir")/"
             fi
-        fi
-    done
+        done
+    fi
 
-    # Remove legacy skill dirs
+    # Fallback: remove legacy skill dirs (pre-watermark installs)
     local legacy_name
     for legacy_name in "${LEGACY_COMMAND_NAMES[@]}"; do
         local legacy_skill_dir="$skills_dir/$legacy_name"

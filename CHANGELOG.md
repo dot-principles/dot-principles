@@ -8,6 +8,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Unreleased]
+
+### Added
+
+- **`generated-by: .principles` frontmatter watermark** — all generated command/skill/prompt files now include a `generated-by: .principles` field in their YAML frontmatter. This marks the file as owned by the `.principles` installer regardless of its name or location.
+
+### Changed
+
+- **`uninstall.sh` uses content-based detection** — `uninstall_claude`, `uninstall_copilot_local` (skills and prompts), and `uninstall_codex` now scan their respective output directories and remove any file whose frontmatter contains the `generated-by: .principles` watermark. This replaces name-based removal (matching against current `commands/*.md` filenames), making uninstall version-agnostic: files from renamed commands are cleaned up correctly. Legacy command names (`LEGACY_COMMAND_NAMES`) are still checked as a fallback for pre-watermark installs.
+
+---
+
 ## [v0.10.1] — 2026-04-13
 
 ### Fixed

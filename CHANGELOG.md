@@ -10,9 +10,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [Unreleased]
 
+---
+
+## [v0.10.3] — 2026-04-16
+
+### Added
+
+- **Demo presentation** — new [`demo/presentation.md`](demo/presentation.md) walkthrough showing `dot-scout`, `dot-audit`, and `dot-prime` in action on [Robocode Tank Royale](https://github.com/robocode-dev/tank-royale), with audit findings recreated as GitHub-rendered markdown. Includes [`demo/audit-output.json`](demo/audit-output.json) with the full findings export.
+
 ### Changed
 
 - **Severity emoji indicators in `/dot-audit` report output** — the compact text report now prefixes each severity group heading with a colored circle: `🔴 Critical:`, `🟠 High:`, `🟡 Medium:`, `🔵 Low:`. The PR body template and the severity emoji legend are updated to match, with Critical and High now visually distinct (previously both used 🔴).
+- **README callouts** — added 🎬 demo walkthrough link and 📦 releases/changelog link to both the main repo README and the `.github` org profile README.
 
 ---
 

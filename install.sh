@@ -125,6 +125,8 @@ install_from_template() {
     local TOOL_ID="" TOOL_LABEL="" OUTPUT_DIR="" OUTPUT_FILE="" PATCHES="" INSTALL_SUBCOMMAND=""
     # shellcheck disable=SC1090
     source "$template_dir/manifest.cfg"
+    # Strip trailing CR in case manifest has Windows line endings (CRLF)
+    TOOL_ID="${TOOL_ID%$'\r'}"
 
     local wrapper_file="$template_dir/wrapper.md"
     if [ ! -f "$wrapper_file" ]; then
@@ -205,7 +207,13 @@ install_from_template() {
         rm -f "$tmp_fm" "$tmp_body" "$tmp_output"
 
         count=$((count + 1))
-        echo -e "  ${GREEN}✓${NC} $command_name"
+        local display_name
+        if [ "$TOOL_ID" = "claude" ]; then
+            display_name="${command_name//\//:}"
+        else
+            display_name="$command_slug"
+        fi
+        echo -e "  ${GREEN}✓${NC} $display_name"
     done < <(find "$COMMAND_SOURCE_DIR" -name "*.md" -type f | sort)
 
     echo ""

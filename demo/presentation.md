@@ -12,6 +12,18 @@
 
 ---
 
+## 0 · Install
+
+Before using any commands, install `.principles` into your project. This demo uses **Copilot** (CLI + IDE):
+
+```
+./install.sh copilot C:\Code\tank-royale
+```
+
+This installs the `dot-scout`, `dot-prime`, and `dot-audit` skills into the target project and vendors the principle catalog. See [INSTALL.md](../INSTALL.md) for the full guide (Claude Code, Codex, interactive mode, etc.).
+
+---
+
 ## 1 · `dot-scout` — Detect & Configure
 
 **What it does:** Scans your project tree, detects languages, frameworks, and domain signals, then places `.principles` files at the right directory levels — just like `.gitignore`, but for engineering guidance.

@@ -8,6 +8,8 @@ A curated catalog of engineering principles, organized into a `.principles` hier
 
 > See [DISCLAIMER.md](DISCLAIMER.md) — this is a proof of concept. Groups are opinionated, gaps exist, and adjustments are expected.
 
+> 🎬 **New here?** See the [live demo walkthrough](demo/presentation.md) for a quick tour.
+
 ---
 
 ## 💡 Why `.principles`?

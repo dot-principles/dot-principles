@@ -10,6 +10,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [Unreleased]
 
+### Changed
+
+- **Severity emoji indicators in `/dot-audit` report output** — the compact text report now prefixes each severity group heading with a colored circle: `🔴 Critical:`, `🟠 High:`, `🟡 Medium:`, `🔵 Low:`. The PR body template and the severity emoji legend are updated to match, with Critical and High now visually distinct (previously both used 🔴).
+
 ---
 
 ## [v0.10.2] — 2026-04-16

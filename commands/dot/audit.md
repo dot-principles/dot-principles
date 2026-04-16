@@ -327,19 +327,19 @@ For each violation found, record: principle ID, severity (Critical/High/Medium/L
 ```
 Audit complete — {N} findings.
 
-Critical:
+🔴 Critical:
 
 - `{absolute/file.ext}:{line}` [{PRINCIPLE-ID}] — {description}. → {fix}.
 
-High:
+🟠 High:
 
 - `{absolute/file.ext}:{line}` [{PRINCIPLE-ID}] — {description}. → {fix}.
 
-Medium:
+🟡 Medium:
 
 - `{absolute/file.ext}:{line}` [{PRINCIPLE-ID}] — {description}. → {fix}.
 
-Low:
+🔵 Low:
 
 - `{absolute/file.ext}:{line}` [{PRINCIPLE-ID}] — {description}. → {fix}.
 
@@ -486,8 +486,11 @@ Brief description of what was audited and what was fixed.
 
 ## Why each change was required
 
-### 🔴 HIGH — <finding title> (<PRINCIPLE-ID>)
+### 🔴 CRITICAL — <finding title> (<PRINCIPLE-ID>)
 One paragraph: root cause and production impact of leaving it unfixed.
+
+### 🟠 HIGH — <finding title> (<PRINCIPLE-ID>)
+...
 
 ### 🟡 MEDIUM — <finding title> (<PRINCIPLE-ID>)
 ...
@@ -501,7 +504,8 @@ One paragraph: root cause and production impact of leaving it unfixed.
 
 | Severity | Finding | Change |
 |----------|---------|--------|
-| 🔴 HIGH  | <what was wrong> | <what was done> |
+| 🔴 CRITICAL | <what was wrong> | <what was done> |
+| 🟠 HIGH  | <what was wrong> | <what was done> |
 | 🟡 MEDIUM| ...              | ...             |
 | 🔵 LOW   | ...              | ...             |
 
@@ -510,4 +514,4 @@ One paragraph: root cause and production impact of leaving it unfixed.
 **Files changed:** N production + M test | **Tests:** X/X passing
 ```
 
-Severity emoji: 🔴 CRITICAL/HIGH · 🟡 MEDIUM · 🔵 LOW
+Severity emoji: 🔴 CRITICAL · 🟠 HIGH · 🟡 MEDIUM · 🔵 LOW

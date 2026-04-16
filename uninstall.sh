@@ -83,7 +83,7 @@ COMMAND_SOURCE_DIR="$SCRIPT_DIR/commands"
 # These are removed in addition to any names found in COMMAND_SOURCE_DIR.
 # TODO: Remove this list once enough time has passed for users to have upgraded
 #       (added in v0.10.0 after rename from audit/prime/scout → dot-audit/dot-prime/dot-scout).
-LEGACY_COMMAND_NAMES=("audit" "prime" "scout")
+LEGACY_COMMAND_NAMES=("audit" "prime" "scout" "dot-audit" "dot-prime" "dot-scout")
 
 PROJECT_DIR=""
 if [ -n "${1:-}" ] && [[ "${1:-}" != --* ]]; then
@@ -154,14 +154,15 @@ uninstall_claude() {
 
     # Content-based detection: remove any command file bearing the .principles watermark
     if [ -d "$target_dir" ]; then
-        for file in "$target_dir/"*.md; do
+        while IFS= read -r file; do
             [ -f "$file" ] || continue
             if grep -q "^generated-by: \.principles$" "$file" 2>/dev/null; then
                 rm "$file"
                 count=$((count + 1))
-                qecho "  ${GREEN}✓${NC} /$(basename "$file" .md)"
+                local rel="${file#$target_dir/}"; rel="${rel%.md}"
+                qecho "  ${GREEN}✓${NC} /${rel//\//\:}"
             fi
-        done
+        done < <(find "$target_dir" -name "*.md" -type f 2>/dev/null | sort)
     fi
 
     # Fallback: remove legacy command names (pre-watermark installs)
@@ -182,6 +183,12 @@ uninstall_claude() {
         qecho "Removed ${GREEN}$count${NC} commands."
     fi
 
+    # Clean up any empty subdirectories left behind (e.g. dot/)
+    if [ -d "$target_dir" ]; then
+        find "$target_dir" -mindepth 1 -type d | sort -r | while IFS= read -r subdir; do
+            cleanup_dir_if_empty "$subdir"
+        done
+    fi
     cleanup_dir_if_empty "$target_dir"
     cleanup_dir_if_empty "$project_dir/.claude"
 }

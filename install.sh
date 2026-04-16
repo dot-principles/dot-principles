@@ -137,10 +137,12 @@ install_from_template() {
     local count=0
     local file
 
-    for file in "$COMMAND_SOURCE_DIR/"*.md; do
+    while IFS= read -r file; do
         [ -f "$file" ] || continue
-        local command_name
-        command_name="$(basename "$file" .md)"
+        local command_name command_slug
+        command_name="${file#$COMMAND_SOURCE_DIR/}"
+        command_name="${command_name%.md}"
+        command_slug="${command_name//\//-}"
 
         # Temp files for intermediate content
         local tmp_fm tmp_body tmp_output
@@ -172,6 +174,7 @@ install_from_template() {
         while IFS= read -r line || [ -n "$line" ]; do
             local expanded
             expanded="${line//\{\{COMMAND_NAME\}\}/$command_name}"
+            expanded="${expanded//\{\{COMMAND_SLUG\}\}/$command_slug}"
             if [[ "$expanded" == *'{{FRONTMATTER}}'* ]]; then
                 # Output prefix before {{FRONTMATTER}}, then file, then suffix
                 local prefix="${expanded%%\{\{FRONTMATTER\}\}*}"
@@ -192,18 +195,18 @@ install_from_template() {
 
         # 6. Resolve output path and write
         local resolved_dir resolved_file
-        resolved_dir="$(echo "$OUTPUT_DIR" | sed "s|{{COMMAND_NAME}}|$command_name|g")"
-        resolved_file="$(echo "$OUTPUT_FILE" | sed "s|{{COMMAND_NAME}}|$command_name|g")"
+        resolved_dir="$(echo "$OUTPUT_DIR" | sed "s|{{COMMAND_NAME}}|$command_name|g; s|{{COMMAND_SLUG}}|$command_slug|g")"
+        resolved_file="$(echo "$OUTPUT_FILE" | sed "s|{{COMMAND_NAME}}|$command_name|g; s|{{COMMAND_SLUG}}|$command_slug|g")"
 
         local target_path="$project_dir/$resolved_dir"
-        mkdir -p "$target_path"
+        mkdir -p "$(dirname "$target_path/$resolved_file")"
         cp "$tmp_output" "$target_path/$resolved_file"
 
         rm -f "$tmp_fm" "$tmp_body" "$tmp_output"
 
         count=$((count + 1))
         echo -e "  ${GREEN}✓${NC} $command_name"
-    done
+    done < <(find "$COMMAND_SOURCE_DIR" -name "*.md" -type f | sort)
 
     echo ""
     echo -e "Installed ${BOLD}$count${NC} commands to $resolved_dir"
@@ -347,12 +350,13 @@ list_installed() {
 
     echo "Claude Code commands (.claude/commands/):"
     local found=false
-    for file in "$COMMAND_SOURCE_DIR/"*.md; do
-        if [ -f "$file" ] && [ -f "$project_dir/.claude/commands/$(basename "$file")" ]; then
-            echo -e "  ${GREEN}✓${NC} /$(basename "$file" .md)"
+    while IFS= read -r file; do
+        local command_name="${file#$COMMAND_SOURCE_DIR/}"; command_name="${command_name%.md}"
+        if [ -f "$file" ] && [ -f "$project_dir/.claude/commands/$command_name.md" ]; then
+            echo -e "  ${GREEN}✓${NC} /${command_name//\//\:}"
             found=true
         fi
-    done
+    done < <(find "$COMMAND_SOURCE_DIR" -name "*.md" -type f | sort)
     if [ "$found" = false ]; then
         echo "  (none)"
     fi
@@ -360,17 +364,15 @@ list_installed() {
     echo ""
     echo "Copilot CLI skills (.github/skills/):"
     local copilot_cli_found=false
-    for file in "$COMMAND_SOURCE_DIR/"*.md; do
-        if [ -f "$file" ]; then
-            local command_name
-            command_name="$(basename "$file" .md)"
-            local skill_file="$project_dir/.github/skills/$command_name/SKILL.md"
-            if [ -f "$skill_file" ]; then
-                echo -e "  ${GREEN}✓${NC} .github/skills/$command_name/SKILL.md"
-                copilot_cli_found=true
-            fi
+    while IFS= read -r file; do
+        local command_name="${file#$COMMAND_SOURCE_DIR/}"; command_name="${command_name%.md}"
+        local command_slug="${command_name//\//-}"
+        local skill_file="$project_dir/.github/skills/$command_slug/SKILL.md"
+        if [ -f "$skill_file" ]; then
+            echo -e "  ${GREEN}✓${NC} .github/skills/$command_slug/SKILL.md"
+            copilot_cli_found=true
         fi
-    done
+    done < <(find "$COMMAND_SOURCE_DIR" -name "*.md" -type f | sort)
     if [ "$copilot_cli_found" = false ]; then
         echo "  (none)"
     fi
@@ -378,17 +380,15 @@ list_installed() {
     echo ""
     echo "Copilot IDE prompts (.github/prompts/):"
     local copilot_ide_found=false
-    for file in "$COMMAND_SOURCE_DIR/"*.md; do
-        if [ -f "$file" ]; then
-            local command_name
-            command_name="$(basename "$file" .md)"
-            local prompt_file="$project_dir/.github/prompts/$command_name.prompt.md"
-            if [ -f "$prompt_file" ]; then
-                echo -e "  ${GREEN}✓${NC} .github/prompts/$command_name.prompt.md"
-                copilot_ide_found=true
-            fi
+    while IFS= read -r file; do
+        local command_name="${file#$COMMAND_SOURCE_DIR/}"; command_name="${command_name%.md}"
+        local command_slug="${command_name//\//-}"
+        local prompt_file="$project_dir/.github/prompts/$command_slug.prompt.md"
+        if [ -f "$prompt_file" ]; then
+            echo -e "  ${GREEN}✓${NC} .github/prompts/$command_slug.prompt.md"
+            copilot_ide_found=true
         fi
-    done
+    done < <(find "$COMMAND_SOURCE_DIR" -name "*.md" -type f | sort)
     if [ "$copilot_ide_found" = false ]; then
         echo "  (none)"
     fi
@@ -396,17 +396,15 @@ list_installed() {
     echo ""
     echo "Codex skills (.agents/skills/):"
     local codex_found=false
-    for file in "$COMMAND_SOURCE_DIR/"*.md; do
-        if [ -f "$file" ]; then
-            local command_name
-            command_name="$(basename "$file" .md)"
-            local skill_file="$project_dir/.agents/skills/$command_name/SKILL.md"
-            if [ -f "$skill_file" ]; then
-                echo -e "  ${GREEN}✓${NC} .agents/skills/$command_name/SKILL.md"
-                codex_found=true
-            fi
+    while IFS= read -r file; do
+        local command_name="${file#$COMMAND_SOURCE_DIR/}"; command_name="${command_name%.md}"
+        local command_slug="${command_name//\//-}"
+        local skill_file="$project_dir/.agents/skills/$command_slug/SKILL.md"
+        if [ -f "$skill_file" ]; then
+            echo -e "  ${GREEN}✓${NC} .agents/skills/$command_slug/SKILL.md"
+            codex_found=true
         fi
-    done
+    done < <(find "$COMMAND_SOURCE_DIR" -name "*.md" -type f | sort)
     if [ "$codex_found" = false ]; then
         echo "  (none)"
     fi

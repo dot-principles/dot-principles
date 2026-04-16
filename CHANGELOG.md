@@ -10,13 +10,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [Unreleased]
 
+---
+
+## [v0.10.2] — 2026-04-16
+
 ### Added
 
 - **`generated-by: .principles` frontmatter watermark** — all generated command/skill/prompt files now include a `generated-by: .principles` field in their YAML frontmatter. This marks the file as owned by the `.principles` installer regardless of its name or location.
+- **`{{COMMAND_SLUG}}` template placeholder** — `install_from_template` now derives a flat slug from the source path (slashes → dashes, e.g. `dot/audit` → `dot-audit`) and exposes it as `{{COMMAND_SLUG}}` alongside `{{COMMAND_NAME}}`. Copilot CLI, Copilot IDE, and Codex manifests use `{{COMMAND_SLUG}}` so their output paths remain flat (`dot-audit/SKILL.md`, `dot-audit.prompt.md`) while Claude uses `{{COMMAND_NAME}}` to preserve the subdirectory.
 
 ### Changed
 
+- **Claude commands moved to `commands/dot/` subdirectory** — source files renamed from `commands/dot-audit.md`, `commands/dot-scout.md`, `commands/dot-prime.md` to `commands/dot/audit.md`, `commands/dot/scout.md`, `commands/dot/prime.md`. Claude Code installs them to `.claude/commands/dot/`, making them available as `/dot:audit`, `/dot:scout`, `/dot:prime` (namespace syntax). Copilot and Codex installs are unaffected — they continue to produce flat `dot-audit` names.
+- **`install_from_template` recurses into subdirectories** — the installer now uses `find` to discover all `*.md` files under `commands/` recursively, preserving the relative path as the command name for output path resolution. `mkdir -p` is applied to the output file's parent directory rather than just the base output dir.
 - **`uninstall.sh` uses content-based detection** — `uninstall_claude`, `uninstall_copilot_local` (skills and prompts), and `uninstall_codex` now scan their respective output directories and remove any file whose frontmatter contains the `generated-by: .principles` watermark. This replaces name-based removal (matching against current `commands/*.md` filenames), making uninstall version-agnostic: files from renamed commands are cleaned up correctly. Legacy command names (`LEGACY_COMMAND_NAMES`) are still checked as a fallback for pre-watermark installs.
+- **`uninstall_claude` recurses into subdirectories** — now scans `.claude/commands/` recursively and cleans up empty subdirectories (e.g. `dot/`) after removal.
+- **`LEGACY_COMMAND_NAMES` extended** — `dot-audit`, `dot-prime`, and `dot-scout` added so the uninstaller removes flat-name installs from v0.10.0–v0.10.1.
 
 ---
 

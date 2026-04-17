@@ -101,4 +101,4 @@ Format:
 
 End with this line, on its own:
 
-> Apply these rules to all code you generate. Proceed.
+> These are your focus principles for this task. Your full rule set from `.claude/rules/` remains active. Proceed.

@@ -12,6 +12,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [v0.10.4] — 2026-04-17
+
+### Changed
+
+- **Reviewer persona in `/dot-audit`** — added a "senior principal architect" persona block to Phase 2, defining tone, scope, and what NOT to report. Findings must have a concrete, articulable consequence or they are omitted.
+- **Severity calibration in `/dot-audit`** — added explicit rules: upgrade `MEDIUM` → `HIGH` when the violation demonstrably harms maintainability/testability/correctness at scale; never downgrade a `HIGH` to soften the report; never invent findings to appear thorough.
+- **Principle prioritisation in `/dot-audit` Step 2** — before reading files, principles are now ranked by relevance: security/reliability first, then structural integrity, then universal hygiene, then context-specific. High-priority principles receive proportionally more scrutiny.
+- **`/dot-prime` closing instruction** — the final line now reads "These are your focus principles for this task. Your full rule set from `.claude/rules/` remains active. Proceed." (previously "Apply these rules to all code you generate. Proceed."), making clear that the primed principles are a focus layer, not a replacement for the full rule set.
+
+---
+
 ## [v0.10.3] — 2026-04-16
 
 ### Added

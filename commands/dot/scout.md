@@ -87,6 +87,28 @@ Analyse the target directory (and subdirectories) to build a profile per directo
 | `*.proto`, `*.graphql`, `openapi.yaml`, `swagger.yaml`, `schema.sql` | schema | `@schema` |
 | `.env`, `application.yaml`, `appsettings.json`, `*.properties` | config | `@config` |
 
+### Plain-text directory detection
+
+A **plain-text directory** is one where every file in the subtree has an extension from the plain-text set below, with at least one primary extension present and **no** code-file extensions present.
+
+**Primary plain-text extensions** (at least one must be present):
+`.md` `.markdown` `.rst` `.adoc` `.asciidoc` `.txt` `.text` `.org` `.tex` `.ltx`
+`.mmd` `.plantuml` `.puml` `.pu` `.dsl` `.dot` `.gv` `.drawio` `.svg`
+
+**Neutral extensions** (may appear alongside primaries, do not count as code):
+`.yaml` `.yml` `.json` `.xml` `.toml` `.csv`
+
+**Code-file extensions** (presence of any of these disqualifies the directory):
+`.java` `.kt` `.scala` `.py` `.ts` `.tsx` `.js` `.jsx` `.mjs` `.cjs`
+`.go` `.cs` `.vb` `.rb` `.php` `.rs` `.c` `.cpp` `.h` `.hpp` `.swift`
+`.dart` `.lua` `.groovy` `.sh` `.bash` `.ps1` `.bat` `.class` `.jar`
+
+When a directory (or subtree) matches the plain-text detection rule, assign:
+- Artifact type: `plain-text`
+- Group: `@ptac`
+
+Typical plain-text directories: `architecture/`, `openspec/`, `adr/`, `docs/`, `specs/`, `design/`, `decisions/`, `diagrams/` — but apply the rule file-by-file, not by name alone.
+
 ### Per-directory profiling
 
 For projects with multiple subdirectories, detect profiles per directory:
@@ -96,6 +118,7 @@ For projects with multiple subdirectories, detect profiles per directory:
 - `docs/`, `doc/` — documentation principles (`@docs`)
 - `infra/`, `terraform/`, `k8s/`, `deploy/` — infrastructure principles (`@infra`)
 - `.github/workflows/` — pipeline principles (`@pipeline`)
+- Any directory matching the plain-text detection rule above — plain-text principles (`@ptac`)
 
 Record a profile map: `{ directory → [detected groups] }`
 
@@ -116,6 +139,7 @@ Reference these groups by their filename (without `.yaml`):
 **Framework groups:** `spring-boot`, `spring-data-jpa`, `react`, `angular`, `django`, `fastapi`
 **Cross-cutting code groups:** `microservices`, `security-focused`
 **Artifact-type groups:** `docs`, `infra`, `config`, `schema`, `pipeline`
+**Plain-text groups:** `ptac` ← use when plain-text directory detection fires (see Phase 2)
 
 Also list any custom groups found in `{{PRINCIPLES_DIRECTORY}}/groups/` that aren't listed above.
 

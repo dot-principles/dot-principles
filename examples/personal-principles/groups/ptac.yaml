@@ -1,5 +1,5 @@
 name: ptac
-description: "Plain-Text-as-Code principles — plain text first, composable files, no generated blobs"
+description: "Plain-Text-as-Code principles — plain text first, composable files, navigable directories, no generated blobs"
 
 globs:
   - "**/*"
@@ -7,4 +7,5 @@ globs:
 principles:
   - PTAC-PLAIN-TEXT-FIRST
   - PTAC-COMPOSABLE-FILES
+  - PTAC-NAVIGABLE-DIRS
   - PTAC-NO-GENERATED-BLOBS

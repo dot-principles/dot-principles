@@ -10,18 +10,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [Unreleased]
 
+---
+
+## [v0.12.0] — 2026-04-22
+
 **Added**
 
-- **`/dot-scout` Phase 6 — always writes `.principles-catalog/active.md`** — a flat `- ID: Summary` list of every active principle, written on every scout run regardless of which AI review tools are installed. This is the canonical source for `/dot-prime` and `/dot-audit`. Current Phase 6 (AI Review Integration) shifts to Phase 7.
+- **`/dot-scout` Phase 6 — always writes `.principles-catalog/active.md`** — a flat `- ID: Summary` list of every active principle, written on every scout run regardless of which AI review tools are installed. This is the canonical source for `/dot-prime` and `/dot-audit`. Former Phase 6 (AI Review Integration) shifts to Phase 7.
+- **Self-governance bootstrap** — `AGENTS.md`, `.principles` (`@docs @source-code @ptac`), and Copilot Code Review instruction files (`.github/instructions/`) added to this repo, enforcing its own principles on itself.
+- **CI audit-gates workflow** (`.github/workflows/audit-gates.yml`) — runs `tests/check-audit-gates.sh` on every push and pull request to verify audit gate markers are intact in all command files.
+- **README.md + INDEX.md** added to all user-facing directories (`commands/`, `commands/dot/`, `groups/`, `templates/`, `demo/`, `examples/`, `tests/`, `layers/`, `principles/`, `.github/instructions/`, `.github/workflows/`) per `PTAC-NAVIGABLE-DIRS`.
+- **PTAC-NAVIGABLE-DIRS DRY rule** — README.md and INDEX.md now have explicit, non-overlapping roles: README = prose purpose only; INDEX = structured file list only. Violation added to `.context-audit.md` and `ptac.instructions.md`.
 
 **Fixed**
 
 - **`/dot-prime` and `/dot-audit` now check `.principles-catalog/active.md` first** — the fast path previously checked `.github/instructions/` and `REVIEW.md` (CI review tool outputs that only exist if Copilot or Claude review is enabled). Both commands now check `active.md` first, falling back to the review tool files for backward compatibility, then to the `.principles` hierarchy as a last resort.
-
 - **`/dot-prime` and `/dot-audit` fast path now checks `REVIEW.md`** — both commands previously globbed `.claude/rules/*.md`, which scout never writes. Scout generates `REVIEW.md` at the git root for Claude Code Review. The fast path now correctly checks `.github/instructions/*.instructions.md` and `REVIEW.md`.
-
 - **`/dot-prime` falls back to `.principles` when no scout-generated files exist** — normal mode now walks the `.principles` hierarchy (root → target) when no scout outputs are found. This makes `/dot-prime` work out of the box for projects that install only `claude`, `codex`, or `copilot-cli` without running `/dot-scout`. Group expansion, bare IDs, `!ID` exclusions, and `:max_principles` directives are all honoured. The `install.cfg scout` stale-output warning is now non-blocking instead of a hard stop.
-
 - **Installer: `INDEX.md`, `README.md`, and dot-files excluded from command installation** — `list_command_files()` helper introduced in `lib/template.sh` (DRY); all five `find` call-sites in `lib/template.sh` and `lib/ui.sh` now use it. Prevents navigation docs and metadata files (e.g. `.principles`) from being installed as slash commands into target projects.
 - **Installer: `INDEX.md` and `README.md` excluded from vendored catalog** — `groups/` and `layers/` are now copied with filtered `find` instead of blind `cp -r`, so navigation docs no longer appear in `.principles-catalog/`.
 - **Installer: `generate_compact_index` no longer aborts on `INDEX.md`/`README.md`** — `find` in `vendor.sh` now excludes these files, preventing `grep` from exiting non-zero under `set -euo pipefail` and leaving `index.tsv` and `install.cfg` unwritten.
@@ -30,16 +35,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 **Changed**
 
 - **`install.sh` usage comment clarified** — each target now states it installs commands **and** the catalog; `vendor` documents its re-install-on-sync behaviour; `--extra-catalog` flag usage noted.
-
-**Added**
-
-- **Self-governance bootstrap** — `AGENTS.md`, `.principles` (`@docs @source-code @ptac`), and Copilot Code Review instruction files (`.github/instructions/`) added to this repo, enforcing its own principles on itself.
-- **CI audit-gates workflow** (`.github/workflows/audit-gates.yml`) — runs `tests/check-audit-gates.sh` on every push and pull request to verify audit gate markers are intact in all command files.
-- **README.md + INDEX.md** added to all user-facing directories (`commands/`, `commands/dot/`, `groups/`, `templates/`, `demo/`, `examples/`, `tests/`, `layers/`, `principles/`, `.github/instructions/`, `.github/workflows/`) per `PTAC-NAVIGABLE-DIRS`.
-- **PTAC-NAVIGABLE-DIRS DRY rule** — README.md and INDEX.md now have explicit, non-overlapping roles: README = prose purpose only; INDEX = structured file list only. Violation added to `.context-audit.md` and `ptac.instructions.md`.
-
-**Changed**
-
 - **`install.sh` split into `lib/` helpers** — extracted five helper modules (`lib/path-utils.sh`, `lib/template.sh`, `lib/config.sh`, `lib/vendor.sh`, `lib/ui.sh`) to reduce `install.sh` from 1006 lines to ~224 lines; main file now contains only preamble, variable setup, and the top-level dispatch. Fixes `PTAC-COMPOSABLE-FILES`.
 - **`README.md` restructured** — removed inline namespace catalog table (32 rows), catalog status table (16 rows), and large Mermaid architecture diagram; replaced each with a pointer to the canonical location in `DESIGN.md`. Philosophy section condensed to 3 sentences. Fixes `DOC-PURPOSE` and `DOC-UNIQUE`.
 - **`DESIGN.md` section 2b renumbered** — `§2b` (Per-Group Principle Files) promoted to `§3`; all subsequent sections shifted +1 (now §3–§13). Cross-references updated in `CONTRIBUTING.md`, `DISCLAIMER.md`, and `README.md`. Fixes `DOC-SCANNABLE`.
@@ -49,8 +44,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 **Removed**
 
 - **`TODO.md`** — all items completed.
-
-
 
 ## [v0.11.0] — 2026-04-22
 

@@ -7,7 +7,7 @@
 
 ## Principle
 
-Each file should express one coherent concept or concern. Compose larger systems by combining small, focused files rather than packing everything into a single large file. Structure mirrors content boundaries, not tool boundaries.
+Each file should express one coherent concept or concern. Compose larger systems by combining small, focused files rather than packing everything into a single large file.
 
 ## Why it matters
 

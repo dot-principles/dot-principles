@@ -11,7 +11,7 @@ Version control tracks *intent*, not *output*. Commit the source files and the i
 
 ## Why it matters
 
-Generated files committed without discipline cause constant noise: every regeneration produces a diff with no semantic content. Binary outputs inflate repository size, cannot be reviewed meaningfully, and become stale. When source and generated output diverge, the repo tells a lie — the committed output is not what the current source would produce. AI-generated content committed without review falls into the same trap.
+Generated files committed without discipline cause constant noise: every regeneration produces a diff with no semantic content. Binary outputs inflate repository size and cannot be reviewed meaningfully. When source and generated output diverge, the repo tells a lie.
 
 ## Violations to detect
 

@@ -7,23 +7,16 @@
 
 ## Principle
 
-Every plain-text directory must contain two complementary files:
+Every plain-text directory must contain two files with distinct roles:
 
-- **`INDEX.md`** — a structured, machine-scannable index listing every subdirectory and file in the directory, with a one-line description of each. This is the navigation aid for AI tools and automated pipelines that need to understand what's available without reading every file.
-- **`README.md`** — a human-oriented description of the directory's purpose, scope, and how to use its content. This file is automatically rendered by GitHub, GitLab, Bitbucket, and other git-hosting platforms, making it the natural entry point for human readers.
+- **`INDEX.md`** — machine-scannable table of every entry with a one-line description; for AI tools and automation that need to know what exists without reading every file.
+- **`README.md`** — human-oriented description of the directory's purpose, scope, and how to use it; auto-rendered on GitHub, GitLab, and Bitbucket.
 
-Both files serve distinct roles and are not interchangeable. A README explains *what this is and why it exists*; an INDEX says *what's in here and where to find it*.
+A README explains *what this is*; an INDEX says *what's in here*. They are not interchangeable.
 
 ## Why it matters
 
-Plain-text repositories grow into forests of files and subdirectories. Without navigation aids:
-
-- AI tools must speculatively read every file to understand the structure, wasting context and producing hallucinations about what exists
-- Human reviewers can't quickly orient themselves in an unfamiliar part of the repo
-- Automated tools (CI, search indexers, link checkers) can't traverse the repo predictably
-- New contributors don't know where to start
-
-`INDEX.md` solves the AI/automation problem. `README.md` solves the human/GitHub problem. Together they make a directory fully navigable from both angles.
+Without navigation aids, AI tools must speculatively read every file to understand the structure, wasting context. Human reviewers can't orient themselves quickly. New contributors don't know where to start.
 
 ## Violations to detect
 
@@ -35,22 +28,8 @@ Plain-text repositories grow into forests of files and subdirectories. Without n
 
 ## Good practice
 
-```
-architecture/
-├── README.md        ← "This directory contains architectural decision records,
-│                       C4 diagrams, and design notes for the IIP Baldur system."
-├── INDEX.md         ← Lists: adr/ (19 ADRs), c4-views/ (3 diagrams), requirements/, ...
-├── adr/
-│   ├── README.md    ← "ADRs record significant architectural decisions."
-│   ├── INDEX.md     ← Lists all 001-... through 020-... files with one-line summaries
-│   └── 001-adopt-ais-retrieve-share-tech-stack.md
-└── c4-views/
-    ├── README.md    ← "C4 model views: context, container, and component diagrams."
-    ├── INDEX.md     ← Lists each .dsl / .svg / .md file with purpose
-    └── system-context.dsl
-```
-
-**INDEX.md format** — keep it scannable for both humans and AI:
+`README.md` — describes purpose, scope, and how to use the content.
+`INDEX.md` — a table listing every entry with a one-line description:
 
 ```markdown
 # Index
@@ -59,10 +38,10 @@ architecture/
 |------|-------------|
 | `adr/` | Architectural Decision Records (ADRs 001–020) |
 | `c4-views/` | C4 context, container, and component diagrams |
-| `requirements/` | Functional and non-functional requirements |
 | `glossary.md` | Domain terminology and abbreviations |
-| `dataflow-overview.md` | End-to-end data flow narrative |
 ```
+
+Keep them separate — a file that tries to be both becomes too long for either purpose.
 
 ## Sources
 

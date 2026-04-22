@@ -7,7 +7,7 @@
 
 ## Principle
 
-Choose plain text representations for all artifacts that humans or tools need to read, review, or modify. Binary formats should be the exception, not the default — use them only when plain text is technically infeasible.
+Choose plain text representations for all artifacts that humans or tools need to read, review, or modify. Use binary formats only when plain text is technically infeasible.
 
 ## Why it matters
 
@@ -23,11 +23,10 @@ Binary formats create friction: they can't be diffed, reviewed in a pull request
 ## Good practice
 
 ```
-# Prefer                       # Avoid
-openapi.yaml                   openapi.json.gz
-architecture.mermaid           architecture.vsdx
-README.md                      README.docx
-docker-compose.yml             docker-compose.bin
+openapi.yaml          over  openapi.json.gz
+architecture.mermaid  over  architecture.vsdx
+README.md             over  README.docx
+docker-compose.yml    over  docker-compose.bin
 ```
 
 ## Sources

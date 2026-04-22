@@ -23,11 +23,12 @@ Without decision records, architectural rationale lives only in the memories of 
 ## Good practice
 
 - Store ADRs in the repository alongside the code they govern (`docs/decisions/` or `adr/`)
-- Use a consistent template: Context, Decision, Status (Proposed / Accepted / Superseded), Consequences
+- Use **MADR** (Markdown Architectural Decision Records) as the recommended template — it is machine-parseable, Git-friendly, and widely tooled: https://adr.github.io/madr/
 - Number ADRs sequentially and never delete them — supersede them with a new record
 - Link ADRs from the relevant code, README, or DESIGN document so they are discoverable
 
 ## Sources
 
 - Nygard, Michael. "Documenting Architecture Decisions." *Cognitect Blog*, 2011. https://cognitect.com/blog/2011/11/15/documenting-architecture-decisions
+- MADR — Markdown Architectural Decision Records: https://adr.github.io/madr/
 - Richards, Mark and Ford, Neal. *Fundamentals of Software Architecture*. O'Reilly, 2020. ISBN 978-1-4920-4345-4. Chapter 19.

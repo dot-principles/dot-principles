@@ -1,12 +1,11 @@
 name: ptac
-description: "Plain-Text-as-Code principles — plain text first, diagrams as code, composable files, lean content, navigable directories, no generated blobs"
+description: "Plain-Text-as-Code principles — plain text first, composable files, lean content, navigable directories, no generated blobs"
 
 globs:
   - "**/*"
 
 principles:
   - PTAC-PLAIN-TEXT-FIRST
-  - PTAC-DIAGRAMS-AS-CODE
   - PTAC-COMPOSABLE-FILES
   - PTAC-LEAN-CONTENT
   - PTAC-NAVIGABLE-DIRS

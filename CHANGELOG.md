@@ -10,7 +10,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [Unreleased]
 
----
+### Added
+
+- **Self-governance bootstrap** — `AGENTS.md`, `.principles` (`@docs @source-code @ptac`), and Copilot Code Review instruction files (`.github/instructions/`) added to this repo, enforcing its own principles on itself.
+- **CI audit-gates workflow** (`.github/workflows/audit-gates.yml`) — runs `tests/check-audit-gates.sh` on every push and pull request to verify audit gate markers are intact in all command files.
+- **README.md + INDEX.md** added to all user-facing directories (`commands/`, `commands/dot/`, `groups/`, `templates/`, `demo/`, `examples/`, `tests/`, `layers/`, `principles/`, `.github/instructions/`, `.github/workflows/`) per `PTAC-NAVIGABLE-DIRS`.
+- **PTAC-NAVIGABLE-DIRS DRY rule** — README.md and INDEX.md now have explicit, non-overlapping roles: README = prose purpose only; INDEX = structured file list only. Violation added to `.context-audit.md` and `ptac.instructions.md`.
+
+### Removed
+
+- **`TODO.md`** — all items completed.
+
+
 
 ## [v0.11.0] — 2026-04-22
 

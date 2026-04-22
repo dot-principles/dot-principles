@@ -89,5 +89,4 @@ Run `/dot-prime` before starting any significant change to load the active rule 
 /dot-prime
 ```
 
-The active set covers: documentation quality (`@docs`), shell script hygiene
-(`@source-code`), and pipeline/release practices.
+The active set covers: documentation quality (`@docs`), shell script hygiene (`@source-code`), and plain-text practices (`@ptac`).

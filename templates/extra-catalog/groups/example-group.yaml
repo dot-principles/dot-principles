@@ -1,0 +1,14 @@
+name: example-group
+description: "Example group — rename and customise to bundle your principles under a @group alias"
+
+# Optional: list file globs this group applies to.
+# Omit to default to **/* (all files).
+globs:
+  - "**/*"
+
+# Optional: include other groups by name (resolved recursively).
+# includes:
+#   - java
+
+principles:
+  - EXAMPLE-PRINCIPLE

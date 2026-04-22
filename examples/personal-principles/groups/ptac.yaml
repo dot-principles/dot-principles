@@ -1,0 +1,10 @@
+name: ptac
+description: "Plain-Text-as-Code principles — plain text first, composable files, no generated blobs"
+
+globs:
+  - "**/*"
+
+principles:
+  - PTAC-PLAIN-TEXT-FIRST
+  - PTAC-COMPOSABLE-FILES
+  - PTAC-NO-GENERATED-BLOBS

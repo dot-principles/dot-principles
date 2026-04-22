@@ -134,6 +134,36 @@ When `install.sh all <dir>` (or `install.sh vendor <dir>`) is run, it copies the
 
 The `{{PRINCIPLES_DIRECTORY}}` placeholder in command source files resolves to `<dir>/.principles-catalog/` at install time.
 
+### Extra Catalog Sources
+
+Corporations and individual users can plug in their own principle namespaces **without forking this repo**. An extra catalog is a directory with the same structure as `principles/` in this repo:
+
+```
+my-principles/
+  principles/
+    acme/           ← unique namespace (IDs become ACME-*)
+      catalog.yaml
+      .context-prime.md
+      .context-audit.md
+      acme-0001.md
+  groups/
+    acme-backend.yaml
+```
+
+Three sources of extra catalogs are collected automatically during `install.sh vendor`:
+
+| Source | Precedence | How |
+|--------|-----------|-----|
+| `~/.principles-extra` | Lowest | User-level; one path per line; applies to all projects |
+| `<project>/.principles-extra` | Middle | Project-level; committed to the project repo |
+| `--extra-catalog <path>` | Highest | CLI flag; repeatable; ad-hoc or CI use |
+
+All sources are merged into `.principles-catalog/` at vendor time. Built-in namespaces (`solid`, `gof`, `ddd`, etc.) cannot be overridden — extra catalog entries for the same namespace are skipped with a warning.
+
+The `generate_compact_index()` step scans individual principle `.md` files from extra catalog source directories in addition to `$SCRIPT_DIR/principles`, so extra principles appear in `index.tsv` and are visible to `/dot-scout`.
+
+See [INSTALL.md §9](INSTALL.md#9-corporate--personal-principles) for setup instructions. A complete working example lives in `examples/personal-principles/`. A starter template lives in `templates/extra-catalog/`.
+
 ### `.context-inspect.md` Format
 
 Pre-compiled inspection patterns for `/dot-audit` Phase 5 (Pre-Scan). Each principle's entry contains bash commands that produce `file:line:match` output:

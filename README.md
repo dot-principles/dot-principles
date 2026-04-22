@@ -344,6 +344,23 @@ To install into your own project:
 
 See [INSTALL.md](INSTALL.md) for full platform instructions (Linux, macOS, Windows) and all supported tools.
 
+### ➕ Corporate & personal principles
+
+Plug in your own principles alongside the built-in catalog — no fork needed. Create an extra catalog directory following the same structure as `principles/`, then register it:
+
+```bash
+# Register for all your projects (user-level)
+echo ~/acme-principles >> ~/.principles-extra
+
+# Or per-project
+echo /shared/acme-principles >> my-project/.principles-extra
+
+# Or on the CLI
+./install.sh vendor my-project --extra-catalog ~/acme-principles
+```
+
+Corporate and personal catalogs work simultaneously — just list both in `~/.principles-extra`. See [INSTALL.md §9](INSTALL.md#9-corporate--personal-principles) for the full setup guide. A starter template lives in [`templates/extra-catalog/`](templates/extra-catalog/). A complete working example lives at [`github.com/dot-principles/example-catalog`](https://github.com/dot-principles/example-catalog) (Plain-Text-as-Code namespace).
+
 ## 📚 Principle catalog
 
 **373 principles across 24 namespaces.** The CODE-* prefix alone covers 110 principles across 11 sub-namespaces. SOLID, GoF, DDD, GRASP, OWASP, 12-Factor, EIP, and more ship in their own namespaces — see [DESIGN.md](DESIGN.md#-2-catalog-structure) for the full catalog:

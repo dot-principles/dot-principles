@@ -207,7 +207,176 @@ On Windows, use `uninstall.ps1` or `uninstall.cmd` with the same arguments.
 
 ---
 
-## 9. Try it on a branch first
+## 9. Corporate & Personal Principles
+
+You can plug in your own principle namespaces — corporate standards, team conventions, or personal rules — alongside the built-in catalog, without forking this repo.
+
+### How it works
+
+An **extra catalog** is a directory with the same structure as the `principles/` repo:
+
+```
+my-principles/
+├── principles/
+│   └── acme/                ← your namespace (IDs become ACME-*)
+│       ├── catalog.yaml     ← required
+│       ├── .context-prime.md  ← compiled guidance for /dot-prime
+│       ├── .context-audit.md  ← compiled violations for /dot-audit
+│       └── acme-api-style.md  ← individual principle files
+└── groups/
+    └── acme-backend.yaml    ← optional @group alias
+```
+
+Three sources are merged automatically when you run `install.sh vendor` or any install subcommand:
+
+| Source | How |
+|--------|-----|
+| **CLI flag** | `--extra-catalog <path>` — repeatable, highest priority |
+| **Project config** | `<project-dir>/.principles-extra` — one path per line |
+| **User config** | `~/.principles-extra` — one path per line, applies to all your projects |
+
+All sources are additive. Built-in namespaces (`solid`, `gof`, `ddd`, etc.) are always present and cannot be overridden.
+
+### Corporate setup
+
+**Step 1** — Create a shared principles repo:
+
+```bash
+# Clone the extra-catalog template
+cp -r /path/to/dot-principles/templates/extra-catalog ~/acme-principles
+cd ~/acme-principles
+git init && git add . && git commit -m "Initial ACME principles"
+# Push to your internal git host
+```
+
+**Step 2** — Rename the namespace and add your principles:
+
+```
+acme-principles/
+  principles/
+    acme/
+      catalog.yaml             ← description: "ACME Engineering Standards"
+      .context-prime.md        ← compiled guidance
+      .context-audit.md        ← compiled violations
+      acme-api-style.md        ← ID: ACME-API-STYLE
+      acme-error-handling.md   ← ID: ACME-ERROR-HANDLING
+  groups/
+    acme-backend.yaml          ← @acme-backend group
+```
+
+**Step 3** — Each developer clones the repo and registers it:
+
+```bash
+# Clone to a known path
+git clone https://git.acme.com/acme-principles ~/acme-principles
+
+# Register for all projects (user-level)
+echo ~/acme-principles >> ~/.principles-extra
+```
+
+Or register per-project (committed to the repo):
+
+```bash
+echo /shared/acme-principles >> my-project/.principles-extra
+```
+
+**Step 4** — Re-vendor after each update to `acme-principles`:
+
+```bash
+cd /path/to/dot-principles && ./install.sh vendor ~/projects/my-project
+```
+
+### Individual / personal setup
+
+```bash
+# Clone the template
+cp -r /path/to/dot-principles/templates/extra-catalog ~/.personal-principles
+
+# Add your own principles to principles/<your-namespace>/
+# Register globally
+echo ~/.personal-principles >> ~/.principles-extra
+
+# Re-vendor any project
+cd /path/to/dot-principles && ./install.sh vendor ~/projects/my-project
+```
+
+See [`github.com/dot-principles/example-catalog`](https://github.com/dot-principles/example-catalog) for a complete working example (Plain-Text-as-Code namespace) you can fork or clone as a starting point.
+
+### Both at the same time
+
+Corporate and personal catalogs work simultaneously — just register both:
+
+```
+# ~/.principles-extra
+~/acme-principles
+~/.personal-principles
+```
+
+Both are merged into `.principles-catalog/` at vendor time. As long as namespaces are unique (e.g., `acme/` vs `personal/`), there are no conflicts.
+
+### Using extra principles
+
+After vendoring, use IDs and groups from your extra catalog in any `.principles` file:
+
+```
+# In <project>/.principles  or any subdirectory .principles
+@acme-backend
+ACME-API-STYLE
+PTAC-PLAIN-TEXT-FIRST
+```
+
+### Conflict rules
+
+- **Duplicate namespaces**: the first-registered source wins (built-in > user config > project config > CLI). A warning is printed; the duplicate is skipped.
+- **Duplicate groups**: same rule — first wins.
+- Extra catalogs cannot override built-in namespaces.
+
+### Versioning your extra catalog
+
+An extra catalog is just a directory — treat it as a git repo:
+
+```bash
+cd ~/acme-principles
+git add principles/acme/acme-0001.md
+git commit -m "Add ACME-0001: API versioning standard"
+git push
+```
+
+Each developer pulls updates and re-vendors their projects. CI environments clone the repo at a pinned SHA for reproducibility.
+
+### CLI flag (one-off or CI)
+
+```bash
+./install.sh vendor my-project --extra-catalog ~/acme-principles
+./install.sh all    my-project --extra-catalog ~/acme-principles --extra-catalog ~/.personal-principles
+```
+
+### Windows notes
+
+Extra catalog paths passed to `--extra-catalog` are automatically converted from backslash to forward-slash format by `install.ps1` and `install.cmd`. Paths stored in `.principles-extra` config files are **not** pre-processed by those wrappers, so use forward slashes or tilde notation:
+
+```
+# ~/.principles-extra or <project>/.principles-extra
+~/acme-principles
+C:/Users/YourName/personal-principles
+```
+
+> **PowerShell example**
+> ```powershell
+> # Git Bash / WSL via install.ps1
+> ./install.ps1 vendor my-project --extra-catalog C:\Users\YourName\acme-principles
+> ```
+>
+> **cmd.exe example**
+> ```cmd
+> install.cmd vendor my-project --extra-catalog C:\Users\YourName\acme-principles
+> ```
+
+Backslashes in `--extra-catalog` paths are converted automatically; backslashes inside config files are also normalized by `install.sh` at read time.
+
+---
+
+## 10. Try it on a branch first
 
 Not ready to commit to a project? Install locally into a throwaway branch:
 
@@ -227,7 +396,7 @@ git checkout main && git branch -D try-principles
 
 ---
 
-## 10. After installing
+## 11. After installing
 
 Open your AI tool and run the commands:
 

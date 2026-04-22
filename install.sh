@@ -26,6 +26,8 @@ normalize_path() {
             wslpath -u "$p"
             return
         fi
+        # Git Bash / MSYS2: convert backslashes to forward slashes
+        p="${p//\\//}"
     fi
     printf '%s' "$p"
 }
@@ -50,6 +52,20 @@ normalize_directory_path() {
     done
 
     printf '%s' "$dir"
+}
+
+# Expand a path from a config file: strip CRLF + whitespace, expand leading ~,
+# and normalize Windows-style backslash paths (Git Bash / WSL).
+expand_path() {
+    local p="${1%$'\r'}"
+    p="${p#"${p%%[![:space:]]*}"}"
+    p="${p%"${p##*[![:space:]]}"}"
+    case "$p" in
+        '~')   p="$HOME" ;;
+        '~'/*) p="$HOME/${p:2}" ;;
+    esac
+    p="$(normalize_path "$p")"
+    printf '%s' "$p"
 }
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -229,6 +245,11 @@ install_from_template() {
 # Read existing install.cfg into an associative array.  Returns target IDs in
 # the INSTALLED_TARGETS associative array (keys = target IDs, values = "1").
 declare -A INSTALLED_TARGETS
+# CLI-supplied extra catalog directories (populated by arg parsing before dispatch).
+EXTRA_CATALOGS_CLI=()
+# Namespace and group registries used during vendor to detect conflicts.
+declare -A REGISTERED_NAMESPACES
+declare -A REGISTERED_GROUPS
 read_install_cfg() {
     local cfg_file="$1/.principles-catalog/install.cfg"
     INSTALLED_TARGETS=()
@@ -274,14 +295,24 @@ unmark_targets() {
 
 generate_compact_index() {
     local catalog_dir="$1"
+    shift
     local index_file="$catalog_dir/index.tsv"
     local tmp="$index_file.tmp"
 
-    find "$SCRIPT_DIR/principles" -name "*.md" \
-        ! -name ".context-*.md" \
-        ! -name "TEMPLATE.md" \
-        ! -name "AUDIT-SCOPE.md" \
-        ! -name "catalog.yaml" | sort | while IFS= read -r f; do
+    {
+        find "$SCRIPT_DIR/principles" -name "*.md" \
+            ! -name ".context-*.md" \
+            ! -name "TEMPLATE.md" \
+            ! -name "AUDIT-SCOPE.md" \
+            ! -name "catalog.yaml" | sort
+        for extra in "$@"; do
+            [ -d "$extra/principles" ] || continue
+            find "$extra/principles" -name "*.md" \
+                ! -name ".context-*.md" \
+                ! -name "AUDIT-SCOPE.md" \
+                ! -name "catalog.yaml" | sort
+        done
+    } | while IFS= read -r f; do
 
         local id layer summary
         id="$(head -1 "$f" | sed 's/^# \([A-Z0-9][A-Z0-9_-]*\) .*/\1/')"
@@ -291,10 +322,101 @@ generate_compact_index() {
         if [ -n "$id" ] && [ -n "$layer" ] && [ -n "$summary" ]; then
             printf '%s|%s|%s\n' "$id" "$layer" "$summary"
         fi
-    done | sort > "$tmp"
+    done | sort -u > "$tmp"
 
     mv "$tmp" "$index_file"
     echo -e "  ${GREEN}✓${NC} index.tsv ($(wc -l < "$index_file") principles)"
+}
+
+# Copy context files from one namespace directory into the catalog.
+# Returns 0 on success, 1 if namespace is invalid (missing catalog.yaml).
+vendor_namespace_context_files() {
+    local ns_dir="$1"
+    local principles_dst="$2"
+    local rel="$3"
+
+    if [ ! -f "$ns_dir/catalog.yaml" ]; then
+        echo -e "  ${YELLOW}⚠${NC} Extra catalog: namespace '$rel' has no catalog.yaml (skipping)"
+        return 1
+    fi
+
+    local dst="$principles_dst/$rel"
+    mkdir -p "$dst"
+    for context_file in ".context-audit.md" ".context-prime.md" ".context-inspect.md" "catalog.yaml"; do
+        [ -f "$ns_dir/$context_file" ] && cp "$ns_dir/$context_file" "$dst/"
+    done
+
+    if [ ! -f "$ns_dir/.context-prime.md" ]; then
+        echo -e "    ${YELLOW}⚠${NC} principles/$rel/ has no .context-prime.md — /dot-prime will have limited guidance for these principles"
+    fi
+    return 0
+}
+
+# Merge one extra catalog directory into the vendored catalog.
+vendor_extra_catalog() {
+    local extra_dir="$1"
+    local catalog_dir="$2"
+    local label="${extra_dir/#$HOME/\~}"
+
+    if [ ! -d "$extra_dir" ]; then
+        echo -e "  ${YELLOW}⚠${NC} Extra catalog not found: $label (skipping)"
+        return
+    fi
+
+    echo -e "  ${BOLD}Extra:${NC} $label"
+    local principles_dst="$catalog_dir/principles"
+    local ns_count=0
+    local group_count=0
+
+    # Merge principles namespaces (1-level and 2-level deep, matching built-in behavior)
+    if [ -d "$extra_dir/principles" ]; then
+        local principles_src="$extra_dir/principles"
+        for ns_dir in "$principles_src"/*/ "$principles_src"/*/*/; do
+            [ -d "$ns_dir" ] || continue
+            local rel
+            rel="${ns_dir#$principles_src/}"
+            rel="${rel%/}"
+
+            if [ "${REGISTERED_NAMESPACES[$rel]+_}" ]; then
+                echo -e "    ${YELLOW}⚠${NC} Namespace '$rel' already registered from '${REGISTERED_NAMESPACES[$rel]}' (skipping)"
+                continue
+            fi
+
+            if vendor_namespace_context_files "$ns_dir" "$principles_dst" "$rel"; then
+                REGISTERED_NAMESPACES["$rel"]="$label"
+                echo -e "    ${GREEN}✓${NC} principles/$rel/"
+                ns_count=$((ns_count + 1))
+            fi
+        done
+    fi
+
+    # Merge groups (individual files, with conflict detection)
+    if [ -d "$extra_dir/groups" ]; then
+        local groups_dst="$catalog_dir/groups"
+        mkdir -p "$groups_dst"
+        for group_file in "$extra_dir/groups"/*.yaml; do
+            [ -f "$group_file" ] || continue
+            local group_name
+            group_name="${group_file##*/}"
+            group_name="${group_name%.yaml}"
+
+            if [ "${REGISTERED_GROUPS[$group_name]+_}" ]; then
+                echo -e "    ${YELLOW}⚠${NC} Group '$group_name' already registered from '${REGISTERED_GROUPS[$group_name]}' (skipping)"
+                continue
+            fi
+
+            cp "$group_file" "$groups_dst/"
+            REGISTERED_GROUPS["$group_name"]="$label"
+            echo -e "    ${GREEN}✓${NC} groups/$group_name.yaml"
+            group_count=$((group_count + 1))
+        done
+    fi
+
+    if [ "$ns_count" -eq 0 ] && [ "$group_count" -eq 0 ]; then
+        if [ ! -d "$extra_dir/principles" ] && [ ! -d "$extra_dir/groups" ]; then
+            echo -e "    ${YELLOW}⚠${NC} No principles/ or groups/ directory found in $label"
+        fi
+    fi
 }
 
 install_vendor() {
@@ -304,10 +426,61 @@ install_vendor() {
         echo -e "${RED}Error: Directory '$project_dir' does not exist.${NC}"; exit 1
     fi
 
+    # --- Collect extra catalog paths ---
+    local extra_catalogs=()
+
+    # 1. User config: ~/.principles-extra
+    local user_cfg="$HOME/.principles-extra"
+    if [ -f "$user_cfg" ]; then
+        while IFS= read -r line || [ -n "$line" ]; do
+            local ep
+            ep="$(expand_path "$line")"
+            [[ -z "$ep" || "$ep" =~ ^# ]] && continue
+            extra_catalogs+=("$ep")
+        done < "$user_cfg"
+    fi
+
+    # 2. Project config: <project_dir>/.principles-extra
+    local proj_cfg="$project_dir/.principles-extra"
+    if [ -f "$proj_cfg" ]; then
+        while IFS= read -r line || [ -n "$line" ]; do
+            local ep
+            ep="$(expand_path "$line")"
+            [[ -z "$ep" || "$ep" =~ ^# ]] && continue
+            # Resolve relative paths against the project directory
+            if [[ ! "$ep" = /* ]]; then
+                ep="$project_dir/$ep"
+            fi
+            extra_catalogs+=("$ep")
+        done < "$proj_cfg"
+    fi
+
+    # 3. CLI flags (already expanded by arg parsing)
+    if [ "${#EXTRA_CATALOGS_CLI[@]}" -gt 0 ]; then
+        for p in "${EXTRA_CATALOGS_CLI[@]}"; do
+            extra_catalogs+=("$p")
+        done
+    fi
+
     echo -e "${BOLD}Vendoring catalog to: $project_dir/.principles-catalog/${NC}"
 
     local catalog_dir="$project_dir/.principles-catalog"
     mkdir -p "$catalog_dir"
+
+    # Reset registries — built-in namespaces are registered first to prevent shadowing
+    REGISTERED_NAMESPACES=()
+    REGISTERED_GROUPS=()
+
+    for dir in "$SCRIPT_DIR/principles"/*/ "$SCRIPT_DIR/principles"/*/*/; do
+        [ -d "$dir" ] || continue
+        local rel="${dir#$SCRIPT_DIR/principles/}"; rel="${rel%/}"
+        REGISTERED_NAMESPACES["$rel"]="built-in"
+    done
+    for f in "$SCRIPT_DIR/groups"/*.yaml; do
+        [ -f "$f" ] || continue
+        local g="${f##*/}"; g="${g%.yaml}"
+        REGISTERED_GROUPS["$g"]="built-in"
+    done
 
     cp -r "$SCRIPT_DIR/groups"  "$catalog_dir/"
     cp -r "$SCRIPT_DIR/layers"  "$catalog_dir/"
@@ -344,7 +517,16 @@ install_vendor() {
         fi
     done
 
-    generate_compact_index "$catalog_dir"
+    # Merge extra catalogs
+    if [ "${#extra_catalogs[@]}" -gt 0 ]; then
+        echo ""
+        echo -e "${BOLD}Merging extra catalogs...${NC}"
+        for extra_dir in "${extra_catalogs[@]}"; do
+            vendor_extra_catalog "$extra_dir" "$catalog_dir"
+        done
+    fi
+
+    generate_compact_index "$catalog_dir" "${extra_catalogs[@]+"${extra_catalogs[@]}"}"
 
     echo ""
     echo "Catalog vendored to $catalog_dir"
@@ -473,6 +655,16 @@ show_usage() {
     echo "  ./install.sh copilot ~/projects/my-app"
     echo "  ./install.sh codex ~/projects/my-app"
     echo "  ./install.sh all ~/projects/my-app"
+    echo ""
+    echo -e "${BOLD}Extra catalogs (corporate or personal principles):${NC}"
+    echo -e "  ${BOLD}--extra-catalog${NC} <path>  Merge an additional principles directory into .principles-catalog/"
+    echo "                         Can be repeated. Paths in ~/.principles-extra and <dir>/.principles-extra"
+    echo "                         are loaded automatically (one path per line, # for comments)."
+    echo ""
+    echo "  ./install.sh vendor ~/projects/my-app --extra-catalog ~/acme-principles"
+    echo "  ./install.sh all    ~/projects/my-app --extra-catalog ~/acme-principles"
+    echo ""
+    echo "  See INSTALL.md for corporate and personal setup instructions."
 }
 
 # Interactive tool selection — two-level menu
@@ -646,6 +838,26 @@ require_dir() {
 
 # Main
 print_header
+
+# Strip --extra-catalog <path> pairs from args before subcommand dispatch.
+# Paths are expanded (~ → $HOME) and stored in EXTRA_CATALOGS_CLI.
+_cleaned_args=()
+_skip_next=false
+for _arg in "$@"; do
+    if [ "$_skip_next" = true ]; then
+        EXTRA_CATALOGS_CLI+=("$(expand_path "$_arg")")
+        _skip_next=false
+    elif [ "$_arg" = "--extra-catalog" ]; then
+        _skip_next=true
+    else
+        _cleaned_args+=("$_arg")
+    fi
+done
+if [ "${#_cleaned_args[@]}" -gt 0 ]; then
+    set -- "${_cleaned_args[@]}"
+else
+    set --
+fi
 
 # Detect whether arg 1 is a known target or a directory (for interactive mode).
 # If arg 1 is a directory that exists (and not a known target), treat as interactive.

@@ -93,14 +93,3 @@ For corporate use: host it in a shared repo (e.g., `github.com/acme/acme-princip
 
 For personal use: keep it in your home directory or dotfiles repo.
 
----
-
-## Files in this template
-
-| File | Purpose |
-|------|---------|
-| `principles/example/catalog.yaml` | Namespace description (required) |
-| `principles/example/.context-prime.md` | Pre-compiled prime context (recommended) |
-| `principles/example/.context-audit.md` | Pre-compiled audit context (recommended) |
-| `principles/example/example-principle.md` | A complete example principle file |
-| `groups/example-group.yaml` | An example group bundling principles |

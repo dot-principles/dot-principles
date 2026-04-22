@@ -10,7 +10,7 @@ A curated catalog of engineering principles, organized into a `.principles` hier
 
 > 🎬 **New here?** See the [live demo walkthrough](demo/presentation.md) for a quick tour.
 >
-> 📦 **Latest release:** [v0.10.4](https://github.com/dot-principles/dot-principles/releases/latest) — see [all releases](https://github.com/dot-principles/dot-principles/releases) and [CHANGELOG](CHANGELOG.md).
+> 📦 **Latest release:** [v0.11.0](https://github.com/dot-principles/dot-principles/releases/latest) — see [all releases](https://github.com/dot-principles/dot-principles/releases) and [CHANGELOG](CHANGELOG.md).
 
 ---
 
@@ -313,7 +313,7 @@ The AI figures out the scope from context:
 
 ```bash
 # Clone the repo
-git clone https://github.com/dot-principles/principles.git
+git clone https://github.com/dot-principles/dot-principles.git
 
 # Install into your project (Claude Code commands + Copilot files + Codex skills + vendor catalog)
 ./install.sh all <project-dir>
@@ -363,7 +363,7 @@ Corporate and personal catalogs work simultaneously — just list both in `~/.pr
 
 ## 📚 Principle catalog
 
-**373 principles across 24 namespaces.** The CODE-* prefix alone covers 110 principles across 11 sub-namespaces. SOLID, GoF, DDD, GRASP, OWASP, 12-Factor, EIP, and more ship in their own namespaces — see [DESIGN.md](DESIGN.md#-2-catalog-structure) for the full catalog:
+**375 principles across 24 namespaces.** The CODE-* prefix alone covers 110 principles across 11 sub-namespaces. SOLID, GoF, DDD, GRASP, OWASP, 12-Factor, EIP, and more ship in their own namespaces — see [DESIGN.md](DESIGN.md#-2-catalog-structure) for the full catalog:
 
 | Namespace prefix | Area |
 |---|---|
@@ -401,7 +401,7 @@ Corporate and personal catalogs work simultaneously — just list both in `~/.pr
 | `PKG-` | Package / module design |
 | `EFFECTIVE-JAVA-` | Effective Java patterns |
 
-**52 shipped groups** (`@spring-boot`, `@react`, `@microservices`, `@security-focused`, `@a11y`, `@pipeline`, `@container`, `@schema`, `@eip`, `@fp`, `@db`, `@ddd`, `@cd`, `@docs-as-code`, and more) bundle related principles for common stacks. See [DESIGN.md](DESIGN.md#-6-groups) for the full list.
+**53 shipped groups** (`@spring-boot`, `@react`, `@microservices`, `@security-focused`, `@a11y`, `@pipeline`, `@container`, `@schema`, `@eip`, `@fp`, `@db`, `@ddd`, `@cd`, `@docs-as-code`, `@xac`, and more) bundle related principles for common stacks. See [DESIGN.md](DESIGN.md#-6-groups) for the full list.
 
 Many principles include **code examples and diagrams** to make the guidance concrete — not just a definition, but a demonstration of the principle in practice.
 

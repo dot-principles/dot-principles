@@ -634,7 +634,7 @@ show_usage() {
     echo -e "  ${BOLD}copilot-cli${NC} <dir>   Install Copilot CLI skills in <dir>/.github/skills/"
     echo -e "  ${BOLD}copilot-ide${NC} <dir>   Install Copilot IDE prompts in <dir>/.github/prompts/"
     echo -e "  ${BOLD}codex${NC} <dir>         Install Codex skills in <dir>/.agents/skills/"
-    echo -e "  ${BOLD}vendor${NC} <dir>        Copy catalog subset to <dir>/.principles-catalog/"
+    echo -e "  ${BOLD}vendor${NC} <dir>        Update catalog + reinstall any previously installed skills"
     echo -e "  ${BOLD}all${NC} <dir>           All commands + review + vendor in <dir>"
     echo ""
     echo -e "${BOLD}Interactive:${NC}"
@@ -938,6 +938,31 @@ else
         vendor)
             require_dir "$DIR_ARG"
             read_install_cfg "$DIR_ARG"
+            # Re-install any previously installed skill/command targets so they stay
+            # in sync with the current dot-principles version.  This means a single
+            # `./install.sh vendor <dir>` is sufficient to update both the catalog
+            # and all installed AI skill files after a dot-principles update.
+            if [ "${INSTALLED_TARGETS[claude]:-}" = "1" ]; then
+                "$SCRIPT_DIR/uninstall.sh" --quiet --target claude "$DIR_ARG"
+                install_from_template "$TEMPLATE_DIR/claude" "$DIR_ARG"
+                echo ""
+            fi
+            if [ "${INSTALLED_TARGETS[copilot-cli]:-}" = "1" ] || [ "${INSTALLED_TARGETS[copilot-ide]:-}" = "1" ]; then
+                "$SCRIPT_DIR/uninstall.sh" --quiet --target copilot "$DIR_ARG"
+                if [ "${INSTALLED_TARGETS[copilot-cli]:-}" = "1" ]; then
+                    install_from_template "$TEMPLATE_DIR/copilot-cli" "$DIR_ARG"
+                    echo ""
+                fi
+                if [ "${INSTALLED_TARGETS[copilot-ide]:-}" = "1" ]; then
+                    install_from_template "$TEMPLATE_DIR/copilot-ide" "$DIR_ARG"
+                    echo ""
+                fi
+            fi
+            if [ "${INSTALLED_TARGETS[codex]:-}" = "1" ]; then
+                "$SCRIPT_DIR/uninstall.sh" --quiet --target codex "$DIR_ARG"
+                install_from_template "$TEMPLATE_DIR/codex" "$DIR_ARG"
+                echo ""
+            fi
             "$SCRIPT_DIR/uninstall.sh" --quiet --target vendor "$DIR_ARG"
             install_vendor "$DIR_ARG"
             mark_targets vendor

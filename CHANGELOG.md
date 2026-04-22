@@ -12,6 +12,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [v0.11.0] — 2026-04-22
+
+### Added
+
+- **Extra-catalog support — corporate & personal principles without forking** — `install.sh vendor` now accepts `--extra-catalog <path>` to merge a secondary catalog into `.principles-catalog/` alongside the built-in catalog. Supports two discovery mechanisms: `~/.principles-extra` (user-level, applies to all projects) and `<project>/.principles-extra` (project-level). First-registered namespace wins with a warning on conflicts. Catalogs may use 1-level (`principles/acme/`) or 2-level (`principles/acme/payments/`) namespaces. See [INSTALL.md §9](INSTALL.md#9-corporate--personal-principles).
+- **`templates/extra-catalog/`** — starter template for building a custom extra-catalog repository, with namespace scaffolding, `catalog.yaml`, `.context-prime.md`, `.context-audit.md`, and `groups/` examples.
+- **`examples/personal-principles/`** — local demo of the PTAC (Plain-Text-as-Code) namespace included in the repository as a concrete extra-catalog example. Canonical external version at [dot-principles/example-catalog](https://github.com/dot-principles/example-catalog).
+- **`@xac` group** — new built-in group unifying all X-as-Code principles: `INFRA-INFRASTRUCTURE-AS-CODE`, `CD-PIPELINE-AS-CODE`, `DB-SCHEMA-MIGRATIONS-AS-CODE`, `DOC-AS-CODE`, `DOC-DIAGRAMS-AS-CODE`, `ARCH-DECISION-RECORDS`, `ARCH-ARCHITECTURE-AS-CODE`. Use `@xac` in any `.principles` file to activate all seven.
+- **`DOC-DIAGRAMS-AS-CODE`** (`docs/diagrams-as-code.md`) — new built-in principle. Store diagrams as plain-text source files (Mermaid, PlantUML, Graphviz DOT, C4-DSL) and render at build/view time. Binary diagram files (`.vsdx`, `.drawio`, hand-edited `.svg`) must not be the source of truth. Also added to the `docs-as-code` group.
+- **`ARCH-ARCHITECTURE-AS-CODE`** (`arch/architecture-as-code.md`) — new built-in principle. Express the architecture model — components, relationships, deployments, boundaries — as a versioned, machine-parseable model (Structurizr DSL, Backstage catalog YAML) rather than static images or slide decks.
+- **PTAC detection in `/dot-scout`** — Phase 2 now detects plain-text directories (directories containing `.md`, `.rst`, `.adoc`, `.mmd`, `.puml`, `.dsl`, `.dot` files without source code). Phase 3 includes `ptac` in the available groups list so scout can propose `@ptac` for repositories that follow Plain-Text-as-Code conventions.
+
+### Changed
+
+- **`./install.sh vendor` auto-reinstalls skill files** — previously `vendor` only updated `.principles-catalog/` and left all installed AI skill files (`dot-scout/SKILL.md`, `.claude/commands/`, `.agents/skills/`) as stale snapshots from the original install. Now `vendor` reads `install.cfg`, uninstalls and reinstalls every previously-recorded target (claude, copilot-cli, copilot-ide, codex) from the current dot-principles checkout before updating the catalog. A single `./install.sh vendor` is sufficient to keep both skills and catalog in sync after a dot-principles update.
+- **`ARCH-DECISION-RECORDS` recommends MADR** — Good Practice section updated to recommend [MADR (Markdown Architectural Decision Records)](https://adr.github.io/madr/) as the preferred ADR template format. MADR is machine-parseable, Git-friendly, and widely tooled.
+- **`docs-as-code` group** — `DOC-DIAGRAMS-AS-CODE` added to `groups/docs-as-code.yaml`.
+- **Windows path normalization in `install.sh`** — `normalize_path()` now converts backslashes to forward slashes, fixing path handling when running on Git Bash on Windows. `expand_path()` calls `normalize_path()` so paths read from `.principles-extra` config files are also normalized.
+- **DESIGN.md** — Extra Catalog Sources section documents the architecture and resolution order for extra catalogs.
+- **README.md** — Corporate & personal principles quick-start section added.
+
+---
+
 ## [v0.10.4] — 2026-04-17
 
 ### Changed

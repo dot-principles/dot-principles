@@ -9,7 +9,7 @@ jobs:
   check-audit-gates:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.2.2
       - name: Install skill and prompt files
         run: |
           bash install.sh copilot-cli .

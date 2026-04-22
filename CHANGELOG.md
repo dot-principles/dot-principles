@@ -12,6 +12,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 **Fixed**
 
+- **`/dot-prime` and `/dot-audit` fast path now checks `REVIEW.md`** — both commands previously globbed `.claude/rules/*.md`, which scout never writes. Scout generates `REVIEW.md` at the git root for Claude Code Review. The fast path now correctly checks `.github/instructions/*.instructions.md` and `REVIEW.md`.
+
 - **`/dot-prime` falls back to `.principles` when no scout-generated files exist** — normal mode now walks the `.principles` hierarchy (root → target) when `.github/instructions/` and `.claude/rules/` contain no scout-generated files. This makes `/dot-prime` work out of the box for projects that install only `claude`, `codex`, or `copilot-cli` without running `/dot-scout`. Group expansion, bare IDs, `!ID` exclusions, and `:max_principles` directives are all honoured. The `install.cfg scout` stale-output warning is now non-blocking instead of a hard stop.
 
 - **Installer: `INDEX.md`, `README.md`, and dot-files excluded from command installation** — `list_command_files()` helper introduced in `lib/template.sh` (DRY); all five `find` call-sites in `lib/template.sh` and `lib/ui.sh` now use it. Prevents navigation docs and metadata files (e.g. `.principles`) from being installed as slash commands into target projects.

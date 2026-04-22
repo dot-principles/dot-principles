@@ -10,14 +10,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [Unreleased]
 
-### Added
+**Added**
 
 - **Self-governance bootstrap** — `AGENTS.md`, `.principles` (`@docs @source-code @ptac`), and Copilot Code Review instruction files (`.github/instructions/`) added to this repo, enforcing its own principles on itself.
 - **CI audit-gates workflow** (`.github/workflows/audit-gates.yml`) — runs `tests/check-audit-gates.sh` on every push and pull request to verify audit gate markers are intact in all command files.
 - **README.md + INDEX.md** added to all user-facing directories (`commands/`, `commands/dot/`, `groups/`, `templates/`, `demo/`, `examples/`, `tests/`, `layers/`, `principles/`, `.github/instructions/`, `.github/workflows/`) per `PTAC-NAVIGABLE-DIRS`.
 - **PTAC-NAVIGABLE-DIRS DRY rule** — README.md and INDEX.md now have explicit, non-overlapping roles: README = prose purpose only; INDEX = structured file list only. Violation added to `.context-audit.md` and `ptac.instructions.md`.
 
-### Removed
+**Changed**
+
+- **`install.sh` split into `lib/` helpers** — extracted five helper modules (`lib/path-utils.sh`, `lib/template.sh`, `lib/config.sh`, `lib/vendor.sh`, `lib/ui.sh`) to reduce `install.sh` from 1006 lines to ~224 lines; main file now contains only preamble, variable setup, and the top-level dispatch. Fixes `PTAC-COMPOSABLE-FILES`.
+- **`README.md` restructured** — removed inline namespace catalog table (32 rows), catalog status table (16 rows), and large Mermaid architecture diagram; replaced each with a pointer to the canonical location in `DESIGN.md`. Philosophy section condensed to 3 sentences. Fixes `DOC-PURPOSE` and `DOC-UNIQUE`.
+- **`DESIGN.md` section 2b renumbered** — `§2b` (Per-Group Principle Files) promoted to `§3`; all subsequent sections shifted +1 (now §3–§13). Cross-references updated in `CONTRIBUTING.md`, `DISCLAIMER.md`, and `README.md`. Fixes `DOC-SCANNABLE`.
+- **`CHANGELOG.md` anchor collisions resolved** — all `### Added/Changed/Fixed/Removed` sub-headings converted to bold text (`**Added**` etc.) to eliminate duplicate GitHub anchor IDs. Fixes `DOC-ADDRESSABLE`.
+- **`INSTALL.md` clone URL corrected** — wrong URL `principles.git` and `cd .principles` replaced with `dot-principles.git` and `cd dot-principles`. Fixes `DOC-ACCURACY`.
+
+**Removed**
 
 - **`TODO.md`** — all items completed.
 
@@ -25,7 +33,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [v0.11.0] — 2026-04-22
 
-### Added
+**Added**
 
 - **Extra-catalog support — corporate & personal principles without forking** — `install.sh vendor` now accepts `--extra-catalog <path>` to merge a secondary catalog into `.principles-catalog/` alongside the built-in catalog. Supports two discovery mechanisms: `~/.principles-extra` (user-level, applies to all projects) and `<project>/.principles-extra` (project-level). First-registered namespace wins with a warning on conflicts. Catalogs may use 1-level (`principles/acme/`) or 2-level (`principles/acme/payments/`) namespaces. See [INSTALL.md §9](INSTALL.md#9-corporate--personal-principles).
 - **`templates/extra-catalog/`** — starter template for building a custom extra-catalog repository, with namespace scaffolding, `catalog.yaml`, `.context-prime.md`, `.context-audit.md`, and `groups/` examples.
@@ -35,7 +43,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 - **`ARCH-ARCHITECTURE-AS-CODE`** (`arch/architecture-as-code.md`) — new built-in principle. Express the architecture model — components, relationships, deployments, boundaries — as a versioned, machine-parseable model (Structurizr DSL, Backstage catalog YAML) rather than static images or slide decks.
 - **PTAC detection in `/dot-scout`** — Phase 2 now detects plain-text directories (directories containing `.md`, `.rst`, `.adoc`, `.mmd`, `.puml`, `.dsl`, `.dot` files without source code). Phase 3 includes `ptac` in the available groups list so scout can propose `@ptac` for repositories that follow Plain-Text-as-Code conventions.
 
-### Changed
+**Changed**
 
 - **`./install.sh vendor` auto-reinstalls skill files** — previously `vendor` only updated `.principles-catalog/` and left all installed AI skill files (`dot-scout/SKILL.md`, `.claude/commands/`, `.agents/skills/`) as stale snapshots from the original install. Now `vendor` reads `install.cfg`, uninstalls and reinstalls every previously-recorded target (claude, copilot-cli, copilot-ide, codex) from the current dot-principles checkout before updating the catalog. A single `./install.sh vendor` is sufficient to keep both skills and catalog in sync after a dot-principles update.
 - **`ARCH-DECISION-RECORDS` recommends MADR** — Good Practice section updated to recommend [MADR (Markdown Architectural Decision Records)](https://adr.github.io/madr/) as the preferred ADR template format. MADR is machine-parseable, Git-friendly, and widely tooled.
@@ -48,7 +56,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [v0.10.4] — 2026-04-17
 
-### Changed
+**Changed**
 
 - **Reviewer persona in `/dot-audit`** — added a "senior principal architect" persona block to Phase 2, defining tone, scope, and what NOT to report. Findings must have a concrete, articulable consequence or they are omitted.
 - **Severity calibration in `/dot-audit`** — added explicit rules: upgrade `MEDIUM` → `HIGH` when the violation demonstrably harms maintainability/testability/correctness at scale; never downgrade a `HIGH` to soften the report; never invent findings to appear thorough.
@@ -59,11 +67,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [v0.10.3] — 2026-04-16
 
-### Added
+**Added**
 
 - **Demo presentation** — new [`demo/presentation.md`](demo/presentation.md) walkthrough showing `dot-scout`, `dot-audit`, and `dot-prime` in action on [Robocode Tank Royale](https://github.com/robocode-dev/tank-royale), with audit findings recreated as GitHub-rendered markdown. Includes [`demo/audit-output.json`](demo/audit-output.json) with the full findings export.
 
-### Changed
+**Changed**
 
 - **Severity emoji indicators in `/dot-audit` report output** — the compact text report now prefixes each severity group heading with a colored circle: `🔴 Critical:`, `🟠 High:`, `🟡 Medium:`, `🔵 Low:`. The PR body template and the severity emoji legend are updated to match, with Critical and High now visually distinct (previously both used 🔴).
 - **README callouts** — added 🎬 demo walkthrough link and 📦 releases/changelog link to both the main repo README and the `.github` org profile README.
@@ -72,12 +80,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [v0.10.2] — 2026-04-16
 
-### Added
+**Added**
 
 - **`generated-by: .principles` frontmatter watermark** — all generated command/skill/prompt files now include a `generated-by: .principles` field in their YAML frontmatter. This marks the file as owned by the `.principles` installer regardless of its name or location.
 - **`{{COMMAND_SLUG}}` template placeholder** — `install_from_template` now derives a flat slug from the source path (slashes → dashes, e.g. `dot/audit` → `dot-audit`) and exposes it as `{{COMMAND_SLUG}}` alongside `{{COMMAND_NAME}}`. Copilot CLI, Copilot IDE, and Codex manifests use `{{COMMAND_SLUG}}` so their output paths remain flat (`dot-audit/SKILL.md`, `dot-audit.prompt.md`) while Claude uses `{{COMMAND_NAME}}` to preserve the subdirectory.
 
-### Changed
+**Changed**
 
 - **Claude commands moved to `commands/dot/` subdirectory** — source files renamed from `commands/dot-audit.md`, `commands/dot-scout.md`, `commands/dot-prime.md` to `commands/dot/audit.md`, `commands/dot/scout.md`, `commands/dot/prime.md`. Claude Code installs them to `.claude/commands/dot/`, making them available as `/dot:audit`, `/dot:scout`, `/dot:prime` (namespace syntax). Copilot and Codex installs are unaffected — they continue to produce flat `dot-audit` names.
 - **`install_from_template` recurses into subdirectories** — the installer now uses `find` to discover all `*.md` files under `commands/` recursively, preserving the relative path as the command name for output path resolution. `mkdir -p` is applied to the output file's parent directory rather than just the base output dir.
@@ -89,7 +97,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [v0.10.1] — 2026-04-13
 
-### Fixed
+**Fixed**
 
 - **`/dot-prime` and `/dot-audit` prereq gate** — both commands now key off scout-generated instruction/rules files instead of relying on `install.cfg`, which could be overwritten by later installs. Legacy `/scout` output and current `/dot-scout` output both satisfy the gate.
 - **Scout marker note clarified** — the `/dot-scout` docs now describe the `install.cfg` entry as a compatibility marker rather than the source of truth.
@@ -98,16 +106,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [v0.10.0] — 2026-04-01
 
-### Added
+**Added**
 
 - **`/dot-prime` explicit args** — `/dot-prime` now accepts `@group` tokens (e.g. `/dot-prime @ddd @docs-as-code`) and bare principle IDs (e.g. `/dot-prime CODE-CS-DRY CODE-CS-KISS`) to override auto-resolution with a focused set. Explicit mode bypasses the scout prerequisite guard.
 
-### Fixed
+**Fixed**
 
 - **Catalog always vendored** — `install.sh claude`, `copilot`, `copilot-cli`, `copilot-ide`, and `codex` now automatically run the vendor step, ensuring `.principles-catalog/` is always present after any named install. Previously, skills like `/dot-prime` would silently fail unless `install.sh vendor` had been run separately.
 - **Uninstaller cleans legacy command names** — `uninstall.sh` now removes old `audit/`, `prime/`, and `scout/` skill directories, prompt files, and Claude commands left over from before the `dot-` rename. Running `install.sh all <dir>` (which calls uninstall first) now fully cleans up stale installs.
 
-### Changed
+**Changed**
 
 - **`/dot-prime` redesigned as compact fire-and-forget** — outputs 5–10 one-liner rules (`ID: imperative sentence`) selected for the current task context, replacing the verbose principle table. Removes fallback resolution paths and full `.context-prime.md` loading; works exclusively from `/dot-scout` output. Ends with `Apply these rules to all code you generate. Proceed.` so it remains in the attended region of the context window.
 - **`/dot-prime` and `/dot-audit` require `/dot-scout`** — in normal mode, both commands check `install.cfg` for the `scout` marker and stop with a helpful message if scout has not been run. Explicit-mode (`@group` / bare IDs for prime; `--with` / `@group` / ` on ` for audit) bypasses this guard. The guard is placed as a hard `⛔ PREREQUISITE` block at the very top of each skill — before any other instruction — so the AI cannot skip it when given a concrete task.
@@ -118,7 +126,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [v0.9.0] — 2026-03-31
 
-### Added
+**Added**
 
 - **Template system** — new `templates/` directory with per-tool `manifest.cfg` + `wrapper.md` pairs for Claude Code, Copilot CLI, Copilot IDE, and Codex. Single `install_from_template()` function replaces 6+ hardcoded install functions.
 - **Two-level interactive installer** — running `install.sh <dir>` without a target opens an interactive menu: pick AI agent (Copilot / Claude / Codex) → pick components (e.g. CLI, IDE, Code Review). Requires TTY.
@@ -126,7 +134,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 - **Review integration config** — installer writes `.principles-catalog/install.cfg` listing enabled targets; `/scout` Phase 6.0 reads it to decide which review outputs to emit.
 - **DIM color** (`\033[0;90m`) added to both `install.sh` and `uninstall.sh` for neutral/informational output.
 
-### Changed
+**Changed**
 
 - **Consistent frontmatter** — all generated skill/prompt files now carry the same core fields (`description`, `argument-hint`, `allowed-tools`, `version`, `authors`) regardless of tool. Tool-specific extras (`name`, `license`, `mode`) added by each wrapper template.
 - **Single frontmatter block** — Copilot CLI skills and IDE prompts no longer have double `---` frontmatter; one unified block per file.
@@ -141,11 +149,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [v0.8.1] — 2026-03-30
 
-### Added
+**Added**
 
 - **Codex target** — `install.sh codex <dir>` now writes repo-scoped Codex skills to `.agents/skills/<name>/SKILL.md`, and `install.sh all <dir>` includes Codex alongside Claude Code, Copilot, and the vendored catalog.
 
-### Changed
+**Changed**
 
 - **Shared command source renamed** — the common command source files used to generate Claude, Copilot, and Codex assets now live under `commands/` instead of a target-specific path.
 - **`uninstall.sh`** — now cleans Codex skills in addition to the existing Claude, Copilot, compiled-block, and vendor cleanup.
@@ -156,7 +164,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [v0.8.0] — 2026-03-30
 
-### Added
+**Added**
 
 - **Per-group principle files** — `/scout` Phase 6 emits one file per `@group` into `.github/instructions/` (Copilot Code Review, `applyTo:` frontmatter) and `.claude/rules/` (Claude Code, `paths:` frontmatter), each targeting only the relevant file globs.
 - **AI tool detection** — Phase 6.0 scans the git root for Copilot/Claude signals before generating files; asks the user to confirm which tools to target.
@@ -166,14 +174,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 - **`principles-core` files** — Layer 1 universals and ungrouped bare IDs emitted as `principles-core.instructions.md` / `principles-core.md` with `**/*` globs.
 - **Per-group files fast path** — `/prime` and `/audit` Phase 2 discover principles from per-group files before falling back to the `.principles` tree walk.
 
-### Changed
+**Changed**
 
 - **`/scout` Phase 6 fully rewritten** — replaces compiled block injection with per-group file emission (sub-phases 6.0–6.5: detect, resolve, clean stale, Copilot files, Claude `REVIEW.md`, report).
 - **`install.sh`** — `copilot` mode creates `.github/instructions/` instead of writing a compiled block into `copilot-instructions.md`.
 - **`uninstall.sh`** — cleans per-group files (marker-aware) plus legacy `.ai/`, `AGENTS.md` blocks, and old `principles.md` files.
 - **DESIGN.md, README.md, INSTALL.md** — updated to reflect per-group file delivery; removed compiled-block and AGENTS.md references.
 
-### Removed
+**Removed**
 
 - **Compiled block injection** — no longer writes `<!-- .principles: begin/end -->` blocks into `copilot-instructions.md`, `AGENTS.md`, `.claude/rules/principles.md`, or `.ai/principles.md`.
 - **`.ai/` folder support** and **AGENTS.md injection** — no longer generated or read.
@@ -183,13 +191,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [v0.7.1] — 2026-03-28
 
-### Changed
+**Changed**
 
 - **Split `code/.context-audit.md` into sub-namespace files** — the monolithic 1102-line audit context file for the `code` namespace has been split into 11 per-sub-namespace files (`code/api/`, `code/ar/`, `code/cc/`, `code/cs/`, `code/dx/`, `code/ob/`, `code/pf/`, `code/rl/`, `code/sec/`, `code/tp/`, `code/ts/`). The largest file (`code/cs/`) is now ~230 lines. This fixes "file is too large" errors during `/audit` when many `CODE-*` principles are active.
 - **Split `code/.context-prime.md` into sub-namespace files** — the 1454-line prime context file was similarly split into 11 per-sub-namespace files. The same prefix table update applies to the `/prime` skill.
 - **`CODE-CS-BOY-SCOUT` promoted from fully excluded to partially limited** — the audit skill now loads git diff context in Phase 1.4 (`$GIT_DIFF`, `$GIT_LOG`) and uses it to detect diff-visible violations: new TODO/FIXME/magic-number markers in changed lines, and functions growing without extraction. A new `principles/code/cs/.context-inspect.md` file provides the grep-over-diff patterns for Phase 5.
 
-### Fixed
+**Fixed**
 
 - **Namespace prefix table** — added 11 sub-namespace entries (`CODE-CS-*` → `code/cs/`, `CODE-API-*` → `code/api/`, etc.) to the longest-prefix-match table in both the audit and prime skills. `CODE-*` remains as a fallback. Updated in `targets/claude-code/audit.md`, `targets/claude-code/prime.md`, `.github/prompts/audit.prompt.md`, and `.github/prompts/prime.prompt.md`.
 - **Duplicate `CODE-API-*` entries removed** — 5 API principles that were duplicated between `code/.context-audit.md` and `code/api/.context-audit.md` now exist only in `code/api/`.
@@ -200,7 +208,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [v0.7.0] — 2026-03-27
 
-### Added
+**Added**
 
 - **Gated fix-to-PR workflow** (Phases 8–10) — after the read-only review (Phases 1–7), `/audit` now offers three optional gated phases that handle fix, commit, and PR creation. Each phase is a mandatory approval checkpoint — the default is always to stop and ask:
   - **Phase 8 — Fix** — asks "Would you like me to fix these findings?"; on approval creates a `fix-<target-slug>` branch, applies every finding's `fix` field, and runs existing tests.
@@ -208,7 +216,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
   - **Phase 10 — Pull Request** — asks "Shall I open a pull request?"; on approval creates a PR targeting the default branch with a structured body (summary, per-finding rationale, changes table).
 - **Structured commit message and PR body formats** — gated workflow produces a `fix(<target>): resolve <N> audit findings (<severities>)` commit message with per-finding line items, and a PR body with severity-grouped rationale sections and a changes table.
 
-### Changed
+**Changed**
 
 - **Strict state-machine semantics** — identifying issues ≠ permission to fix; fixing ≠ permission to commit; committing ≠ permission to push or open a PR. Silence, hints, context, or likely intent do not count as approval. Phases cannot be skipped, combined, or inferred.
 
@@ -216,7 +224,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [v0.6.0] — 2026-03-24
 
-### Added
+**Added**
 
 - **`**Summary:**` field** — all 374 principle files now include a `**Summary:**` field: a one-line, actionable rule appearing after `**Applies-to:**`. Used in the compiled block and required for all new contributions (see [CONTRIBUTING.md](CONTRIBUTING.md)).
 - **Compact principle index** (`index.tsv`) — `install.sh vendor` generates a pipe-delimited flat file (`ID|LAYER|SUMMARY`) of all 373 principles at `.principles-catalog/index.tsv`; `/scout` reads this single file to build the compiled block in one pass, eliminating per-namespace file walking.
@@ -229,18 +237,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 - **`vendor` subcommand** — `install.sh vendor <dir>` copies the catalog subset referenced by the project's `.principles` files into `<dir>/.principles-catalog/`. Commit this directory so the compiled block and fast paths work without the full catalog repo present.
 - **AGENTS.md as cross-agent injection target** — AGENTS.md is now a first-class injection target for the compiled block, enabling any agent that reads AGENTS.md (OpenAI Codex, Claude Code, Copilot, etc.) to receive the active principle set automatically.
 
-### Changed
+**Changed**
 
 - **Repo-only install** — `install.sh` now requires a `<dir>` argument; global install (without `<dir>`) is no longer supported. The primary install command is `./install.sh all <project-dir>`.
 - **No more `~/.principles`** — principle data is no longer copied to a global `~/.principles` directory. Commands reference `.principles-catalog/` inside the project. The `{{PRINCIPLES_DIRECTORY}}` placeholder now resolves to the project-local `.principles-catalog/`.
 
-### Removed
+**Removed**
 
 - **Global install** — `./install.sh claude`, `./install.sh copilot`, and `./install.sh all` without a `<dir>` argument are no longer supported.
 - **`~/.principles` data directory** — removed from the install/uninstall flow.
 - **Cursor support** — Cursor is no longer a supported install target; the `.cursor/rules/principles.mdc` target has been dropped.
 
-### Fixed
+**Fixed**
 
 - **Uninstall** — now strips compiled blocks from `.claude/rules/principles.md`, `.ai/principles.md`, `AGENTS.md`, and `CLAUDE.md`; removes `.principles-catalog/`; removes legacy `~/.principles` if present.
 
@@ -248,7 +256,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [v0.5.0] — 2026-03-23
 
-### Added
+**Added**
 
 - **2 new arch microservices patterns** (`arch` namespace) — `ARCH-SIDECAR` and `ARCH-DATABASE-PER-SERVICE` (both layer 2). Added to `microservices.yaml` group and `arch` context files. Sources: Burns et al. *Designing Distributed Systems* (O'Reilly, 2018); Richardson *Microservices Patterns* ISBN 978-1617294549; Newman *Building Microservices* 2nd ed. ISBN 978-1492034025.
 - **1 new CD principle** (`cd` namespace) — `CD-SEMANTIC-VERSIONING` (layer 1). Added to `cd.yaml` group, `pipeline/layer-2-contexts.yaml` release context, and `cd/.context-inspect.md`. Sources: semver.org (Preston-Werner); conventionalcommits.org.
@@ -263,7 +271,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [v0.4.0] — 2026-03-22
 
-### Added
+**Added**
 
 - **7 new EIP principles** (`eip` namespace, 5 → 12) — `EIP-AGGREGATOR`, `EIP-SPLITTER`, `EIP-WIRE-TAP`, `EIP-IDEMPOTENT-CONSUMER`, `EIP-MESSAGE-TRANSLATOR`, `EIP-CONTENT-ENRICHER`, `EIP-RETURN-ADDRESS` (all layer 2). Source: Hohpe & Woolf, *Enterprise Integration Patterns*, ISBN 978-0321200686.
 - **4 new code smell principles** (`code-smells` namespace, 18 → 22) — `CODE-SMELLS-LAZY-ELEMENT`, `CODE-SMELLS-MIDDLE-MAN`, `CODE-SMELLS-MUTABLE-DATA`, `CODE-SMELLS-LOOPS` (`Audit-scope: limited`). Completes all 22 Fowler 1st-edition smells plus 2 additions from the 2nd edition. Source: Fowler, *Refactoring* 2nd ed., ISBN 978-0-13-475759-9.
@@ -278,7 +286,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 - **New `.context-inspect.md` files** for `infra`, `pipeline`, `schema`, and `sec-arch` namespaces; `code/api` inspect file created.
 - **Context and layer files updated** across all 9 affected namespaces (`eip`, `code-smells`, `infra`, `sec-arch`, `schema`, `pipeline`, `config`, `docs`, `code/api`).
 
-### Fixed
+**Fixed**
 
 - **Missing catalog entries backfilled** — `eip` (5 principles), `code-smells` (9 principles), and `SCHEMA-SELF-DESCRIBING` were present as files but absent from `catalog.yaml`; all added.
 
@@ -286,7 +294,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [v0.3.2] — 2026-03-22
 
-### Changed
+**Changed**
 
 - **`/audit` explicit principle override** — `/audit` now accepts an explicit principle spec to force a specific principle set, bypassing `.principles` files and dynamic detection entirely. Three equivalent syntaxes are supported:
   - `<spec> on <target>` — natural language: `/audit DDD on src/orders`
@@ -299,11 +307,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [v0.3.1] — 2026-03-19
 
-### Added
+**Added**
 
 - **Version metadata in command frontmatter** — `/audit`, `/prime`, and `/scout` source files now carry `version`, `description`, `argument-hint`, and `authors` fields in YAML frontmatter, stamped at install time from `VERSION`.
 
-### Fixed
+**Fixed**
 
 - **Copilot CLI global skills management** — `install.sh` and `uninstall.sh` now correctly create, update, and remove `~/.copilot/skills/<name>/SKILL.md` entries for global Copilot CLI installations.
 
@@ -311,11 +319,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [v0.3.0] — 2026-03-18
 
-### Changed
+**Changed**
 
 - **Artifact-type layer system** — `layers/artifact-types.yaml` classifies every reviewed file into one of 6 stacks (`code`, `docs`, `config`, `infra`, `pipeline`, `schema`), each with its own `layer-1-universal.md` and `layer-2-contexts.yaml` (plus `layer-3-risk-signals.yaml` for `code` and `infra`). A shared universal set of 6 principles (`SIMPLE-DESIGN-REVEALS-INTENTION`, `CODE-CS-DRY`, `CODE-CS-KISS`, `CODE-CS-YAGNI`, `CODE-DX-NAMING`, `ARCH-DECISION-RECORDS`) applies across all stacks; stack-specific layers add targeted principles on top. Type detection uses file extension, filename, and path-pattern signals, with `infra` evaluated before `config` to resolve ambiguous YAML files (e.g. `Chart.yaml`, `values.yaml`).
 
-### Added
+**Added**
 
 - **11 new continuous delivery principles** in new `cd` namespace — `CD-TRUNK-BASED-DEVELOPMENT`, `CD-KEEP-BUILD-GREEN` (with inspection), `CD-DEPLOY-ON-EVERY-COMMIT`, `CD-FEATURE-FLAGS` (with inspection), `CD-FAST-FEEDBACK-LOOPS`, `CD-GITOPS`, `CD-BLUE-GREEN-DEPLOYMENT`, `CD-CANARY-RELEASE`, `CD-DEPLOYMENT-SMOKE-TESTS`, `CD-PIPELINE-AS-CODE` (with inspection), `CD-BUILD-ONCE-DEPLOY-MANY` (with inspection). New `groups/cd.yaml`, catalog, and context files created.
 - **24 new architecture and integration principles** — 15 in `arch` namespace (Hexagonal Architecture, Saga, Strangler Fig, Layered Architecture, Microkernel, Anti-Corruption Layer, BFF, Bulkhead, Service Layer, Unit of Work, MVC, API Gateway, Data Mapper, Active Record, Transaction Script); 4 DDD strategic patterns in `ddd` namespace (Context Map, Shared Kernel, Open Host Service, Published Language); 5 Enterprise Integration Patterns in new `eip` namespace (Correlation Identifier, Content-Based Router, Dead Letter Channel, Message Filter, Claim Check). `eip` catalog, context, and group files created. `groups/microservices.yaml` and `groups/ddd.yaml` updated.
@@ -329,11 +337,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [v0.2.0] — 2026-03-17
 
-### Changed
+**Changed**
 
 - **Installer copies principle data to `~/.principles`** — created on install, refreshed on every run; `{{PRINCIPLES_DIRECTORY}}` placeholder substituted at install time in command files. Global uninstall removes `~/.principles`; local uninstalls leave it intact.
 
-### Added
+**Added**
 
 - **14 new database principles** in new `db` namespace — `DB-ACID`, `DB-SCHEMA-MIGRATIONS-AS-CODE`, `DB-CAP-THEOREM`, `DB-AVOID-N-PLUS-ONE` (with inspection), `DB-INDEX-FOR-ACCESS-PATTERNS`, `DB-THIRD-NORMAL-FORM`, `DB-CQRS`, `DB-OUTBOX-PATTERN`, `DB-EVENTUAL-CONSISTENCY`, `DB-EVENT-SOURCING`, `DB-OPTIMISTIC-CONCURRENCY`, `DB-TWO-PHASE-LOCKING`, `DB-POLYGLOT-PERSISTENCE`, `DB-DENORMALIZE-INTENTIONALLY`. New `@db` group and context files.
 - **7 new security principles** — 4 in `code/sec` (`DEFENSE-IN-DEPTH`, `FAIL-SAFE-DEFAULTS` with inspection, `COMPLETE-MEDIATION`, `PRIVACY-BY-DESIGN`) and 3 in new `sec-arch` namespace (`THREAT-MODELLING`, `ZERO-TRUST`, `SUPPLY-CHAIN-SECURITY` with inspection). `groups/security-focused.yaml` updated.

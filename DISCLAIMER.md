@@ -10,7 +10,7 @@ This repository is a **proof of concept**.
 
 ## 🙌 Contributions are welcome
 
-If you find an error, a better source, a missing principle, or a group that doesn't fit your context — please open a pull request. See [DESIGN.md](DESIGN.md#-12-contributing-principles) for the contribution process.
+If you find an error, a better source, a missing principle, or a group that doesn't fit your context — please open a pull request. See [DESIGN.md](DESIGN.md#-13-contributing-principles) for the contribution process.
 
 > **Scope:** Contributed principles must be **established, widely recognized concepts** from the software engineering literature — named principles, published patterns, or documented practices backed by authoritative sources. They must not duplicate what is already in the catalog. If your principle is original, company-specific, or niche, **fork this repo** and add it in your own namespace instead.
 

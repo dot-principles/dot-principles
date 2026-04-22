@@ -24,7 +24,7 @@ This document describes the full architecture of the `.principles` hierarchy sys
 4. The AI resolves a hierarchy of `.principles` files (innermost overrides outermost) and reads the full principle content before coding or reviewing
 5. The artifact type of the file being reviewed is detected (code, docs, config, infra, schema, pipeline) and the matching principle stack from `layers/<type>/` is loaded
 
-**"X as Code":** `.principles` is built for the "X as Code" world — *docs as code*, *infrastructure as code*, *configuration as code*, *pipeline as code*, *schema as code*. All of these are plain text in version control, and all of them benefit from principled review. The system ships with dedicated artifact stacks for each type (see Section 3).
+**"X as Code":** `.principles` is built for the "X as Code" world — *docs as code*, *infrastructure as code*, *configuration as code*, *pipeline as code*, *schema as code*. All of these are plain text in version control, and all of them benefit from principled review. The system ships with dedicated artifact stacks for each type (see Section 5).
 
 **Plain-Text-as-Code:** This repo is itself a **[Plain-Text-as-Code](https://github.com/Plain-Text-as-Code)** system. Every artefact is plain text in version control — diffable, composable, portable, and natively readable by both humans and AI tools. Principle files are Markdown, group files are YAML, and the catalog is YAML. No binary formats, no generated code, no lock-in.
 
@@ -197,11 +197,11 @@ description: "Human-readable description of this namespace"
 |-------|----------|-------------|
 | `description` | Yes | Human-readable description of the namespace |
 
-The namespace is the directory name. IDs are derived from file paths (see Section 4) — no explicit `namespace` or `id-prefix` fields are needed. The system discovers all `principles/*/catalog.yaml` files automatically.
+The namespace is the directory name. IDs are derived from file paths (see Section 5) — no explicit `namespace` or `id-prefix` fields are needed. The system discovers all `principles/*/catalog.yaml` files automatically.
 
 ---
 
-## 🧱 2b. Per-Group Principle Files
+## 🧱 3. Per-Group Principle Files
 
 After `/dot-scout` writes `.principles` files, Phase 6 emits **per-group principle files** into `.github/instructions/` (for GitHub Copilot Code Review) and `.claude/rules/` (for Claude Code). Each file targets a specific set of file globs using tool-native frontmatter, giving each group its own context budget.
 
@@ -282,7 +282,7 @@ Per-group files act as **tier 1** context — always present, always fast. They 
 
 ---
 
-## 🗂️ 3. Artifact Types and Stacks
+## 🗂️ 4. Artifact Types and Stacks
 
 The layer model is not a single three-layer stack — it is a family of stacks, one per artifact type. The correct stack is selected by detecting the artifact type of the file being reviewed.
 
@@ -339,7 +339,7 @@ Principles in the universal set (above) are considered "stack-universal" rather 
 
 ---
 
-## 🔑 4. ID Derivation
+## 🔑 5. ID Derivation
 
 
 IDs are **derived from file path** — no separate ID field is needed in the file itself.
@@ -384,7 +384,7 @@ IDs are **derived from file path** — no separate ID field is needed in the fil
 
 ---
 
-## 📄 5. Principle File Schema
+## 📄 6. Principle File Schema
 
 Every principle file follows this template:
 
@@ -462,7 +462,7 @@ The `## Inspection` section is **optional**. It contains bash commands that `/do
 
 ---
 
-## 🗂️ 6. Groups
+## 🗂️ 7. Groups
 
 Groups bundle related principles under a reusable name. They enable one-line activation of a full principle set for a technology.
 
@@ -539,7 +539,7 @@ principles:
 
 ---
 
-## 📝 7. `.principles` File Format
+## 📝 8. `.principles` File Format
 
 Plain text. One entry per line. Filesystem mtime is the implicit last-modified timestamp.
 
@@ -621,7 +621,7 @@ When reviewing `/repo-root/src/payments/PaymentService.java`:
 
 ---
 
-## 🛠️ 8. Commands
+## 🛠️ 9. Commands
 
 ### ⚡ `/dot-prime`
 
@@ -679,7 +679,7 @@ Analyses a project directory and creates or updates `.principles` files, then co
 
 ---
 
-## 📦 9. Installer Targets
+## 📦 10. Installer Targets
 
 `install.sh` deploys the three commands (`/dot-scout`, `/dot-prime`, `/dot-audit`) to supported AI tool families. Each target writes different files because each tool family has its own discovery mechanism. The installer is **template-driven** — each tool's output format is defined by two files in `templates/<tool>/` (see [Template System](#-template-system) below).
 
@@ -818,7 +818,7 @@ To support a new AI tool, create `templates/<newtool>/manifest.cfg` + `wrapper.m
 
 ---
 
-## ➕ 10. Adding a New Namespace
+## ➕ 11. Adding a New Namespace
 
 To add a company-specific namespace alongside the shipped `code` catalog:
 
@@ -832,7 +832,7 @@ To add a company-specific namespace alongside the shipped `code` catalog:
    description: "Acme Corp engineering standards"
    ```
 
-3. **Add principle files** following the file schema (Section 5):
+3. **Add principle files** following the file schema (Section 6):
    ```
    principles/corp/corp-0001.md    → CORP-0001
    principles/corp/infra/infra-001.md → CORP-INFRA-001
@@ -848,7 +848,7 @@ The system discovers all `principles/*/catalog.yaml` files automatically. The na
 
 ---
 
-## 🏷️ 11. ID Format Guidance
+## 🏷️ 12. ID Format Guidance
 
 ### Naming Conventions
 
@@ -876,6 +876,6 @@ Add a new category directory when:
 
 ---
 
-## 🤝 12. Contributing Principles
+## 🤝 13. Contributing Principles
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for requirements, process, and source guidelines.

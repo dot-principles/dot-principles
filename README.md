@@ -134,82 +134,6 @@ Run `/dot-audit README.md` and you get doc-specific findings. Run `/dot-audit ma
 
 ---
 
-### 🧱 Artifact types, stacks, and layers
-
-The layer model is per-stack. Each artifact type has its own 2–3 layer stack, and a set of truly universal principles applies across all stacks:
-
-```mermaid
-flowchart TB
-    FILE["📄 File being reviewed"]
-    FILE --> DETECT["Artifact Type Detection<br>layers/artifact-types.yaml<br>by extension · path · filename"]
-
-    UNIV["Universal (all types)<br>DRY · KISS · Naming<br>Reveals Intention · YAGNI · ADR"]
-
-    DETECT -->|".java .ts .py ..."| CODE
-    DETECT -->|".md README ADR ..."| DOCS
-    DETECT -->|".env .yaml .toml ..."| CONFIG
-    DETECT -->|".tf Dockerfile ..."| INFRA
-    DETECT -->|".proto .graphql ..."| SCHEMA
-    DETECT -->|"Jenkinsfile .github/ ..."| PIPELINE
-
-    subgraph CODE ["Code Stack  (layers/code/)"]
-        direction TB
-        C1["Layer 1 — Universal<br>SOLID · GoF · Fail-fast · Validate input"]
-        C2["Layer 2 — Contextual<br>API · DDD · Concurrency · Testing"]
-        C3["Layer 3 — Risk<br>Auth · Financial · PII · Legacy"]
-        C1 --> C2 --> C3
-    end
-
-    subgraph DOCS ["Docs Stack  (layers/docs/)"]
-        direction TB
-        D1["Layer 1 — Universal<br>DOC-PURPOSE · DOC-MINIMAL<br>Code-for-readers · Reduce cognitive load"]
-        D2["Layer 2 — Contextual<br>API docs · Architecture · Tutorial · Reference"]
-        D1 --> D2
-    end
-
-    subgraph CONFIG ["Config Stack  (layers/config/)"]
-        direction TB
-        CF1["Layer 1 — Universal<br>12FACTOR-03 · No hardcoded secrets<br>Schema validation"]
-        CF2["Layer 2 — Contextual<br>Feature flags · Secrets management"]
-        CF1 --> CF2
-    end
-
-    subgraph INFRA ["Infra Stack  (layers/infra/)"]
-        direction TB
-        I1["Layer 1 — Universal<br>IaC · Immutable · Idempotent<br>Composable modules"]
-        I2["Layer 2 — Contextual<br>Kubernetes · Terraform · Docker"]
-        I3["Layer 3 — Risk<br>Production · IAM · Network exposure"]
-        I1 --> I2 --> I3
-    end
-
-    subgraph SCHEMA ["Schema Stack  (layers/schema/)"]
-        direction TB
-        S1["Layer 1 — Universal<br>Backward-compatible · Self-describing<br>Consistent naming"]
-        S2["Layer 2 — Contextual<br>Protobuf · OpenAPI · GraphQL · SQL"]
-        S1 --> S2
-    end
-
-    subgraph PIPELINE ["Pipeline Stack  (layers/pipeline/)"]
-        direction TB
-        P1["Layer 1 — Universal<br>Idempotent · Minimal permissions<br>No secrets in logs"]
-        P2["Layer 2 — Contextual<br>Build · Deploy · Release · Rollback"]
-        P1 --> P2
-    end
-
-    UNIV --> MERGE["🔀 Merge<br>Universal + Stack layers<br>+ .principles hierarchy"]
-    CODE --> MERGE
-    DOCS --> MERGE
-    CONFIG --> MERGE
-    INFRA --> MERGE
-    SCHEMA --> MERGE
-    PIPELINE --> MERGE
-    MERGE --> AI["🤖 AI Agent<br>Focused & Ready"]
-```
-
-Layer 1 of each stack always fires for that artifact type. Layer 2 activates based on content signals within the file. Layer 3 (where present) kicks in when risk signals are detected. The universal set — DRY, KISS, YAGNI, Naming, Reveals Intention, ADR — applies across all stacks.
-
----
-
 ### 🔄 Shift left — catch it while you're writing, not after
 
 Traditional code review is valuable. But it happens *after* the code is already written — and the later a problem is caught, the more expensive it is to fix. Rearchitecting after the fact is painful. Rewriting after merge is costly. Finding a security flaw in production is a crisis.
@@ -250,11 +174,7 @@ AI agents are already technically capable of producing correct, working code. Th
 
 ## 🧠 Philosophy
 
-`.principles` does **not** teach the AI anything. Modern AI agents already know SOLID, OWASP, DDD, and the rest. The point is to **focus and trigger** that knowledge — to give the AI context about *which* principles matter for *this* codebase, delivered as per-group principle files in `.github/instructions/` (Copilot Code Review) and `.claude/rules/` (Claude Code).
-
-Think of it as: the AI instructions tell the agent *how to behave*; `.principles` tells it *which engineering lens to apply*.
-
-`.principles` is built for the **"X as Code"** world. Modern projects treat far more than source code as version-controlled plain text: *docs as code* (READMEs, architecture docs, ADRs), *infrastructure as code* (Terraform, Helm, Dockerfiles), *configuration as code* (application settings, environment definitions), *pipeline as code* (GitHub Actions, Jenkinsfile), *schema as code* (Protobuf, OpenAPI, GraphQL). Each of these artifact types has its own engineering principles, and `.principles` applies the right ones automatically — the system ships with dedicated principle stacks for all six artifact types.
+`.principles` does **not** teach the AI anything — modern agents already know SOLID, OWASP, DDD, and the rest. It **focuses and triggers** that knowledge: giving the AI context about *which* principles matter for *this* codebase and artifact type. See [DESIGN.md §1](DESIGN.md#️-1-overview) for the full architectural rationale.
 
 ## ⚙️ How it works
 
@@ -363,47 +283,9 @@ Corporate and personal catalogs work simultaneously — just list both in `~/.pr
 
 ## 📚 Principle catalog
 
-**375 principles across 24 namespaces.** The CODE-* prefix alone covers 110 principles across 11 sub-namespaces. SOLID, GoF, DDD, GRASP, OWASP, 12-Factor, EIP, and more ship in their own namespaces — see [DESIGN.md](DESIGN.md#-2-catalog-structure) for the full catalog:
+**375 principles across 32 namespaces** — `CODE-*`, `SOLID-`, `GOF-`, `DDD-`, `GRASP-`, `OWASP-`, `12FACTOR-`, `EIP-`, `SEC-ARCH-`, `ARCH-`, `INFRA-`, `CD-`, `PIPELINE-`, `SCHEMA-`, `CONFIG-`, `DOC-`, `FP-`, `A11Y-`, `SIMPLE-DESIGN-`, `CLEAN-ARCH-`, `PKG-`, `EFFECTIVE-JAVA-`, and more. See [DESIGN.md §2](DESIGN.md#-2-catalog-structure) for the full namespace reference and [DESIGN.md §7](DESIGN.md#-7-groups) for the 53 shipped groups.
 
-| Namespace prefix | Area |
-|---|---|
-| `CODE-CS-` | Computer Science fundamentals & code smells |
-| `CODE-API-` | API Design (REST, HTTP, gRPC) |
-| `CODE-CC-` | Concurrency |
-| `CODE-RL-` | Reliability & Error Handling |
-| `CODE-SEC-` | Security (input validation, secrets, cryptography) |
-| `CODE-TS-` | Testing Strategy |
-| `CODE-OB-` | Observability & Operations |
-| `CODE-DX-` | Developer Experience |
-| `CODE-TP-` | Type & Pattern Safety |
-| `CODE-AR-` | Architecture (messaging, modules, infrastructure) |
-| `CODE-PF-` | Performance |
-| `SOLID-` | SOLID principles |
-| `GOF-` | Gang of Four design patterns |
-| `DDD-` | Domain-Driven Design |
-| `GRASP-` | GRASP principles |
-| `OWASP-` | OWASP Top 10 |
-| `12FACTOR-` | Twelve-Factor App |
-| `EIP-` | Enterprise Integration Patterns (12 patterns) |
-| `SEC-ARCH-` | Security Architecture (all 8 Saltzer & Schroeder) |
-| `ARCH-` | System & solution architecture |
-| `INFRA-` | Infrastructure (IaC, containers, immutability) |
-| `CD-` | Continuous Delivery (trunk-based, semver, …) |
-| `PIPELINE-` | CI/CD pipeline (permissions, secrets, gates, …) |
-| `SCHEMA-` | Schema & contract design |
-| `CONFIG-` | Configuration management |
-| `DOC-` | Documentation |
-| `CODE-SMELLS-` | All 22 Fowler code smells |
-| `FP-` | Functional Programming |
-| `A11Y-` | Accessibility (WCAG 2.1 Level A/AA) |
-| `SIMPLE-DESIGN-` | Kent Beck's 4 Rules of Simple Design |
-| `CLEAN-ARCH-` | Clean Architecture |
-| `PKG-` | Package / module design |
-| `EFFECTIVE-JAVA-` | Effective Java patterns |
-
-**53 shipped groups** (`@spring-boot`, `@react`, `@microservices`, `@security-focused`, `@a11y`, `@pipeline`, `@container`, `@schema`, `@eip`, `@fp`, `@db`, `@ddd`, `@cd`, `@docs-as-code`, `@xac`, and more) bundle related principles for common stacks. See [DESIGN.md](DESIGN.md#-6-groups) for the full list.
-
-Many principles include **code examples and diagrams** to make the guidance concrete — not just a definition, but a demonstration of the principle in practice.
+Many principles include **code examples and diagrams** to make the guidance concrete.
 
 ## 💡 Example review output
 
@@ -436,32 +318,7 @@ Generated: C:/projects/app/audit-output.json
 
 ## 🔧 Extending with your own principles
 
-Fork this repo and add a `principles/corp/` namespace (or any name) for corporate or domain-specific principles. Reference them with `CORP-0001` in your `.principles` files. See [DESIGN.md](DESIGN.md#-10-adding-a-new-namespace) for the full process.
-
-## 🚧 Catalog status
-
-The catalog has grown substantially and now covers all major software engineering domains. All gap areas identified during initial development have been filled. The table below shows what's shipped:
-
-| Area | Status | Highlights |
-|---|---|---|
-| Functional programming | ✅ Shipped | Pure functions, immutability, referential transparency, higher-order functions |
-| Continuous delivery | ✅ Shipped | Trunk-based development, semver, feature flags, fast feedback, blue-green, canary |
-| Database / persistence | ✅ Shipped | N+1 avoidance, index for access patterns, schema migrations, outbox pattern |
-| OOP / object design | ✅ Shipped | Law of Demeter, Tell Don't Ask, CQS, design by contract |
-| Architecture patterns | ✅ Shipped | Hexagonal, Saga, Strangler Fig, Anti-Corruption Layer, Bulkhead, Sidecar, Database-per-Service |
-| Security architecture | ✅ Shipped | All 8 Saltzer & Schroeder principles (economy of mechanism, least common mechanism, open design, …) |
-| Testing | ✅ Shipped | Test-first, single behaviour, fast tests, test doubles, arrange-act-assert |
-| Observability | ✅ Shipped | Structured telemetry, distributed tracing, SLOs, RED method, four golden signals, error budgets |
-| Config principles | ✅ Shipped | Schema-first, environment parity, explicit defaults, no hardcoded secrets |
-| Schema principles | ✅ Shipped | Field optionality, no polymorphic blobs, enum evolution, self-describing |
-| Pipeline principles | ✅ Shipped | Minimal permissions, no secrets in logs, reproducible builds, deployment gates, environment isolation |
-| API design | ✅ Shipped | HTTP status codes, HATEOAS, resource nouns, backward compatibility, rate limiting, versioning, gRPC |
-| Enterprise Integration | ✅ Shipped | 12 EIP patterns — aggregator, splitter, wire tap, idempotent consumer, message translator, … |
-| Accessibility (WCAG 2.1) | ✅ Shipped | Alt text, semantic HTML, keyboard navigation, colour contrast (`@a11y` group) |
-| Error handling | ✅ Shipped | Exceptions for exceptional conditions, catch specific exceptions, fail fast |
-| Code smells | ✅ Shipped | All 22 Fowler smells (1st + 2nd edition) |
-
-Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
+Fork this repo and add a `principles/corp/` namespace (or any name) for corporate or domain-specific principles. Reference them with `CORP-0001` in your `.principles` files. See [DESIGN.md](DESIGN.md#-11-adding-a-new-namespace) for the full process.
 
 ## 🤝 Contributing
 

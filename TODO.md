@@ -1,3 +1,0 @@
-- .md docs DRY and to-the-point
-- run .principles on this repo!
-- Remove `LEGACY_COMMAND_NAMES` from `uninstall.sh` once enough users have upgraded past v0.10.0 (legacy: audit/prime/scout → dot-audit/dot-prime/dot-scout)

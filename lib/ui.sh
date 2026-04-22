@@ -16,7 +16,7 @@ list_installed() {
             echo -e "  ${GREEN}✓${NC} /${command_name//\//\:}"
             found=true
         fi
-    done < <(find "$COMMAND_SOURCE_DIR" -name "*.md" -type f | sort)
+    done < <(list_command_files)
     if [ "$found" = false ]; then
         echo "  (none)"
     fi
@@ -32,7 +32,7 @@ list_installed() {
             echo -e "  ${GREEN}✓${NC} .github/skills/$command_slug/SKILL.md"
             copilot_cli_found=true
         fi
-    done < <(find "$COMMAND_SOURCE_DIR" -name "*.md" -type f | sort)
+    done < <(list_command_files)
     if [ "$copilot_cli_found" = false ]; then
         echo "  (none)"
     fi
@@ -48,7 +48,7 @@ list_installed() {
             echo -e "  ${GREEN}✓${NC} .github/prompts/$command_slug.prompt.md"
             copilot_ide_found=true
         fi
-    done < <(find "$COMMAND_SOURCE_DIR" -name "*.md" -type f | sort)
+    done < <(list_command_files)
     if [ "$copilot_ide_found" = false ]; then
         echo "  (none)"
     fi
@@ -64,7 +64,7 @@ list_installed() {
             echo -e "  ${GREEN}✓${NC} .agents/skills/$command_slug/SKILL.md"
             codex_found=true
         fi
-    done < <(find "$COMMAND_SOURCE_DIR" -name "*.md" -type f | sort)
+    done < <(list_command_files)
     if [ "$codex_found" = false ]; then
         echo "  (none)"
     fi

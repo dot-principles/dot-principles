@@ -10,6 +10,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [Unreleased]
 
+**Fixed**
+
+- **Installer: `INDEX.md`, `README.md`, and dot-files excluded from command installation** — `list_command_files()` helper introduced in `lib/template.sh` (DRY); all five `find` call-sites in `lib/template.sh` and `lib/ui.sh` now use it. Prevents navigation docs and metadata files (e.g. `.principles`) from being installed as slash commands into target projects.
+- **Installer: `INDEX.md` and `README.md` excluded from vendored catalog** — `groups/` and `layers/` are now copied with filtered `find` instead of blind `cp -r`, so navigation docs no longer appear in `.principles-catalog/`.
+- **Installer: `generate_compact_index` no longer aborts on `INDEX.md`/`README.md`** — `find` in `vendor.sh` now excludes these files, preventing `grep` from exiting non-zero under `set -euo pipefail` and leaving `index.tsv` and `install.cfg` unwritten.
+- **Installer: `vendor` subcommand warns when no tool targets are recorded** — after an uninstall, running `./install.sh vendor <dir>` now prints a clear hint to run a target-specific install first (e.g. `./install.sh claude <dir>`).
+
+**Changed**
+
+- **`install.sh` usage comment clarified** — each target now states it installs commands **and** the catalog; `vendor` documents its re-install-on-sync behaviour; `--extra-catalog` flag usage noted.
+
 **Added**
 
 - **Self-governance bootstrap** — `AGENTS.md`, `.principles` (`@docs @source-code @ptac`), and Copilot Code Review instruction files (`.github/instructions/`) added to this repo, enforcing its own principles on itself.

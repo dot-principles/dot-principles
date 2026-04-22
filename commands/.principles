@@ -1,0 +1,5 @@
+# The commands/ directory contains slash-command source files for AI tools.
+# These are templates, not documentation or source code — suppress all inherited principles.
+!@docs
+!@source-code
+!@ptac

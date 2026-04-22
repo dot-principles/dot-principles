@@ -15,12 +15,16 @@ generate_compact_index() {
             ! -name ".context-*.md" \
             ! -name "TEMPLATE.md" \
             ! -name "AUDIT-SCOPE.md" \
+            ! -name "INDEX.md" \
+            ! -name "README.md" \
             ! -name "catalog.yaml" | sort
         for extra in "$@"; do
             [ -d "$extra/principles" ] || continue
             find "$extra/principles" -name "*.md" \
                 ! -name ".context-*.md" \
                 ! -name "AUDIT-SCOPE.md" \
+                ! -name "INDEX.md" \
+                ! -name "README.md" \
                 ! -name "catalog.yaml" | sort
         done
     } | while IFS= read -r f; do
@@ -193,8 +197,16 @@ install_vendor() {
         REGISTERED_GROUPS["$g"]="built-in"
     done
 
-    cp -r "$SCRIPT_DIR/groups"  "$catalog_dir/"
-    cp -r "$SCRIPT_DIR/layers"  "$catalog_dir/"
+    find "$SCRIPT_DIR/groups" -name "*.yaml" -type f | while IFS= read -r f; do
+        mkdir -p "$catalog_dir/groups"
+        cp "$f" "$catalog_dir/groups/"
+    done
+    find "$SCRIPT_DIR/layers" -not -name "INDEX.md" -not -name "README.md" | while IFS= read -r f; do
+        [ -f "$f" ] || continue
+        local rel="${f#$SCRIPT_DIR/layers/}"
+        mkdir -p "$(dirname "$catalog_dir/layers/$rel")"
+        cp "$f" "$catalog_dir/layers/$rel"
+    done
     echo -e "  ${GREEN}✓${NC} groups/"
     echo -e "  ${GREEN}✓${NC} layers/"
 

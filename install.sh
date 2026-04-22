@@ -7,15 +7,17 @@ set -euo pipefail
 #
 # Usage:
 #   ./install.sh <dir>              # Interactive: select which tools to install
-#   ./install.sh claude <dir>       # Install Claude Code slash commands in <dir>/.claude/commands/
-#   ./install.sh copilot <dir>      # Generate all Copilot assets in <dir>/.github/ (CLI + IDE)
-#   ./install.sh copilot-cli <dir>  # Generate Copilot CLI skills in <dir>/.github/skills/
-#   ./install.sh copilot-ide <dir>  # Generate Copilot IDE prompts in <dir>/.github/prompts/
-#   ./install.sh codex <dir>        # Generate Codex skills in <dir>/.agents/skills/
-#   ./install.sh vendor <dir>       # Copy catalog subset to <dir>/.principles-catalog/
-#   ./install.sh all <dir>          # Run claude + copilot + codex + vendor in <dir>
+#   ./install.sh claude <dir>       # Install Claude Code commands + catalog in <dir>
+#   ./install.sh copilot <dir>      # Install all Copilot assets (CLI + IDE) + catalog in <dir>
+#   ./install.sh copilot-cli <dir>  # Install Copilot CLI skills + catalog in <dir>
+#   ./install.sh copilot-ide <dir>  # Install Copilot IDE prompts + catalog in <dir>
+#   ./install.sh codex <dir>        # Install Codex skills + catalog in <dir>
+#   ./install.sh all <dir>          # Install all tools + catalog in <dir>
+#   ./install.sh vendor <dir>       # Sync catalog only; re-installs any previously recorded targets
 #   ./install.sh --list <dir>       # Show what's installed in <dir>
-#   ./uninstall.sh <dir>            # Remove local assets from <dir>
+#   ./uninstall.sh <dir>            # Remove all installed assets from <dir>
+#
+# All install targets accept --extra-catalog <path> to include a local principles catalog.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VERSION="$(cat "$SCRIPT_DIR/VERSION" | tr -d '[:space:]')"
@@ -160,12 +162,15 @@ else
             # in sync with the current dot-principles version.  This means a single
             # `./install.sh vendor <dir>` is sufficient to update both the catalog
             # and all installed AI skill files after a dot-principles update.
+            any_commands_installed=false
             if [ "${INSTALLED_TARGETS[claude]:-}" = "1" ]; then
+                any_commands_installed=true
                 "$SCRIPT_DIR/uninstall.sh" --quiet --target claude "$DIR_ARG"
                 install_from_template "$TEMPLATE_DIR/claude" "$DIR_ARG"
                 echo ""
             fi
             if [ "${INSTALLED_TARGETS[copilot-cli]:-}" = "1" ] || [ "${INSTALLED_TARGETS[copilot-ide]:-}" = "1" ]; then
+                any_commands_installed=true
                 "$SCRIPT_DIR/uninstall.sh" --quiet --target copilot "$DIR_ARG"
                 if [ "${INSTALLED_TARGETS[copilot-cli]:-}" = "1" ]; then
                     install_from_template "$TEMPLATE_DIR/copilot-cli" "$DIR_ARG"
@@ -177,8 +182,13 @@ else
                 fi
             fi
             if [ "${INSTALLED_TARGETS[codex]:-}" = "1" ]; then
+                any_commands_installed=true
                 "$SCRIPT_DIR/uninstall.sh" --quiet --target codex "$DIR_ARG"
                 install_from_template "$TEMPLATE_DIR/codex" "$DIR_ARG"
+                echo ""
+            fi
+            if [ "$any_commands_installed" = false ]; then
+                echo -e "${YELLOW}No AI tool targets recorded. Run e.g. './install.sh claude $DIR_ARG' first, then use 'vendor' to keep everything in sync.${NC}"
                 echo ""
             fi
             "$SCRIPT_DIR/uninstall.sh" --quiet --target vendor "$DIR_ARG"

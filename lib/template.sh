@@ -1,12 +1,21 @@
 # template.sh — Template-driven installer helpers for install.sh
-# Sourced by install.sh. Defines: print_header, extract_frontmatter_body,
-# extract_command_body, install_from_template.
+# Sourced by install.sh. Defines: print_header, list_command_files,
+# extract_frontmatter_body, extract_command_body, install_from_template.
 # Requires: $SCRIPT_DIR, $VERSION, $COMMAND_SOURCE_DIR, $TEMPLATE_DIR, color variables.
 
 print_header() {
     echo ""
     echo -e "${BOLD}.principles installer${NC}"
     echo "─────────────────────────"
+}
+
+# List installable command source files, excluding navigation docs and dot-files.
+list_command_files() {
+    find "$COMMAND_SOURCE_DIR" -name "*.md" \
+        -not -name "INDEX.md" \
+        -not -name "README.md" \
+        -not -name ".*" \
+        -type f | sort
 }
 
 # Extract the YAML frontmatter body (lines between the --- delimiters, exclusive).
@@ -135,7 +144,7 @@ install_from_template() {
             display_name="$command_slug"
         fi
         echo -e "  ${GREEN}✓${NC} $display_name"
-    done < <(find "$COMMAND_SOURCE_DIR" -name "*.md" -type f | sort)
+    done < <(list_command_files)
 
     echo ""
     echo -e "Installed ${BOLD}$count${NC} commands to $resolved_dir"

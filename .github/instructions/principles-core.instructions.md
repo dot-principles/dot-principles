@@ -20,3 +20,6 @@ applyTo:
 - CODE-DX-SMALL-FUNCTIONS: Keep functions small, doing one thing only; extract additional responsibilities into named functions.
 - CODE-CS-KISS: Choose the simplest solution that correctly solves the problem; never add unnecessary complexity.
 - CODE-CS-FAIL-FAST: Detect errors as early as possible and report them clearly; never silently continue in a broken state.
+- PTAC-PLAIN-TEXT-FIRST: Prefer plain text formats over binary; keep every artifact diffable and human-readable.
+- PTAC-COMPOSABLE-FILES: Keep files small, focused, and composable rather than large and monolithic.
+- PTAC-LEAN-CONTENT: Keep plain-text content DRY and front-loaded; every line must earn its place.

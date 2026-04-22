@@ -10,11 +10,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [Unreleased]
 
+**Added**
+
+- **`/dot-scout` Phase 6 — always writes `.principles-catalog/active.md`** — a flat `- ID: Summary` list of every active principle, written on every scout run regardless of which AI review tools are installed. This is the canonical source for `/dot-prime` and `/dot-audit`. Current Phase 6 (AI Review Integration) shifts to Phase 7.
+
 **Fixed**
+
+- **`/dot-prime` and `/dot-audit` now check `.principles-catalog/active.md` first** — the fast path previously checked `.github/instructions/` and `REVIEW.md` (CI review tool outputs that only exist if Copilot or Claude review is enabled). Both commands now check `active.md` first, falling back to the review tool files for backward compatibility, then to the `.principles` hierarchy as a last resort.
 
 - **`/dot-prime` and `/dot-audit` fast path now checks `REVIEW.md`** — both commands previously globbed `.claude/rules/*.md`, which scout never writes. Scout generates `REVIEW.md` at the git root for Claude Code Review. The fast path now correctly checks `.github/instructions/*.instructions.md` and `REVIEW.md`.
 
-- **`/dot-prime` falls back to `.principles` when no scout-generated files exist** — normal mode now walks the `.principles` hierarchy (root → target) when `.github/instructions/` and `.claude/rules/` contain no scout-generated files. This makes `/dot-prime` work out of the box for projects that install only `claude`, `codex`, or `copilot-cli` without running `/dot-scout`. Group expansion, bare IDs, `!ID` exclusions, and `:max_principles` directives are all honoured. The `install.cfg scout` stale-output warning is now non-blocking instead of a hard stop.
+- **`/dot-prime` falls back to `.principles` when no scout-generated files exist** — normal mode now walks the `.principles` hierarchy (root → target) when no scout outputs are found. This makes `/dot-prime` work out of the box for projects that install only `claude`, `codex`, or `copilot-cli` without running `/dot-scout`. Group expansion, bare IDs, `!ID` exclusions, and `:max_principles` directives are all honoured. The `install.cfg scout` stale-output warning is now non-blocking instead of a hard stop.
 
 - **Installer: `INDEX.md`, `README.md`, and dot-files excluded from command installation** — `list_command_files()` helper introduced in `lib/template.sh` (DRY); all five `find` call-sites in `lib/template.sh` and `lib/ui.sh` now use it. Prevents navigation docs and metadata files (e.g. `.principles`) from being installed as slash commands into target projects.
 - **Installer: `INDEX.md` and `README.md` excluded from vendored catalog** — `groups/` and `layers/` are now copied with filtered `find` instead of blind `cp -r`, so navigation docs no longer appear in `.principles-catalog/`.

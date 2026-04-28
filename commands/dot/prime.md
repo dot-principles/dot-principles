@@ -82,7 +82,7 @@ For each file (root → target):
 Note in the output: `(resolved from .principles — no scout-generated files found)`
 
 If `{{PRINCIPLES_DIRECTORY}}/install.cfg` contains `scout` but `active.md` is absent, add a non-blocking warning alongside the active rules:
-> ⚠️ Scout is recorded as installed but `.principles-catalog/active.md` not found. Consider re-running `/dot-scout`.
+> ⚠️ Scout is recorded as installed but `{{PRINCIPLES_DIRECTORY}}/active.md` not found. Consider re-running `/dot-scout`.
 
 ## Phase 3 — Select Top Principles
 
@@ -118,4 +118,4 @@ Format:
 
 End with this line, on its own:
 
-> These are your focus principles for this task. Any full rule set from `.principles-catalog/active.md`, `REVIEW.md`, or `.github/instructions/` remains active. Proceed.
+> These are your focus principles for this task. Any full rule set from `{{PRINCIPLES_DIRECTORY}}/active.md`, `REVIEW.md`, or `.github/instructions/` remains active. Proceed.

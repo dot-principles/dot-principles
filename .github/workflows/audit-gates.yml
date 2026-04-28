@@ -10,10 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.2.2
-      - name: Install skill and prompt files
-        run: |
-          bash install.sh copilot-cli .
-          bash install.sh copilot-ide .
-          bash install.sh codex .
+      - name: Install skill files
+        run: bash install.sh vendor .
       - name: Verify audit gate markers (Phases 8–10)
         run: ./tests/check-audit-gates.sh

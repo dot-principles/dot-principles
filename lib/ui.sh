@@ -1,39 +1,41 @@
 # ui.sh — User-facing commands for install.sh
 # Sourced by install.sh. Defines: list_installed, show_usage, interactive_install.
 # Requires: $SCRIPT_DIR, $TEMPLATE_DIR, $COMMAND_SOURCE_DIR, color variables,
-# INSTALLED_TARGETS, read_install_cfg, mark_targets, install_from_template, install_vendor.
+# INSTALLED_TARGETS, read_install_cfg, mark_targets, install_from_template,
+# install_vendor, install_hub_blocks.
 
 list_installed() {
     local project_dir="$1"
     echo -e "${BOLD}Installed .principles (project: $project_dir):${NC}"
     echo ""
 
-    echo "Claude Code commands (.claude/commands/):"
-    local found=false
+    echo "AI Skills (.agents/skills/):"
+    local skills_found=false
     while IFS= read -r file; do
         local command_name="${file#$COMMAND_SOURCE_DIR/}"; command_name="${command_name%.md}"
-        if [ -f "$file" ] && [ -f "$project_dir/.claude/commands/$command_name.md" ]; then
-            echo -e "  ${GREEN}✓${NC} /${command_name//\//\:}"
-            found=true
+        local command_slug="${command_name//\//-}"
+        local skill_file="$project_dir/.agents/skills/$command_slug/SKILL.md"
+        if [ -f "$skill_file" ]; then
+            echo -e "  ${GREEN}✓${NC} .agents/skills/$command_slug/SKILL.md"
+            skills_found=true
         fi
     done < <(list_command_files)
-    if [ "$found" = false ]; then
+    if [ "$skills_found" = false ]; then
         echo "  (none)"
     fi
 
     echo ""
-    echo "Copilot CLI skills (.github/skills/):"
-    local copilot_cli_found=false
+    echo "Claude Code wrappers (.claude/commands/):"
+    local claude_found=false
     while IFS= read -r file; do
         local command_name="${file#$COMMAND_SOURCE_DIR/}"; command_name="${command_name%.md}"
         local command_slug="${command_name//\//-}"
-        local skill_file="$project_dir/.github/skills/$command_slug/SKILL.md"
-        if [ -f "$skill_file" ]; then
-            echo -e "  ${GREEN}✓${NC} .github/skills/$command_slug/SKILL.md"
-            copilot_cli_found=true
+        if [ -f "$project_dir/.claude/commands/$command_name.md" ]; then
+            echo -e "  ${GREEN}✓${NC} /${command_name//\//\:}"
+            claude_found=true
         fi
     done < <(list_command_files)
-    if [ "$copilot_cli_found" = false ]; then
+    if [ "$claude_found" = false ]; then
         echo "  (none)"
     fi
 
@@ -54,26 +56,25 @@ list_installed() {
     fi
 
     echo ""
-    echo "Codex skills (.agents/skills/):"
-    local codex_found=false
-    while IFS= read -r file; do
-        local command_name="${file#$COMMAND_SOURCE_DIR/}"; command_name="${command_name%.md}"
-        local command_slug="${command_name//\//-}"
-        local skill_file="$project_dir/.agents/skills/$command_slug/SKILL.md"
-        if [ -f "$skill_file" ]; then
-            echo -e "  ${GREEN}✓${NC} .agents/skills/$command_slug/SKILL.md"
-            codex_found=true
-        fi
-    done < <(list_command_files)
-    if [ "$codex_found" = false ]; then
+    echo "Vendor catalog (.agents/principles-catalog/):"
+    if [ -d "$project_dir/.agents/principles-catalog" ]; then
+        echo -e "  ${GREEN}✓${NC} .agents/principles-catalog/"
+    else
         echo "  (none)"
     fi
 
     echo ""
-    echo "Vendor catalog (.principles-catalog/):"
-    if [ -d "$project_dir/.principles-catalog" ]; then
-        echo -e "  ${GREEN}✓${NC} .principles-catalog/"
-    else
+    echo "Hub blocks (AGENTS.md / CLAUDE.md):"
+    local hub_found=false
+    if [ -f "$project_dir/AGENTS.md" ] && grep -q "^<!-- .principles:start -->$" "$project_dir/AGENTS.md"; then
+        echo -e "  ${GREEN}✓${NC} AGENTS.md"
+        hub_found=true
+    fi
+    if [ -f "$project_dir/CLAUDE.md" ] && grep -q "^<!-- .principles:start -->$" "$project_dir/CLAUDE.md"; then
+        echo -e "  ${GREEN}✓${NC} CLAUDE.md"
+        hub_found=true
+    fi
+    if [ "$hub_found" = false ]; then
         echo "  (none)"
     fi
 
@@ -98,51 +99,48 @@ show_usage() {
     echo ""
     echo -e "Usage: $0 [${BOLD}<target>${NC}] ${BOLD}<dir>${NC}"
     echo ""
-    echo -e "${BOLD}Targets:${NC}"
-    echo -e "  ${BOLD}claude${NC} <dir>        Install slash commands in <dir>/.claude/commands/"
-    echo -e "  ${BOLD}copilot${NC} <dir>       Install Copilot CLI + IDE (same as copilot-cli + copilot-ide)"
-    echo -e "  ${BOLD}copilot-cli${NC} <dir>   Install Copilot CLI skills in <dir>/.github/skills/"
-    echo -e "  ${BOLD}copilot-ide${NC} <dir>   Install Copilot IDE prompts in <dir>/.github/prompts/"
-    echo -e "  ${BOLD}codex${NC} <dir>         Install Codex skills in <dir>/.agents/skills/"
-    echo -e "  ${BOLD}vendor${NC} <dir>        Update catalog + reinstall any previously installed skills"
-    echo -e "  ${BOLD}all${NC} <dir>           All commands + review + vendor in <dir>"
-    echo ""
     echo -e "${BOLD}Interactive:${NC}"
-    echo -e "  ${BOLD}<dir>${NC}               Select tools interactively (includes review options)"
+    echo -e "  ${BOLD}<dir>${NC}               Select tools and review options interactively"
+    echo ""
+    echo -e "${BOLD}Targets:${NC}"
+    echo -e "  ${BOLD}vendor${NC} <dir>        Update catalog + reinstall any previously installed wrappers"
     echo ""
     echo -e "${BOLD}Management:${NC}"
     echo -e "  ${BOLD}--list${NC} <dir>        Show what's installed in <dir>"
     echo -e "  ${BOLD}--help${NC}              Show this help"
     echo "  ./uninstall.sh <dir> Remove local assets from <dir>"
     echo ""
-    echo -e "${DIM}Review integration (controlled via interactive mode or 'all'):${NC}"
+    echo -e "${DIM}Skills are ALWAYS installed to .agents/skills/ regardless of wrapper selection.${NC}"
+    echo -e "${DIM}Tool-specific wrappers are optional and selected interactively:${NC}"
+    echo -e "  Claude Code    → .claude/commands/   ${DIM}(thin wrappers)${NC}"
+    echo -e "  Copilot IDE    → .github/prompts/    ${DIM}(thin wrappers)${NC}"
+    echo -e "  Copilot CLI    → .agents/skills/     ${DIM}(native, no wrapper needed)${NC}"
+    echo -e "  Codex          → .agents/skills/     ${DIM}(native, no wrapper needed)${NC}"
+    echo ""
+    echo -e "${DIM}Review integration (controlled via interactive mode):${NC}"
     echo -e "  Copilot Code Review → .github/instructions/ ${DIM}(emitted by /dot-scout)${NC}"
     echo -e "  Claude Code Review  → REVIEW.md             ${DIM}(emitted by /dot-scout)${NC}"
     echo ""
     echo -e "${BOLD}Examples:${NC}"
     echo "  ./install.sh ~/projects/my-app           # Interactive"
-    echo "  ./install.sh claude ~/projects/my-app"
-    echo "  ./install.sh copilot ~/projects/my-app"
-    echo "  ./install.sh codex ~/projects/my-app"
-    echo "  ./install.sh all ~/projects/my-app"
+    echo "  ./install.sh vendor ~/projects/my-app    # Sync catalog + reinstall"
     echo ""
     echo -e "${BOLD}Extra catalogs (corporate or personal principles):${NC}"
-    echo -e "  ${BOLD}--extra-catalog${NC} <path>  Merge an additional principles directory into .principles-catalog/"
+    echo -e "  ${BOLD}--extra-catalog${NC} <path>  Merge an additional principles directory into .agents/principles-catalog/"
     echo "                         Can be repeated. Paths in ~/.principles-extra and <dir>/.principles-extra"
     echo "                         are loaded automatically (one path per line, # for comments)."
     echo ""
     echo "  ./install.sh vendor ~/projects/my-app --extra-catalog ~/acme-principles"
-    echo "  ./install.sh all    ~/projects/my-app --extra-catalog ~/acme-principles"
     echo ""
     echo "  See INSTALL.md for corporate and personal setup instructions."
 }
 
-# Interactive tool selection — two-level menu
+# Interactive tool selection
 interactive_install() {
     local project_dir="$1"
 
     if ! [ -t 0 ]; then
-        echo -e "${RED}Error: Interactive mode requires a terminal. Use a named target instead.${NC}"
+        echo -e "${RED}Error: Interactive mode requires a terminal. Use 'vendor' target instead.${NC}"
         show_usage
         exit 1
     fi
@@ -150,149 +148,115 @@ interactive_install() {
     # Load existing install.cfg to preserve previous selections
     read_install_cfg "$project_dir"
 
-    # ── Step 1: Select AI agents ──────────────────────────────────────────
+    # ── Step 1: Select AI tools ───────────────────────────────────────────
     echo ""
-    echo "Which AI agents do you use?"
+    echo "Which AI tools do you use?"
     echo ""
-    echo "  1) GitHub Copilot   (CLI, IDE, Code Review)"
-    echo "  2) Claude Code      (commands, Code Review)"
-    echo "  3) Codex            (CLI / IDE skills)"
+    echo "  1) GitHub Copilot   (CLI / Code Review)  → .agents/skills/ [native]"
+    echo "  2) GitHub Copilot IDE  (VS Code / JetBrains / Visual Studio)  → .github/prompts/ wrappers"
+    echo "  3) Claude Code  → .claude/commands/ wrappers"
+    echo "  4) Codex   → .agents/skills/ [native]"
     echo ""
     echo "  a) All of the above"
     echo "  q) Quit"
     echo ""
-    printf "Select agents (e.g. 1 2, or 'a' for all): "
-    read -r agent_selection
+    printf "Select tools (e.g. 1 3, or 'a' for all): "
+    read -r tool_selection
 
-    if [ -z "$agent_selection" ] || [ "$agent_selection" = "q" ]; then
+    if [ -z "$tool_selection" ] || [ "$tool_selection" = "q" ]; then
         echo "Cancelled."
         exit 0
     fi
 
-    local do_copilot=false do_claude=false do_codex=false
+    local do_copilot=false do_copilot_ide=false do_claude=false do_codex=false
 
-    if [ "$agent_selection" = "a" ] || [ "$agent_selection" = "A" ]; then
-        do_copilot=true; do_claude=true; do_codex=true
+    if [ "$tool_selection" = "a" ] || [ "$tool_selection" = "A" ]; then
+        do_copilot=true; do_copilot_ide=true; do_claude=true; do_codex=true
     else
-        for token in $agent_selection; do
+        for token in $tool_selection; do
             case "$token" in
                 1) do_copilot=true ;;
-                2) do_claude=true ;;
-                3) do_codex=true ;;
+                2) do_copilot_ide=true ;;
+                3) do_claude=true ;;
+                4) do_codex=true ;;
                 *) echo -e "${YELLOW}Warning: Unknown selection '$token' — skipped${NC}" ;;
             esac
         done
     fi
 
-    local installed_any=false
-
-    # ── Step 2a: Copilot sub-menu ─────────────────────────────────────────
-    if [ "$do_copilot" = true ]; then
+    # ── Step 2: Review integration ────────────────────────────────────────
+    local do_copilot_review=false do_claude_review=false
+    if [ "$do_copilot" = true ] || [ "$do_claude" = true ]; then
         echo ""
-        echo "GitHub Copilot — what to install?"
+        echo "Enable AI code review? (emitted by /dot-scout at runtime)"
         echo ""
-        echo "  1) Copilot CLI              → .github/skills/"
-        echo "  2) Copilot IDE              → .github/prompts/"
-        echo "  3) Copilot Code Review      → .github/instructions/  (emitted by /dot-scout)"
-        echo "  4) Copilot CLI (1) + Review (3)"
-        echo "  5) Copilot IDE (2) + Review (3)"
-        echo "  6) All (1, 2, 3)"
+        echo "  1) Copilot Code Review  → .github/instructions/"
+        echo "  2) Claude Code Review   → REVIEW.md"
+        echo "  3) Both"
+        echo "  n) None"
         echo ""
-        printf "Select (1-6): "
-        read -r copilot_choice
-
-        local cp_cli=false cp_ide=false cp_review=false
-        case "${copilot_choice:-}" in
-            1) cp_cli=true ;;
-            2) cp_ide=true ;;
-            3) cp_review=true ;;
-            4) cp_cli=true; cp_review=true ;;
-            5) cp_ide=true; cp_review=true ;;
-            6) cp_cli=true; cp_ide=true; cp_review=true ;;
-            *) echo -e "${YELLOW}Invalid choice — installing all Copilot targets${NC}"
-               cp_cli=true; cp_ide=true; cp_review=true ;;
+        printf "Select (1-3 or n): "
+        read -r review_choice
+        case "${review_choice:-n}" in
+            1) do_copilot_review=true ;;
+            2) do_claude_review=true ;;
+            3) do_copilot_review=true; do_claude_review=true ;;
+            n|N|"") ;;
+            *) echo -e "${YELLOW}Invalid choice — skipping review integration${NC}" ;;
         esac
-
-        if [ "$cp_cli" = true ]; then
-            "$SCRIPT_DIR/uninstall.sh" --quiet --target copilot "$project_dir"
-            install_from_template "$TEMPLATE_DIR/copilot-cli" "$project_dir"
-            mark_targets copilot-cli
-            echo ""; installed_any=true
-        fi
-        if [ "$cp_ide" = true ]; then
-            install_from_template "$TEMPLATE_DIR/copilot-ide" "$project_dir"
-            mark_targets copilot-ide
-            echo ""; installed_any=true
-        fi
-        if [ "$cp_review" = true ]; then
-            mark_targets copilot-review
-            installed_any=true
-        fi
     fi
 
-    # ── Step 2b: Claude sub-menu ──────────────────────────────────────────
+    # ── Install: Skills (always) ──────────────────────────────────────────
+    echo ""
+    "$SCRIPT_DIR/uninstall.sh" --quiet --target agents "$project_dir"
+    install_from_template "$TEMPLATE_DIR/agents" "$project_dir"
+    echo ""
+
+    # ── Install: Claude Code wrappers ────────────────────────────────────
     if [ "$do_claude" = true ]; then
+        "$SCRIPT_DIR/uninstall.sh" --quiet --target claude "$project_dir"
+        install_from_template "$TEMPLATE_DIR/claude" "$project_dir"
+        mark_targets claude
         echo ""
-        echo "Claude Code — what to install?"
-        echo ""
-        echo "  1) Claude Code              → .claude/commands/"
-        echo "  2) Claude Code Review       → REVIEW.md              (emitted by /dot-scout)"
-        echo "  3) All (1, 2)"
-        echo ""
-        printf "Select (1-3): "
-        read -r claude_choice
-
-        local cl_code=false cl_review=false
-        case "${claude_choice:-}" in
-            1) cl_code=true ;;
-            2) cl_review=true ;;
-            3) cl_code=true; cl_review=true ;;
-            *) echo -e "${YELLOW}Invalid choice — installing all Claude targets${NC}"
-               cl_code=true; cl_review=true ;;
-        esac
-
-        if [ "$cl_code" = true ]; then
-            "$SCRIPT_DIR/uninstall.sh" --quiet --target claude "$project_dir"
-            install_from_template "$TEMPLATE_DIR/claude" "$project_dir"
-            mark_targets claude
-            echo ""; installed_any=true
-        fi
-        if [ "$cl_review" = true ]; then
-            mark_targets claude-review
-            installed_any=true
-        fi
     fi
 
-    # ── Step 2c: Codex (no sub-menu) ──────────────────────────────────────
-    if [ "$do_codex" = true ]; then
+    # ── Install: Copilot IDE wrappers ─────────────────────────────────────
+    if [ "$do_copilot_ide" = true ]; then
+        "$SCRIPT_DIR/uninstall.sh" --quiet --target copilot "$project_dir"
+        install_from_template "$TEMPLATE_DIR/copilot-ide" "$project_dir"
+        mark_targets copilot-ide
         echo ""
-        "$SCRIPT_DIR/uninstall.sh" --quiet --target codex "$project_dir"
-        install_from_template "$TEMPLATE_DIR/codex" "$project_dir"
-        mark_targets codex
-        echo ""; installed_any=true
     fi
 
-    # ── Auto: vendor catalog ──────────────────────────────────────────────
-    if [ "$installed_any" = true ]; then
+    # ── Hub blocks: AGENTS.md + CLAUDE.md (if exists) ────────────────────
+    echo -e "${BOLD}Writing AI instructions hub...${NC}"
+    install_hub_blocks "$project_dir"
+    echo ""
+
+    # ── Install: Catalog ─────────────────────────────────────────────────
+    "$SCRIPT_DIR/uninstall.sh" --quiet --target vendor "$project_dir"
+    install_vendor "$project_dir"
+
+    # ── Mark review targets ───────────────────────────────────────────────
+    if [ "$do_copilot_review" = true ]; then
+        mark_targets copilot-review
+    fi
+    if [ "$do_claude_review" = true ]; then
+        mark_targets claude-review
+    fi
+
+    mark_targets vendor
+    write_install_cfg "$project_dir"
+
+    # ── Summary ───────────────────────────────────────────────────────────
+    local has_review=false
+    if [ "${INSTALLED_TARGETS[copilot-review]:-}" = "1" ] || [ "${INSTALLED_TARGETS[claude-review]:-}" = "1" ]; then
+        has_review=true
+    fi
+    if [ "$has_review" = true ]; then
         echo ""
-        "$SCRIPT_DIR/uninstall.sh" --quiet --target vendor "$project_dir"
-        install_vendor "$project_dir"
-        mark_targets vendor
-
-        write_install_cfg "$project_dir"
-
-        # Summary
-        local has_review=false
-        if [ "${INSTALLED_TARGETS[copilot-review]:-}" = "1" ] || [ "${INSTALLED_TARGETS[claude-review]:-}" = "1" ]; then
-            has_review=true
-        fi
-        if [ "$has_review" = true ]; then
-            echo ""
-            echo -e "${BOLD}Review integration enabled — run /dot-scout to emit review files:${NC}"
-            [ "${INSTALLED_TARGETS[copilot-review]:-}" = "1" ] && echo "  Copilot Code Review  → .github/instructions/   (applyTo: frontmatter)"
-            [ "${INSTALLED_TARGETS[claude-review]:-}" = "1" ]  && echo "  Claude Code Review   → REVIEW.md               (severity-grouped)"
-        fi
-    else
-        echo "Nothing selected."
+        echo -e "${BOLD}Review integration enabled — run /dot-scout to emit review files:${NC}"
+        [ "${INSTALLED_TARGETS[copilot-review]:-}" = "1" ] && echo "  Copilot Code Review  → .github/instructions/   (applyTo: frontmatter)"
+        [ "${INSTALLED_TARGETS[claude-review]:-}" = "1" ]  && echo "  Claude Code Review   → REVIEW.md               (severity-grouped)"
     fi
 }

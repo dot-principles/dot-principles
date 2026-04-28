@@ -91,7 +91,7 @@ Before walking `.principles` files, check for per-group principle files emitted 
 2. If absent: glob `.github/instructions/*.instructions.md` and `REVIEW.md` (at the git root) — Copilot Code Review and Claude Code Review outputs; filter to files containing the generated-by marker
 3. If any found: parse all `- ID: Summary` lines across all marked files (the ID is everything before the first colon)
 4. Union all IDs → **active principle set**
-5. Optionally cross-reference `.principles-catalog/index.tsv` (each line: `ID|LAYER|SUMMARY`) to get Layer groupings for each active ID — use these layer assignments to annotate the audit header (e.g. show "Layer 1: N principles, Layer 2: M principles").
+5. Optionally cross-reference `{{PRINCIPLES_DIRECTORY}}/index.tsv` (each line: `ID|LAYER|SUMMARY`) to get Layer groupings for each active ID — use these layer assignments to annotate the audit header (e.g. show "Layer 1: N principles, Layer 2: M principles").
 6. Record source as: `per-group files (N files)`
 
 If no per-group files are found, proceed with the tree walk below.
@@ -203,9 +203,9 @@ Derive unique namespaces from the active principle ID prefixes. Use the longest-
 | `ARCH-*` | `arch/` |
 | `PKG-*` | `pkg/` |
 
-For each unique namespace, use the **Read tool** to load `.principles-catalog/principles/<namespace>/.context-audit.md`, then filter entries whose `### ID` is in the active set. Do not use bash, grep, or any shell command for this step — read the file and filter in your reasoning. Use the **Principle** and **Violations to detect** content in Phase 6.
+For each unique namespace, use the **Read tool** to load `{{PRINCIPLES_DIRECTORY}}/principles/<namespace>/.context-audit.md`, then filter entries whose `### ID` is in the active set. Do not use bash, grep, or any shell command for this step — read the file and filter in your reasoning. Use the **Principle** and **Violations to detect** content in Phase 6.
 
-If `.principles-catalog/` is not present, fall back to the standard loading below.
+If `{{PRINCIPLES_DIRECTORY}}/` is not present, fall back to the standard loading below.
 
 **Standard loading (all other sources):**
 

@@ -21,8 +21,8 @@ ARCH-ARCHITECTURE-AS-CODE|1|Define the architecture model in version-controlled 
 ARCH-BACKENDS-FOR-FRONTENDS|2|Create a dedicated backend service per client type; never build one general-purpose API for all clients.
 ARCH-BULKHEAD|2|Isolate subsystem resources into separate pools so one failure cannot exhaust resources needed by others.
 ARCH-CONWAYS-LAW|2|Align team structure with desired system architecture; design teams to produce the communication boundaries you want.
-ARCH-DATABASE-PER-SERVICE|2|Each microservice must own its data exclusively; no other service may bypass its API to access its database.
 ARCH-DATA-MAPPER|2|Use a dedicated mapper to transfer data between domain objects and the database, keeping both fully independent.
+ARCH-DATABASE-PER-SERVICE|2|Each microservice must own its data exclusively; no other service may bypass its API to access its database.
 ARCH-DECISION-RECORDS|1|Capture every significant architectural decision as an ADR recording context, decision, and consequences.
 ARCH-DESIGN-FOR-FAILURE|2|Assume every component will fail; design for graceful degradation rather than cascading outage.
 ARCH-HEXAGONAL|2|Keep the application core free of infrastructure dependencies by exposing ports implemented by swappable adapters.
@@ -42,8 +42,8 @@ ARCH-UNIT-OF-WORK|2|Track all domain changes in a Unit of Work and commit them i
 CD-BLUE-GREEN-DEPLOYMENT|2|Deploy to an idle environment first, run smoke tests, then switch traffic; keep the previous environment for instant rollback.
 CD-BUILD-ONCE-DEPLOY-MANY|1|Build the artifact once and promote that same immutable artifact through every environment.
 CD-CANARY-RELEASE|2|Route a small fraction of traffic to the new version and roll back automatically if metrics degrade.
-CD-DEPLOYMENT-SMOKE-TESTS|2|Run automated smoke tests after every deployment to verify core functionality before routing real traffic.
 CD-DEPLOY-ON-EVERY-COMMIT|2|Automate the pipeline so any green commit can be deployed to production without manual intervention.
+CD-DEPLOYMENT-SMOKE-TESTS|2|Run automated smoke tests after every deployment to verify core functionality before routing real traffic.
 CD-FAST-FEEDBACK-LOOPS|1|Structure the pipeline to return a pass or fail signal to the developer within ten minutes.
 CD-FEATURE-FLAGS|2|Decouple deployment from release by hiding incomplete features behind runtime flags, not branches.
 CD-GITOPS|2|Declare all infrastructure state in git and let an automated operator continuously reconcile the live environment.
@@ -209,8 +209,8 @@ DB-POLYGLOT-PERSISTENCE|2|Choose the storage technology whose data model best fi
 DB-SCHEMA-MIGRATIONS-AS-CODE|1|Express every schema change as a versioned migration file reviewed and applied exclusively by automated pipelines.
 DB-THIRD-NORMAL-FORM|2|Design relational schemas to at least Third Normal Form by default; denormalise only when justified by measurement.
 DB-TWO-PHASE-LOCKING|2|Acquire all locks before releasing any; keep transactions short to prevent deadlocks and serializability violations.
-DDD-AGGREGATE|2|Group related entities and value objects into small consistency boundaries and enforce invariants within each transaction.
 DDD-AGGREGATE-ROOT|2|Route all external access and modifications to an aggregate exclusively through its single root entity.
+DDD-AGGREGATE|2|Group related entities and value objects into small consistency boundaries and enforce invariants within each transaction.
 DDD-BOUNDED-CONTEXT|2|Define explicit model boundaries and map inter-context relationships rather than forcing a single unified model.
 DDD-CONTEXT-MAP|2|Document explicit relationships between Bounded Contexts using a Context Map with named integration patterns.
 DDD-DOMAIN-EVENT|2|Record meaningful domain occurrences as immutable past-tense events and publish them to decouple bounded contexts.
@@ -268,8 +268,8 @@ FP-ALGEBRAIC-DATA-TYPES|2|Model domain concepts with product and sum types to ma
 FP-AVOID-SHARED-MUTABLE-STATE|1|Eliminate shared mutable state; transform data through pipelines to prevent race conditions and action-at-a-distance bugs.
 FP-CURRYING|2|Use currying and partial application to progressively specialise generic functions without duplication.
 FP-EQUATIONAL-REASONING|2|Write pure, referentially transparent functions so program correctness can be verified by algebraic substitution.
-FP-FUNCTIONAL-CORE-IMPERATIVE-SHELL|2|Put all business logic in a pure functional core and confine I/O and side effects to a thin imperative shell.
 FP-FUNCTION-COMPOSITION|2|Build complex behaviour by composing small, single-purpose functions where each output feeds the next input.
+FP-FUNCTIONAL-CORE-IMPERATIVE-SHELL|2|Put all business logic in a pure functional core and confine I/O and side effects to a thin imperative shell.
 FP-FUNCTOR-MONAD|2|Use functor and monad abstractions to compose operations over contextual types uniformly via map and flatMap.
 FP-HIGHER-ORDER-FUNCTIONS|2|Treat functions as first-class values and abstract control structures via higher-order functions to eliminate boilerplate.
 FP-IMMUTABILITY|1|Prefer immutable data structures; produce new values on transformation and make mutation the explicit exception.
@@ -325,9 +325,9 @@ INFRA-IMMUTABLE-INFRASTRUCTURE|2|Never modify running infrastructure; replace it
 INFRA-INFRASTRUCTURE-AS-CODE|1|Declare every infrastructure resource in version-controlled code and apply all changes through an automated pipeline.
 INFRA-LEAST-PRIVILEGE|1|Grant every identity only the minimum permissions required for its function; no standing admin access.
 INFRA-MINIMIZE-IMAGE-LAYERS|1|Use multi-stage builds and combine RUN instructions to minimize container image size and attack surface.
-INFRA-NON-ROOT-CONTAINER|1|Every container must switch to a dedicated non-root user with the USER directive before runtime.
 INFRA-NO-SECRETS-IN-CODE|1|Inject secrets at runtime from a secrets manager; never store credentials in code, config files, or logs.
 INFRA-NO-SECRETS-IN-IMAGE|1|Never pass secrets via ENV, ARG, COPY, or ADD in Dockerfiles; use BuildKit secret mounts instead.
+INFRA-NON-ROOT-CONTAINER|1|Every container must switch to a dedicated non-root user with the USER directive before runtime.
 INFRA-OBSERVABLE-INFRASTRUCTURE|1|Emit structured, centralised telemetry from every infrastructure layer and alert on leading indicators.
 INFRA-PIN-BASE-IMAGES|1|Pin every FROM instruction to a specific digest or full version tag; never use mutable tags like latest.
 OWASP-01-BROKEN-ACCESS-CONTROL|2|Enforce server-side authorisation on every request; deny by default and verify resource ownership explicitly.
@@ -352,11 +352,6 @@ PKG-CRP|2|Never bundle classes into a component unless all consumers of the comp
 PKG-REP|2|Group into a component only classes cohesive enough to be released, versioned, and maintained together.
 PKG-SAP|2|Stable components must consist primarily of abstract types so they remain extensible without modification.
 PKG-SDP|2|Depend only on components more stable than yourself; keep volatile components at the system's edges.
-PTAC-COMPOSABLE-FILES|1|Keep files small, focused, and composable rather than large and monolithic.
-PTAC-LEAN-CONTENT|1|Keep plain-text content DRY and front-loaded; every line must earn its place.
-PTAC-NAVIGABLE-DIRS|2|Every plain-text directory must contain an INDEX.md listing its contents and a README.md describing its purpose.
-PTAC-NO-GENERATED-BLOBS|2|Commit source and generation instructions, not generated or binary output blobs.
-PTAC-PLAIN-TEXT-FIRST|1|Prefer plain text formats over binary; keep every artifact diffable and human-readable.
 SCHEMA-ENUM-EVOLUTION|1|Every enum must include an UNSPECIFIED sentinel and all consumers must handle unknown values without crashing.
 SCHEMA-FIELD-OPTIONALITY|1|Every new schema field must be optional with a sensible default; never add required fields to published schemas.
 SCHEMA-NO-POLYMORPHIC-BLOBS|1|Never use untyped blobs or Any fields; define an explicit, validated schema for every structured payload.

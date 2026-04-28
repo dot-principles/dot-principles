@@ -91,7 +91,7 @@ install_from_template() {
 
         # 3. Apply standard substitutions to command body
         sed -i \
-            -e "s|{{PRINCIPLES_DIRECTORY}}|.principles-catalog|g" \
+            -e "s|{{PRINCIPLES_DIRECTORY}}|.agents/principles-catalog|g" \
             -e "s|{{VERSION}}|$VERSION|g" \
             "$tmp_body"
 

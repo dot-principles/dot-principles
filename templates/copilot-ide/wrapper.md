@@ -4,4 +4,5 @@ mode: agent
 generated-by: .principles
 ---
 
-{{COMMAND_BODY}}
+Follow the instructions in `.agents/skills/{{COMMAND_SLUG}}/SKILL.md`.
+

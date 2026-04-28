@@ -24,7 +24,7 @@ Walk up from the target to find the **git root** (directory containing `.git/`).
 
 ### 1.1 — Bootstrap Catalog
 
-Check whether `.principles-catalog/index.tsv` exists at the git root.
+Check whether `{{PRINCIPLES_DIRECTORY}}/index.tsv` exists at the git root.
 
 If **not present**, try to auto-vendor it now (before any other phase):
 
@@ -35,10 +35,10 @@ If **not present**, try to auto-vendor it now (before any other phase):
    - Run: `find ~ -maxdepth 5 -name "install.sh" -path "*/dot-principles/*" 2>/dev/null | head -1`
 
 2. If found: run `<path-to-install.sh> vendor <git-root>` and report:
-   > "✓ Catalog vendored to .principles-catalog/ — proceeding."
+   > "✓ Catalog vendored to {{PRINCIPLES_DIRECTORY}}/ — proceeding."
 
 3. If not found: report:
-   > "⚠️ `.principles-catalog/` not found. Group lookups will use the hardcoded catalog below."
+   > "⚠️ `{{PRINCIPLES_DIRECTORY}}/` not found. Group lookups will use the hardcoded catalog below."
    > "  To vendor: clone dot-principles and run `./install.sh vendor <git-root>`"
    > Continue using the hardcoded group list in Phase 3 (custom groups won't be available).
 
@@ -48,7 +48,7 @@ Record whether the catalog is available: **catalog-available: true/false**
 
 If **catalog-available: true**, read all `.context-scout.md` files from the catalog:
 
-1. Search for files matching `.principles-catalog/principles/*/.context-scout.md` at the git root.
+1. Search for files matching `{{PRINCIPLES_DIRECTORY}}/principles/*/.context-scout.md` at the git root.
 2. For each file found, read its content and record the detection rules it defines.
 3. Record loaded extensions: `{ namespace → [detection rules] }` — these supplement Phase 2.
 
@@ -375,7 +375,7 @@ After writing, output:
 
 ```
 Active principles:
-  ✓ .principles-catalog/active.md                          (N principles)
+  ✓ {{PRINCIPLES_DIRECTORY}}/active.md                          (N principles)
 
 AI tool integration:
   Copilot detected: ✓ / ✗ (signal)
@@ -391,7 +391,7 @@ Files written:
 Cleaned:
   ✗ deleted .github/instructions/old-group.instructions.md  (group removed)
 
-Tip: commit .principles-catalog/ so CI and PR bots can use it without local install.
+Tip: commit {{PRINCIPLES_DIRECTORY}}/ so CI and PR bots can use it without local install.
 ```
 
 ### 7.6 — Write Scout Marker

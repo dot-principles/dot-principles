@@ -9,13 +9,12 @@ set -euo pipefail
 #   ./uninstall.sh <project>   # Remove local assets from <project>:
 #                              #   Per-group files: .github/instructions/*.instructions.md (scout-generated)
 #                              #                    .claude/rules/*.md (scout-generated)
-#                              #   Legacy blocks:   .claude/rules/principles.md
-#                              #                    .ai/principles.md (hub pattern)
-#                              #                    AGENTS.md / CLAUDE.md (inline block)
 #                              #   AI Skills:   .agents/skills/<name>/SKILL.md
 #                              #   Claude Code: <project>/.claude/commands/<name>.md
-#                              #   Hub blocks:  AGENTS.md, CLAUDE.md (.principles:start block)
 #                              #   Vendor:      .agents/principles-catalog/
+#                              #   Legacy:      AGENTS.md / CLAUDE.md (.principles:start block)
+#                              #                .claude/rules/principles.md
+#                              #                .ai/principles.md (hub pattern)
 #   ./uninstall.sh --help      # Show this help
 
 # Convert a Windows-style path (C:\... or C:/...) to a path the current bash understands.
@@ -126,8 +125,8 @@ show_usage() {
     echo -e "  ${BOLD}<dir>${NC}               Remove local assets from <dir>:"
     echo -e "                        ${DIM}AI Skills:${NC}       .agents/skills/<name>/SKILL.md"
     echo -e "                        ${DIM}Claude wrappers:${NC} .claude/commands/<name>.md"
-    echo -e "                        ${DIM}Hub blocks:${NC}      AGENTS.md, CLAUDE.md (.principles:start block)"
     echo -e "                        ${DIM}Vendor:${NC}          .agents/principles-catalog/"
+    echo -e "                        ${DIM}Legacy:${NC}          AGENTS.md / CLAUDE.md (.principles:start block, if present)"
     echo -e "                        ${DIM}Scout files:${NC}     .github/instructions/*.instructions.md"
     echo -e "                                         .claude/rules/*.md (scout-generated)"
     echo ""
@@ -470,7 +469,7 @@ uninstall_compiled_blocks() {
     fi
 }
 
-# Remove the new-style <!-- .principles:start --> hub block from AGENTS.md and CLAUDE.md.
+# Remove the legacy <!-- .principles:start --> hub block from AGENTS.md and CLAUDE.md (if present).
 uninstall_hub_blocks() {
     local project_dir="$1"
     local found=false

@@ -86,60 +86,6 @@ is_known_target() {
     esac
 }
 
-# Write (or update) the .principles hub block in a file.
-# Creates the file if it does not exist.
-# Usage: write_hub_block <file_path>
-write_hub_block() {
-    local target_file="$1"
-    local block
-    block="$(cat <<EOF
-<!-- .principles:start -->
-## AI Principles Skills
-
-Skills are installed in \`.agents/skills/\`:
-- **dot-scout** — Analyze project and activate principles (\`/dot-scout\`)
-- **dot-prime** — Load active principles before working (\`/dot-prime\`)
-- **dot-audit** — Review code/docs against activated principles (\`/dot-audit\`)
-
-Principle catalog: \`.agents/principles-catalog/\`
-Run \`/dot-prime\` before significant work and \`/dot-audit\` before merging.
-<!-- .principles:end -->
-EOF
-)"
-
-    if [ -f "$target_file" ] && grep -q "^<!-- .principles:start -->$" "$target_file"; then
-        # Replace existing block
-        local tmp
-        tmp="$(mktemp)"
-        awk -v block="$block" '
-            /^<!-- .principles:start -->$/ { in_block=1; print block; next }
-            /^<!-- .principles:end -->$/   { if (in_block) { in_block=0 }; next }
-            !in_block { print }
-        ' "$target_file" > "$tmp"
-        mv "$tmp" "$target_file"
-    elif [ -f "$target_file" ]; then
-        # Append to existing file (ensure trailing newline before block)
-        echo "" >> "$target_file"
-        echo "$block" >> "$target_file"
-    else
-        # Create new file
-        echo "$block" > "$target_file"
-    fi
-}
-
-install_hub_blocks() {
-    local project_dir="$1"
-    local agents_file="$project_dir/AGENTS.md"
-    local claude_file="$project_dir/CLAUDE.md"
-
-    write_hub_block "$agents_file"
-    echo -e "  ${GREEN}✓${NC} AGENTS.md (hub block)"
-
-    if [ -f "$claude_file" ]; then
-        write_hub_block "$claude_file"
-        echo -e "  ${GREEN}✓${NC} CLAUDE.md (hub block)"
-    fi
-}
 
 if [ -n "$ARG1" ] && ! is_known_target "$ARG1" && [ -d "$(normalize_directory_path "$ARG1")" ]; then
     # Interactive mode: first arg is a directory
@@ -164,9 +110,6 @@ else
                 install_from_template "$TEMPLATE_DIR/claude" "$DIR_ARG"
                 echo ""
             fi
-            install_hub_blocks "$DIR_ARG"
-            echo ""
-
             "$SCRIPT_DIR/uninstall.sh" --quiet --target vendor "$DIR_ARG"
             install_vendor "$DIR_ARG"
             mark_targets vendor

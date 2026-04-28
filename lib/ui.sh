@@ -2,7 +2,7 @@
 # Sourced by install.sh. Defines: list_installed, show_usage, interactive_install.
 # Requires: $SCRIPT_DIR, $TEMPLATE_DIR, $COMMAND_SOURCE_DIR, color variables,
 # INSTALLED_TARGETS, read_install_cfg, mark_targets, install_from_template,
-# install_vendor, install_hub_blocks.
+# install_vendor.
 
 list_installed() {
     local project_dir="$1"
@@ -44,21 +44,6 @@ list_installed() {
     if [ -d "$project_dir/.agents/principles-catalog" ]; then
         echo -e "  ${GREEN}✓${NC} .agents/principles-catalog/"
     else
-        echo "  (none)"
-    fi
-
-    echo ""
-    echo "Hub blocks (AGENTS.md / CLAUDE.md):"
-    local hub_found=false
-    if [ -f "$project_dir/AGENTS.md" ] && grep -q "^<!-- .principles:start -->$" "$project_dir/AGENTS.md"; then
-        echo -e "  ${GREEN}✓${NC} AGENTS.md"
-        hub_found=true
-    fi
-    if [ -f "$project_dir/CLAUDE.md" ] && grep -q "^<!-- .principles:start -->$" "$project_dir/CLAUDE.md"; then
-        echo -e "  ${GREEN}✓${NC} CLAUDE.md"
-        hub_found=true
-    fi
-    if [ "$hub_found" = false ]; then
         echo "  (none)"
     fi
 
@@ -201,11 +186,6 @@ interactive_install() {
         mark_targets claude
         echo ""
     fi
-
-    # ── Hub blocks: AGENTS.md + CLAUDE.md (if exists) ────────────────────
-    echo -e "${BOLD}Writing AI instructions hub...${NC}"
-    install_hub_blocks "$project_dir"
-    echo ""
 
     # ── Install: Catalog ─────────────────────────────────────────────────
     "$SCRIPT_DIR/uninstall.sh" --quiet --target vendor "$project_dir"

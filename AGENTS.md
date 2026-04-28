@@ -90,15 +90,3 @@ Run `/dot-prime` before starting any significant change to load the active rule 
 ```
 
 The active set covers: documentation quality (`@docs`), shell script hygiene (`@source-code`), and plain-text practices (`@ptac`).
-
-<!-- .principles:start -->
-## AI Principles Skills
-
-Skills are installed in `.agents/skills/`:
-- **dot-scout** — Analyze project and activate principles (`/dot-scout`)
-- **dot-prime** — Load active principles before working (`/dot-prime`)
-- **dot-audit** — Review code/docs against activated principles (`/dot-audit`)
-
-Principle catalog: `.agents/principles-catalog/`
-Run `/dot-prime` before significant work and `/dot-audit` before merging.
-<!-- .principles:end -->

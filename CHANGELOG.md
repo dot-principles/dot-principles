@@ -10,6 +10,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## [Unreleased]
 
+**Added**
+
+- **`AGENTS.md` hub block** — installer always writes a `<!-- .principles:start/end -->` block to `AGENTS.md` listing installed skills and the catalog location; also writes to `CLAUDE.md` if that file already exists. The block is idempotent: re-running the installer updates the existing block in place. Uninstaller removes the block from both files while preserving any surrounding content.
+
+**Changed**
+
+- **`.agents/skills/` is now the canonical, always-installed skill location** — skills (`dot-scout/SKILL.md`, `dot-prime/SKILL.md`, `dot-audit/SKILL.md`) are installed here on every install regardless of which tool wrappers are selected. Copilot CLI, Copilot IDE, and Codex all discover `.agents/skills/` natively — no wrapper needed. Claude Code reads thin wrapper files in `.claude/commands/` that redirect to the canonical skill.
+- **`.agents/principles-catalog/` replaces `.principles-catalog/`** — the vendor catalog is now co-located with skills under `.agents/`. Old location read as a fallback for backwards compatibility; uninstaller removes both.
+- **`{{PRINCIPLES_DIRECTORY}}` resolves to `.agents/principles-catalog`** — the placeholder substituted at install time changed from `.principles-catalog` to `.agents/principles-catalog`.
+- **`install.cfg` now written to `.agents/principles-catalog/install.cfg`** — was `.principles-catalog/install.cfg`. Old path is read silently as a fallback so existing `vendor` setups continue to work.
+- **Claude Code thin wrappers** — `.claude/commands/` files contain a single redirect line (`Follow the instructions in .agents/skills/<slug>/SKILL.md.`) rather than the full skill content. The skills always live in `.agents/skills/`.
+- **Simplified interactive installer** — single-step tool menu (GitHub Copilot, Claude Code, Codex) followed by an optional review integration step. Skills and the catalog are always installed regardless of selection; only Claude Code wrappers are conditional. Removed per-tool subcommands (`claude`, `copilot`, `copilot-cli`, `copilot-ide`, `codex`, `all`).
+- **`vendor` target simplified** — always reinstalls canonical skills to `.agents/skills/`, writes hub blocks, and updates catalog; also re-installs any previously recorded Claude Code wrappers. No longer records or re-installs Copilot IDE wrappers (not needed).
+- **`templates/agents/`** (renamed from `templates/codex/`) — canonical skill template; used for all installs. `templates/claude/` rewritten as a thin wrapper template. `templates/copilot-cli/` and `templates/copilot-ide/` deleted.
+
+**Removed**
+
+- **`templates/copilot-cli/`** — Copilot CLI reads `.agents/skills/` natively; no wrapper needed.
+- **`templates/copilot-ide/`** — Copilot IDE reads `.agents/skills/` natively (exposed as `/skills:<slug>`); `.github/prompts/` wrappers created duplicate entries with no added value.
+- **Per-tool installer subcommands** — `claude`, `copilot`, `copilot-cli`, `copilot-ide`, `codex`, `all` removed. Use interactive mode (`./install.sh <dir>`) to configure wrappers; use `vendor` for CI/scripted syncing.
+
 ---
 
 ## [v0.12.0] — 2026-04-22

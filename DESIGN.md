@@ -126,13 +126,13 @@ The command reads one file per namespace and filters to only the entries in the 
 
 **`code/` sub-namespace split:** Because the `code/` namespace contains 110 principles across 11 sub-namespaces, its context files are split per sub-namespace rather than held in a single file. Each of `code/api/`, `code/ar/`, `code/cc/`, `code/cs/`, `code/dx/`, `code/ob/`, `code/pf/`, `code/rl/`, `code/sec/`, `code/tp/`, and `code/ts/` has its own `.context-prime.md`, `.context-audit.md`, and (where applicable) `.context-inspect.md`. The root `code/.context-*.md` files contain only a pointer comment listing the sub-namespace directories. `/dot-prime` and `/dot-audit` use a longest-prefix-match table to resolve `CODE-<sub>-*` IDs to the correct sub-namespace file before falling back to `code/` for unrecognised sub-prefixes.
 
-### `.principles-catalog/` — vendored project subset
+### `.agents/principles-catalog/` — vendored project subset
 
-When `install.sh all <dir>` (or `install.sh vendor <dir>`) is run, it copies the subset of `principles/` and `groups/` referenced by the project's `.principles` files into `<dir>/.principles-catalog/`. This directory mirrors the structure of the full catalog but contains only the namespaces and groups the project actually uses. It also generates `index.tsv` — a flat pipe-delimited file listing every vendored principle in `ID|LAYER|SUMMARY` format, one line per principle. `/dot-scout` reads this single file to compile the active block without walking individual namespace files.
+When `install.sh vendor <dir>` (or the interactive installer) is run, it copies the subset of `principles/` and `groups/` referenced by the project's `.principles` files into `<dir>/.agents/principles-catalog/`. This directory mirrors the structure of the full catalog but contains only the namespaces and groups the project actually uses. It also generates `index.tsv` — a flat pipe-delimited file listing every vendored principle in `ID|LAYER|SUMMARY` format, one line per principle. `/dot-scout` reads this single file to compile the active block without walking individual namespace files.
 
-**Commit `.principles-catalog/` to your repo.** The installed commands reference it as their data source. With it committed, every team member and CI environment gets the correct principle data without needing access to the `.principles` repo.
+**Commit `.agents/principles-catalog/` to your repo.** The installed commands reference it as their data source. With it committed, every team member and CI environment gets the correct principle data without needing access to the `.principles` repo.
 
-The `{{PRINCIPLES_DIRECTORY}}` placeholder in command source files resolves to `<dir>/.principles-catalog/` at install time.
+The `{{PRINCIPLES_DIRECTORY}}` placeholder in command source files resolves to `.agents/principles-catalog` at install time.
 
 ### Extra Catalog Sources
 
@@ -158,7 +158,7 @@ Three sources of extra catalogs are collected automatically during `install.sh v
 | `<project>/.principles-extra` | Middle | Project-level; committed to the project repo |
 | `--extra-catalog <path>` | Highest | CLI flag; repeatable; ad-hoc or CI use |
 
-All sources are merged into `.principles-catalog/` at vendor time. Built-in namespaces (`solid`, `gof`, `ddd`, etc.) cannot be overridden — extra catalog entries for the same namespace are skipped with a warning.
+All sources are merged into `.agents/principles-catalog/` at vendor time. Built-in namespaces (`solid`, `gof`, `ddd`, etc.) cannot be overridden — extra catalog entries for the same namespace are skipped with a warning.
 
 The `generate_compact_index()` step scans individual principle `.md` files from extra catalog source directories in addition to `$SCRIPT_DIR/principles`, so extra principles appear in `index.tsv` and are visible to `/dot-scout`.
 
@@ -205,7 +205,7 @@ The namespace is the directory name. IDs are derived from file paths (see Sectio
 
 After `/dot-scout` writes `.principles` files, Phase 6 emits **per-group principle files** into `.github/instructions/` (for GitHub Copilot Code Review) and `.claude/rules/` (for Claude Code). Each file targets a specific set of file globs using tool-native frontmatter, giving each group its own context budget.
 
-The `**Summary:**` field from each principle file is extracted verbatim into `.principles-catalog/index.tsv` by `install.sh vendor`; Phase 6 reads `index.tsv` once (not per-namespace files) to build all files in a single pass.
+The `**Summary:**` field from each principle file is extracted verbatim into `.agents/principles-catalog/index.tsv` by `install.sh vendor`; Phase 6 reads `index.tsv` once (not per-namespace files) to build all files in a single pass.
 
 ### File format
 
@@ -681,140 +681,128 @@ Analyses a project directory and creates or updates `.principles` files, then co
 
 ## 📦 10. Installer Targets
 
-`install.sh` deploys the three commands (`/dot-scout`, `/dot-prime`, `/dot-audit`) to supported AI tool families. Each target writes different files because each tool family has its own discovery mechanism. The installer is **template-driven** — each tool's output format is defined by two files in `templates/<tool>/` (see [Template System](#-template-system) below).
+`install.sh` deploys the three commands (`/dot-scout`, `/dot-prime`, `/dot-audit`) to supported AI tool families. The installer is **template-driven** — skill content is defined in `templates/agents/` (canonical); tool-specific wrappers in `templates/claude/`.
 
 **Prerequisites:** Bash 4+. See [REQUIREMENTS.md](REQUIREMENTS.md). On Windows, use `install.ps1` (PowerShell) or `install.cmd` (CMD) — thin wrappers that detect bash and forward all arguments to `install.sh`. See [INSTALL.md](INSTALL.md) for platform-specific instructions.
 
 Install is **repo-local only** — a `<dir>` argument is always required. There is no global install.
 
-| Command | What it installs |
+| Command | What it does |
 |---|---|
-| `./install.sh <dir>` | Interactive menu — select which tools to install |
-| `./install.sh all <dir>` | Claude Code + Copilot CLI + Copilot IDE + Codex + vendor catalog |
-| `./install.sh claude <dir>` | Claude Code commands only (`<dir>/.claude/commands/`) |
-| `./install.sh copilot <dir>` | Copilot CLI + IDE (backward-compatible alias) |
-| `./install.sh copilot-cli <dir>` | Copilot CLI skills only (`<dir>/.github/skills/`) |
-| `./install.sh copilot-ide <dir>` | Copilot IDE prompts only (`<dir>/.github/prompts/`) |
-| `./install.sh codex <dir>` | Codex skills only (`<dir>/.agents/skills/`) |
-| `./install.sh vendor <dir>` | Vendor catalog only (`<dir>/.principles-catalog/`) |
+| `./install.sh <dir>` | Interactive: select tool wrappers + review integration |
+| `./install.sh vendor <dir>` | Sync catalog + reinstall previously recorded wrappers |
 | `./install.sh --list <dir>` | Show what's installed in `<dir>` |
 
-**Interactive mode:** When invoked with just a directory and no target (`./install.sh <dir>`), the installer presents a numbered menu for selecting which tools to install.
+**Skills are always installed** to `.agents/skills/` regardless of which wrappers are selected. Tool-specific wrappers are optional.
 
-### 🤖 Claude Code (`./install.sh claude <dir>`)
+### Always installed
 
-Copies the shared command source files from `commands/*.md` to `<dir>/.claude/commands/`, substituting the `{{PRINCIPLES_DIRECTORY}}` placeholder with `.principles-catalog`.
+Every install (interactive or `vendor`) always writes:
 
-**Per-group files:** `/dot-scout` Phase 6 emits per-group principle files into `<dir>/.claude/rules/` with `paths:` frontmatter. Claude Code reads all files in `.claude/rules/` as always-on context, but only surfaces each file when editing paths matching its globs.
+1. **AI skills** (`<dir>/.agents/skills/<slug>/SKILL.md`) — canonical skill files containing the full prompt. Discovered natively by Copilot CLI, Copilot IDE, Codex, and any tool that reads `.agents/skills/`.
+2. **Hub block** in `AGENTS.md` — a `<!-- .principles:start/end -->` block listing installed skills and the catalog location; also written to `CLAUDE.md` if that file already exists.
+3. **Vendor catalog** (`<dir>/.agents/principles-catalog/`) — the subset of `principles/` and `groups/` referenced by the project's `.principles` files, plus `index.tsv` (flat `ID|LAYER|SUMMARY` index).
 
-Claude Code discovers slash commands by scanning `<dir>/.claude/commands/` for `.md` files. The file body is the full prompt.
+### 🤖 Claude Code wrappers (optional)
 
-### 🐙 Copilot CLI (`./install.sh copilot-cli <dir>`)
+Selected via interactive installer. Writes thin wrapper files to `<dir>/.claude/commands/`:
 
-Writes skill files into `<dir>/.github/skills/`:
+```markdown
+---
+<frontmatter from source>
+generated-by: .principles
+---
 
-| File | Location | Consumed by |
-|------|----------|-------------|
-| `SKILL.md` | `.github/skills/<name>/SKILL.md` | **Copilot CLI** (terminal slash commands) |
+Follow the instructions in `.agents/skills/<slug>/SKILL.md`.
+```
 
-Copilot CLI discovers skills by scanning `.github/skills/` for directories containing `SKILL.md`. The YAML frontmatter provides skill metadata (`name`, `description`, `license`).
+Claude Code discovers slash commands by scanning `.claude/commands/` for `.md` files. The wrapper delegates to the canonical skill so Claude reads the full content from `.agents/skills/`.
 
-### 🖥️ Copilot IDE (`./install.sh copilot-ide <dir>`)
+**Per-group files:** `/dot-scout` Phase 6 emits per-group principle files into `<dir>/.claude/rules/` with `paths:` frontmatter. These are runtime-generated by `/dot-scout` and not installed by `install.sh`.
 
-Writes prompt files into `<dir>/.github/prompts/`:
+### 🐙 GitHub Copilot (native, no wrapper needed)
 
-| File | Location | Consumed by |
-|------|----------|-------------|
-| `<name>.prompt.md` | `.github/prompts/<name>.prompt.md` | **VS Code / JetBrains / Visual Studio** (IDE chat) |
+Both Copilot CLI and Copilot IDE discover `.agents/skills/` natively:
+- **Copilot CLI** — discovers skills by scanning `.agents/skills/` for `SKILL.md` files; exposes them as `@<slug>` in the terminal
+- **Copilot IDE** (VS Code / JetBrains / Visual Studio) — discovers skills and exposes them as `/skills:<slug>` in Copilot Chat
 
-Prompt files use `mode: agent` to enable file reading, tool use, and shell execution.
+No wrapper files are written. The canonical skill at `.agents/skills/<slug>/SKILL.md` is the only file needed.
 
-**Per-group files (shared by CLI and IDE):** `/dot-scout` Phase 6 emits per-group principle files into `.github/instructions/` with `applyTo:` frontmatter. Copilot Code Review and other Copilot clients read these files and apply them when reviewing matching paths.
+**Per-group files (Code Review):** `/dot-scout` Phase 6 emits per-group principle files into `.github/instructions/` with `applyTo:` frontmatter. Copilot Code Review applies them when reviewing matching paths. Enable this via the review integration step in the interactive installer.
 
-The `copilot` sub-command installs both CLI skills and IDE prompts (backward-compatible). This repo ships with pre-populated `.github/prompts/` and `.github/skills/` directories so contributors working in this repo itself get `/dot-scout`, `/dot-prime`, and `/dot-audit` without running the installer.
+### 🧠 Codex (native, no wrapper needed)
 
-### 🧠 Codex (`./install.sh codex <dir>`)
-
-Writes repo-scoped skills into `<dir>/.agents/skills/`:
-
-| File | Location | Consumed by |
-|------|----------|-------------|
-| `SKILL.md` | `.agents/skills/<name>/SKILL.md` | **Codex CLI** and **Codex IDE extension** |
-
-Codex discovers repo skills by scanning `.agents/skills/` from the current working directory up to the repo root. The installed skills map the shared `.principles` workflows to Codex-native skill invocation: `$dot-scout`, `$dot-prime`, and `$dot-audit`.
+Codex discovers repo skills by scanning `.agents/skills/` from the current working directory up to the repo root. No wrapper files are written. The canonical skill at `.agents/skills/<slug>/SKILL.md` is the only file needed.
 
 ### 📦 Vendor (`./install.sh vendor <dir>`)
 
-Copies the subset of `principles/` and `groups/` referenced by the project's `.principles` files into `<dir>/.principles-catalog/`, and generates `<dir>/.principles-catalog/index.tsv` — a pipe-delimited flat file (`ID|LAYER|SUMMARY`) of every vendored principle. Run by `install.sh all` automatically. Commit `.principles-catalog/` to the repo.
+Copies the subset of `principles/` and `groups/` referenced by the project's `.principles` files into `<dir>/.agents/principles-catalog/`, and generates `<dir>/.agents/principles-catalog/index.tsv` — a pipe-delimited flat file (`ID|LAYER|SUMMARY`) of every vendored principle. Also reinstalls skills and hub blocks. Commit `.agents/principles-catalog/` to the repo.
 
 ### 🗑️ Uninstall (`./uninstall.sh <dir>`)
 
 Removes all assets written by `install.sh`:
-- Per-group principle files from `<dir>/.github/instructions/` and `<dir>/.claude/rules/` (files with `<!-- generated by /dot-scout -->` marker)
+- AI skills from `<dir>/.agents/skills/` (files with `generated-by: .principles` watermark)
 - Command files from `<dir>/.claude/commands/` (files with `generated-by: .principles` watermark)
-- Copilot skills from `<dir>/.github/skills/` and prompts from `<dir>/.github/prompts/` (files with `generated-by: .principles` watermark)
-- Codex skills from `<dir>/.agents/skills/` (files with `generated-by: .principles` watermark)
-- `<dir>/.principles-catalog/`
-- Legacy assets: `<dir>/.ai/`, compiled blocks from `AGENTS.md`/`CLAUDE.md`/`copilot-instructions.md`
-- Legacy `~/.principles` if present from an older install
+- Hub block from `AGENTS.md` and `CLAUDE.md` (`<!-- .principles:start/end -->` delimiters)
+- Vendor catalog: `<dir>/.agents/principles-catalog/`
+- Per-group principle files from `<dir>/.github/instructions/` and `<dir>/.claude/rules/` (files with `<!-- generated by /dot-scout -->` marker)
+- Legacy assets: `<dir>/.principles-catalog/`, `<dir>/.github/skills/`, `<dir>/.github/prompts/`, compiled blocks from `AGENTS.md`/`CLAUDE.md`/`copilot-instructions.md`, legacy `~/.principles`
 
-**Content-based detection:** Command, skill, and prompt files are identified by the `generated-by: .principles` frontmatter watermark — not by matching current command names. This makes uninstall version-agnostic: files from renamed commands are cleaned up correctly. Legacy command names are checked as a fallback for pre-watermark installs.
+**Content-based detection:** All generated files are identified by the `generated-by: .principles` frontmatter watermark — not by matching current command names. This makes uninstall version-agnostic: files from renamed commands are cleaned up correctly. Legacy command names are checked as a fallback for pre-watermark installs.
 
 On Windows, use `uninstall.ps1` or `uninstall.cmd`.
 
 ### 🧩 Template System
 
-The installer is template-driven. Each AI tool is defined by two files in `templates/<tool>/`:
+The installer is template-driven. Each output format is defined by two files in `templates/<tool>/`:
 
 ```
 templates/
-├── claude/
+├── agents/
 │   ├── manifest.cfg          # Key=value config (output paths, patches)
-│   └── wrapper.md            # Output skeleton with {{PLACEHOLDERS}}
-├── copilot-cli/
+│   └── wrapper.md            # Full-content skill template
+├── claude/
 │   ├── manifest.cfg
-│   └── wrapper.md
-├── copilot-ide/
-│   ├── manifest.cfg
-│   └── wrapper.md
-└── codex/
-    ├── manifest.cfg
-    └── wrapper.md
+│   └── wrapper.md            # Thin wrapper template (single redirect line)
+└── extra-catalog/            # Starter scaffold for custom extra-catalogs
 ```
 
 **`manifest.cfg`** — bash-sourceable key=value config:
-- `TOOL_ID` — unique identifier (e.g. `claude`, `copilot-cli`)
+- `TOOL_ID` — unique identifier (e.g. `agents`, `claude`)
 - `TOOL_LABEL` — human-readable name for installer output
-- `OUTPUT_DIR` — target directory pattern (may contain `{{COMMAND_NAME}}`)
-- `OUTPUT_FILE` — target filename pattern (may contain `{{COMMAND_NAME}}`)
+- `OUTPUT_DIR` — target directory pattern (may contain `{{COMMAND_SLUG}}`)
+- `OUTPUT_FILE` — target filename pattern (may contain `{{COMMAND_SLUG}}`)
 - `PATCHES` — optional sed expressions applied to the command body
 
-**`wrapper.md`** — output skeleton using three placeholders:
-- `{{COMMAND_NAME}}` — the command basename (e.g. `audit`, `prime`, `scout`)
-- `{{FRONTMATTER}}` — replaced with the consistent frontmatter fields from the source
+**`wrapper.md`** — output skeleton using placeholders:
+- `{{COMMAND_NAME}}` — the command path relative to `commands/` without extension (e.g. `dot/audit`)
+- `{{COMMAND_SLUG}}` — flat slug derived from the path (slashes → dashes, e.g. `dot-audit`)
+- `{{FRONTMATTER}}` — replaced with the frontmatter fields from the source command file
 - `{{COMMAND_BODY}}` — replaced with the command content (everything after the source frontmatter)
 
-#### Consistent Frontmatter
-
-Every generated file contains the same core frontmatter fields from `commands/*.md`:
+#### Frontmatter fields
 
 | Field | Example | Present in |
 |-------|---------|------------|
-| `description` | "Review a file, directory, or inline code against..." | All tools |
-| `argument-hint` | "[file\|directory\|inline-code]..." | All tools |
-| `allowed-tools` | "Read, Write, Glob, Grep, Bash" | All tools |
-| `version` | "0.8.1" | All tools |
-| `authors` | "Flemming N. Larsen (...)" | All tools |
-| `generated-by` | `.principles` | All tools |
-| `name` | "audit" | Copilot CLI, Codex |
-| `license` | "MIT" | Copilot CLI, Codex |
-| `mode` | "agent" | Copilot IDE |
+| `description` | "Review a file, directory, or inline code against..." | All |
+| `argument-hint` | "[file\|directory\|inline-code]..." | All |
+| `allowed-tools` | "Read, Write, Glob, Grep, Bash" | All |
+| `version` | "0.13.0" | All |
+| `authors` | "Flemming N. Larsen (...)" | All |
+| `generated-by` | `.principles` | All |
+| `name` | "dot-audit" | Agents (canonical skills) |
+| `license` | "MIT" | Agents (canonical skills) |
 
-Tool-specific extra fields (`name`, `license`, `mode`) are defined in each tool's `wrapper.md`, not in the source commands. The `generated-by: .principles` watermark is also defined in each `wrapper.md` and is used by `uninstall.sh` for content-based file detection (see [Uninstall](#️-uninstall-uninstallsh-dir)).
+The `generated-by: .principles` watermark is defined in each `wrapper.md` and used by `uninstall.sh` for content-based file detection.
 
 #### Adding a New AI Tool
 
-To support a new AI tool, create `templates/<newtool>/manifest.cfg` + `wrapper.md`. No changes to `install.sh` are needed — the installer discovers templates automatically via the sub-command → template directory mapping.
+To add a thin wrapper for a new AI tool:
+1. Create `templates/<newtool>/manifest.cfg` with the output directory and filename pattern
+2. Create `templates/<newtool>/wrapper.md` — for a thin wrapper, the body is just `Follow the instructions in .agents/skills/{{COMMAND_SLUG}}/SKILL.md.`
+3. Wire up a call to `install_from_template "$TEMPLATE_DIR/<newtool>" "$project_dir"` in `lib/ui.sh`
+
+If the tool reads `.agents/skills/` natively (like Copilot CLI/IDE and Codex), no wrapper template is needed at all.
 
 ---
 

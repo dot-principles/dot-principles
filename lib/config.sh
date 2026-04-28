@@ -7,7 +7,7 @@
 # install.cfg — records which targets are installed
 # ---------------------------------------------------------------------------
 # Written to .agents/principles-catalog/install.cfg so /dot-scout Phase 6 knows
-# which review outputs to emit. Each line is a target ID (e.g. claude, copilot-ide).
+# which review outputs to emit. Each line is a target ID (e.g. claude, copilot-review).
 
 # Read existing install.cfg into an associative array.  Returns target IDs in
 # the INSTALLED_TARGETS associative array (keys = target IDs, values = "1").

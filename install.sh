@@ -164,12 +164,6 @@ else
                 install_from_template "$TEMPLATE_DIR/claude" "$DIR_ARG"
                 echo ""
             fi
-            if [ "${INSTALLED_TARGETS[copilot-ide]:-}" = "1" ]; then
-                "$SCRIPT_DIR/uninstall.sh" --quiet --target copilot "$DIR_ARG"
-                install_from_template "$TEMPLATE_DIR/copilot-ide" "$DIR_ARG"
-                echo ""
-            fi
-
             install_hub_blocks "$DIR_ARG"
             echo ""
 

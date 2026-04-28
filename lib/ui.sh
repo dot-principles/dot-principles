@@ -40,22 +40,6 @@ list_installed() {
     fi
 
     echo ""
-    echo "Copilot IDE prompts (.github/prompts/):"
-    local copilot_ide_found=false
-    while IFS= read -r file; do
-        local command_name="${file#$COMMAND_SOURCE_DIR/}"; command_name="${command_name%.md}"
-        local command_slug="${command_name//\//-}"
-        local prompt_file="$project_dir/.github/prompts/$command_slug.prompt.md"
-        if [ -f "$prompt_file" ]; then
-            echo -e "  ${GREEN}✓${NC} .github/prompts/$command_slug.prompt.md"
-            copilot_ide_found=true
-        fi
-    done < <(list_command_files)
-    if [ "$copilot_ide_found" = false ]; then
-        echo "  (none)"
-    fi
-
-    echo ""
     echo "Vendor catalog (.agents/principles-catalog/):"
     if [ -d "$project_dir/.agents/principles-catalog" ]; then
         echo -e "  ${GREEN}✓${NC} .agents/principles-catalog/"
@@ -113,8 +97,8 @@ show_usage() {
     echo -e "${DIM}Skills are ALWAYS installed to .agents/skills/ regardless of wrapper selection.${NC}"
     echo -e "${DIM}Tool-specific wrappers are optional and selected interactively:${NC}"
     echo -e "  Claude Code    → .claude/commands/   ${DIM}(thin wrappers)${NC}"
-    echo -e "  Copilot IDE    → .github/prompts/    ${DIM}(thin wrappers)${NC}"
     echo -e "  Copilot CLI    → .agents/skills/     ${DIM}(native, no wrapper needed)${NC}"
+    echo -e "  Copilot IDE    → .agents/skills/     ${DIM}(native, no wrapper needed)${NC}"
     echo -e "  Codex          → .agents/skills/     ${DIM}(native, no wrapper needed)${NC}"
     echo ""
     echo -e "${DIM}Review integration (controlled via interactive mode):${NC}"
@@ -152,15 +136,14 @@ interactive_install() {
     echo ""
     echo "Which AI tools do you use?"
     echo ""
-    echo "  1) GitHub Copilot   (CLI / Code Review)  → .agents/skills/ [native]"
-    echo "  2) GitHub Copilot IDE  (VS Code / JetBrains / Visual Studio)  → .github/prompts/ wrappers"
-    echo "  3) Claude Code  → .claude/commands/ wrappers"
-    echo "  4) Codex   → .agents/skills/ [native]"
+    echo "  1) GitHub Copilot   (CLI / IDE / Code Review)  → .agents/skills/ [native]"
+    echo "  2) Claude Code  → .claude/commands/ wrappers"
+    echo "  3) Codex   → .agents/skills/ [native]"
     echo ""
     echo "  a) All of the above"
     echo "  q) Quit"
     echo ""
-    printf "Select tools (e.g. 1 3, or 'a' for all): "
+    printf "Select tools (e.g. 1 2, or 'a' for all): "
     read -r tool_selection
 
     if [ -z "$tool_selection" ] || [ "$tool_selection" = "q" ]; then
@@ -168,17 +151,16 @@ interactive_install() {
         exit 0
     fi
 
-    local do_copilot=false do_copilot_ide=false do_claude=false do_codex=false
+    local do_copilot=false do_claude=false do_codex=false
 
     if [ "$tool_selection" = "a" ] || [ "$tool_selection" = "A" ]; then
-        do_copilot=true; do_copilot_ide=true; do_claude=true; do_codex=true
+        do_copilot=true; do_claude=true; do_codex=true
     else
         for token in $tool_selection; do
             case "$token" in
                 1) do_copilot=true ;;
-                2) do_copilot_ide=true ;;
-                3) do_claude=true ;;
-                4) do_codex=true ;;
+                2) do_claude=true ;;
+                3) do_codex=true ;;
                 *) echo -e "${YELLOW}Warning: Unknown selection '$token' — skipped${NC}" ;;
             esac
         done
@@ -217,14 +199,6 @@ interactive_install() {
         "$SCRIPT_DIR/uninstall.sh" --quiet --target claude "$project_dir"
         install_from_template "$TEMPLATE_DIR/claude" "$project_dir"
         mark_targets claude
-        echo ""
-    fi
-
-    # ── Install: Copilot IDE wrappers ─────────────────────────────────────
-    if [ "$do_copilot_ide" = true ]; then
-        "$SCRIPT_DIR/uninstall.sh" --quiet --target copilot "$project_dir"
-        install_from_template "$TEMPLATE_DIR/copilot-ide" "$project_dir"
-        mark_targets copilot-ide
         echo ""
     fi
 

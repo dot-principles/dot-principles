@@ -12,12 +12,10 @@ set -euo pipefail
 #                              #   Legacy blocks:   .claude/rules/principles.md
 #                              #                    .ai/principles.md (hub pattern)
 #                              #                    AGENTS.md / CLAUDE.md (inline block)
+#                              #   AI Skills:   .agents/skills/<name>/SKILL.md
 #                              #   Claude Code: <project>/.claude/commands/<name>.md
-#                              #   Copilot CLI: .github/skills/<name>/SKILL.md
-#                              #   Copilot IDE: .github/prompts/<name>.prompt.md
-#                              #                .github/copilot-instructions.md (.principles block only)
-#                              #   Codex:       .agents/skills/<name>/SKILL.md
-#                              #   Vendor:      .principles-catalog/
+#                              #   Hub blocks:  AGENTS.md, CLAUDE.md (.principles:start block)
+#                              #   Vendor:      .agents/principles-catalog/
 #   ./uninstall.sh --help      # Show this help
 
 # Convert a Windows-style path (C:\... or C:/...) to a path the current bash understands.
@@ -128,8 +126,6 @@ show_usage() {
     echo -e "  ${BOLD}<dir>${NC}               Remove local assets from <dir>:"
     echo -e "                        ${DIM}AI Skills:${NC}       .agents/skills/<name>/SKILL.md"
     echo -e "                        ${DIM}Claude wrappers:${NC} .claude/commands/<name>.md"
-    echo -e "                        ${DIM}Copilot IDE:${NC}     .github/prompts/<name>.prompt.md"
-    echo "                                         .github/copilot-instructions.md (.principles block only)"
     echo -e "                        ${DIM}Hub blocks:${NC}      AGENTS.md, CLAUDE.md (.principles:start block)"
     echo -e "                        ${DIM}Vendor:${NC}          .agents/principles-catalog/"
     echo -e "                        ${DIM}Scout files:${NC}     .github/instructions/*.instructions.md"

@@ -6,8 +6,8 @@
 # ---------------------------------------------------------------------------
 # install.cfg — records which targets are installed
 # ---------------------------------------------------------------------------
-# Written to .principles-catalog/install.cfg so /dot-scout Phase 6 knows which
-# review outputs to emit. Each line is a target ID (e.g. claude, copilot-cli).
+# Written to .agents/principles-catalog/install.cfg so /dot-scout Phase 6 knows
+# which review outputs to emit. Each line is a target ID (e.g. claude, copilot-review).
 
 # Read existing install.cfg into an associative array.  Returns target IDs in
 # the INSTALLED_TARGETS associative array (keys = target IDs, values = "1").
@@ -19,9 +19,16 @@ declare -A REGISTERED_NAMESPACES
 declare -A REGISTERED_GROUPS
 
 read_install_cfg() {
-    local cfg_file="$1/.principles-catalog/install.cfg"
+    local new_cfg="$1/.agents/principles-catalog/install.cfg"
+    local legacy_cfg="$1/.principles-catalog/install.cfg"
     INSTALLED_TARGETS=()
-    if [ -f "$cfg_file" ]; then
+    local cfg_file=""
+    if [ -f "$new_cfg" ]; then
+        cfg_file="$new_cfg"
+    elif [ -f "$legacy_cfg" ]; then
+        cfg_file="$legacy_cfg"
+    fi
+    if [ -n "$cfg_file" ]; then
         while IFS= read -r line || [ -n "$line" ]; do
             # Skip comments and blank lines
             [[ "$line" =~ ^[[:space:]]*# ]] && continue
@@ -34,7 +41,7 @@ read_install_cfg() {
 # Write install.cfg from the INSTALLED_TARGETS associative array.
 write_install_cfg() {
     local project_dir="$1"
-    local cfg_dir="$project_dir/.principles-catalog"
+    local cfg_dir="$project_dir/.agents/principles-catalog"
     mkdir -p "$cfg_dir"
     local cfg_file="$cfg_dir/install.cfg"
     {

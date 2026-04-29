@@ -177,9 +177,9 @@ install_vendor() {
         done
     fi
 
-    echo -e "${BOLD}Vendoring catalog to: $project_dir/.principles-catalog/${NC}"
+    echo -e "${BOLD}Vendoring catalog to: $project_dir/.agents/principles-catalog/${NC}"
 
-    local catalog_dir="$project_dir/.principles-catalog"
+    local catalog_dir="$project_dir/.agents/principles-catalog"
     mkdir -p "$catalog_dir"
 
     # Reset registries — built-in namespaces are registered first to prevent shadowing
@@ -253,5 +253,5 @@ install_vendor() {
 
     echo ""
     echo "Catalog vendored to $catalog_dir"
-    echo "Skills resolve principles from .principles-catalog/ (relative to git root)."
+    echo "Skills resolve principles from .agents/principles-catalog/ (relative to git root)."
 }

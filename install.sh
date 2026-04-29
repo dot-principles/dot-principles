@@ -6,17 +6,12 @@ set -euo pipefail
 # install.sh — Deploy .principles to AI coding tools
 #
 # Usage:
-#   ./install.sh <dir>              # Interactive: select which tools to install
-#   ./install.sh claude <dir>       # Install Claude Code commands + catalog in <dir>
-#   ./install.sh copilot <dir>      # Install all Copilot assets (CLI + IDE) + catalog in <dir>
-#   ./install.sh copilot-cli <dir>  # Install Copilot CLI skills + catalog in <dir>
-#   ./install.sh copilot-ide <dir>  # Install Copilot IDE prompts + catalog in <dir>
-#   ./install.sh codex <dir>        # Install Codex skills + catalog in <dir>
-#   ./install.sh all <dir>          # Install all tools + catalog in <dir>
-#   ./install.sh vendor <dir>       # Sync catalog only; re-installs any previously recorded targets
+#   ./install.sh <dir>              # Interactive: select which tool wrappers to install
+#   ./install.sh vendor <dir>       # Sync catalog only; re-installs any previously recorded wrappers
 #   ./install.sh --list <dir>       # Show what's installed in <dir>
 #   ./uninstall.sh <dir>            # Remove all installed assets from <dir>
 #
+# Skills are ALWAYS installed to <dir>/.agents/skills/ regardless of wrapper selection.
 # All install targets accept --extra-catalog <path> to include a local principles catalog.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -86,10 +81,11 @@ require_dir() {
 
 is_known_target() {
     case "$1" in
-        claude|copilot|copilot-cli|copilot-ide|codex|vendor|all|--list|-l|--help|-h) return 0 ;;
+        vendor|--list|-l|--help|-h) return 0 ;;
         *) return 1 ;;
     esac
 }
+
 
 if [ -n "$ARG1" ] && ! is_known_target "$ARG1" && [ -d "$(normalize_directory_path "$ARG1")" ]; then
     # Interactive mode: first arg is a directory
@@ -99,117 +95,24 @@ else
     DIR_ARG="$(normalize_directory_path "$ARG2")"
 
     case "$ARG1" in
-        claude)
-            require_dir "$DIR_ARG"
-            read_install_cfg "$DIR_ARG"
-            "$SCRIPT_DIR/uninstall.sh" --quiet --target claude "$DIR_ARG"
-            install_from_template "$TEMPLATE_DIR/claude" "$DIR_ARG"
-            echo ""
-            "$SCRIPT_DIR/uninstall.sh" --quiet --target vendor "$DIR_ARG"
-            install_vendor "$DIR_ARG"
-            mark_targets claude vendor
-            write_install_cfg "$DIR_ARG"
-            ;;
-        copilot)
-            require_dir "$DIR_ARG"
-            read_install_cfg "$DIR_ARG"
-            "$SCRIPT_DIR/uninstall.sh" --quiet --target copilot "$DIR_ARG"
-            install_from_template "$TEMPLATE_DIR/copilot-cli" "$DIR_ARG"
-            echo ""
-            install_from_template "$TEMPLATE_DIR/copilot-ide" "$DIR_ARG"
-            echo ""
-            "$SCRIPT_DIR/uninstall.sh" --quiet --target vendor "$DIR_ARG"
-            install_vendor "$DIR_ARG"
-            mark_targets copilot-cli copilot-ide vendor
-            write_install_cfg "$DIR_ARG"
-            ;;
-        copilot-cli)
-            require_dir "$DIR_ARG"
-            read_install_cfg "$DIR_ARG"
-            "$SCRIPT_DIR/uninstall.sh" --quiet --target copilot "$DIR_ARG"
-            install_from_template "$TEMPLATE_DIR/copilot-cli" "$DIR_ARG"
-            echo ""
-            "$SCRIPT_DIR/uninstall.sh" --quiet --target vendor "$DIR_ARG"
-            install_vendor "$DIR_ARG"
-            mark_targets copilot-cli vendor
-            write_install_cfg "$DIR_ARG"
-            ;;
-        copilot-ide)
-            require_dir "$DIR_ARG"
-            read_install_cfg "$DIR_ARG"
-            install_from_template "$TEMPLATE_DIR/copilot-ide" "$DIR_ARG"
-            echo ""
-            "$SCRIPT_DIR/uninstall.sh" --quiet --target vendor "$DIR_ARG"
-            install_vendor "$DIR_ARG"
-            mark_targets copilot-ide vendor
-            write_install_cfg "$DIR_ARG"
-            ;;
-        codex)
-            require_dir "$DIR_ARG"
-            read_install_cfg "$DIR_ARG"
-            "$SCRIPT_DIR/uninstall.sh" --quiet --target codex "$DIR_ARG"
-            install_from_template "$TEMPLATE_DIR/codex" "$DIR_ARG"
-            echo ""
-            "$SCRIPT_DIR/uninstall.sh" --quiet --target vendor "$DIR_ARG"
-            install_vendor "$DIR_ARG"
-            mark_targets codex vendor
-            write_install_cfg "$DIR_ARG"
-            ;;
         vendor)
             require_dir "$DIR_ARG"
             read_install_cfg "$DIR_ARG"
-            # Re-install any previously installed skill/command targets so they stay
-            # in sync with the current dot-principles version.  This means a single
-            # `./install.sh vendor <dir>` is sufficient to update both the catalog
-            # and all installed AI skill files after a dot-principles update.
-            any_commands_installed=false
+
+            # Skills are always installed; re-install them unconditionally
+            "$SCRIPT_DIR/uninstall.sh" --quiet --target agents "$DIR_ARG"
+            install_from_template "$TEMPLATE_DIR/agents" "$DIR_ARG"
+            echo ""
+
+            # Re-install any previously recorded wrappers
             if [ "${INSTALLED_TARGETS[claude]:-}" = "1" ]; then
-                any_commands_installed=true
                 "$SCRIPT_DIR/uninstall.sh" --quiet --target claude "$DIR_ARG"
                 install_from_template "$TEMPLATE_DIR/claude" "$DIR_ARG"
-                echo ""
-            fi
-            if [ "${INSTALLED_TARGETS[copilot-cli]:-}" = "1" ] || [ "${INSTALLED_TARGETS[copilot-ide]:-}" = "1" ]; then
-                any_commands_installed=true
-                "$SCRIPT_DIR/uninstall.sh" --quiet --target copilot "$DIR_ARG"
-                if [ "${INSTALLED_TARGETS[copilot-cli]:-}" = "1" ]; then
-                    install_from_template "$TEMPLATE_DIR/copilot-cli" "$DIR_ARG"
-                    echo ""
-                fi
-                if [ "${INSTALLED_TARGETS[copilot-ide]:-}" = "1" ]; then
-                    install_from_template "$TEMPLATE_DIR/copilot-ide" "$DIR_ARG"
-                    echo ""
-                fi
-            fi
-            if [ "${INSTALLED_TARGETS[codex]:-}" = "1" ]; then
-                any_commands_installed=true
-                "$SCRIPT_DIR/uninstall.sh" --quiet --target codex "$DIR_ARG"
-                install_from_template "$TEMPLATE_DIR/codex" "$DIR_ARG"
-                echo ""
-            fi
-            if [ "$any_commands_installed" = false ]; then
-                echo -e "${YELLOW}No AI tool targets recorded. Run e.g. './install.sh claude $DIR_ARG' first, then use 'vendor' to keep everything in sync.${NC}"
                 echo ""
             fi
             "$SCRIPT_DIR/uninstall.sh" --quiet --target vendor "$DIR_ARG"
             install_vendor "$DIR_ARG"
             mark_targets vendor
-            write_install_cfg "$DIR_ARG"
-            ;;
-        all)
-            require_dir "$DIR_ARG"
-            read_install_cfg "$DIR_ARG"
-            "$SCRIPT_DIR/uninstall.sh" --quiet "$DIR_ARG"
-            install_from_template "$TEMPLATE_DIR/claude" "$DIR_ARG"
-            echo ""
-            install_from_template "$TEMPLATE_DIR/copilot-cli" "$DIR_ARG"
-            echo ""
-            install_from_template "$TEMPLATE_DIR/copilot-ide" "$DIR_ARG"
-            echo ""
-            install_from_template "$TEMPLATE_DIR/codex" "$DIR_ARG"
-            echo ""
-            install_vendor "$DIR_ARG"
-            mark_targets claude copilot-cli copilot-ide codex copilot-review claude-review vendor
             write_install_cfg "$DIR_ARG"
             ;;
         --list|-l)

@@ -9,15 +9,12 @@ set -euo pipefail
 #   ./uninstall.sh <project>   # Remove local assets from <project>:
 #                              #   Per-group files: .github/instructions/*.instructions.md (scout-generated)
 #                              #                    .claude/rules/*.md (scout-generated)
-#                              #   Legacy blocks:   .claude/rules/principles.md
-#                              #                    .ai/principles.md (hub pattern)
-#                              #                    AGENTS.md / CLAUDE.md (inline block)
+#                              #   AI Skills:   .agents/skills/<name>/SKILL.md
 #                              #   Claude Code: <project>/.claude/commands/<name>.md
-#                              #   Copilot CLI: .github/skills/<name>/SKILL.md
-#                              #   Copilot IDE: .github/prompts/<name>.prompt.md
-#                              #                .github/copilot-instructions.md (.principles block only)
-#                              #   Codex:       .agents/skills/<name>/SKILL.md
-#                              #   Vendor:      .principles-catalog/
+#                              #   Vendor:      .agents/principles-catalog/
+#                              #   Legacy:      AGENTS.md / CLAUDE.md (.principles:start block)
+#                              #                .claude/rules/principles.md
+#                              #                .ai/principles.md (hub pattern)
 #   ./uninstall.sh --help      # Show this help
 
 # Convert a Windows-style path (C:\... or C:/...) to a path the current bash understands.
@@ -123,24 +120,20 @@ show_usage() {
     echo ""
     echo -e "Usage: $0 ${BOLD}<dir>${NC}"
     echo ""
-    echo "Removes .principles assets for Claude Code, GitHub Copilot, Codex, and vendor catalog."
+    echo "Removes .principles assets for all AI coding tools and vendor catalog."
     echo ""
     echo -e "  ${BOLD}<dir>${NC}               Remove local assets from <dir>:"
-    echo -e "                        ${DIM}Per-group files:${NC} .github/instructions/*.instructions.md (scout-generated)"
+    echo -e "                        ${DIM}AI Skills:${NC}       .agents/skills/<name>/SKILL.md"
+    echo -e "                        ${DIM}Claude wrappers:${NC} .claude/commands/<name>.md"
+    echo -e "                        ${DIM}Vendor:${NC}          .agents/principles-catalog/"
+    echo -e "                        ${DIM}Legacy:${NC}          AGENTS.md / CLAUDE.md (.principles:start block, if present)"
+    echo -e "                        ${DIM}Scout files:${NC}     .github/instructions/*.instructions.md"
     echo -e "                                         .claude/rules/*.md (scout-generated)"
-    echo -e "                        ${DIM}Legacy blocks:${NC}   .claude/rules/principles.md, .ai/principles.md,"
-    echo "                                         AGENTS.md, CLAUDE.md (stripped inline)"
-    echo -e "                        ${DIM}Claude Code:${NC}     .claude/commands/<name>.md"
-    echo -e "                        ${DIM}Copilot CLI:${NC}     .github/skills/<name>/SKILL.md"
-    echo -e "                        ${DIM}Copilot IDE:${NC}     .github/prompts/<name>.prompt.md"
-    echo "                                         .github/copilot-instructions.md (.principles block only)"
-    echo -e "                        ${DIM}Codex:${NC}           .agents/skills/<name>/SKILL.md"
-    echo -e "                        ${DIM}Vendor:${NC}          .principles-catalog/"
     echo ""
     echo "Options:"
     echo -e "  ${BOLD}--help${NC}              Show this help"
     echo -e "  ${BOLD}--target <name>${NC}     Only remove assets for one target"
-    echo "                      (compiled | claude | copilot | codex | vendor)"
+    echo "                      (compiled | claude | copilot | agents | vendor)"
 }
 
 uninstall_claude() {
@@ -310,11 +303,11 @@ uninstall_copilot_local() {
     cleanup_dir_if_empty "$project_dir/.github"
 }
 
-uninstall_codex() {
+uninstall_agents_skills() {
     local project_dir="$1"
     local skills_dir="$project_dir/.agents/skills"
 
-    qecho "${BOLD}Removing Codex skills...${NC}"
+    qecho "${BOLD}Removing AI skills (.agents/skills/)...${NC}"
 
     local skill_count=0
     local file
@@ -345,7 +338,7 @@ uninstall_codex() {
     done
 
     if [ $skill_count -eq 0 ]; then
-        qecho "  ${NEUTRAL} No Codex skills found to remove."
+        qecho "  ${NEUTRAL} No AI skills found to remove."
     fi
 
     cleanup_dir_if_empty "$skills_dir"
@@ -476,16 +469,62 @@ uninstall_compiled_blocks() {
     fi
 }
 
+# Remove the legacy <!-- .principles:start --> hub block from AGENTS.md and CLAUDE.md (if present).
+uninstall_hub_blocks() {
+    local project_dir="$1"
+    local found=false
+
+    for hub_file in "$project_dir/AGENTS.md" "$project_dir/CLAUDE.md"; do
+        [ -f "$hub_file" ] || continue
+        grep -q "^<!-- .principles:start -->$" "$hub_file" 2>/dev/null || continue
+
+        local tmp result_file
+        tmp="$(mktemp)"
+        awk '
+            BEGIN { in_block=0; removed=0 }
+            /^<!-- \.principles:start -->$/ { in_block=1; removed=1; next }
+            /^<!-- \.principles:end -->$/   { if (in_block) { in_block=0; next } }
+            !in_block { print }
+            END { exit removed ? 0 : 1 }
+        ' "$hub_file" > "$tmp" && {
+            result_file="$(mktemp)"
+            awk '{lines[NR]=$0; if(/[^[:space:]]/) last=NR} END{for(i=1;i<=last;i++) print lines[i]}' \
+                "$tmp" > "$result_file"
+            local rel_name
+            rel_name="$(basename "$hub_file")"
+            if grep -q '[^[:space:]]' "$result_file"; then
+                mv "$result_file" "$hub_file"
+            else
+                rm -f "$result_file" "$hub_file"
+            fi
+            rm -f "$tmp"
+            found=true
+            qecho "  ${GREEN}✓${NC} $rel_name (removed .principles hub block)"
+        } || rm -f "$tmp"
+    done
+
+    [ "$found" = false ] && qecho "  ${NEUTRAL} No hub blocks found to remove."
+}
+
 uninstall_vendor() {
     local project_dir="$1"
 
     qecho "${BOLD}Removing vendor catalog...${NC}"
 
+    local found=false
+    if [ -d "$project_dir/.agents/principles-catalog" ]; then
+        rm -rf "$project_dir/.agents/principles-catalog"
+        qecho "  ${GREEN}✓${NC} Removed .agents/principles-catalog/"
+        cleanup_dir_if_empty "$project_dir/.agents"
+        found=true
+    fi
     if [ -d "$project_dir/.principles-catalog" ]; then
         rm -rf "$project_dir/.principles-catalog"
-        qecho "  ${GREEN}✓${NC} Removed .principles-catalog/"
-    else
-        qecho "  ${NEUTRAL} No .principles-catalog found to remove."
+        qecho "  ${GREEN}✓${NC} Removed .principles-catalog/ (legacy)"
+        found=true
+    fi
+    if [ "$found" = false ]; then
+        qecho "  ${NEUTRAL} No vendor catalog found to remove."
     fi
 }
 
@@ -519,12 +558,18 @@ run_uninstall() {
         uninstall_copilot "$PROJECT_DIR"
         qecho ""
     fi
-    if [ -z "$TARGET" ] || [ "$TARGET" = "codex" ]; then
-        uninstall_codex "$PROJECT_DIR"
+    if [ -z "$TARGET" ] || [ "$TARGET" = "agents" ] || [ "$TARGET" = "codex" ]; then
+        uninstall_agents_skills "$PROJECT_DIR"
         qecho ""
     fi
     if [ -z "$TARGET" ] || [ "$TARGET" = "vendor" ]; then
         uninstall_vendor "$PROJECT_DIR"
+        qecho ""
+    fi
+
+    # Remove hub blocks from AGENTS.md and CLAUDE.md (new-style <!-- .principles:start --> blocks)
+    if [ -z "$TARGET" ] || [ "$TARGET" = "compiled" ]; then
+        uninstall_hub_blocks "$PROJECT_DIR"
         qecho ""
     fi
 

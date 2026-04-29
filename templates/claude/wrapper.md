@@ -1,6 +1,7 @@
 ---
 {{FRONTMATTER}}
-generated-by: .principles
+generated-by: ".principles v{{VERSION}}"
 ---
 
-{{COMMAND_BODY}}
+Follow the instructions in `.agents/skills/{{COMMAND_SLUG}}/SKILL.md`.
+

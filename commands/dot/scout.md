@@ -8,7 +8,7 @@ authors: Flemming N. Larsen (https://github.com/flemming-n-larsen)
 
 # Scout
 
-You are analysing a project to determine which principles apply and creating or updating `.principles` files to encode that. Follow these six phases exactly.
+You are analyzing a project to determine which principles apply and creating or updating `.principles` files to encode that. Follow these eight phases exactly.
 
 ## Phase 1 — Resolve Target and Bootstrap Catalog
 
@@ -24,7 +24,7 @@ Walk up from the target to find the **git root** (directory containing `.git/`).
 
 ### 1.1 — Bootstrap Catalog
 
-Check whether `.principles-catalog/index.tsv` exists at the git root.
+Check whether `{{PRINCIPLES_DIRECTORY}}/index.tsv` exists at the git root.
 
 If **not present**, try to auto-vendor it now (before any other phase):
 
@@ -35,10 +35,10 @@ If **not present**, try to auto-vendor it now (before any other phase):
    - Run: `find ~ -maxdepth 5 -name "install.sh" -path "*/dot-principles/*" 2>/dev/null | head -1`
 
 2. If found: run `<path-to-install.sh> vendor <git-root>` and report:
-   > "✓ Catalog vendored to .principles-catalog/ — proceeding."
+   > "✓ Catalog vendored to {{PRINCIPLES_DIRECTORY}}/ — proceeding."
 
 3. If not found: report:
-   > "⚠️ `.principles-catalog/` not found. Group lookups will use the hardcoded catalog below."
+   > "⚠️ `{{PRINCIPLES_DIRECTORY}}/` not found. Group lookups will use the hardcoded catalog below."
    > "  To vendor: clone dot-principles and run `./install.sh vendor <git-root>`"
    > Continue using the hardcoded group list in Phase 3 (custom groups won't be available).
 
@@ -48,7 +48,7 @@ Record whether the catalog is available: **catalog-available: true/false**
 
 If **catalog-available: true**, read all `.context-scout.md` files from the catalog:
 
-1. Search for files matching `.principles-catalog/principles/*/.context-scout.md` at the git root.
+1. Search for files matching `{{PRINCIPLES_DIRECTORY}}/principles/*/.context-scout.md` at the git root.
 2. For each file found, read its content and record the detection rules it defines.
 3. Record loaded extensions: `{ namespace → [detection rules] }` — these supplement Phase 2.
 
@@ -147,11 +147,52 @@ For each proposed file, show:
   !CODE-TS-TEST-FIRST     ← exclusion and why
 ```
 
-Ask for confirmation before writing: "I propose creating/updating N .principles files. Proceed? (yes to write, no to review proposals)"
+Ask for confirmation before writing: "I propose creating/updating N .principles files. Phase 4 will check exclusion density before writing. Proceed? (yes to continue, no to review proposals)"
 
 Wait for user confirmation. If the user says no or requests changes, adjust proposals and ask again.
 
-## Phase 4 — Check Existing .principles Files
+## Phase 4 — Exclusion Density Analysis
+
+Before writing, check whether any parent-level proposals would generate unnecessary exclusions in child directories.
+
+### When to run
+
+Only when the profile map from Phase 2 contains **two or more** directories that would each receive their own `.principles` file (i.e., there is at least one parent–child pair in the proposed hierarchy). Skip this phase entirely if every proposed `.principles` file is a leaf with no applicable children.
+
+### Algorithm
+
+For each proposed parent `.principles` file (root or intermediate directory), evaluate every proposed entry — groups (`@group`) and bare principle IDs — against all proposed child directories detected in Phase 2:
+
+1. **Count applicable children**: child directories that inherit from this parent (would have their own `.principles` or would inherit the parent's entries).
+2. **Count excluding children**: children where the entry does not match the child's detected profile and would therefore need a `!@group` or `!ID` exclusion to suppress it.
+3. Compute `exclusion_ratio = excluding_children / applicable_children`.
+4. If `exclusion_ratio > 0.5` (strict majority excluded):
+   - **Demote the entry**: remove it from the parent proposal; add it directly to each *including* child's proposal (the minority that actually benefits).
+   - Record the demotion for reporting: `⬇ @<group> demoted from <parent> → <child1>/, <child2>/ — excluded in N/M children`
+5. For each principle activated by a parent-level group that >50% of children would individually suppress with `!PRINCIPLE-ID`:
+   - **Consolidate**: add `!PRINCIPLE-ID` at the parent level instead (one exclusion line replaces N child-level exclusion lines). The minority of children that do need the principle will still receive it via the group.
+   - Record the consolidation: `↑ !PRINCIPLE-ID consolidated to <parent> — excluded in N/M children`
+
+Skip analysis for any parent with `applicable_children ≤ 1` (a majority cannot be computed from a single child).
+
+### Reporting demotions and consolidations
+
+After running the analysis, show a summary before the updated proposals if any changes were made:
+
+```
+Exclusion density analysis:
+  ⬇ @docs demoted from root → docs/ — excluded in 3/4 children
+  ⬇ @infra demoted from root → infra/, deploy/ — excluded in 3/4 children
+  ↑ !CODE-TS-TEST-FIRST consolidated to src/ — excluded in 4/5 children
+
+Updated proposals incorporate these changes.
+```
+
+If no changes were made, output: `Exclusion density: no demotions needed.`
+
+Re-present the full updated proposals (same format as Phase 3) and ask for confirmation again if any demotion or consolidation was applied.
+
+## Phase 5 — Check Existing .principles Files
 
 Before writing, check for existing `.principles` files at the proposed paths.
 
@@ -164,14 +205,14 @@ For each existing file:
 
 Determine final action per file: `created` | `updated` | `unchanged`
 
-## Phase 5 — Write Files and Report
+## Phase 6 — Write Files and Report
 
-Write or update each file as determined in Phase 4.
+Write or update each file as determined in Phase 5.
 
 ### File format
 
 ```
-# Generated by /dot-scout
+# Generated by dot-scout vVERSION
 # Detected: [artifact-type] / [language/framework/domain]
 # Last analysed: [date]
 
@@ -207,7 +248,7 @@ Next steps:
   - Edit .principles files manually to add !exclusions or direct principle IDs
 ```
 
-## Phase 6 — Emit active.md
+## Phase 7 — Emit active.md
 
 Write the canonical prime source to the vendored catalog. This phase runs unconditionally whenever `catalog-available: true`; it does not depend on which review tools are installed.
 
@@ -215,12 +256,12 @@ If **catalog-available: false**, report:
 > "⚠️ active.md skipped — catalog not available. Run `./install.sh vendor <git-root>` and re-run /dot-scout."
 > Skip this phase.
 
-Read `{{PRINCIPLES_DIRECTORY}}/index.tsv` to look up the summary for each active ID (from the `.principles` hierarchy resolved in Phase 3–5). Format each as `- ID: Summary`.
+Read `{{PRINCIPLES_DIRECTORY}}/index.tsv` to look up the summary for each active ID (from the `.principles` hierarchy resolved in Phases 3–6). Format each as `- ID: Summary`.
 
 Write (overwrite) `{{PRINCIPLES_DIRECTORY}}/active.md`:
 
 ```markdown
-<!-- generated by /dot-scout vVERSION — do not edit manually, re-run /dot-scout to refresh -->
+<!-- generated by dot-scout vVERSION — do not edit manually, re-run dot-scout to refresh -->
 # Active Principles
 
 - PRINCIPLE-ID: Summary text here
@@ -232,9 +273,9 @@ Rules:
 - Order: alphabetical by ID within each namespace, namespaces in the order they appear in `.principles`
 - Any active ID not found in index.tsv: include with summary "—" and log a warning
 
-## Phase 7 — Emit AI Review Integration Files
+## Phase 8 — Emit AI Review Integration Files
 
-### 7.0 — Detect AI Tools
+### 8.0 — Detect AI Tools
 
 Scan the git root for signals that indicate which AI coding/review tools are active.
 
@@ -265,16 +306,16 @@ After detection, present findings and ask:
 > Generate review instruction files for detected tools? (yes / no / select)
 
 - **yes** → proceed with all detected tools
-- **no** → skip rest of Phase 7
+- **no** → skip rest of Phase 8
 - **select** → let user pick which tools to generate for
 
 Record: **copilot-active: true/false**, **claude-active: true/false**
 
-### 7.1 — Resolve the Active Set
+### 8.1 — Resolve the Active Set
 
 If **catalog-available: false** (set in Phase 1), report:
 > "⚠️ Per-group files skipped — catalog not available. Run `./install.sh vendor <git-root>` and re-run /dot-scout."
-> Skip the rest of Phase 7.
+> Skip the rest of Phase 8.
 
 Read `{{PRINCIPLES_DIRECTORY}}/index.tsv`. Each line is `ID|LAYER|SUMMARY`.
 
@@ -286,21 +327,21 @@ For each active `@group`, read `{{PRINCIPLES_DIRECTORY}}/groups/<name>.yaml` and
 
 Any active IDs not found in index.tsv: include with summary "—" and log a warning.
 
-### 7.2 — Clean Stale Files
+### 8.2 — Clean Stale Files
 
-Scan for files that contain the marker `<!-- generated by /dot-scout`:
+Scan for files that contain the marker `<!-- generated by dot-scout` (or the legacy `<!-- generated by /dot-scout` for files generated before v0.13.0):
 
 **`.github/instructions/`:**
 - If **copilot-active is false**: delete ALL scout-generated files in this directory
 - If **copilot-active is true**: delete only files whose group is not in the current active set
-- If file is `principles-core.instructions.md` and copilot-active is true: keep it (will be overwritten in 7.3)
+- If file is `principles-core.instructions.md` and copilot-active is true: keep it (will be overwritten in 8.3)
 
 **`REVIEW.md` at git root:**
 - If **claude-active is false** and the file has the scout marker: delete it
 
-Files **without** the `<!-- generated by /dot-scout` marker are user-created — never touch them.
+Files **without** a `<!-- generated by dot-scout` or `<!-- generated by /dot-scout` marker are user-created — never touch them.
 
-### 7.3 — Emit Copilot Instruction Files
+### 8.3 — Emit Copilot Instruction Files
 
 **Skip entirely if copilot-active is false.**
 
@@ -311,7 +352,7 @@ Create directory `.github/instructions/` if it does not exist.
 Build the file content first, then enforce the **4,000 character limit** (Copilot Code Review truncates beyond this):
 
 ```markdown
-<!-- generated by /dot-scout vVERSION — do not edit manually, re-run /dot-scout to refresh -->
+<!-- generated by dot-scout vVERSION — do not edit manually, re-run dot-scout to refresh -->
 ---
 applyTo:
   - "**/*.java"
@@ -324,7 +365,7 @@ applyTo:
 
 **4k char enforcement:** After building the content for a group:
 - If content ≤ 4,000 chars → write as `.github/instructions/<group>.instructions.md`
-- If content > 4,000 chars → split into numbered files (`<group>-1.instructions.md`, `<group>-2.instructions.md`, …), each ≤ 4,000 chars. Split at principle-line boundaries (never mid-line). Each split file gets its own complete frontmatter header and `<!-- generated by /dot-scout` marker.
+- If content > 4,000 chars → split into numbered files (`<group>-1.instructions.md`, `<group>-2.instructions.md`, …), each ≤ 4,000 chars. Split at principle-line boundaries (never mid-line). Each split file gets its own complete frontmatter header and `<!-- generated by dot-scout` marker.
 
 Rules:
 - VERSION from `{{PRINCIPLES_DIRECTORY}}/` or the repo's VERSION file
@@ -340,14 +381,14 @@ Write `principles-core.instructions.md` (apply 4k splitting if needed) with `app
 - All stack Layer 1 principles (from `{{PRINCIPLES_DIRECTORY}}/layers/<detected-stack>/layer-1-universal.md`)
 - Any bare principle IDs from `.principles` files that do not belong to any active `@group`
 
-### 7.4 — Emit REVIEW.md for Claude Code Review
+### 8.4 — Emit REVIEW.md for Claude Code Review
 
 **Skip entirely if claude-active is false.**
 
 Generate a single `REVIEW.md` at the git root. Budget: **~10,000 characters / ~150 instructions max.**
 
 ```markdown
-<!-- generated by /dot-scout vVERSION — do not edit manually, re-run /dot-scout to refresh -->
+<!-- generated by dot-scout vVERSION — do not edit manually, re-run dot-scout to refresh -->
 # Code Review Rules
 
 ## Critical — Always flag these
@@ -369,13 +410,13 @@ Generate a single `REVIEW.md` at the git root. Budget: **~10,000 characters / ~1
 2. **Important section:** Domain principles (DDD-\*, EIP-\*), architecture (SOLID-\*, CLEAN-ARCH-\*, ARCH-\*), observability (CODE-OB-\*)
 3. **Style section:** Code quality (CODE-DX-\*, CODE-CS-\*), framework-specific (EFFECTIVE-JAVA-\*, spring-specific)
 
-### 7.5 — Report
+### 8.5 — Report
 
 After writing, output:
 
 ```
 Active principles:
-  ✓ .principles-catalog/active.md                          (N principles)
+  ✓ {{PRINCIPLES_DIRECTORY}}/active.md                          (N principles)
 
 AI tool integration:
   Copilot detected: ✓ / ✗ (signal)
@@ -391,10 +432,10 @@ Files written:
 Cleaned:
   ✗ deleted .github/instructions/old-group.instructions.md  (group removed)
 
-Tip: commit .principles-catalog/ so CI and PR bots can use it without local install.
+Tip: commit {{PRINCIPLES_DIRECTORY}}/ so CI and PR bots can use it without local install.
 ```
 
-### 7.6 — Write Scout Marker
+### 8.6 — Write Scout Marker
 
 Append `scout` to `{{PRINCIPLES_DIRECTORY}}/install.cfg` (create the file if it does not exist). Use one target per line; do not add a duplicate if `scout` is already present.
 

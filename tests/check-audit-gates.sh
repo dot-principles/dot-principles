@@ -7,17 +7,16 @@ set -euo pipefail
 REPO_ROOT="${1:-$(cd "$(dirname "$0")/.." && pwd)}"
 
 # All interactive audit files must be checked.
+# .agents/skills/ is the canonical install location (run `./install.sh vendor .` first).
+# .github/prompts/ is a thin wrapper with no gate content — not checked here.
 AUDIT_FILES=(
   "$REPO_ROOT/.agents/skills/dot-audit/SKILL.md"
-  "$REPO_ROOT/.github/skills/dot-audit/SKILL.md"
-  "$REPO_ROOT/.github/prompts/dot-audit.prompt.md"
   "$REPO_ROOT/commands/dot/audit.md"
 )
 
 # Files that use plain-text output (not ask_user tool) must include the hard-stop phrase.
 PLAIN_TEXT_FILES=(
   "$REPO_ROOT/.agents/skills/dot-audit/SKILL.md"
-  "$REPO_ROOT/.github/skills/dot-audit/SKILL.md"
   "$REPO_ROOT/commands/dot/audit.md"
 )
 

@@ -23,9 +23,38 @@ authors: Flemming N. Larsen (https://github.com/flemming-n-larsen)
 
 Review a file, directory, or inline code against its activated principles. Core review runs in seven phases (1–7). Three optional gated phases (8–10) handle fix, commit, and PR — each requires explicit user approval before entry.
 
+```mermaid
+flowchart TD
+    A([Start]) --> PRE{Scout files\npresent?}
+    PRE -- No --> HALT([Stop — run /dot-scout first])
+    PRE -- Yes --> P1[Phase 1\nParse · Resolve · Detect artifact type]
+    P1 --> P2[Phase 2/3\nResolve principles]
+    P2 --> P4[Phase 4\nLoad principle content]
+    P4 --> P5[Phase 5\nPre-Scan]
+    P5 --> P6[Phase 6\nReview]
+    P6 --> P7[Phase 7\nOutput findings]
+    P7 --> G8{Findings?\n≥1 finding}
+    G8 -- No --> DONE([Stop])
+    G8 -- Yes --> Q8{Phase 8 gate\nFix findings?}
+    Q8 -- No --> DONE
+    Q8 -- Yes --> FIX[Phase 8.1–8.2\nBranch · Fix · Summarise]
+    FIX --> Q9{Phase 9 gate\nHow to proceed?}
+    Q9 -- "0 · Re-run audit\n(if Medium+ found)" --> P5
+    Q9 -- "3 · Exit" --> DONE
+    Q9 -- "1 · Commit only" --> CMT[Phase 9.1\nCommit]
+    Q9 -- "2 · Commit and push" --> CMT
+    CMT --> PUSH{Push?}
+    PUSH -- No --> DONE
+    PUSH -- Yes --> PUSHSTEP[Phase 9.2\nPush branch]
+    PUSHSTEP --> Q10{Phase 10 gate\nOpen PR?}
+    Q10 -- No --> DONE
+    Q10 -- Yes --> PR[Open pull request]
+    PR --> DONE
+```
+
 ## Phase 1 — Parse Arguments, Resolve Input, and Detect Artifact Type
 
-### 1.1 — Parse Arguments for Explicit Principle Spec
+### Step 1 — Parse Arguments for Explicit Principle Spec
 
 Check `$ARGUMENTS` for an explicit principle spec using this precedence:
 
@@ -36,9 +65,9 @@ Check `$ARGUMENTS` for an explicit principle spec using this precedence:
 
 If an explicit spec was detected, record **principle-spec** and set **explicit-mode: true**. Otherwise set **explicit-mode: false**.
 
-### 1.2 — Resolve Input
+### Step 2 — Resolve Input
 
-Determine what to review from the target input resolved in 1.1:
+Determine what to review from the target input resolved in Step 1:
 
 - Empty (explicit-mode false) → respond "What would you like me to review?" and stop.
 - Empty (explicit-mode true) → use the current working directory as target.
@@ -46,7 +75,7 @@ Determine what to review from the target input resolved in 1.1:
 - Directory path → recursively glob all reviewable files; exclude binaries, lock files, `node_modules`, `vendor`, `dist`, `build`, `.git`, and build artifacts.
 - Inline code or text → use it directly.
 
-### 1.3 — Detect Artifact Type
+### Step 3 — Detect Artifact Type
 
 For the target file(s), detect the artifact type by reading `{{PRINCIPLES_DIRECTORY}}/layers/artifact-types.yaml` and matching against its type definitions. Match by file extension, filename, or path pattern in precedence order (infra before config for ambiguous YAML).
 
@@ -54,7 +83,7 @@ Record the detected type: **`code`** | **`docs`** | **`config`** | **`infra`** |
 
 If the target is a directory with mixed artifact types, note the mix; apply per-file type detection in Phase 6.
 
-### 1.4 — Load Git Context
+### Step 4 — Load Git Context
 
 **Output nothing during this phase.**
 
@@ -91,7 +120,7 @@ Before walking `.principles` files, check for per-group principle files emitted 
 2. If absent: glob `.github/instructions/*.instructions.md` and `REVIEW.md` (at the git root) — Copilot Code Review and Claude Code Review outputs; filter to files containing the generated-by marker
 3. If any found: parse all `- ID: Summary` lines across all marked files (the ID is everything before the first colon)
 4. Union all IDs → **active principle set**
-5. Optionally cross-reference `.principles-catalog/index.tsv` (each line: `ID|LAYER|SUMMARY`) to get Layer groupings for each active ID — use these layer assignments to annotate the audit header (e.g. show "Layer 1: N principles, Layer 2: M principles").
+5. Optionally cross-reference `{{PRINCIPLES_DIRECTORY}}/index.tsv` (each line: `ID|LAYER|SUMMARY`) to get Layer groupings for each active ID — use these layer assignments to annotate the audit header (e.g. show "Layer 1: N principles, Layer 2: M principles").
 6. Record source as: `per-group files (N files)`
 
 If no per-group files are found, proceed with the tree walk below.
@@ -203,9 +232,9 @@ Derive unique namespaces from the active principle ID prefixes. Use the longest-
 | `ARCH-*` | `arch/` |
 | `PKG-*` | `pkg/` |
 
-For each unique namespace, use the **Read tool** to load `.principles-catalog/principles/<namespace>/.context-audit.md`, then filter entries whose `### ID` is in the active set. Do not use bash, grep, or any shell command for this step — read the file and filter in your reasoning. Use the **Principle** and **Violations to detect** content in Phase 6.
+For each unique namespace, use the **Read tool** to load `{{PRINCIPLES_DIRECTORY}}/principles/<namespace>/.context-audit.md`, then filter entries whose `### ID` is in the active set. Do not use bash, grep, or any shell command for this step — read the file and filter in your reasoning. Use the **Principle** and **Violations to detect** content in Phase 6.
 
-If `.principles-catalog/` is not present, fall back to the standard loading below.
+If `{{PRINCIPLES_DIRECTORY}}/` is not present, fall back to the standard loading below.
 
 **Standard loading (all other sources):**
 
@@ -225,7 +254,7 @@ Namespace derivation: `CODE-CS-DRY` → namespace `code/cs`, `CODE-API-HATEOAS` 
 
 Run deterministic, machine-executable commands to narrow the search space before LLM reasoning.
 
-### 5.1 — Load Inspection Patterns
+### Step 1 — Load Inspection Patterns
 
 For each namespace in the active ID set, check for:
 
@@ -241,7 +270,7 @@ Filter to entries whose `### ID` is in the final active set. Each entry contains
 
 Principles with entries in `.context-inspect.md` are **"inspected"**. Principles without entries are **"semantic-only"** (handled entirely by LLM reasoning in Phase 6 Step 2).
 
-### 5.2 — Execute Commands
+### Step 2 — Execute Commands
 
 For each inspection command:
 
@@ -250,7 +279,7 @@ For each inspection command:
 3. Collect hits as: `{principle_id, severity_hint, file, line, match_text, description}`.
 4. If a command produces no output or fails (including because `$GIT_DIFF` is empty), skip silently.
 
-### 5.3 — Build Pre-Scan Manifest
+### Step 3 — Build Pre-Scan Manifest
 
 Group all hits by file. The result is the **pre-scan manifest** — a map of `file → [{principle_id, severity_hint, line, match_text, description}]`.
 
@@ -306,7 +335,7 @@ Apply high-priority principles first and give them more scrutiny. Do not skip lo
 
 For each file, evaluate it against the semantic-only principle set appropriate to its artifact type.
 
-For principles that are git-history-dependent (marked `Audit-scope: limited — git` in their principle file), include `$GIT_DIFF` and `$GIT_LOG` from Phase 1.4 as additional context alongside the file content. If both are empty, apply the principle as snapshot-only.
+For principles that are git-history-dependent (marked `Audit-scope: limited — git` in their principle file), include `$GIT_DIFF` and `$GIT_LOG` from Phase 1 Step 4 as additional context alongside the file content. If both are empty, apply the principle as snapshot-only.
 
 ### Step 3 — Opportunistic Findings
 
@@ -415,7 +444,7 @@ Otherwise output this question as plain text — call no tools, write nothing el
 - User declines → stop. Skip remaining phases.
 - User approves → proceed.
 
-### 8.1 — Create a fix branch
+### Step 1 — Create a fix branch
 
 ```
 git checkout -b fix-<target-slug>
@@ -423,7 +452,7 @@ git checkout -b fix-<target-slug>
 
 `<target-slug>` is a short kebab-case name derived from the audit target (e.g. `fix-data-fetcher`, `fix-auth-service`).
 
-### 8.2 — Implement fixes
+### Step 2 — Implement fixes
 
 Fix every finding from `audit-output.json`, file by file:
 
@@ -441,31 +470,33 @@ After all fixes are applied, briefly summarise what was changed (one line per fi
 
 ## Phase 9 — Commit
 
-**GATE — Requires explicit user approval. Only enter this phase after the user replies to the Phase 8.2 prompt.**
+**GATE — Requires explicit user approval. Only enter this phase after the user replies to the Phase 8 Step 2 prompt.**
 
 Compose the commit message and PR body (see format below). Present both **in full inline** so the user can review before deciding.
 
 Then output this question as plain text — call no tools, write nothing else, and end your response:
 
 > How would you like to proceed?
+> 0. **Re-run audit** — scan again to surface issues hidden by the findings just fixed *(shown only if the audit found at least one Medium or higher finding)*
 > 1. **Commit only** — commit to the local branch
 > 2. **Commit and push** — commit and push to origin
 > 3. **Exit** — leave changes uncommitted
 
 **End your response here. Do not call any tools. Wait for the user's reply before continuing.**
 
+- User chooses **re-run audit** → jump back to Phase 5 (Pre-Scan) using the same target and already-resolved principles. Re-run Phases 5, 6, and 7 in full. Do not create a new branch; continue on the branch from Phase 8 Step 1. After Phase 7 output, re-enter Phase 8 gate. Track the pass number (pass 2, pass 3, …) and include it in the commit message when the user eventually commits.
 - User chooses **exit** → stop. Skip Phase 10.
 - User chooses **commit only** → run the commit commands below. Stop. Skip Phase 10.
 - User chooses **commit and push** → run the commit commands below, then push. Proceed to Phase 10.
 
-### 9.1 — Commit
+### Step 1 — Commit
 
 ```
 git add -A
 git commit -m "<commit message>"
 ```
 
-### 9.2 — Push (only if user chose "commit and push")
+### Step 2 — Push (only if user chose "commit and push")
 
 ```
 git push -u origin fix-<target-slug>

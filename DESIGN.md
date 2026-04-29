@@ -118,17 +118,17 @@ Each namespace contains three pre-compiled files that consolidate all its princi
 
 | File | Used by | Contains |
 |------|---------|----------|
-| `.context-prime.md` | `/dot-prime` Phase 4 | Principle statement, Why it matters, Good practice — for all principles in the namespace |
-| `.context-audit.md` | `/dot-audit` Phase 4 | Principle statement, Violations to detect — for all principles in the namespace |
-| `.context-inspect.md` | `/dot-audit` Phase 5 | Machine-executable pre-scan patterns (grep/awk/find commands) — for principles with deterministic inspection patterns |
+| `.context-prime.md` | `dot-prime` Phase 4 | Principle statement, Why it matters, Good practice — for all principles in the namespace |
+| `.context-audit.md` | `dot-audit` Phase 4 | Principle statement, Violations to detect — for all principles in the namespace |
+| `.context-inspect.md` | `dot-audit` Phase 5 | Machine-executable pre-scan patterns (grep/awk/find commands) — for principles with deterministic inspection patterns |
 
 The command reads one file per namespace and filters to only the entries in the final active set. This avoids reading N individual principle files.
 
-**`code/` sub-namespace split:** Because the `code/` namespace contains 110 principles across 11 sub-namespaces, its context files are split per sub-namespace rather than held in a single file. Each of `code/api/`, `code/ar/`, `code/cc/`, `code/cs/`, `code/dx/`, `code/ob/`, `code/pf/`, `code/rl/`, `code/sec/`, `code/tp/`, and `code/ts/` has its own `.context-prime.md`, `.context-audit.md`, and (where applicable) `.context-inspect.md`. The root `code/.context-*.md` files contain only a pointer comment listing the sub-namespace directories. `/dot-prime` and `/dot-audit` use a longest-prefix-match table to resolve `CODE-<sub>-*` IDs to the correct sub-namespace file before falling back to `code/` for unrecognised sub-prefixes.
+**`code/` sub-namespace split:** Because the `code/` namespace contains 110 principles across 11 sub-namespaces, its context files are split per sub-namespace rather than held in a single file. Each of `code/api/`, `code/ar/`, `code/cc/`, `code/cs/`, `code/dx/`, `code/ob/`, `code/pf/`, `code/rl/`, `code/sec/`, `code/tp/`, and `code/ts/` has its own `.context-prime.md`, `.context-audit.md`, and (where applicable) `.context-inspect.md`. The root `code/.context-*.md` files contain only a pointer comment listing the sub-namespace directories. `dot-prime` and `dot-audit` use a longest-prefix-match table to resolve `CODE-<sub>-*` IDs to the correct sub-namespace file before falling back to `code/` for unrecognised sub-prefixes.
 
 ### `.agents/principles-catalog/` — vendored project subset
 
-When `install.sh vendor <dir>` (or the interactive installer) is run, it copies the subset of `principles/` and `groups/` referenced by the project's `.principles` files into `<dir>/.agents/principles-catalog/`. This directory mirrors the structure of the full catalog but contains only the namespaces and groups the project actually uses. It also generates `index.tsv` — a flat pipe-delimited file listing every vendored principle in `ID|LAYER|SUMMARY` format, one line per principle. `/dot-scout` reads this single file to compile the active block without walking individual namespace files.
+When `install.sh vendor <dir>` (or the interactive installer) is run, it copies the subset of `principles/` and `groups/` referenced by the project's `.principles` files into `<dir>/.agents/principles-catalog/`. This directory mirrors the structure of the full catalog but contains only the namespaces and groups the project actually uses. It also generates `index.tsv` — a flat pipe-delimited file listing every vendored principle in `ID|LAYER|SUMMARY` format, one line per principle. `dot-scout` reads this single file to compile the active block without walking individual namespace files.
 
 **Commit `.agents/principles-catalog/` to your repo.** The installed commands reference it as their data source. With it committed, every team member and CI environment gets the correct principle data without needing access to the `.principles` repo.
 
@@ -160,13 +160,13 @@ Three sources of extra catalogs are collected automatically during `install.sh v
 
 All sources are merged into `.agents/principles-catalog/` at vendor time. Built-in namespaces (`solid`, `gof`, `ddd`, etc.) cannot be overridden — extra catalog entries for the same namespace are skipped with a warning.
 
-The `generate_compact_index()` step scans individual principle `.md` files from extra catalog source directories in addition to `$SCRIPT_DIR/principles`, so extra principles appear in `index.tsv` and are visible to `/dot-scout`.
+The `generate_compact_index()` step scans individual principle `.md` files from extra catalog source directories in addition to `$SCRIPT_DIR/principles`, so extra principles appear in `index.tsv` and are visible to `dot-scout`.
 
 See [INSTALL.md §9](INSTALL.md#9-corporate--personal-principles) for setup instructions. A complete working example lives in `examples/personal-principles/`. A starter template lives in `templates/extra-catalog/`.
 
 ### `.context-inspect.md` Format
 
-Pre-compiled inspection patterns for `/dot-audit` Phase 5 (Pre-Scan). Each principle's entry contains bash commands that produce `file:line:match` output:
+Pre-compiled inspection patterns for `dot-audit` Phase 5 (Pre-Scan). Each principle's entry contains bash commands that produce `file:line:match` output:
 
 ```markdown
 # .principles inspect context — <namespace>
@@ -203,7 +203,7 @@ The namespace is the directory name. IDs are derived from file paths (see Sectio
 
 ## 🧱 3. Per-Group Principle Files
 
-After `/dot-scout` writes `.principles` files, Phase 6 emits **per-group principle files** into `.github/instructions/` (for GitHub Copilot Code Review) and `.claude/rules/` (for Claude Code). Each file targets a specific set of file globs using tool-native frontmatter, giving each group its own context budget.
+After `dot-scout` writes `.principles` files, Phase 6 emits **per-group principle files** into `.github/instructions/` (for GitHub Copilot Code Review) and `.claude/rules/` (for Claude Code). Each file targets a specific set of file globs using tool-native frontmatter, giving each group its own context budget.
 
 The `**Summary:**` field from each principle file is extracted verbatim into `.agents/principles-catalog/index.tsv` by `install.sh vendor`; Phase 6 reads `index.tsv` once (not per-namespace files) to build all files in a single pass.
 
@@ -212,7 +212,7 @@ The `**Summary:**` field from each principle file is extracted verbatim into `.a
 **Copilot Code Review** (`.github/instructions/<group>.instructions.md`):
 
 ```markdown
-<!-- generated by /dot-scout vVERSION — do not edit manually, re-run /dot-scout to refresh -->
+<!-- generated by dot-scout vVERSION — do not edit manually, re-run dot-scout to refresh -->
 ---
 applyTo:
   - "**/*.java"
@@ -226,7 +226,7 @@ applyTo:
 **Claude Code** (`.claude/rules/<group>.md`):
 
 ```markdown
-<!-- generated by /dot-scout vVERSION — do not edit manually, re-run /dot-scout to refresh -->
+<!-- generated by dot-scout vVERSION — do not edit manually, re-run dot-scout to refresh -->
 ---
 paths:
   - "**/*.java"
@@ -239,7 +239,7 @@ paths:
 
 Same content, different frontmatter key (`applyTo:` vs `paths:`). Each file targets only the file types relevant to its group.
 
-The `<!-- generated by /dot-scout` marker identifies files managed by `/dot-scout`. Files without this marker are user-created and never touched. On re-run, stale marked files (from groups no longer active) are deleted.
+The `<!-- generated by dot-scout` marker identifies files managed by `dot-scout`. Files without this marker are user-created and never touched. On re-run, stale marked files (from groups no longer active) are deleted.
 
 ### Group-to-glob mapping
 
@@ -270,15 +270,15 @@ A `principles-core` file is always emitted in both directories with `applyTo: "*
 
 ### Two-tier context system
 
-Per-group files act as **tier 1** context — always present, always fast. They are the primary source for `/dot-prime` and `/dot-audit` fast paths:
+Per-group files act as **tier 1** context — always present, always fast. They are the primary source for `dot-prime` and `dot-audit` fast paths:
 
 | Tier | Source | Loaded by |
 |------|--------|-----------|
-| 1 — Per-group files | Emitted to `.github/instructions/` and `.claude/rules/` by `/dot-scout` | `/dot-prime`, `/dot-audit` (always) |
-| 2 — Namespace context | `.context-prime.md` / `.context-audit.md` per namespace | `/dot-prime` Phase 4, `/dot-audit` Phase 4 |
-| 3 — Inspection patterns | `.context-inspect.md` per namespace | `/dot-audit` Phase 5 only |
+| 1 — Per-group files | Emitted to `.github/instructions/` and `.claude/rules/` by `dot-scout` | `dot-prime`, `dot-audit` (always) |
+| 2 — Namespace context | `.context-prime.md` / `.context-audit.md` per namespace | `dot-prime` Phase 4, `dot-audit` Phase 4 |
+| 3 — Inspection patterns | `.context-inspect.md` per namespace | `dot-audit` Phase 5 only |
 
-`/dot-prime` and `/dot-audit` glob for per-group files first (tier 1) then load the relevant namespace context files (tier 2) for full principle guidance. Per-group files avoid tree-walking `.principles` files on every invocation.
+`dot-prime` and `dot-audit` glob for per-group files first (tier 1) then load the relevant namespace context files (tier 2) for full principle guidance. Per-group files avoid tree-walking `.principles` files on every invocation.
 
 ---
 
@@ -433,7 +433,7 @@ Every principle file follows this template:
 | `Applies-to`           | `all` or specific languages, platforms, domains, or architectural contexts |
 | `Summary`              | One actionable sentence (max ~15 words). Used in per-group principle files. Required. |
 | `Violations to detect` | Concrete patterns for AI to look for during review                         |
-| `Inspection`           | Optional. Machine-executable pre-scan commands for `/dot-audit` Phase 5. See guidance below |
+| `Inspection`           | Optional. Machine-executable pre-scan commands for `dot-audit` Phase 5. See guidance below |
 | `Good practice`        | Positive example (AI uses this for generation guidance)                    |
 | `Sources`              | At least one verifiable published source                                   |
 
@@ -441,7 +441,7 @@ Every principle file follows this template:
 
 ### `## Inspection` — When to Add
 
-The `## Inspection` section is **optional**. It contains bash commands that `/dot-audit` Phase 5 runs to flag likely violations *before* the LLM reads the code. Not every principle is a good fit.
+The `## Inspection` section is **optional**. It contains bash commands that `dot-audit` Phase 5 runs to flag likely violations *before* the LLM reads the code. Not every principle is a good fit.
 
 **Add inspection patterns when** the violation has a textual signature that grep/awk/find can match reliably — e.g., `eval(`, empty `catch {}` blocks, files over 300 lines. These are surface-level patterns that narrow the search space for the LLM.
 
@@ -623,7 +623,7 @@ When reviewing `/repo-root/src/payments/PaymentService.java`:
 
 ## 🛠️ 9. Commands
 
-### ⚡ `/dot-prime`
+### ⚡ `dot-prime`
 
 Activates principles before writing code. Run it before starting work on a task.
 
@@ -637,11 +637,11 @@ Activates principles before writing code. Run it before starting work on a task.
 | 4     | Load Principle Content        | Reads one `.context-prime.md` per namespace (pre-compiled); for `CODE-<sub>-*` IDs reads per-sub-namespace file under `code/<sub>/`; filters to active IDs |
 | 5     | Output                        | Presents active principles table with source column; states coding frame                       |
 
-### 🔎 `/dot-audit`
+### 🔎 `dot-audit`
 
 Reviews code against activated principles. Outputs findings grouped by severity. Supports explicit principle override via `--with <spec>`, `@<group>`, or `<spec> on <target>` syntax to force a specific principle set regardless of `.principles` files.
 
-**Interactive use only.** `/dot-audit` is a chat-based, on-demand command — run it in Copilot Chat, Claude Code, or any interactive AI session when you want a deep, targeted review with optional fix and PR workflow. It is not automatically invoked during pull request review; that role belongs to the per-group instruction files emitted by `/dot-scout`.
+**Interactive use only.** `dot-audit` is a chat-based, on-demand command — run it in Copilot Chat, Claude Code, or any interactive AI session when you want a deep, targeted review with optional fix and PR workflow. It is not automatically invoked during pull request review; that role belongs to the per-group instruction files emitted by `dot-scout`.
 
 **Phases:**
 
@@ -660,9 +660,9 @@ Reviews code against activated principles. Outputs findings grouped by severity.
 
 **Gated workflow rules (Phases 8–10):** Each phase is a mandatory stop — the default is always to ask, never to proceed. Identifying issues ≠ permission to fix; fixing ≠ permission to commit; committing ≠ permission to push or open a PR. Silence or likely intent never count as approval.
 
-> **Automatic vs. interactive review:** Copilot Code Review and Claude Code's automatic review use the per-group files from `/dot-scout` (`.github/instructions/*.instructions.md`, `REVIEW.md`) — these are passive and post findings as review comments. They do not run `/dot-audit` and cannot trigger Phases 8–10. The fix gate is intentionally interactive: you invoke `/dot-audit` when you are ready to decide whether to apply fixes.
+> **Automatic vs. interactive review:** Copilot Code Review and Claude Code's automatic review use the per-group files from `dot-scout` (`.github/instructions/*.instructions.md`, `REVIEW.md`) — these are passive and post findings as review comments. They do not run `dot-audit` and cannot trigger Phases 8–10. The fix gate is intentionally interactive: you invoke `dot-audit` when you are ready to decide whether to apply fixes.
 
-### 🔍 `/dot-scout`
+### 🔍 `dot-scout`
 
 Analyses a project directory and creates or updates `.principles` files, then compiles and injects the active principle set.
 
@@ -681,7 +681,7 @@ Analyses a project directory and creates or updates `.principles` files, then co
 
 ## 📦 10. Installer Targets
 
-`install.sh` deploys the three commands (`/dot-scout`, `/dot-prime`, `/dot-audit`) to supported AI tool families. The installer is **template-driven** — skill content is defined in `templates/agents/` (canonical); tool-specific wrappers in `templates/claude/`.
+`install.sh` deploys the three commands (`dot-scout`, `dot-prime`, `dot-audit`) to supported AI tool families. The installer is **template-driven** — skill content is defined in `templates/agents/` (canonical); tool-specific wrappers in `templates/claude/`.
 
 **Prerequisites:** Bash 4+. See [REQUIREMENTS.md](REQUIREMENTS.md). On Windows, use `install.ps1` (PowerShell) or `install.cmd` (CMD) — thin wrappers that detect bash and forward all arguments to `install.sh`. See [INSTALL.md](INSTALL.md) for platform-specific instructions.
 
@@ -717,7 +717,7 @@ Follow the instructions in `.agents/skills/<slug>/SKILL.md`.
 
 Claude Code discovers slash commands by scanning `.claude/commands/` for `.md` files. The wrapper delegates to the canonical skill so Claude reads the full content from `.agents/skills/`.
 
-**Per-group files:** `/dot-scout` Phase 6 emits per-group principle files into `<dir>/.claude/rules/` with `paths:` frontmatter. These are runtime-generated by `/dot-scout` and not installed by `install.sh`.
+**Per-group files:** `dot-scout` Phase 6 emits per-group principle files into `<dir>/.claude/rules/` with `paths:` frontmatter. These are runtime-generated by `dot-scout` and not installed by `install.sh`.
 
 ### 🐙 GitHub Copilot (native, no wrapper needed)
 
@@ -727,7 +727,7 @@ Both Copilot CLI and Copilot IDE discover `.agents/skills/` natively:
 
 No wrapper files are written. The canonical skill at `.agents/skills/<slug>/SKILL.md` is the only file needed.
 
-**Per-group files (Code Review):** `/dot-scout` Phase 6 emits per-group principle files into `.github/instructions/` with `applyTo:` frontmatter. Copilot Code Review applies them when reviewing matching paths. Enable this via the review integration step in the interactive installer.
+**Per-group files (Code Review):** `dot-scout` Phase 6 emits per-group principle files into `.github/instructions/` with `applyTo:` frontmatter. Copilot Code Review applies them when reviewing matching paths. Enable this via the review integration step in the interactive installer.
 
 ### 🧠 Codex (native, no wrapper needed)
 
@@ -743,7 +743,7 @@ Removes all assets written by `install.sh`:
 - AI skills from `<dir>/.agents/skills/` (files with `generated-by: .principles` watermark)
 - Command files from `<dir>/.claude/commands/` (files with `generated-by: .principles` watermark)
 - Vendor catalog: `<dir>/.agents/principles-catalog/`
-- Per-group principle files from `<dir>/.github/instructions/` and `<dir>/.claude/rules/` (files with `<!-- generated by /dot-scout -->` marker)
+- Per-group principle files from `<dir>/.github/instructions/` and `<dir>/.claude/rules/` (files with `<!-- generated by dot-scout -->` marker)
 - Legacy assets: `<!-- .principles:start/end -->` hub block from `AGENTS.md`/`CLAUDE.md` (if present from earlier installs), `<dir>/.principles-catalog/`, `<dir>/.github/skills/`, `<dir>/.github/prompts/`, compiled blocks from `AGENTS.md`/`CLAUDE.md`/`copilot-instructions.md`, legacy `~/.principles`
 
 **Content-based detection:** All generated files are identified by the `generated-by: .principles` frontmatter watermark — not by matching current command names. This makes uninstall version-agnostic: files from renamed commands are cleaned up correctly. Legacy command names are checked as a fallback for pre-watermark installs.

@@ -27,5 +27,5 @@
 | [simple-design/](simple-design/) | Kent Beck's 4 Rules |
 | [solid/](solid/) | SOLID principles |
 | [catalog.yaml](catalog.yaml) | Master namespace registry |
-| [AUDIT-SCOPE.md](AUDIT-SCOPE.md) | Scope notes for /dot-audit |
+| [AUDIT-SCOPE.md](AUDIT-SCOPE.md) | Scope notes for dot-audit |
 | [TEMPLATE.md](TEMPLATE.md) | Template for new principle files |

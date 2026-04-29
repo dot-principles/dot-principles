@@ -130,7 +130,7 @@ The system detects the artifact type of the file being reviewed and selects the 
 | **Schema** | `.proto`, `.graphql`, `openapi.yaml`, `schema.sql`, … | Backward compatibility, self-describing, consistent naming, … |
 | **Pipeline** | `.github/workflows/`, `Jenkinsfile`, … | Idempotency, minimal permissions, no secrets in logs, … |
 
-Run `/dot-audit README.md` and you get doc-specific findings. Run `/dot-audit main.tf` and you get IaC-specific findings. The right principles fire for the right artifact — without any manual configuration.
+Run `dot-audit README.md` and you get doc-specific findings. Run `dot-audit main.tf` and you get IaC-specific findings. The right principles fire for the right artifact — without any manual configuration.
 
 ---
 
@@ -142,19 +142,19 @@ Traditional code review is valuable. But it happens *after* the code is already 
 
 ```mermaid
 flowchart LR
-    S["🔭 /dot-scout<br>Analyze project<br>write .principles"]
-    P["⚡ /dot-prime<br>Load principles<br>into coding frame"]
+    S["🔭 dot-scout<br>Analyze project<br>write .principles"]
+    P["⚡ dot-prime<br>Load principles<br>into coding frame"]
     C["✍️ Write code<br>with the right<br>mindset active"]
-    A["🔎 /dot-audit<br>Review against<br>active principles"]
+    A["🔎 dot-audit<br>Review against<br>active principles"]
     F["🔧 Fix issues"]
     D["✅ Done"]
 
     S --> P --> C --> A --> F --> A --> D
 ```
 
-`/dot-prime` is the key step. It resolves the full `.principles` hierarchy and loads the complete principle guidance into the AI's context *before* a single line is written. The AI doesn't just know the principles in the abstract — it has them front-of-mind as it generates code, the same way an experienced senior developer does when they sit down to work.
+`dot-prime` is the key step. It resolves the full `.principles` hierarchy and loads the complete principle guidance into the AI's context *before* a single line is written. The AI doesn't just know the principles in the abstract — it has them front-of-mind as it generates code, the same way an experienced senior developer does when they sit down to work.
 
-`/dot-audit` then gives you the gut-check: not just "does this compile?" or "are there obvious bugs?" — but *"does this code reflect good engineering?"* Critical findings need immediate attention. But you also want the broader signal: is this code well-structured, secure, maintainable, and consistent with the architecture? That's quality assurance, not just bug hunting.
+`dot-audit` then gives you the gut-check: not just "does this compile?" or "are there obvious bugs?" — but *"does this code reflect good engineering?"* Critical findings need immediate attention. But you also want the broader signal: is this code well-structured, secure, maintainable, and consistent with the architecture? That's quality assurance, not just bug hunting.
 
 ---
 
@@ -215,6 +215,7 @@ Because these are AI commands — not CLI tools — you speak to them in natural
 The AI figures out the scope from context:
 
 ```
+# Claude / Copilot (use $dot-audit / $dot-prime in Codex):
 /dot-audit current changes          → reviews only what has changed since last commit
 /dot-audit the payment module       → reviews the payments subtree
 /dot-audit                          → you decide the scope in conversation

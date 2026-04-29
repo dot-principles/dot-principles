@@ -40,7 +40,8 @@ Every change must update the relevant documentation files:
 1. Run `dot-scout` to re-analyse this repo and refresh the generated principle files:
 
    ```
-   /dot-scout
+   /dot-scout       # Claude / Copilot
+   $dot-scout       # Codex
    ```
 
 2. Confirm generated files are up to date and commit them:
@@ -57,8 +58,11 @@ Every change must update the relevant documentation files:
 Run `dot-audit` on the affected paths:
 
 ```
-/dot-audit principles/<changed-dir>
+/dot-audit principles/<changed-dir>    # Claude / Copilot
 /dot-audit commands/
+
+$dot-audit principles/<changed-dir>    # Codex
+$dot-audit commands/
 ```
 
 All findings must be resolved or explicitly accepted (with rationale) before merging.
@@ -83,10 +87,11 @@ gates (Phases 8–10) are intact in all audit command files.
 This repo has `.principles` files that define which principles govern AI-assisted work
 here. The generated Copilot review instruction files live in `.github/instructions/`.
 
-Run `/dot-prime` before starting any significant change to load the active rule set:
+Run `dot-prime` before starting any significant change to load the active rule set:
 
 ```
-/dot-prime
+/dot-prime       # Claude / Copilot
+$dot-prime       # Codex
 ```
 
 The active set covers: documentation quality (`@docs`), shell script hygiene (`@source-code`), and plain-text practices (`@ptac`).

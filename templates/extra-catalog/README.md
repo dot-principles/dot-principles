@@ -16,8 +16,8 @@ my-principles/
 ├── principles/
 │   └── <namespace>/          ← one directory per namespace (your choice of name)
 │       ├── catalog.yaml      ← required: namespace description
-│       ├── .context-prime.md ← compiled guidance for /dot-prime  (recommended)
-│       ├── .context-audit.md ← compiled violation patterns for /dot-audit  (recommended)
+│       ├── .context-prime.md ← compiled guidance for dot-prime  (recommended)
+│       ├── .context-audit.md ← compiled violation patterns for dot-audit  (recommended)
 │       ├── .context-inspect.md ← optional: grep-based pre-scan patterns
 │       └── <namespace>-<slug>.md  ← one file per principle
 └── groups/

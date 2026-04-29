@@ -22,7 +22,7 @@ On Windows, use `install.ps1` / `uninstall.ps1` (PowerShell) or `install.cmd` / 
 
 ## AI Model
 
-The `/dot-audit`, `/dot-prime`, and `/dot-scout` commands work with a range of AI models, but premium models are recommended for the best review quality and output formatting.
+The `dot-audit`, `dot-prime`, and `dot-scout` commands work with a range of AI models, but premium models are recommended for the best review quality and output formatting.
 
 | Model | Status | Notes |
 |-------|--------|-------|
@@ -34,4 +34,4 @@ The `/dot-audit`, `/dot-prime`, and `/dot-scout` commands work with a range of A
 
 Premium models (Claude Haiku 4.5+, GPT-4.1+) are recommended — they produce more thorough reviews and better formatted results. The commands rely on the model's ability to follow multi-phase structured prompts, produce valid JSON, and format text output consistently. Smaller or quantized models are likely to skip steps or produce malformed output.
 
-> **Note:** Even with premium models, the formatting of `/dot-audit` results will vary between models and between runs. The principle review itself is performed by the AI, and quality depends on the model — some produce thorough, well-structured audits; others may miss findings or deviate from the output template. The `audit-output.json` file is the most reliable artefact; the text report is best-effort.
+> **Note:** Even with premium models, the formatting of `dot-audit` results will vary between models and between runs. The principle review itself is performed by the AI, and quality depends on the model — some produce thorough, well-structured audits; others may miss findings or deviate from the output template. The `audit-output.json` file is the most reliable artefact; the text report is best-effort.

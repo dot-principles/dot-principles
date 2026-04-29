@@ -655,10 +655,12 @@ Reviews code against activated principles. Outputs findings grouped by severity.
 | 6     | Review                        | Guided review (hits) + semantic-only review + opportunistic findings                           |
 | 7     | Output                        | Compact text report + `audit-output.json` written to repo root; reports principle source       |
 | 8     | Fix *(optional, gated)*       | Asks "Would you like me to fix these findings?"; on approval creates a `fix-<slug>` branch and applies every finding's `fix` field |
-| 9     | Commit *(optional, gated)*    | Presents commit message + PR body for review; offers commit-only, commit-and-push, or exit    |
+| 9     | Commit *(optional, gated)*    | Presents commit message + PR body for review; offers re-run audit (if Medium+ findings), commit-only, commit-and-push, or exit    |
 | 10    | Pull Request *(optional, gated)* | Asks "Shall I open a pull request?"; on approval creates a PR targeting the default branch |
 
 **Gated workflow rules (Phases 8–10):** Each phase is a mandatory stop — the default is always to ask, never to proceed. Identifying issues ≠ permission to fix; fixing ≠ permission to commit; committing ≠ permission to push or open a PR. Silence or likely intent never count as approval.
+
+**Re-audit loop (Phase 9 → Phase 5):** When the audit found at least one Medium or higher finding, Phase 9 offers a "Re-run audit" option (option 0). Choosing it jumps back to Phase 5 (Pre-Scan) using the same already-resolved target and principles, then re-runs Phases 6 and 7. This backward edge is conditional — it is not offered for low-only audits. The intent is to surface issues that were masked by the more prominent findings in the first pass. The branch from Phase 8.1 is reused; the pass number increments and is recorded in the eventual commit message.
 
 > **Automatic vs. interactive review:** Copilot Code Review and Claude Code's automatic review use the per-group files from `dot-scout` (`.github/instructions/*.instructions.md`, `REVIEW.md`) — these are passive and post findings as review comments. They do not run `dot-audit` and cannot trigger Phases 8–10. The fix gate is intentionally interactive: you invoke `dot-audit` when you are ready to decide whether to apply fixes.
 

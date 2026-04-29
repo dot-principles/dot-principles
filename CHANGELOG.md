@@ -408,10 +408,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 - **CONTRIBUTING.md** — contributor guidelines added
 - **Layer refinements** — updated universal layer, context mappings, and risk signals
 
-### What's Next
-
-See [TODO.md](TODO.md) for the roadmap.
-
 ---
 
 [Unreleased]: https://github.com/dot-principles/dot-principles/compare/v0.13.0...HEAD

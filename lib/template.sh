@@ -107,6 +107,7 @@ install_from_template() {
             local expanded
             expanded="${line//\{\{COMMAND_NAME\}\}/$command_name}"
             expanded="${expanded//\{\{COMMAND_SLUG\}\}/$command_slug}"
+            expanded="${expanded//\{\{VERSION\}\}/$VERSION}"
             if [[ "$expanded" == *'{{FRONTMATTER}}'* ]]; then
                 # Output prefix before {{FRONTMATTER}}, then file, then suffix
                 local prefix="${expanded%%\{\{FRONTMATTER\}\}*}"

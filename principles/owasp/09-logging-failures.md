@@ -1,4 +1,4 @@
-# OWASP-09-LOGGING-FAILURES — Security Logging and Monitoring Failures
+# OWASP-09-LOGGING-FAILURES - Security Logging and Monitoring Failures
 
 **Layer:** 2 (contextual)
 **Categories:** security, observability, incident-response
@@ -32,4 +32,4 @@ The average time to detect a breach is measured in months. Attackers rely on thi
 
 ## Sources
 
-- OWASP Foundation. "A09:2021 – Security Logging and Monitoring Failures." *OWASP Top 10*, 2021. https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/
+- OWASP Foundation. "A09:2021 - Security Logging and Monitoring Failures." *OWASP Top 10*, 2021. https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/

@@ -1,4 +1,4 @@
-# CLEAN-ARCH-ARCHITECTURAL-BOUNDARIES — Define Clear Architectural Boundaries
+# CLEAN-ARCH-ARCHITECTURAL-BOUNDARIES - Define Clear Architectural Boundaries
 
 **Layer:** 2 (contextual)
 **Categories:** architecture
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Draw explicit boundaries between components that change for different reasons or at different rates. Each boundary separates a higher-level policy from a lower-level detail, and communication across the boundary should occur through well-defined interfaces. Boundaries can be enforced at the source level (separate modules), at the deployment level (separate libraries or packages), or at the service level (separate processes) — the choice depends on the cost of crossing the boundary versus the cost of not having one.
+Draw explicit boundaries between components that change for different reasons or at different rates. Each boundary separates a higher-level policy from a lower-level detail, and communication across the boundary should occur through well-defined interfaces. Boundaries can be enforced at the source level (separate modules), at the deployment level (separate libraries or packages), or at the service level (separate processes) - the choice depends on the cost of crossing the boundary versus the cost of not having one.
 
 ## Why it matters
 
@@ -22,7 +22,7 @@ Without explicit boundaries, changes in one part of the system bleed into others
 
 ## Good practice
 
-- Define a public API for each component — only types and functions in the public API may be referenced by other components
+- Define a public API for each component - only types and functions in the public API may be referenced by other components
 - Use language or build-system mechanisms to enforce boundaries (Java modules, Go internal packages, TypeScript project references, Bazel visibility rules)
 - Start with simpler boundaries (source-level modules) and promote to deployment or service boundaries only when the cost-benefit analysis justifies it
 - Regularly review dependency graphs to detect boundary violations before they accumulate

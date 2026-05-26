@@ -1,4 +1,4 @@
-# .github/instructions — Index
+# .github/instructions - Index
 
 | File | Applies to | Description |
 |---|---|---|

@@ -1,4 +1,4 @@
-# GOF-BRIDGE — Bridge Pattern
+# GOF-BRIDGE - Bridge Pattern
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
@@ -52,13 +52,13 @@ classDiagram
 ```
 
 ```java
-// Violation — 4 classes for 2 shapes × 2 renderers
+// Violation - 4 classes for 2 shapes × 2 renderers
 class VectorCircle {}
 class RasterCircle {}
 class VectorSquare {}
 class RasterSquare {}
 
-// Correct — 2 shape classes + 2 renderer classes, combined via Bridge
+// Correct - 2 shape classes + 2 renderer classes, combined via Bridge
 Renderer r = new VectorRenderer();
 Shape s = new Circle(r);
 s.draw();  // delegates to renderer

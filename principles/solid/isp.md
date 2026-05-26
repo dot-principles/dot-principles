@@ -1,4 +1,4 @@
-# SOLID-ISP — Interface Segregation Principle
+# SOLID-ISP - Interface Segregation Principle
 
 **Layer:** 1 (universal)
 **Categories:** software-design, api-design, coupling
@@ -22,7 +22,7 @@ Fat interfaces create phantom coupling: a class that uses only one method of a t
 
 ## Good practice
 
-Split a fat interface into focused role interfaces. `SimplePrinter` implements only `Printable`; `AllInOne` implements all three — neither is forced to stub anything.
+Split a fat interface into focused role interfaces. `SimplePrinter` implements only `Printable`; `AllInOne` implements all three - neither is forced to stub anything.
 
 ```mermaid
 classDiagram
@@ -53,7 +53,7 @@ classDiagram
 ```
 
 ```java
-// Violation — SimplePrinter forced to implement methods it doesn't use
+// Violation - SimplePrinter forced to implement methods it doesn't use
 interface Machine {
     void print();
     void scan();
@@ -65,7 +65,7 @@ class SimplePrinter implements Machine {
     public void fax()   { throw new UnsupportedOperationException(); } // forced stub
 }
 
-// Correct — each interface is a focused role
+// Correct - each interface is a focused role
 interface Printable { void print(); }
 interface Scannable { void scan(); }
 interface Faxable   { void fax(); }

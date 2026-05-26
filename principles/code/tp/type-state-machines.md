@@ -1,4 +1,4 @@
-# CODE-TP-TYPE-STATE-MACHINES — Encode state machines in the type system
+# CODE-TP-TYPE-STATE-MACHINES - Encode state machines in the type system
 
 **Layer:** 2
 **Categories:** type-safety, correctness
@@ -16,7 +16,7 @@ Most bugs in stateful systems come from performing an action in the wrong state:
 ## Violations to detect
 
 - A single class with a `status` field and methods guarded by `if (status == ...)` checks that throw runtime exceptions for invalid states
-- Optional/nullable fields that are "only valid when status is X" — requiring every consumer to know which fields are available in which state
+- Optional/nullable fields that are "only valid when status is X" - requiring every consumer to know which fields are available in which state
 - State transition methods that return the same type regardless of the target state, losing type information about what state the object is now in
 - Business logic that checks the current state with `instanceof` or string comparison instead of pattern matching on typed states
 - Documentation comments like "only call this after calling initialize()" where the type system could enforce the ordering
@@ -25,7 +25,7 @@ Most bugs in stateful systems come from performing an action in the wrong state:
 
 - Model each state as a distinct type or variant of a discriminated union: `Order.Pending`, `Order.Paid`, `Order.Shipped`, `Order.Delivered`
 - Make transition functions accept one state and return another: `fun ship(order: Order.Paid): Order.Shipped`
-- Ensure that each state variant carries only the data available in that state — `Order.Shipped` has a `trackingNumber`, `Order.Pending` does not
+- Ensure that each state variant carries only the data available in that state - `Order.Shipped` has a `trackingNumber`, `Order.Pending` does not
 - Use the typestate pattern in languages that support it (Rust, TypeScript, Kotlin sealed hierarchies) to enforce valid operation sequences at compile time
 - When the full typestate pattern is too heavyweight, at minimum use a sum type for the states to enable exhaustive matching on transitions
 

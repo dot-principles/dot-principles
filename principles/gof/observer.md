@@ -1,4 +1,4 @@
-# GOF-OBSERVER — Observer Pattern
+# GOF-OBSERVER - Observer Pattern
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
@@ -46,7 +46,7 @@ classDiagram
 ```
 
 ```java
-// Violation — subject hard-codes its observers
+// Violation - subject hard-codes its observers
 class Editor {
     void save() {
         emailService.sendAlert(file);  // coupled to concrete observers
@@ -54,7 +54,7 @@ class Editor {
     }
 }
 
-// Correct — observers register themselves; subject just notifies
+// Correct - observers register themselves; subject just notifies
 editor.events.subscribe("open", logger);
 editor.events.subscribe("save", emailAlerts);
 editor.save();  // notifies all registered listeners generically
@@ -68,4 +68,4 @@ editor.save();  // notifies all registered listeners generically
 
 ## Sources
 
-- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. ISBN 978-0-201-63361-0. Chapter 5, Behavioral Patterns — Observer.
+- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. ISBN 978-0-201-63361-0. Chapter 5, Behavioral Patterns - Observer.

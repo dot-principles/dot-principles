@@ -1,4 +1,4 @@
-# PTAC-NAVIGABLE-DIRS — Navigable Plain-Text Directories
+# PTAC-NAVIGABLE-DIRS - Navigable Plain-Text Directories
 
 **Layer:** 2
 **Categories**: structure, navigation, discoverability
@@ -9,8 +9,8 @@
 
 Every plain-text directory must contain two files with distinct roles:
 
-- **`INDEX.md`** — machine-scannable table of every entry with a one-line description; for AI tools and automation that need to know what exists without reading every file.
-- **`README.md`** — human-oriented description of the directory's purpose, scope, and how to use it; auto-rendered on GitHub, GitLab, and Bitbucket.
+- **`INDEX.md`** - machine-scannable table of every entry with a one-line description; for AI tools and automation that need to know what exists without reading every file.
+- **`README.md`** - human-oriented description of the directory's purpose, scope, and how to use it; auto-rendered on GitHub, GitLab, and Bitbucket.
 
 A README explains *what this is*; an INDEX says *what's in here*. They are not interchangeable.
 
@@ -28,22 +28,22 @@ Without navigation aids, AI tools must speculatively read every file to understa
 
 ## Good practice
 
-`README.md` — describes purpose, scope, and how to use the content.
-`INDEX.md` — a table listing every entry with a one-line description:
+`README.md` - describes purpose, scope, and how to use the content.
+`INDEX.md` - a table listing every entry with a one-line description:
 
 ```markdown
 # Index
 
 | Path | Description |
 |------|-------------|
-| `adr/` | Architectural Decision Records (ADRs 001–020) |
+| `adr/` | Architectural Decision Records (ADRs 001-020) |
 | `c4-views/` | C4 context, container, and component diagrams |
 | `glossary.md` | Domain terminology and abbreviations |
 ```
 
-Keep them separate — a file that tries to be both becomes too long for either purpose.
+Keep them separate - a file that tries to be both becomes too long for either purpose.
 
 ## Sources
 
-- [Plain-Text-as-Code](https://github.com/Plain-Text-as-Code) — philosophy and examples
+- [Plain-Text-as-Code](https://github.com/Plain-Text-as-Code) - philosophy and examples
 - GitHub documentation: [About READMEs](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes)

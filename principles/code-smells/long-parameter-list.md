@@ -1,4 +1,4 @@
-# CODE-SMELLS-LONG-PARAMETER-LIST — Long Parameter List
+# CODE-SMELLS-LONG-PARAMETER-LIST - Long Parameter List
 
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, maintainability

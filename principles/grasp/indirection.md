@@ -1,4 +1,4 @@
-# GRASP-INDIRECTION — Indirection
+# GRASP-INDIRECTION - Indirection
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, coupling-reduction, architecture
@@ -11,7 +11,7 @@ Assign responsibility to an intermediate object to mediate between two component
 
 ## Why it matters
 
-Direct coupling between two components means a change in either forces a change in the other. An intermediary — adapter, broker, facade, or message channel — absorbs the variation and allows each side to evolve without affecting the other.
+Direct coupling between two components means a change in either forces a change in the other. An intermediary - adapter, broker, facade, or message channel - absorbs the variation and allows each side to evolve without affecting the other.
 
 ## Violations to detect
 

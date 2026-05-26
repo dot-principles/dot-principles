@@ -1,4 +1,4 @@
-# SEC-ARCH-LEAST-COMMON-MECHANISM — Minimize shared mechanisms between users and components
+# SEC-ARCH-LEAST-COMMON-MECHANISM - Minimize shared mechanisms between users and components
 
 **Layer:** 2 (contextual)
 **Categories:** security, architecture, isolation
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Minimize the amount of mechanism shared between users, tenants, or components that operate at different trust levels. Shared service accounts, global singletons for authentication state, common file systems, and pooled processes create covert channels and blast-radius amplifiers — a compromise in one consumer propagates through the shared mechanism to all others.
+Minimize the amount of mechanism shared between users, tenants, or components that operate at different trust levels. Shared service accounts, global singletons for authentication state, common file systems, and pooled processes create covert channels and blast-radius amplifiers - a compromise in one consumer propagates through the shared mechanism to all others.
 
 ## Why it matters
 
@@ -29,10 +29,10 @@ Every shared mechanism is a potential lateral movement path. A shared database c
 ## Good practice
 
 - Assign distinct credentials to each service, environment, and tenant; never share service accounts across trust boundaries
-- Isolate tenant data at the database level — separate schemas, separate databases, or enforced row-level security policies
+- Isolate tenant data at the database level - separate schemas, separate databases, or enforced row-level security policies
 - Use per-request or per-tenant security context objects rather than global singletons for authentication state
 - Separate control plane and data plane communication channels so that management traffic cannot be observed or influenced by workload traffic
-- Ensure logging pipelines enforce tenant-level isolation — a tenant's logs must not be visible to other tenants
+- Ensure logging pipelines enforce tenant-level isolation - a tenant's logs must not be visible to other tenants
 - In multi-tenant systems, use separate encryption keys per tenant so that a key compromise affects only one tenant
 
 ## Sources

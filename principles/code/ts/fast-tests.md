@@ -1,4 +1,4 @@
-# CODE-TS-FAST-TESTS — Keep tests fast
+# CODE-TS-FAST-TESTS - Keep tests fast
 
 **Layer:** 2 (contextual)
 **Categories:** testing, quality
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Tests must run fast enough that developers execute them frequently — ideally after every small change. Slow tests break the feedback loop that makes TDD and continuous integration valuable. A test suite that takes too long to run will be skipped, run only in CI, or ignored entirely, undermining its purpose as a safety net.
+Tests must run fast enough that developers execute them frequently - ideally after every small change. Slow tests break the feedback loop that makes TDD and continuous integration valuable. A test suite that takes too long to run will be skipped, run only in CI, or ignored entirely, undermining its purpose as a safety net.
 
 ## Why it matters
 
@@ -27,8 +27,8 @@ The value of a test suite is directly tied to how often it is run. Fast tests en
 - Reserve real I/O and infrastructure for integration and end-to-end tests, which run less frequently
 - Profile the test suite periodically and address tests that have become slow
 - Separate fast unit tests from slower integration tests so the fast suite can run on every save
-- Avoid unnecessary setup — create only the state each test actually needs
+- Avoid unnecessary setup - create only the state each test actually needs
 
 ## Sources
 
-- Martin, Robert C. *Clean Code: A Handbook of Agile Software Craftsmanship*. Prentice Hall, 2008. ISBN 978-0-13-235088-4. Chapter 9: "Clean Tests — F.I.R.S.T."
+- Martin, Robert C. *Clean Code: A Handbook of Agile Software Craftsmanship*. Prentice Hall, 2008. ISBN 978-0-13-235088-4. Chapter 9: "Clean Tests - F.I.R.S.T."

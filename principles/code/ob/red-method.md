@@ -1,4 +1,4 @@
-# CODE-OB-RED-METHOD — For every service, track Rate, Errors, and Duration (RED Method)
+# CODE-OB-RED-METHOD - For every service, track Rate, Errors, and Duration (RED Method)
 
 **Layer:** 2 (contextual)
 **Categories:** observability, operations, reliability
@@ -11,7 +11,7 @@ For every service (or meaningful request-handling component), instrument three r
 
 ## Why it matters
 
-Without Rate, Errors, and Duration on every service, engineers cannot answer the most basic operational questions: Is the service being called? Is it succeeding? Is it fast? Gaps in any one dimension hide problems — a service may show a low error rate while its latency has tripled, or a high request rate while errors go uncounted. RED provides a consistent, minimal instrumentation contract that makes services comparable and debuggable.
+Without Rate, Errors, and Duration on every service, engineers cannot answer the most basic operational questions: Is the service being called? Is it succeeding? Is it fast? Gaps in any one dimension hide problems - a service may show a low error rate while its latency has tripled, or a high request rate while errors go uncounted. RED provides a consistent, minimal instrumentation contract that makes services comparable and debuggable.
 
 ## Violations to detect
 

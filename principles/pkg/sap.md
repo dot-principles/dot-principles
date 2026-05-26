@@ -1,4 +1,4 @@
-# PKG-SAP — Stable Abstractions Principle (SAP)
+# PKG-SAP - Stable Abstractions Principle (SAP)
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, package-design, modularity, architecture
@@ -11,13 +11,13 @@ A component should be as abstract as it is stable. The more a component is depen
 
 ## Why it matters
 
-A stable component that is all concrete classes is a rigid anchor. It cannot be extended without modification, violating OCP. The SAP, combined with SDP, ensures that dependencies flow toward stable abstractions — creating a system that is both stable and extensible.
+A stable component that is all concrete classes is a rigid anchor. It cannot be extended without modification, violating OCP. The SAP, combined with SDP, ensures that dependencies flow toward stable abstractions - creating a system that is both stable and extensible.
 
 ## Violations to detect
 
-- A widely-depended-upon component with no interfaces or abstract classes — only concrete implementations
+- A widely-depended-upon component with no interfaces or abstract classes - only concrete implementations
 - A component that is very stable (many incoming deps) but has A (abstractness) close to 0
-- Abstract components that are also volatile (few incoming deps) — abstractions no one uses
+- Abstract components that are also volatile (few incoming deps) - abstractions no one uses
 
 ## Good practice
 

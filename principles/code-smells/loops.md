@@ -1,14 +1,14 @@
-# CODE-SMELLS-LOOPS — Loops
+# CODE-SMELLS-LOOPS - Loops
 
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, readability
 **Applies-to:** all
 **Summary:** Replace imperative loops that filter, transform, or accumulate with declarative pipeline operations.
-**Audit-scope:** limited — imperative loops are detectable but whether a pipeline replacement is appropriate requires semantic judgment
+**Audit-scope:** limited - imperative loops are detectable but whether a pipeline replacement is appropriate requires semantic judgment
 
 ## Principle
 
-An imperative loop that filters, transforms, or accumulates data is harder to read than an equivalent pipeline operation. Pipeline operations — `map`, `filter`, `reduce`, and their language equivalents — declare *what* should happen to each element without the noise of index variables, accumulator initialisation, and push/append boilerplate. When a loop's body consists entirely of a filter condition, a transformation, or an accumulation, it should be replaced with the corresponding pipeline operation.
+An imperative loop that filters, transforms, or accumulates data is harder to read than an equivalent pipeline operation. Pipeline operations - `map`, `filter`, `reduce`, and their language equivalents - declare *what* should happen to each element without the noise of index variables, accumulator initialisation, and push/append boilerplate. When a loop's body consists entirely of a filter condition, a transformation, or an accumulation, it should be replaced with the corresponding pipeline operation.
 
 ## Why it matters
 
@@ -16,9 +16,9 @@ Imperative loops mix the mechanics of iteration with the intent of the operation
 
 ## Violations to detect
 
-- A `for`/`while` loop whose body consists of an `if` condition followed by pushing the current element to a result collection — replace with `filter`
-- A `for`/`while` loop whose body transforms each element and pushes the result to a new collection — replace with `map`
-- A `for`/`while` loop that accumulates a single scalar result (sum, count, concatenation) using a running variable — replace with `reduce`/`fold`
+- A `for`/`while` loop whose body consists of an `if` condition followed by pushing the current element to a result collection - replace with `filter`
+- A `for`/`while` loop whose body transforms each element and pushes the result to a new collection - replace with `map`
+- A `for`/`while` loop that accumulates a single scalar result (sum, count, concatenation) using a running variable - replace with `reduce`/`fold`
 - Nested loops that flatten or cross-join collections where `flatMap` would be clearer
 - Loop-based data transformations that chain multiple operations in a single body, making the stages hard to distinguish
 

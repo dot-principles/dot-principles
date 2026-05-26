@@ -1,4 +1,4 @@
-# EIP-AGGREGATOR — Aggregator
+# EIP-AGGREGATOR - Aggregator
 
 **Layer:** 2 (contextual)
 **Categories:** integration, messaging, reliability
@@ -7,7 +7,7 @@
 
 ## Principle
 
-An Aggregator collects and combines a sequence of related messages into a single composite message. It requires three things to work correctly: a correlation expression that groups incoming messages into the right bucket, a completeness condition that determines when enough messages have arrived to produce the output, and a timeout or discard strategy for incomplete groups that never finish. These three elements must all be explicit — none can be left implicit or absent.
+An Aggregator collects and combines a sequence of related messages into a single composite message. It requires three things to work correctly: a correlation expression that groups incoming messages into the right bucket, a completeness condition that determines when enough messages have arrived to produce the output, and a timeout or discard strategy for incomplete groups that never finish. These three elements must all be explicit - none can be left implicit or absent.
 
 ## Why it matters
 
@@ -15,11 +15,11 @@ Without explicit correlation, completeness, and timeout, aggregation drifts into
 
 ## Violations to detect
 
-- An in-memory `Map` or `List` that accumulates messages keyed by correlation ID with no expiry, TTL, or bounded size — unbounded state that grows until OOM
+- An in-memory `Map` or `List` that accumulates messages keyed by correlation ID with no expiry, TTL, or bounded size - unbounded state that grows until OOM
 - No explicit completion condition: the aggregator either waits forever or produces output on an arbitrary first-N-messages-arrived heuristic with no documentation
 - Aggregation state stored in a local variable or non-persistent structure that is lost on service restart or crash
 - Aggregation logic spread across multiple consumers each maintaining their own partial accumulation of the same logical group
-- No handling of out-of-order or late-arriving messages — the aggregator silently drops messages that arrive after the group was closed
+- No handling of out-of-order or late-arriving messages - the aggregator silently drops messages that arrive after the group was closed
 
 ## Good practice
 

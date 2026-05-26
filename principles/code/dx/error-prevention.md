@@ -1,4 +1,4 @@
-# CODE-DX-ERROR-PREVENTION — Design for error prevention, not just error handling
+# CODE-DX-ERROR-PREVENTION - Design for error prevention, not just error handling
 
 **Layer:** 2
 **Categories:** developer-experience, usability, ux-design
@@ -11,7 +11,7 @@ Good design prevents errors from occurring in the first place rather than relyin
 
 ## Why it matters
 
-Error messages, no matter how well-written, are a symptom of a design that allowed the error to happen. Every error a user encounters costs time, creates frustration, and risks data loss. Preventing errors is always cheaper than recovering from them — both for the user's experience and for the system's reliability. As Norman argues, when people make errors, it is usually the design's fault, not the user's.
+Error messages, no matter how well-written, are a symptom of a design that allowed the error to happen. Every error a user encounters costs time, creates frustration, and risks data loss. Preventing errors is always cheaper than recovering from them - both for the user's experience and for the system's reliability. As Norman argues, when people make errors, it is usually the design's fault, not the user's.
 
 ## Violations to detect
 
@@ -24,9 +24,9 @@ Error messages, no matter how well-written, are a symptom of a design that allow
 ## Good practice
 
 - Use type systems, enums, and constrained inputs to make invalid states impossible to express
-- Provide sensible defaults so users do not need to specify every option — make the common case effortless
+- Provide sensible defaults so users do not need to specify every option - make the common case effortless
 - Add confirmation dialogs for irreversible destructive actions, and offer undo for reversible ones
-- Validate input at the boundary — as early as possible — and provide immediate, specific feedback about what is wrong
+- Validate input at the boundary - as early as possible - and provide immediate, specific feedback about what is wrong
 - Use linters, formatters, and pre-commit hooks to catch mistakes before they reach code review or production
 
 ## Sources

@@ -1,4 +1,4 @@
-# CODE-SMELLS-SPECULATIVE-GENERALITY — Speculative Generality
+# CODE-SMELLS-SPECULATIVE-GENERALITY - Speculative Generality
 
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, maintainability
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Speculative Generality arises when developers build abstractions, hooks, or special cases to handle future requirements that may never materialise. Abstract classes with only one subclass, parameters that are never used, methods that exist "just in case" — all add complexity without current value. Build for today's known requirements and refactor when real needs emerge.
+Speculative Generality arises when developers build abstractions, hooks, or special cases to handle future requirements that may never materialise. Abstract classes with only one subclass, parameters that are never used, methods that exist "just in case" - all add complexity without current value. Build for today's known requirements and refactor when real needs emerge.
 
 ## Why it matters
 
@@ -24,7 +24,7 @@ Unused abstractions increase the surface area of the code that must be read, tes
 
 - Remove unused abstractions: Collapse Hierarchy, Inline Function, Inline Class
 - Follow YAGNI (You Aren't Gonna Need It): add complexity only when a concrete requirement demands it
-- If a framework or library demands an extension point, that is not speculative — it is required by the architecture
+- If a framework or library demands an extension point, that is not speculative - it is required by the architecture
 - When you do foresee a need, add a TODO or note rather than building the abstraction now
 
 ## Sources

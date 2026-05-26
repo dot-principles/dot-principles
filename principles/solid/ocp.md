@@ -1,4 +1,4 @@
-# SOLID-OCP — Open/Closed Principle
+# SOLID-OCP - Open/Closed Principle
 
 **Layer:** 1 (universal)
 **Categories:** software-design, extensibility, maintainability
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Software entities — classes, modules, functions — should be open for extension but closed for modification. New behaviour should be addable by writing new code, not by changing existing, proven code.
+Software entities - classes, modules, functions - should be open for extension but closed for modification. New behaviour should be addable by writing new code, not by changing existing, proven code.
 
 ## Why it matters
 
@@ -22,7 +22,7 @@ Every time existing code is modified to add new behaviour, previously working fu
 
 ## Good practice
 
-Define an abstraction, then add new behaviour by implementing it — the `Shape` interface never changes as new shapes are added.
+Define an abstraction, then add new behaviour by implementing it - the `Shape` interface never changes as new shapes are added.
 
 ```mermaid
 classDiagram
@@ -45,7 +45,7 @@ classDiagram
 ```
 
 ```java
-// Violation — must modify existing code for every new shape
+// Violation - must modify existing code for every new shape
 double totalArea(List<Object> shapes) {
     double total = 0;
     for (Object s : shapes) {
@@ -56,7 +56,7 @@ double totalArea(List<Object> shapes) {
     return total;
 }
 
-// Correct — add a new shape without touching existing code
+// Correct - add a new shape without touching existing code
 interface Shape {
     double area();
 }
@@ -75,7 +75,7 @@ double totalArea(List<Shape> shapes) {
 }
 ```
 
-- Apply the principle selectively — not all variation is worth abstracting; wait for the second change request before introducing an abstraction
+- Apply the principle selectively - not all variation is worth abstracting; wait for the second change request before introducing an abstraction
 
 ## Sources
 

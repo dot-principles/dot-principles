@@ -1,6 +1,6 @@
 # AI Agent Instructions
 
-This is the **dot-principles** repository — a curated catalog of software engineering
+This is the **dot-principles** repository - a curated catalog of software engineering
 principles and the tooling (`dot-scout`, `dot-audit`, `dot-prime`) that makes them
 accessible to AI coding agents across all artifact types.
 
@@ -22,14 +22,14 @@ This creates `.agents/principles-catalog/` at the repo root, which the commands 
 
 ---
 
-## Documentation — keep these files current
+## Documentation - keep these files current
 
 Every change must update the relevant documentation files:
 
 | File | When to update |
 |------|----------------|
 | **`README.md`** | Any user-facing change: new commands, changed install steps, new groups, changed `.principles` format |
-| **`CHANGELOG.md`** | Every change — follow the existing `## [version] - YYYY-MM-DD` format; add entries under the appropriate release heading |
+| **`CHANGELOG.md`** | Every change - follow the existing `## [version] - YYYY-MM-DD` format; add entries under the appropriate release heading |
 | **`DESIGN.md`** | Any structural or architectural change: new command phases, changes to the `.principles` hierarchy rules, principle schema changes, new artifact types |
 | **`demo/presentation.md`** | Any change that affects the end-to-end user experience: new commands, changed workflow steps, new output format, updated install flow |
 
@@ -78,7 +78,7 @@ Run the audit gate regression test before pushing:
 ```
 
 All checks must pass (exit 0). This test verifies that the interactive audit workflow
-gates (Phases 8–10) are intact in all audit command files.
+gates (Phases 8-10) are intact in all audit command files.
 
 ---
 

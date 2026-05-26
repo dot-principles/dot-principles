@@ -1,4 +1,4 @@
-# DB-EVENT-SOURCING — Event sourcing — persist state as an immutable log of domain events
+# DB-EVENT-SOURCING - Event sourcing - persist state as an immutable log of domain events
 
 **Layer:** 2
 **Categories:** database, architecture, reliability, auditability
@@ -7,25 +7,25 @@
 
 ## Principle
 
-Instead of storing the current state of an entity, store the full sequence of events that produced that state. Each event is an immutable, timestamped fact — "OrderPlaced", "ItemAdded", "PaymentApplied" — appended to an event log. Current state is derived by replaying all events for an entity. The event log is the system of record; projections and read models are derived views that can be rebuilt at any time from the log.
+Instead of storing the current state of an entity, store the full sequence of events that produced that state. Each event is an immutable, timestamped fact - "OrderPlaced", "ItemAdded", "PaymentApplied" - appended to an event log. Current state is derived by replaying all events for an entity. The event log is the system of record; projections and read models are derived views that can be rebuilt at any time from the log.
 
 ## Why it matters
 
-Mutable state storage discards history — the database shows what is, not how it got there. Debugging, auditing, and root-cause analysis require reconstructing a sequence of events that was never recorded. Event sourcing makes the complete history a first-class artefact: every state transition is recorded, every past state is replayable, and temporal queries ("what did this order look like at 3pm?") are trivial.
+Mutable state storage discards history - the database shows what is, not how it got there. Debugging, auditing, and root-cause analysis require reconstructing a sequence of events that was never recorded. Event sourcing makes the complete history a first-class artefact: every state transition is recorded, every past state is replayable, and temporal queries ("what did this order look like at 3pm?") are trivial.
 
 ## Violations to detect
 
 - Storing current state only (e.g. `status = 'SHIPPED'`) when the history of transitions is required for audit, debugging, or dispute resolution
-- Mutating event records after they have been stored — events are immutable facts; modifying them corrupts the historical record
-- Event stores without event versioning or schema evolution strategy — events written today must remain readable when the schema changes in future
-- Rebuilding current state from events on every request without snapshotting for long-lived entities — performance degrades as the event log grows
+- Mutating event records after they have been stored - events are immutable facts; modifying them corrupts the historical record
+- Event stores without event versioning or schema evolution strategy - events written today must remain readable when the schema changes in future
+- Rebuilding current state from events on every request without snapshotting for long-lived entities - performance degrades as the event log grows
 
 ## Good practice
 
 - Name events as past-tense facts that describe what happened, not what should happen: `OrderShipped`, not `ShipOrder`
 - Implement snapshots at configurable intervals for aggregates with long event histories, so state reconstruction does not require replaying the full log
 - Version event schemas using an event registry; define upgrade functions that translate old event versions to the current schema when replaying
-- Separate the event store from read projections; projections are rebuilt from events whenever required — treat them as caches, not sources of truth
+- Separate the event store from read projections; projections are rebuilt from events whenever required - treat them as caches, not sources of truth
 
 ## Sources
 

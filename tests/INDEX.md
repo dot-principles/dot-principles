@@ -1,4 +1,4 @@
-# tests — Index
+# tests - Index
 
 | File | Description |
 |---|---|

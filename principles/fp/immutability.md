@@ -1,4 +1,4 @@
-# FP-IMMUTABILITY — Immutability as design
+# FP-IMMUTABILITY - Immutability as design
 
 **Layer:** 1 (universal)
 **Categories:** functional-programming, software-design, concurrency, reliability
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Prefer data structures that cannot be changed after creation. When a transformation is needed, produce a new value rather than modifying the existing one. Make mutation explicit, localised, and the exception rather than the default — reserve it for performance-critical boundaries where the cost of copying is demonstrably unacceptable.
+Prefer data structures that cannot be changed after creation. When a transformation is needed, produce a new value rather than modifying the existing one. Make mutation explicit, localised, and the exception rather than the default - reserve it for performance-critical boundaries where the cost of copying is demonstrably unacceptable.
 
 ## Why it matters
 

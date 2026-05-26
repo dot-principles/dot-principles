@@ -1,4 +1,4 @@
-# PKG-ADP — Acyclic Dependencies Principle (ADP)
+# PKG-ADP - Acyclic Dependencies Principle (ADP)
 
 **Layer:** 1 (universal)
 **Categories:** software-design, package-design, modularity, architecture
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Allow no cycles in the component dependency graph. When components form a cycle, they must be released and tested together as a single unit — eliminating the independence that components are supposed to provide. Breaking cycles requires extracting shared dependencies into new components or applying the Dependency Inversion Principle.
+Allow no cycles in the component dependency graph. When components form a cycle, they must be released and tested together as a single unit - eliminating the independence that components are supposed to provide. Breaking cycles requires extracting shared dependencies into new components or applying the Dependency Inversion Principle.
 
 ## Why it matters
 
@@ -16,7 +16,7 @@ A dependency cycle makes it impossible to build or test any component in the cyc
 ## Violations to detect
 
 - Component A depends on B, B depends on C, C depends back on A (a cycle)
-- A shared "utils" component that imports from domain components that themselves import utils — creating a cycle
+- A shared "utils" component that imports from domain components that themselves import utils - creating a cycle
 - Two modules that each import from each other
 
 ## Inspection

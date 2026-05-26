@@ -1,4 +1,4 @@
-# CODE-SMELLS-MESSAGE-CHAINS — Message Chains
+# CODE-SMELLS-MESSAGE-CHAINS - Message Chains
 
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, maintainability
@@ -11,7 +11,7 @@ A Message Chain occurs when a client asks one object for another object, then as
 
 ## Why it matters
 
-Message chains tightly couple the calling code to the internal structure of a series of objects. Any restructuring of the intermediate classes — renaming a method, moving a relationship — forces changes in every client that navigates through the chain. This coupling makes refactoring risky and expensive.
+Message chains tightly couple the calling code to the internal structure of a series of objects. Any restructuring of the intermediate classes - renaming a method, moving a relationship - forces changes in every client that navigates through the chain. This coupling makes refactoring risky and expensive.
 
 ## Violations to detect
 

@@ -1,4 +1,4 @@
-# CODE-CC-DOCUMENT-THREAD-SAFETY — Document thread-safety guarantees
+# CODE-CC-DOCUMENT-THREAD-SAFETY - Document thread-safety guarantees
 
 **Layer:** 2
 **Categories:** concurrency, thread-safety, performance
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Every class or module that may be used in a concurrent context should clearly document its thread-safety guarantees: whether it is immutable, thread-safe, conditionally thread-safe (safe only if callers hold specific locks), or not thread-safe at all. Without explicit documentation, users of the class must guess—and they will guess wrong. Thread-safety is part of a class's contract, just like its method signatures and invariants.
+Every class or module that may be used in a concurrent context should clearly document its thread-safety guarantees: whether it is immutable, thread-safe, conditionally thread-safe (safe only if callers hold specific locks), or not thread-safe at all. Without explicit documentation, users of the class must guess-and they will guess wrong. Thread-safety is part of a class's contract, just like its method signatures and invariants.
 
 ## Why it matters
 

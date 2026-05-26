@@ -1,4 +1,4 @@
-# EFFECTIVE-JAVA-DESIGN-METHOD-SIGNATURES — Design Method Signatures Carefully
+# EFFECTIVE-JAVA-DESIGN-METHOD-SIGNATURES - Design Method Signatures Carefully
 
 **Layer:** 2 (contextual)
 **Categories:** api-design, developer-experience
@@ -7,11 +7,11 @@
 
 ## Principle
 
-Choose method names carefully, following standard naming conventions. Avoid long parameter lists — aim for four or fewer parameters. Prefer interfaces over classes as parameter types where feasible. Use two-element enum types instead of `boolean` parameters, which are more readable and easier to extend.
+Choose method names carefully, following standard naming conventions. Avoid long parameter lists - aim for four or fewer parameters. Prefer interfaces over classes as parameter types where feasible. Use two-element enum types instead of `boolean` parameters, which are more readable and easier to extend.
 
 ## Why it matters
 
-Method signatures are the primary surface area of an API. A well-designed signature is self-documenting, hard to misuse, and easy to evolve. Long parameter lists are error-prone — callers can transpose arguments of the same type without a compiler warning — and boolean parameters obscure intent at the call site.
+Method signatures are the primary surface area of an API. A well-designed signature is self-documenting, hard to misuse, and easy to evolve. Long parameter lists are error-prone - callers can transpose arguments of the same type without a compiler warning - and boolean parameters obscure intent at the call site.
 
 ## Violations to detect
 
@@ -23,10 +23,10 @@ Method signatures are the primary surface area of an API. A well-designed signat
 ## Good practice
 
 ```java
-// Violation — boolean parameter is meaningless at the call site
+// Violation - boolean parameter is meaningless at the call site
 thermometer.newReading(98.6, true);  // what does "true" mean?
 
-// Correct — enum makes intent clear
+// Correct - enum makes intent clear
 thermometer.newReading(98.6, TemperatureScale.FAHRENHEIT);
 ```
 

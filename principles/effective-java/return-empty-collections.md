@@ -1,4 +1,4 @@
-# EFFECTIVE-JAVA-RETURN-EMPTY-COLLECTIONS — Return Empty Collections, Not Null
+# EFFECTIVE-JAVA-RETURN-EMPTY-COLLECTIONS - Return Empty Collections, Not Null
 
 **Layer:** 2 (contextual)
 **Categories:** api-design, developer-experience
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Methods that return collections or arrays should return empty collections or zero-length arrays rather than `null`. Returning `null` forces every caller to write a null check before iterating or processing the result. Forgetting that check leads to `NullPointerException` at runtime — a bug that the compiler cannot catch.
+Methods that return collections or arrays should return empty collections or zero-length arrays rather than `null`. Returning `null` forces every caller to write a null check before iterating or processing the result. Forgetting that check leads to `NullPointerException` at runtime - a bug that the compiler cannot catch.
 
 ## Why it matters
 
@@ -23,12 +23,12 @@ A `null` return value from a collection-returning method is a latent bug in ever
 ## Good practice
 
 ```java
-// Violation — null return forces defensive checks in every caller
+// Violation - null return forces defensive checks in every caller
 List<Cheese> getCheeses() {
     return cheeseInStock.isEmpty() ? null : new ArrayList<>(cheeseInStock);
 }
 
-// Correct — always return a valid, iterable collection
+// Correct - always return a valid, iterable collection
 List<Cheese> getCheeses() {
     return cheeseInStock.isEmpty()
         ? Collections.emptyList()
@@ -39,7 +39,7 @@ List<Cheese> getCheeses() {
 - Return `Collections.emptyList()`, `Collections.emptySet()`, or `Collections.emptyMap()` for immutable empty returns
 - Allocate a shared empty array constant and reuse it rather than allocating `new T[0]` each time
 - Use `Optional<T>` for single-valued returns that may be absent, but still return empty collections for multi-valued returns
-- Apply this principle consistently across the entire API — callers should never have to guess
+- Apply this principle consistently across the entire API - callers should never have to guess
 
 ## Sources
 

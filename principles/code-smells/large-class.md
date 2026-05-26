@@ -1,4 +1,4 @@
-# CODE-SMELLS-LARGE-CLASS — Large Class
+# CODE-SMELLS-LARGE-CLASS - Large Class
 
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, maintainability
@@ -24,7 +24,7 @@ Large classes violate the Single Responsibility Principle. They attract more cod
 
 - Extract Class to split a large class into cohesive, focused classes
 - Use Extract Subclass or Extract Interface when different clients use different subsets of the class's behaviour
-- Group related instance variables and the methods that use them — each group is a candidate for its own class
+- Group related instance variables and the methods that use them - each group is a candidate for its own class
 - Look for prefixes or suffixes on method/variable names that hint at a hidden class (e.g., `phone_number`, `phone_area_code` suggest a Phone class)
 
 ## Sources

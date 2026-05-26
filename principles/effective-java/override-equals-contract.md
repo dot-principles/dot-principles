@@ -1,4 +1,4 @@
-# EFFECTIVE-JAVA-OVERRIDE-EQUALS-CONTRACT — Obey the General Contract When Overriding equals and hashCode
+# EFFECTIVE-JAVA-OVERRIDE-EQUALS-CONTRACT - Obey the General Contract When Overriding equals and hashCode
 
 **Layer:** 1 (universal)
 **Categories:** object-oriented, correctness, java
@@ -7,7 +7,7 @@
 
 ## Principle
 
-When you override `equals`, obey its general contract: it must be reflexive, symmetric, transitive, consistent, and `equals(null)` must return `false`. Always override `hashCode` whenever you override `equals` — objects that are equal must have the same hash code. Violating either contract breaks collections (HashMap, HashSet) and any code that relies on equality.
+When you override `equals`, obey its general contract: it must be reflexive, symmetric, transitive, consistent, and `equals(null)` must return `false`. Always override `hashCode` whenever you override `equals` - objects that are equal must have the same hash code. Violating either contract breaks collections (HashMap, HashSet) and any code that relies on equality.
 
 ## Why it matters
 

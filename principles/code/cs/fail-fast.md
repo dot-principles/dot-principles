@@ -1,4 +1,4 @@
-# CODE-CS-FAIL-FAST — Fail fast, fail loudly
+# CODE-CS-FAIL-FAST - Fail fast, fail loudly
 
 **Layer:** 1 (universal)
 **Categories:** reliability, error-handling, debugging
@@ -34,7 +34,7 @@ Silent failures are the most expensive kind of bug. They allow corrupted data to
 - Validate preconditions at the start of functions and throw immediately on violation
 - Use specific exception types that describe what went wrong, not generic ones
 - Log errors with enough context to diagnose the problem (input values, state, correlation IDs)
-- Prefer exceptions or Result types over error codes — they cannot be silently ignored
+- Prefer exceptions or Result types over error codes - they cannot be silently ignored
 - In distributed systems, propagate errors with context rather than swallowing them at service boundaries
 
 ## Sources

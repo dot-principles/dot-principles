@@ -1,4 +1,4 @@
-# CODE-API-VERSIONING — Version APIs explicitly and define a policy for breaking changes
+# CODE-API-VERSIONING - Version APIs explicitly and define a policy for breaking changes
 
 **Layer:** 2
 **Categories:** api-design, backward-compatibility, rest
@@ -11,13 +11,13 @@ Every API that has external consumers must carry an explicit version identifier.
 
 ## Why it matters
 
-Without explicit versioning, any breaking change forces all consumers to update simultaneously or break. APIs that lack a versioning strategy accumulate unspoken compatibility debt — maintainers either freeze the API forever or break consumers without warning. A clear versioning policy gives consumers a predictable window to migrate and gives maintainers the freedom to evolve the API without holding it hostage to the slowest consumer.
+Without explicit versioning, any breaking change forces all consumers to update simultaneously or break. APIs that lack a versioning strategy accumulate unspoken compatibility debt - maintainers either freeze the API forever or break consumers without warning. A clear versioning policy gives consumers a predictable window to migrate and gives maintainers the freedom to evolve the API without holding it hostage to the slowest consumer.
 
 ## Violations to detect
 
 - Public or shared API endpoints with no version identifier in the URI, header, or media type
 - Breaking changes deployed to an existing version without introducing a new version (removing fields, changing types, making optional params required)
-- No documented deprecation policy — no timeline, no migration guide, no sunset header on deprecated endpoints
+- No documented deprecation policy - no timeline, no migration guide, no sunset header on deprecated endpoints
 - Deprecated endpoints missing `Deprecation` or `Sunset` response headers
 - Multiple incompatible versioning strategies mixed in the same API (URI versioning on some endpoints, header versioning on others)
 
@@ -28,10 +28,10 @@ Without explicit versioning, any breaking change forces all consumers to update 
 
 ## Good practice
 
-- Use URI path versioning (`/v1/orders`) as the default — it is visible, cacheable, and unambiguous; use content-type versioning (`Accept: application/vnd.api+json;version=2`) only when the API contract demands it
+- Use URI path versioning (`/v1/orders`) as the default - it is visible, cacheable, and unambiguous; use content-type versioning (`Accept: application/vnd.api+json;version=2`) only when the API contract demands it
 - Define a deprecation policy before publishing v1: minimum notice period, support overlap window, migration documentation
 - Set `Deprecation: true` and `Sunset: <HTTP-date>` headers on deprecated endpoints so clients can detect and automate migration alerts
-- Treat additive changes (new optional fields, new endpoints, new optional query parameters) as non-breaking — these do not require a new version
+- Treat additive changes (new optional fields, new endpoints, new optional query parameters) as non-breaking - these do not require a new version
 - Keep the number of simultaneously supported versions small (typically two: current and previous)
 
 ## Sources

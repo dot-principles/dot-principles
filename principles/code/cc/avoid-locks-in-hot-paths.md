@@ -1,4 +1,4 @@
-# CODE-CC-AVOID-LOCKS-IN-HOT-PATHS — Avoid holding locks during long-running operations
+# CODE-CC-AVOID-LOCKS-IN-HOT-PATHS - Avoid holding locks during long-running operations
 
 **Layer:** 2
 **Categories:** concurrency, thread-safety, performance

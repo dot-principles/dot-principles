@@ -1,4 +1,4 @@
-# CODE-SEC-VALIDATE-INPUT — Validate input at system boundaries
+# CODE-SEC-VALIDATE-INPUT - Validate input at system boundaries
 
 **Layer:** 1 (universal)
 **Categories:** security, reliability, api-design
@@ -30,7 +30,7 @@ Unvalidated input is the root cause of injection attacks (SQL, command, path tra
 
 ## Good practice
 
-- Use allowlists over denylists — define what is valid, reject everything else
+- Use allowlists over denylists - define what is valid, reject everything else
 - Validate at the boundary, then pass strongly-typed validated objects inward
 - Use schema validation for structured input (JSON Schema, Protocol Buffers, XML Schema)
 - Treat all external input as untrusted, including data from partner APIs and message queues
@@ -39,4 +39,4 @@ Unvalidated input is the root cause of injection attacks (SQL, command, path tra
 
 - Bloch, Joshua. *Effective Java*, 3rd ed. Addison-Wesley, 2018. ISBN 978-0-13-468599-1. Item 49: "Check parameters for validity."
 - OWASP Foundation. "Input Validation Cheat Sheet." https://cheatsheetseries.owasp.org/cheatsheets/Input_Validation_Cheat_Sheet.html
-- OWASP Foundation. "OWASP Top 10:2021 — A03 Injection." https://owasp.org/Top10/A03_2021-Injection/
+- OWASP Foundation. "OWASP Top 10:2021 - A03 Injection." https://owasp.org/Top10/A03_2021-Injection/

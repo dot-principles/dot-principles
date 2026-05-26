@@ -1,4 +1,4 @@
-# DB-TWO-PHASE-LOCKING — Two-phase locking — acquire all locks before releasing any to guarantee serializability
+# DB-TWO-PHASE-LOCKING - Two-phase locking - acquire all locks before releasing any to guarantee serializability
 
 **Layer:** 2
 **Categories:** database, concurrency, transactions, correctness
@@ -11,14 +11,14 @@ Two-Phase Locking (2PL) is the standard protocol for achieving conflict-serializ
 
 ## Why it matters
 
-Without a locking protocol, concurrent transactions can interleave to produce anomalies — dirty reads, non-repeatable reads, phantom reads, and lost updates — that violate application invariants. 2PL prevents all of these at the cost of reduced concurrency: transactions that need the same data must wait for each other. Understanding 2PL explains why database isolation levels exist, what deadlocks are and why they occur, and why long-running transactions are expensive.
+Without a locking protocol, concurrent transactions can interleave to produce anomalies - dirty reads, non-repeatable reads, phantom reads, and lost updates - that violate application invariants. 2PL prevents all of these at the cost of reduced concurrency: transactions that need the same data must wait for each other. Understanding 2PL explains why database isolation levels exist, what deadlocks are and why they occur, and why long-running transactions are expensive.
 
 ## Violations to detect
 
 - Long-running transactions that hold locks for the duration of a slow computation or external HTTP call, blocking all other transactions that need the same rows
-- Transactions that read a resource, perform a lengthy operation, then write back — a lost update anomaly that 2PL under REPEATABLE READ would prevent but READ COMMITTED would not
-- Application-managed lock sequences that differ between code paths — if two code paths lock tables A then B and B then A respectively, they will deadlock under concurrent execution
-- Choosing SERIALIZABLE isolation without understanding its performance impact — 2PL under SERIALIZABLE holds range locks that block inserts into predicate ranges
+- Transactions that read a resource, perform a lengthy operation, then write back - a lost update anomaly that 2PL under REPEATABLE READ would prevent but READ COMMITTED would not
+- Application-managed lock sequences that differ between code paths - if two code paths lock tables A then B and B then A respectively, they will deadlock under concurrent execution
+- Choosing SERIALIZABLE isolation without understanding its performance impact - 2PL under SERIALIZABLE holds range locks that block inserts into predicate ranges
 
 ## Good practice
 

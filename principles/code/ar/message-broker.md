@@ -1,4 +1,4 @@
-# CODE-AR-MESSAGE-BROKER — Use a message broker to decouple producers from consumers
+# CODE-AR-MESSAGE-BROKER - Use a message broker to decouple producers from consumers
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, integration, distributed-systems
@@ -25,7 +25,7 @@ Point-to-point connections between services create an O(n²) wiring problem as t
 - Use a message broker (e.g., RabbitMQ, Apache Kafka, Amazon SNS/SQS) to mediate communication between producers and consumers
 - Leverage publish-subscribe topics when multiple consumers need to react to the same event independently
 - Use competing consumers (multiple instances reading from the same queue) to scale processing horizontally
-- Design for broker unavailability — implement local buffering or outbox patterns so producers are not blocked when the broker is temporarily unreachable
+- Design for broker unavailability - implement local buffering or outbox patterns so producers are not blocked when the broker is temporarily unreachable
 
 ## Sources
 

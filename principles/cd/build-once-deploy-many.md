@@ -1,4 +1,4 @@
-# CD-BUILD-ONCE-DEPLOY-MANY — Compile and package the artifact exactly once; promote that same immutable artifact through every environment
+# CD-BUILD-ONCE-DEPLOY-MANY - Compile and package the artifact exactly once; promote that same immutable artifact through every environment
 
 **Layer:** 1
 **Categories:** devops, continuous-delivery, deployment, reliability
@@ -7,7 +7,7 @@
 
 ## Principle
 
-The build stage produces one artifact — a Docker image, a compiled binary, a JAR — tagged with a unique version or commit SHA. That exact artifact is deployed to every subsequent environment: integration, staging, production. If a build is required again for a different environment, the build process is broken. Environment-specific behaviour is injected via configuration at deploy time, not compiled in.
+The build stage produces one artifact - a Docker image, a compiled binary, a JAR - tagged with a unique version or commit SHA. That exact artifact is deployed to every subsequent environment: integration, staging, production. If a build is required again for a different environment, the build process is broken. Environment-specific behaviour is injected via configuration at deploy time, not compiled in.
 
 ## Why it matters
 
@@ -34,7 +34,7 @@ ls Dockerfile.dev Dockerfile.staging Dockerfile.prod Dockerfile.production 2>/de
 ## Good practice
 
 - Tag every artifact with the commit SHA or a semantic version at build time; never use mutable tags like `latest` in production
-- Use a container registry (ECR, GCR, Docker Hub) or artifact repository (Nexus, Artifactory) as the promotion mechanism — the same image digest moves from dev to prod
+- Use a container registry (ECR, GCR, Docker Hub) or artifact repository (Nexus, Artifactory) as the promotion mechanism - the same image digest moves from dev to prod
 - Inject all environment-specific configuration via environment variables or a mounted secrets store at runtime
 - Record the artifact version in your observability stack so every metric and log can be correlated with the exact code that produced it
 

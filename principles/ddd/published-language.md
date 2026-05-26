@@ -1,4 +1,4 @@
-# DDD-PUBLISHED-LANGUAGE — Published Language
+# DDD-PUBLISHED-LANGUAGE - Published Language
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, domain-driven-design, api-design
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Use a shared, well-documented exchange language as the translation medium between Bounded Contexts. The Published Language is a common format — a schema, a standard, or an explicit protocol — that all participating contexts agree on. Neither context exposes its internal model; both translate to and from the Published Language at their boundaries.
+Use a shared, well-documented exchange language as the translation medium between Bounded Contexts. The Published Language is a common format - a schema, a standard, or an explicit protocol - that all participating contexts agree on. Neither context exposes its internal model; both translate to and from the Published Language at their boundaries.
 
 ## Why it matters
 

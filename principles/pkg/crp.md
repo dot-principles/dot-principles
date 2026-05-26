@@ -1,4 +1,4 @@
-# PKG-CRP — Common Reuse Principle (CRP)
+# PKG-CRP - Common Reuse Principle (CRP)
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, package-design, modularity

@@ -1,4 +1,4 @@
-# DOC-PROGRESSIVE-DISCLOSURE — Reveal complexity progressively
+# DOC-PROGRESSIVE-DISCLOSURE - Reveal complexity progressively
 
 **Layer:** 2 (contextual)
 **Categories:** documentation, readability, usability
@@ -13,7 +13,7 @@ Progressive disclosure respects that readers arrive with different goals. A new 
 
 ## Why it matters
 
-Front-loading complexity drives away readers who only need the simple case — often the majority. Hiding advanced detail at the end frustrates experts who need it quickly. Documents that respect disclosure levels have higher completion rates, lower support burden, and better reader satisfaction.
+Front-loading complexity drives away readers who only need the simple case - often the majority. Hiding advanced detail at the end frustrates experts who need it quickly. Documents that respect disclosure levels have higher completion rates, lower support burden, and better reader satisfaction.
 
 ## Violations to detect
 
@@ -34,5 +34,5 @@ Front-loading complexity drives away readers who only need the simple case — o
 
 ## Sources
 
-- Procida, Daniele. "Diátaxis — A systematic approach to technical documentation authoring." https://diataxis.fr (accessed 2026-03-18).
+- Procida, Daniele. "Diátaxis - A systematic approach to technical documentation authoring." https://diataxis.fr (accessed 2026-03-18).
 - Nielsen, Jakob. "Progressive Disclosure." *Nielsen Norman Group*, 2006. https://www.nngroup.com/articles/progressive-disclosure/ (accessed 2026-03-18).

@@ -1,4 +1,4 @@
-# CODE-CS-EXCEPTIONS-FOR-EXCEPTIONAL-CONDITIONS — Exceptions for exceptional conditions only
+# CODE-CS-EXCEPTIONS-FOR-EXCEPTIONAL-CONDITIONS - Exceptions for exceptional conditions only
 
 **Layer:** 1 (universal)
 **Categories:** error-handling, reliability, code-quality
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Exceptions are for exceptional conditions — situations that the caller cannot reasonably be expected to handle in advance or that represent genuine failures. Do not use exceptions as a control-flow mechanism for ordinary branching, loop termination, or expected cases. Overloading exceptions with routine logic obscures intent, degrades performance, and makes code harder to reason about.
+Exceptions are for exceptional conditions - situations that the caller cannot reasonably be expected to handle in advance or that represent genuine failures. Do not use exceptions as a control-flow mechanism for ordinary branching, loop termination, or expected cases. Overloading exceptions with routine logic obscures intent, degrades performance, and makes code harder to reason about.
 
 ## Why it matters
 

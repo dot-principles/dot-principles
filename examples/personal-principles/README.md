@@ -1,10 +1,10 @@
 # example-catalog
 
-An example extra-catalog for the [`.principles`](https://github.com/dot-principles/dot-principles) system, demonstrating how to extend the built-in catalog with your own principles — without forking.
+An example extra-catalog for the [`.principles`](https://github.com/dot-principles/dot-principles) system, demonstrating how to extend the built-in catalog with your own principles - without forking.
 
 This catalog contains the **Plain-Text-as-Code (`ptac`) namespace** as a concrete, real-world example. Fork or clone it as a starting point for your own corporate or personal catalog.
 
-Used with `install.sh` via [`--extra-catalog`](https://github.com/dot-principles/dot-principles/blob/main/INSTALL.md#9-corporate--personal-principles) — no fork needed.
+Used with `install.sh` via [`--extra-catalog`](https://github.com/dot-principles/dot-principles/blob/main/INSTALL.md#9-corporate--personal-principles) - no fork needed.
 
 ---
 
@@ -109,4 +109,4 @@ Use this repo as a template:
 3. Follow the [extra-catalog template](https://github.com/dot-principles/dot-principles/tree/main/templates/extra-catalog) for structure conventions
 4. Register it via `~/.principles-extra` or `--extra-catalog`
 
-See [INSTALL.md §9 — Corporate & Personal Principles](https://github.com/dot-principles/dot-principles/blob/main/INSTALL.md#9-corporate--personal-principles) for the full guide.
+See [INSTALL.md §9 - Corporate & Personal Principles](https://github.com/dot-principles/dot-principles/blob/main/INSTALL.md#9-corporate--personal-principles) for the full guide.

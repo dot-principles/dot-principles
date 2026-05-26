@@ -1,4 +1,4 @@
-# CODE-SMELLS-REFUSED-BEQUEST — Refused Bequest
+# CODE-SMELLS-REFUSED-BEQUEST - Refused Bequest
 
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, object-oriented
@@ -7,7 +7,7 @@
 
 ## Principle
 
-A subclass that does not want or need the methods or data it inherits from its parent has a Refused Bequest. The subclass refuses part of its inheritance — overriding methods to do nothing, throwing unsupported operation exceptions, or simply ignoring inherited state. This usually signals a misuse of inheritance where there is no true "is-a" relationship.
+A subclass that does not want or need the methods or data it inherits from its parent has a Refused Bequest. The subclass refuses part of its inheritance - overriding methods to do nothing, throwing unsupported operation exceptions, or simply ignoring inherited state. This usually signals a misuse of inheritance where there is no true "is-a" relationship.
 
 ## Why it matters
 

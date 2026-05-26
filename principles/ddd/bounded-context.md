@@ -1,4 +1,4 @@
-# DDD-BOUNDED-CONTEXT — Bounded Context
+# DDD-BOUNDED-CONTEXT - Bounded Context
 
 **Layer:** 2 (contextual)
 **Categories:** domain-modeling, domain-driven-design
@@ -7,7 +7,7 @@
 
 ## Principle
 
-A Bounded Context is an explicit boundary within which a particular domain model applies. The same real-world concept may be represented differently in different Bounded Contexts — and that is intentional. Rather than forcing a single unified model across an entire system, define clear boundaries where each model is internally consistent, and establish explicit mappings (context maps) for how models relate across boundaries.
+A Bounded Context is an explicit boundary within which a particular domain model applies. The same real-world concept may be represented differently in different Bounded Contexts - and that is intentional. Rather than forcing a single unified model across an entire system, define clear boundaries where each model is internally consistent, and establish explicit mappings (context maps) for how models relate across boundaries.
 
 ## Why it matters
 

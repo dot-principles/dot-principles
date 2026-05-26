@@ -1,4 +1,4 @@
-# GOF-MEMENTO — Memento Pattern
+# GOF-MEMENTO - Memento Pattern
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
@@ -47,11 +47,11 @@ classDiagram
 ```
 
 ```java
-// Violation — caretaker accesses editor internals to save state
+// Violation - caretaker accesses editor internals to save state
 String savedText = editor.text;  // breaks encapsulation
 int savedX = editor.curX;
 
-// Correct — originator creates an opaque snapshot; caretaker just stores it
+// Correct - originator creates an opaque snapshot; caretaker just stores it
 Snapshot snap = editor.createSnapshot();
 history.push(snap);
 // Later:
@@ -59,10 +59,10 @@ editor.restore(history.pop());
 ```
 
 - Let only the originator create and restore from mementos, keeping internal state encapsulated
-- Make the memento opaque to the caretaker — it stores mementos but never inspects or modifies their contents
+- Make the memento opaque to the caretaker - it stores mementos but never inspects or modifies their contents
 - Use a narrow interface for the caretaker (store and retrieve) and a wide interface accessible only to the originator
 - Store only the state delta when full snapshots are too expensive
 
 ## Sources
 
-- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. ISBN 978-0-201-63361-0. Chapter 5, Behavioral Patterns — Memento.
+- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. ISBN 978-0-201-63361-0. Chapter 5, Behavioral Patterns - Memento.

@@ -1,4 +1,4 @@
-# SIMPLE-DESIGN-PASSES-TESTS — Passes All Tests
+# SIMPLE-DESIGN-PASSES-TESTS - Passes All Tests
 
 **Layer:** 1 (universal)
 **Categories:** software-design, testing, simplicity
@@ -25,7 +25,7 @@ Code that is clean but incorrect is worthless. Tests provide confidence that the
 
 - Write tests before or alongside production code to ensure every behavior is verified
 - Keep the test suite fast enough to run frequently during development
-- Treat a failing test as a blocking issue — fix it before moving on
+- Treat a failing test as a blocking issue - fix it before moving on
 - Include tests in the continuous integration pipeline so they run on every change
 - Ensure tests cover edge cases and error paths, not just the happy path
 

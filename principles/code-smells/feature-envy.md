@@ -1,4 +1,4 @@
-# CODE-SMELLS-FEATURE-ENVY — Feature Envy
+# CODE-SMELLS-FEATURE-ENVY - Feature Envy
 
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, maintainability
@@ -25,7 +25,7 @@ Feature Envy increases coupling between classes and scatters related logic acros
 - Move the method to the class whose data it uses most (Move Function)
 - If only part of the method envies another class, extract that part and move it (Extract Function, then Move Function)
 - Apply the rule of thumb: put behaviour with the data it operates on
-- Accept the rare exceptions — Strategy and Visitor patterns deliberately separate data from some operations
+- Accept the rare exceptions - Strategy and Visitor patterns deliberately separate data from some operations
 
 ## Sources
 

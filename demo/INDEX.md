@@ -1,4 +1,4 @@
-# demo — Index
+# demo - Index
 
 | File | Description |
 |---|---|

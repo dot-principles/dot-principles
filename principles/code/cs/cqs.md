@@ -1,4 +1,4 @@
-# CODE-CS-CQS — CQS: Command-Query Separation
+# CODE-CS-CQS - CQS: Command-Query Separation
 
 **Layer:** 1 (universal)
 **Categories:** software-design, maintainability, predictability
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Every method should be either a **command** (changes state, returns nothing) or a **query** (returns a value, causes no side effects) — never both. A caller should be able to call a query any number of times without changing system state, and should be able to issue a command without needing to inspect a return value to know whether it succeeded.
+Every method should be either a **command** (changes state, returns nothing) or a **query** (returns a value, causes no side effects) - never both. A caller should be able to call a query any number of times without changing system state, and should be able to issue a command without needing to inspect a return value to know whether it succeeded.
 
 ## Why it matters
 
@@ -27,7 +27,7 @@ Methods that both mutate state and return a value are harder to reason about, ha
 ## Good practice
 
 - If a method must both return a value and have a side effect, split it: one command method, one query method; call the command, then query separately
-- Accept deliberate exceptions — `Stack.pop()`, iterator advancement, test framework assertions — but make them explicit and document the departure
+- Accept deliberate exceptions - `Stack.pop()`, iterator advancement, test framework assertions - but make them explicit and document the departure
 - In event-sourced or CQRS architectures, CQS scales up: separate entire read models from write models
 - Name commands as imperatives (`save`, `send`, `delete`) and queries as nouns or predicates (`user`, `isActive`, `findById`)
 

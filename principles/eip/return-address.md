@@ -1,4 +1,4 @@
-# EIP-RETURN-ADDRESS — Return Address
+# EIP-RETURN-ADDRESS - Return Address
 
 **Layer:** 2 (contextual)
 **Categories:** integration, messaging
@@ -16,9 +16,9 @@ When the reply channel is hardcoded in the responder, a single reply destination
 ## Violations to detect
 
 - Asynchronous request-reply implementations where the responder uses a hardcoded reply queue name rather than reading the reply address from the incoming message
-- Request messages with no reply-to field, header, or metadata — the responder has no way to dynamically address the reply without prior knowledge of the caller
+- Request messages with no reply-to field, header, or metadata - the responder has no way to dynamically address the reply without prior knowledge of the caller
 - A single shared reply queue consumed by all callers, requiring each consumer to inspect every reply and discard those addressed to other callers
-- Temporary reply queues that are not created per request (or per session) — persistent shared reply queues accumulate stale undelivered replies
+- Temporary reply queues that are not created per request (or per session) - persistent shared reply queues accumulate stale undelivered replies
 
 ## Good practice
 

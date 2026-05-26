@@ -1,4 +1,4 @@
-# PIPELINE-NO-SECRETS-IN-LOGS — Never expose secrets in pipeline logs
+# PIPELINE-NO-SECRETS-IN-LOGS - Never expose secrets in pipeline logs
 
 **Layer:** 1 (universal)
 **Categories:** security, pipeline
@@ -11,7 +11,7 @@ Secrets, tokens, passwords, and credentials must never appear in CI/CD pipeline 
 
 ## Why it matters
 
-Pipeline logs are a common source of accidental credential exposure. Debugging a failed deployment often involves printing environment variables or command output — and a single `echo $SECRET` or verbose curl command can leak a credential into a log that is accessible to the whole engineering team, stored in a log aggregation system, or included in a bug report. Unlike a code commit, log exposure may not trigger alerts or be noticed until damage has occurred.
+Pipeline logs are a common source of accidental credential exposure. Debugging a failed deployment often involves printing environment variables or command output - and a single `echo $SECRET` or verbose curl command can leak a credential into a log that is accessible to the whole engineering team, stored in a log aggregation system, or included in a bug report. Unlike a code commit, log exposure may not trigger alerts or be noticed until damage has occurred.
 
 ## Violations to detect
 

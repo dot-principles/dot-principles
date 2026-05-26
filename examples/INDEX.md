@@ -1,4 +1,4 @@
-# examples — Index
+# examples - Index
 
 | Path | Description |
 |---|---|

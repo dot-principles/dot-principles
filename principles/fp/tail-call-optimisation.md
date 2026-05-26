@@ -1,4 +1,4 @@
-# FP-TAIL-CALL-OPTIMISATION — Tail-call optimisation
+# FP-TAIL-CALL-OPTIMISATION - Tail-call optimisation
 
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, performance, reliability
@@ -7,15 +7,15 @@
 
 ## Principle
 
-A recursive call is in tail position when it is the very last operation performed before the function returns — the caller has nothing left to do after the recursive call completes. Runtimes that implement tail-call optimisation (TCO) reuse the current stack frame for tail calls, making tail-recursive functions consume O(1) stack space regardless of recursion depth. When TCO is not available, use trampolining or an explicit stack.
+A recursive call is in tail position when it is the very last operation performed before the function returns - the caller has nothing left to do after the recursive call completes. Runtimes that implement tail-call optimisation (TCO) reuse the current stack frame for tail calls, making tail-recursive functions consume O(1) stack space regardless of recursion depth. When TCO is not available, use trampolining or an explicit stack.
 
 ## Why it matters
 
-Without TCO, deep recursion overflows the call stack. This is not a theoretical concern: recursive processing of large data structures (trees, lists, streams) in production regularly hits stack limits. The fix — manually converting clean recursive logic into a loop with an accumulator — sacrifices readability and the structural clarity of the recursive form. Tail-recursive style preserves both.
+Without TCO, deep recursion overflows the call stack. This is not a theoretical concern: recursive processing of large data structures (trees, lists, streams) in production regularly hits stack limits. The fix - manually converting clean recursive logic into a loop with an accumulator - sacrifices readability and the structural clarity of the recursive form. Tail-recursive style preserves both.
 
 ## Violations to detect
 
-- Recursive functions processing unbounded input where the recursive call is NOT in tail position (e.g., `1 + recurse(n-1)` — the addition happens after the recursive call)
+- Recursive functions processing unbounded input where the recursive call is NOT in tail position (e.g., `1 + recurse(n-1)` - the addition happens after the recursive call)
 - `@tailrec` annotation missing in Scala on functions intended to be tail-recursive (the compiler will not verify tail position without it)
 - Deep recursion in runtimes without TCO (JVM without Scala/Kotlin optimisation, most JavaScript engines) on inputs that could be large
 - Accumulator pattern implemented incorrectly, accumulating after the recursive call rather than before it

@@ -1,4 +1,4 @@
-# FP-PERSISTENT-DATA-STRUCTURES — Persistent data structures
+# FP-PERSISTENT-DATA-STRUCTURES - Persistent data structures
 
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, performance, data-structures, concurrency
@@ -7,7 +7,7 @@
 
 ## Principle
 
-A persistent data structure preserves all previous versions of itself on every update: a modification produces a new version that shares as much structure as possible with the prior version (structural sharing) without copying the entire structure. This gives the safety guarantees of immutability — old references remain valid and unchanged — while keeping update costs at O(log n) rather than O(n).
+A persistent data structure preserves all previous versions of itself on every update: a modification produces a new version that shares as much structure as possible with the prior version (structural sharing) without copying the entire structure. This gives the safety guarantees of immutability - old references remain valid and unchanged - while keeping update costs at O(log n) rather than O(n).
 
 ## Why it matters
 

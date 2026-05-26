@@ -1,13 +1,13 @@
-# EXAMPLE-PRINCIPLE — One-line Principle Title
+# EXAMPLE-PRINCIPLE - One-line Principle Title
 
 **Layer:** 1
 **Categories**: example
 **Applies-to**: all
-**Summary:** One actionable sentence stating the rule — max ~15 words.
+**Summary:** One actionable sentence stating the rule - max ~15 words.
 
 ## Principle
 
-A clear, authoritative statement of the principle in 1–3 sentences. What is the rule? When does it apply?
+A clear, authoritative statement of the principle in 1-3 sentences. What is the rule? When does it apply?
 
 ## Why it matters
 

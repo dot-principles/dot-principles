@@ -1,4 +1,4 @@
-# CODE-OB-STRUCTURED-TELEMETRY — Instrument code with structured, contextual telemetry
+# CODE-OB-STRUCTURED-TELEMETRY - Instrument code with structured, contextual telemetry
 
 **Layer:** 2 (contextual)
 **Categories:** observability, operations, reliability
@@ -11,7 +11,7 @@ Emit telemetry that is structured (machine-parseable key-value pairs, not free-f
 
 ## Why it matters
 
-Unstructured logs force engineers to grep through walls of text during incidents, wasting precious minutes. Structured telemetry lets teams slice data along any dimension — by customer, endpoint, region, or feature flag — turning observability data into an interactive debugging tool rather than a static record.
+Unstructured logs force engineers to grep through walls of text during incidents, wasting precious minutes. Structured telemetry lets teams slice data along any dimension - by customer, endpoint, region, or feature flag - turning observability data into an interactive debugging tool rather than a static record.
 
 ## Violations to detect
 

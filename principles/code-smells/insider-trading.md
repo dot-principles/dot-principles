@@ -1,4 +1,4 @@
-# CODE-SMELLS-INSIDER-TRADING — Insider Trading
+# CODE-SMELLS-INSIDER-TRADING - Insider Trading
 
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, coupling
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Insider Trading (also called Inappropriate Intimacy) occurs when two classes are too deeply entangled — one class accesses the private parts of another far more than is healthy. They spend too much time accessing each other's private data and methods, creating a tight bidirectional coupling that makes them hard to change or test independently.
+Insider Trading (also called Inappropriate Intimacy) occurs when two classes are too deeply entangled - one class accesses the private parts of another far more than is healthy. They spend too much time accessing each other's private data and methods, creating a tight bidirectional coupling that makes them hard to change or test independently.
 
 ## Why it matters
 

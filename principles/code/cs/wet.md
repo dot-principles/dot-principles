@@ -1,4 +1,4 @@
-# CODE-CS-WET — WET: Write Every Time
+# CODE-CS-WET - WET: Write Every Time
 
 **Layer:** 1 (universal)
 **Categories:** code-smells, maintainability, refactoring
@@ -7,9 +7,9 @@
 
 ## Principle
 
-WET (Write Every Time) is the named anti-pattern opposite to DRY. WET code duplicates knowledge — the same business rule, calculation, or policy encoded in multiple places — so that any change requires writing the same fix every time, in every copy. Recognising WET code is the first step to eliminating it.
+WET (Write Every Time) is the named anti-pattern opposite to DRY. WET code duplicates knowledge - the same business rule, calculation, or policy encoded in multiple places - so that any change requires writing the same fix every time, in every copy. Recognising WET code is the first step to eliminating it.
 
-The related heuristic: tolerate a single duplication (a second copy is a signal); treat a third copy as a requirement to unify. This guards against the opposite failure — premature abstraction from a single example.
+The related heuristic: tolerate a single duplication (a second copy is a signal); treat a third copy as a requirement to unify. This guards against the opposite failure - premature abstraction from a single example.
 
 ## Why it matters
 
@@ -26,7 +26,7 @@ WET code makes change expensive and error-prone. When knowledge lives in three p
 ## Good practice
 
 - A single duplication is tolerable; a third copy is the signal to extract a shared source of truth
-- Before extracting, confirm the copies represent the same *concept*, not just similar *structure* — superficially similar code that serves different purposes should stay separate
+- Before extracting, confirm the copies represent the same *concept*, not just similar *structure* - superficially similar code that serves different purposes should stay separate
 - Apply DRY to knowledge, not to lines: two unrelated functions that happen to look alike are not WET
 - In tests, prefer duplication over shared helpers that couple test cases to each other
 

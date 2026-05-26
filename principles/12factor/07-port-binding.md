@@ -1,4 +1,4 @@
-# 12FACTOR-07-PORT-BINDING — Port Binding
+# 12FACTOR-07-PORT-BINDING - Port Binding
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, cloud-native, deployment
@@ -24,7 +24,7 @@ Deploying into an external application server (Tomcat, IIS, WebSphere) couples t
 
 - Embed the HTTP server as a dependency (Spring Boot's embedded Tomcat, Go's `net/http`, Node's Express)
 - Bind the port from an environment variable (`PORT`) so the platform can assign it
-- The app starts by running its binary — no external web server setup required
+- The app starts by running its binary - no external web server setup required
 
 ## Sources
 

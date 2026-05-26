@@ -1,4 +1,4 @@
-# CODE-DX-CODE-FOR-READERS — Write code for the reader, not the writer
+# CODE-DX-CODE-FOR-READERS - Write code for the reader, not the writer
 
 **Layer:** 1 (universal)
 **Categories:** developer-experience, readability
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Programs must be written for people to read, and only incidentally for machines to execute. Prioritize clarity over cleverness. Every choice — naming, structure, formatting, abstraction level — should optimize for the next developer who will read this code, who may be a teammate, a future maintainer, or your future self.
+Programs must be written for people to read, and only incidentally for machines to execute. Prioritize clarity over cleverness. Every choice - naming, structure, formatting, abstraction level - should optimize for the next developer who will read this code, who may be a teammate, a future maintainer, or your future self.
 
 ## Why it matters
 
@@ -23,11 +23,11 @@ Code is read many more times than it is written. The time saved by writing terse
 
 ## Good practice
 
-- Prefer explicit over implicit — make control flow, data transformations, and dependencies visible
+- Prefer explicit over implicit - make control flow, data transformations, and dependencies visible
 - Use intermediate variables with descriptive names to break up complex expressions
 - Write code that reads top-to-bottom like a narrative, with each function calling the next at a consistent level of abstraction
 - When choosing between two correct approaches, choose the one that will be clearer to a reader unfamiliar with the code
-- Use comments to explain why, not what — the code should explain what
+- Use comments to explain why, not what - the code should explain what
 
 ## Sources
 

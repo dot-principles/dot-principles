@@ -1,4 +1,4 @@
-# SOLID-LSP — Liskov Substitution Principle
+# SOLID-LSP - Liskov Substitution Principle
 
 **Layer:** 1 (universal)
 **Categories:** software-design, correctness, inheritance
@@ -23,7 +23,7 @@ Violations break the contract that polymorphism depends on. Callers are forced t
 
 ## Good practice
 
-Every subtype must honour the full contract of the base type. Both `Eagle` and `Sparrow` satisfy the `Bird` contract — `makeFly` works correctly with either, with no special-casing.
+Every subtype must honour the full contract of the base type. Both `Eagle` and `Sparrow` satisfy the `Bird` contract - `makeFly` works correctly with either, with no special-casing.
 
 ```mermaid
 classDiagram
@@ -42,16 +42,16 @@ classDiagram
 ```
 
 ```java
-// Violation — Penguin breaks the Bird contract
+// Violation - Penguin breaks the Bird contract
 class Penguin extends Bird {
     @Override
     void fly() { throw new UnsupportedOperationException("Penguins can't fly"); }
 }
 void makeFly(Bird bird) {
-    bird.fly(); // blows up for Penguin — LSP violated
+    bird.fly(); // blows up for Penguin - LSP violated
 }
 
-// Correct — every Bird subtype honours fly()
+// Correct - every Bird subtype honours fly()
 interface Bird {
     void fly();
 }
@@ -75,5 +75,5 @@ makeFly(new Sparrow()); // OK
 
 ## Sources
 
-- Liskov, Barbara, and Jeannette Wing. "A Behavioral Notion of Subtyping." *ACM Transactions on Programming Languages and Systems* 16, no. 6 (1994): 1811–1841. https://doi.org/10.1145/197320.197383
+- Liskov, Barbara, and Jeannette Wing. "A Behavioral Notion of Subtyping." *ACM Transactions on Programming Languages and Systems* 16, no. 6 (1994): 1811-1841. https://doi.org/10.1145/197320.197383
 - Martin, Robert C. *Agile Software Development: Principles, Patterns, and Practices*. Pearson, 2003. ISBN 978-0-13-597444-5. Chapter 10.

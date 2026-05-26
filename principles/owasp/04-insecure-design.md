@@ -1,4 +1,4 @@
-# OWASP-04-INSECURE-DESIGN — Insecure Design
+# OWASP-04-INSECURE-DESIGN - Insecure Design
 
 **Layer:** 2 (contextual)
 **Categories:** security, architecture, threat-modelling
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Security must be designed in from the start, not bolted on after implementation. Insecure design represents missing or ineffective security controls at the architectural level — business logic flaws, missing rate limiting, absent threat modelling — that cannot be fixed by secure implementation alone.
+Security must be designed in from the start, not bolted on after implementation. Insecure design represents missing or ineffective security controls at the architectural level - business logic flaws, missing rate limiting, absent threat modelling - that cannot be fixed by secure implementation alone.
 
 ## Why it matters
 
@@ -19,7 +19,7 @@ Implementation-level controls (parameterised queries, output encoding) cannot co
 - Password reset flows that reveal whether an email address is registered
 - Multi-step workflows with no server-side state validation (steps can be skipped)
 - Business logic that allows negative quantities, impossible date ranges, or other nonsensical inputs
-- No threat model considered during design — security requirements not defined before implementation
+- No threat model considered during design - security requirements not defined before implementation
 
 ## Good practice
 
@@ -30,5 +30,5 @@ Implementation-level controls (parameterised queries, output encoding) cannot co
 
 ## Sources
 
-- OWASP Foundation. "A04:2021 – Insecure Design." *OWASP Top 10*, 2021. https://owasp.org/Top10/A04_2021-Insecure_Design/
+- OWASP Foundation. "A04:2021 - Insecure Design." *OWASP Top 10*, 2021. https://owasp.org/Top10/A04_2021-Insecure_Design/
 - Shostack, Adam. *Threat Modeling: Designing for Security*. Wiley, 2014. ISBN 978-1-118-80999-0.

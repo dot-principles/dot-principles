@@ -1,4 +1,4 @@
-# GRASP-HIGH-COHESION — High Cohesion
+# GRASP-HIGH-COHESION - High Cohesion
 
 **Layer:** 1 (universal)
 **Categories:** software-design, maintainability
@@ -11,12 +11,12 @@ Assign responsibilities so that cohesion remains high. A class should have a sma
 
 ## Why it matters
 
-Low-cohesion classes — those that do many unrelated things — are hard to understand, hard to reuse, and fragile to change. They accumulate unrelated dependencies, grow without bound, and make testing difficult because every test must set up an ever-wider context.
+Low-cohesion classes - those that do many unrelated things - are hard to understand, hard to reuse, and fragile to change. They accumulate unrelated dependencies, grow without bound, and make testing difficult because every test must set up an ever-wider context.
 
 ## Violations to detect
 
 - A class with many methods that span multiple unrelated concerns (a "God class")
-- Methods in a class that use completely different sets of fields — a sign the class should be split
+- Methods in a class that use completely different sets of fields - a sign the class should be split
 - A class that is frequently changed for multiple unrelated reasons
 - Utility or "helper" classes that accumulate unrelated static methods over time
 - A service class with methods that have nothing to do with each other
@@ -24,7 +24,7 @@ Low-cohesion classes — those that do many unrelated things — are hard to und
 ## Good practice
 
 - Each class should be describable in one sentence focused on a single theme
-- Methods within a class should mostly use the same fields — high method-field cohesion
+- Methods within a class should mostly use the same fields - high method-field cohesion
 - When a class grows large, look for responsibility clusters that can be extracted
 - Prefer many small, focused classes over a few large, general-purpose ones
 

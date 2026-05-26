@@ -1,4 +1,4 @@
-# EFFECTIVE-JAVA-MINIMIZE-ACCESSIBILITY — Minimize Accessibility of Classes and Members
+# EFFECTIVE-JAVA-MINIMIZE-ACCESSIBILITY - Minimize Accessibility of Classes and Members
 
 **Layer:** 2 (contextual)
 **Categories:** api-design, developer-experience
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Make each class or member as inaccessible as possible. A well-designed component hides all of its implementation details, cleanly separating its API from its implementation. This information hiding — the single most important factor that distinguishes a well-designed component from a poorly designed one — allows components to be developed, tested, optimised, and understood in isolation.
+Make each class or member as inaccessible as possible. A well-designed component hides all of its implementation details, cleanly separating its API from its implementation. This information hiding - the single most important factor that distinguishes a well-designed component from a poorly designed one - allows components to be developed, tested, optimised, and understood in isolation.
 
 ## Why it matters
 

@@ -1,4 +1,4 @@
-# CODE-SEC-FAIL-SAFE-DEFAULTS — Default to denial; fail closed
+# CODE-SEC-FAIL-SAFE-DEFAULTS - Default to denial; fail closed
 
 **Layer:** 1 (universal)
 **Categories:** security, reliability
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Access decisions must default to denial. When authorisation state is absent, ambiguous, or fails to evaluate, the system must choose the secure (closed) state, not the open one. A missed configuration, an unhandled exception in an access check, or a missing role mapping should result in access denied — never access granted.
+Access decisions must default to denial. When authorisation state is absent, ambiguous, or fails to evaluate, the system must choose the secure (closed) state, not the open one. A missed configuration, an unhandled exception in an access check, or a missing role mapping should result in access denied - never access granted.
 
 ## Why it matters
 
@@ -29,11 +29,11 @@ A permissive default means that any error, misconfiguration, or unanticipated co
 
 - Return `403 Forbidden` or `401 Unauthorized` from any code path that cannot positively confirm authorisation
 - Design permission checks as allowlists: explicitly grant what is permitted; everything else is denied
-- Treat exceptions in security code as security failures — log, alert, and deny, never silently allow
+- Treat exceptions in security code as security failures - log, alert, and deny, never silently allow
 - Test the failure mode of every access check: disconnect the authorisation service and verify the system fails closed
 - Use a deny-by-default ACL base rule; add explicit allow rules on top
 
 ## Sources
 
 - Saltzer, J.H. and Schroeder, M.D. "The Protection of Information in Computer Systems." *Proceedings of the IEEE*, 63(9), 1975. (Principle of Fail-Safe Defaults.)
-- OWASP Foundation. "Access Control Cheat Sheet — Deny by Default." https://cheatsheetseries.owasp.org/cheatsheets/Access_Control_Cheat_Sheet.html
+- OWASP Foundation. "Access Control Cheat Sheet - Deny by Default." https://cheatsheetseries.owasp.org/cheatsheets/Access_Control_Cheat_Sheet.html

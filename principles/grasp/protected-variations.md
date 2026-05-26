@@ -1,4 +1,4 @@
-# GRASP-PROTECTED-VARIATIONS — Protected Variations
+# GRASP-PROTECTED-VARIATIONS - Protected Variations
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, stability, extensibility

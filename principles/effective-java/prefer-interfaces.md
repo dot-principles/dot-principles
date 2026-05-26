@@ -1,4 +1,4 @@
-# EFFECTIVE-JAVA-PREFER-INTERFACES — Prefer Interfaces to Abstract Classes
+# EFFECTIVE-JAVA-PREFER-INTERFACES - Prefer Interfaces to Abstract Classes
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, object-oriented, api-design

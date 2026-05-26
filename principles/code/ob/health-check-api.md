@@ -1,4 +1,4 @@
-# CODE-OB-HEALTH-CHECK-API — Expose liveness and readiness health check endpoints
+# CODE-OB-HEALTH-CHECK-API - Expose liveness and readiness health check endpoints
 
 **Layer:** 2 (contextual)
 **Categories:** observability, operations, reliability
@@ -31,7 +31,7 @@ grep -r 'health\|liveness\|readiness\|alive\|ready' --include='*.go' --include='
 ## Good practice
 
 - Implement separate `/health/live` (or `/healthz`) and `/health/ready` (or `/readyz`) endpoints
-- Liveness should be lightweight — check only that the process is not deadlocked; avoid I/O
+- Liveness should be lightweight - check only that the process is not deadlocked; avoid I/O
 - Readiness should check critical dependencies (database connectivity, required config) but use cached results to bound latency
 - Return a structured JSON body with a status field and, optionally, per-dependency detail
 - Register health endpoints in your service framework's router before authentication middleware so they are always reachable

@@ -1,4 +1,4 @@
-# ARCH-STRANGLER-FIG — Strangler Fig Application
+# ARCH-STRANGLER-FIG - Strangler Fig Application
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, migration, evolutionary-architecture
@@ -16,7 +16,7 @@ Big-bang rewrites carry enormous risk: months or years of work that cannot be re
 ## Violations to detect
 
 - Rewriting the entire system before switching any traffic to it
-- No routing layer between clients and the legacy/new implementation — making it impossible to switch individual routes
+- No routing layer between clients and the legacy/new implementation - making it impossible to switch individual routes
 - Migrating functionality without verifying correctness under production traffic before decommissioning the legacy path
 
 ## Good practice

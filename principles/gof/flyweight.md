@@ -1,4 +1,4 @@
-# GOF-FLYWEIGHT — Flyweight Pattern
+# GOF-FLYWEIGHT - Flyweight Pattern
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
@@ -50,10 +50,10 @@ classDiagram
 ```
 
 ```java
-// Violation — each tree stores its own texture (megabytes duplicated)
+// Violation - each tree stores its own texture (megabytes duplicated)
 class Tree { String name; String color; Image texture; int x; int y; }
 
-// Correct — shared flyweight holds intrinsic state; tree holds only extrinsic (x, y)
+// Correct - shared flyweight holds intrinsic state; tree holds only extrinsic (x, y)
 TreeType type = TreeTypeFactory.getTreeType("Oak", "green", oakTexture);
 Tree tree = new Tree(x, y, type);
 ```
@@ -65,4 +65,4 @@ Tree tree = new Tree(x, y, type);
 
 ## Sources
 
-- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. ISBN 978-0-201-63361-0. Chapter 4, Structural Patterns — Flyweight.
+- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. ISBN 978-0-201-63361-0. Chapter 4, Structural Patterns - Flyweight.

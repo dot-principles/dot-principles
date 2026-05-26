@@ -1,4 +1,4 @@
-# GOF-MEDIATOR — Mediator Pattern
+# GOF-MEDIATOR - Mediator Pattern
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
@@ -52,14 +52,14 @@ classDiagram
 ```
 
 ```java
-// Violation — components call each other directly
+// Violation - components call each other directly
 loginButton.onClick(() -> {
     if (!loginField.isEmpty() && !passwordField.isEmpty()) {
         okButton.enable();
     }
 });
 
-// Correct — components notify the mediator; mediator decides what to do
+// Correct - components notify the mediator; mediator decides what to do
 loginButton.onClick(() -> mediator.notify(loginButton, "click"));
 ```
 
@@ -70,4 +70,4 @@ loginButton.onClick(() -> mediator.notify(loginButton, "click"));
 
 ## Sources
 
-- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. ISBN 978-0-201-63361-0. Chapter 5, Behavioral Patterns — Mediator.
+- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. ISBN 978-0-201-63361-0. Chapter 5, Behavioral Patterns - Mediator.

@@ -1,4 +1,4 @@
-# FP-TOTALITY — Totality
+# FP-TOTALITY - Totality
 
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, type-safety, reliability, correctness
@@ -7,11 +7,11 @@
 
 ## Principle
 
-A total function is defined for every value in its input domain and always produces a value of its declared output type — it never throws an exception, loops forever, or returns `null`/`undefined`. Totality is a stronger correctness guarantee than type-correctness: the type `A -> B` should be interpreted as "given any `A`, I will always produce a `B`", not "given some `A`s, I might produce a `B` or throw".
+A total function is defined for every value in its input domain and always produces a value of its declared output type - it never throws an exception, loops forever, or returns `null`/`undefined`. Totality is a stronger correctness guarantee than type-correctness: the type `A -> B` should be interpreted as "given any `A`, I will always produce a `B`", not "given some `A`s, I might produce a `B` or throw".
 
 ## Why it matters
 
-Partial functions — those that crash or throw on some inputs — shift the burden of correctness from the type system to documentation and runtime testing. Every caller of a partial function must know and guard against its undefined inputs, and this knowledge is not encoded in the type. Total functions are safe to compose, safe to call generically, and safe to cache — they are reliable building blocks, whereas partial functions are landmines.
+Partial functions - those that crash or throw on some inputs - shift the burden of correctness from the type system to documentation and runtime testing. Every caller of a partial function must know and guard against its undefined inputs, and this knowledge is not encoded in the type. Total functions are safe to compose, safe to call generically, and safe to cache - they are reliable building blocks, whereas partial functions are landmines.
 
 ## Violations to detect
 
@@ -23,7 +23,7 @@ Partial functions — those that crash or throw on some inputs — shift the bur
 
 ## Inspection
 
-- `grep -rn "throw new\|raise \|failwith\b" --include="*.ts" --include="*.py" --include="*.fs" $TARGET` | LOW | Thrown exceptions inside business logic — verify these are truly for programming errors, not recoverable conditions
+- `grep -rn "throw new\|raise \|failwith\b" --include="*.ts" --include="*.py" --include="*.fs" $TARGET` | LOW | Thrown exceptions inside business logic - verify these are truly for programming errors, not recoverable conditions
 
 ## Good practice
 

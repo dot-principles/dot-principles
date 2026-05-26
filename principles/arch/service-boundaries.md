@@ -1,4 +1,4 @@
-# ARCH-SERVICE-BOUNDARIES — Define and enforce explicit service boundaries
+# ARCH-SERVICE-BOUNDARIES - Define and enforce explicit service boundaries
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, distributed-systems, domain-driven-design
@@ -7,11 +7,11 @@
 
 ## Principle
 
-Every service owns its data and exposes it only through a defined interface — never through shared databases, shared memory, or direct access to another service's internal model. Boundaries are drawn along business capability lines, not technical layer lines. Services within a boundary are cohesive; services across a boundary are loosely coupled through versioned, explicit contracts.
+Every service owns its data and exposes it only through a defined interface - never through shared databases, shared memory, or direct access to another service's internal model. Boundaries are drawn along business capability lines, not technical layer lines. Services within a boundary are cohesive; services across a boundary are loosely coupled through versioned, explicit contracts.
 
 ## Why it matters
 
-Shared databases are the most common way that microservices lose their independence. When two services share a table, a schema change in one breaks the other — the systems are logically separate but physically coupled. Explicit contracts force teams to think about versioning, backward compatibility, and consumer impact before making changes rather than discovering the consequences in production.
+Shared databases are the most common way that microservices lose their independence. When two services share a table, a schema change in one breaks the other - the systems are logically separate but physically coupled. Explicit contracts force teams to think about versioning, backward compatibility, and consumer impact before making changes rather than discovering the consequences in production.
 
 ## Violations to detect
 
@@ -30,5 +30,5 @@ Shared databases are the most common way that microservices lose their independe
 
 ## Sources
 
-- Newman, Sam. *Building Microservices*, 2nd ed. O'Reilly, 2021. ISBN 978-1-4920-3442-1. Chapters 2–4.
+- Newman, Sam. *Building Microservices*, 2nd ed. O'Reilly, 2021. ISBN 978-1-4920-3442-1. Chapters 2-4.
 - Evans, Eric. *Domain-Driven Design*. Addison-Wesley, 2003. ISBN 978-0-3211-2521-7. Part IV.

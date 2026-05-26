@@ -1,4 +1,4 @@
-# CODE-TP-PREFER-SUM-TYPES — Prefer sum types (discriminated unions) over boolean flags or string types
+# CODE-TP-PREFER-SUM-TYPES - Prefer sum types (discriminated unions) over boolean flags or string types
 
 **Layer:** 2
 **Categories:** type-safety, correctness
@@ -11,7 +11,7 @@ When a value can be one of several distinct alternatives, model it as a sum type
 
 ## Why it matters
 
-Boolean flags multiply combinatorially — two booleans create four states, three create eight, and most combinations are invalid. String-typed status fields accept any value, so typos compile and pass tests until they cause a production bug. Sum types restrict the domain to exactly the valid alternatives, prevent invalid values at compile time, and enable exhaustive pattern matching so that every code path is accounted for when a new variant is added.
+Boolean flags multiply combinatorially - two booleans create four states, three create eight, and most combinations are invalid. String-typed status fields accept any value, so typos compile and pass tests until they cause a production bug. Sum types restrict the domain to exactly the valid alternatives, prevent invalid values at compile time, and enable exhaustive pattern matching so that every code path is accounted for when a new variant is added.
 
 ## Violations to detect
 

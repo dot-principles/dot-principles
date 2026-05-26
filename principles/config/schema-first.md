@@ -1,4 +1,4 @@
-# CONFIG-SCHEMA-FIRST — Declare a schema for every configuration file
+# CONFIG-SCHEMA-FIRST - Declare a schema for every configuration file
 
 **Layer:** 1 (universal)
 **Categories:** configuration, reliability, tooling
@@ -31,6 +31,6 @@ Without a declared schema, configuration files drift: keys accumulate without do
 
 ## Sources
 
-- JSON Schema. "JSON Schema — A Vocabulary for Structural Validation of JSON." https://json-schema.org/specification (accessed 2026-03-22).
+- JSON Schema. "JSON Schema - A Vocabulary for Structural Validation of JSON." https://json-schema.org/specification (accessed 2026-03-22).
 - Pydantic. "Settings Management." https://docs.pydantic.dev/latest/concepts/pydantic_settings/ (accessed 2026-03-22).
-- Wiggins, Adam. "The Twelve-Factor App — III. Config." https://12factor.net/config (accessed 2026-03-22).
+- Wiggins, Adam. "The Twelve-Factor App - III. Config." https://12factor.net/config (accessed 2026-03-22).

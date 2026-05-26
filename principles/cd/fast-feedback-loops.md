@@ -1,14 +1,14 @@
-# CD-FAST-FEEDBACK-LOOPS — Optimise the pipeline so engineers know within minutes whether a change is safe
+# CD-FAST-FEEDBACK-LOOPS - Optimise the pipeline so engineers know within minutes whether a change is safe
 
 **Layer:** 1
 **Categories:** devops, continuous-delivery, testing, pipeline
 **Applies-to:** all
 **Summary:** Structure the pipeline to return a pass or fail signal to the developer within ten minutes.
-**Audit-scope:** limited — actual pipeline duration requires observing CI runs; code and pipeline config can reveal obvious serial bottlenecks or missing parallelization.
+**Audit-scope:** limited - actual pipeline duration requires observing CI runs; code and pipeline config can reveal obvious serial bottlenecks or missing parallelization.
 
 ## Principle
 
-The deployment pipeline must return a pass or fail signal to the developer as quickly as possible — ideally within ten minutes for the initial commit stage. Long pipelines discourage integration, lead to context switching, and delay detection of defects. Achieve speed through parallelism, test isolation, and by running the fastest, broadest-coverage checks first.
+The deployment pipeline must return a pass or fail signal to the developer as quickly as possible - ideally within ten minutes for the initial commit stage. Long pipelines discourage integration, lead to context switching, and delay detection of defects. Achieve speed through parallelism, test isolation, and by running the fastest, broadest-coverage checks first.
 
 ## Why it matters
 
@@ -20,7 +20,7 @@ A pipeline that takes hours to run teaches developers to batch their commits, av
 - Unit tests, integration tests, and end-to-end tests mixed in a single stage with no ordering or fail-fast
 - No parallelization configured in CI despite a large test suite
 - Pipeline jobs that poll or sleep unnecessarily instead of using event-driven triggers
-- No distinction between a fast "commit stage" and slower later stages — everything runs on every push
+- No distinction between a fast "commit stage" and slower later stages - everything runs on every push
 
 ## Good practice
 

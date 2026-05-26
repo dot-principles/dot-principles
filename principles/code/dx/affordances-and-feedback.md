@@ -1,4 +1,4 @@
-# CODE-DX-AFFORDANCES-AND-FEEDBACK — Provide clear affordances and feedback
+# CODE-DX-AFFORDANCES-AND-FEEDBACK - Provide clear affordances and feedback
 
 **Layer:** 2
 **Categories:** developer-experience, usability, ux-design
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Every interactive element should signal what it does (affordance) and confirm what it did (feedback). Affordances are the perceived and actual properties of an object that suggest how it can be used — a button looks pressable, a slider looks draggable, a text field looks typeable. Feedback closes the loop: after the user acts, the system must show the effect of that action. Without affordances, users do not know what to do; without feedback, they do not know whether they did it.
+Every interactive element should signal what it does (affordance) and confirm what it did (feedback). Affordances are the perceived and actual properties of an object that suggest how it can be used - a button looks pressable, a slider looks draggable, a text field looks typeable. Feedback closes the loop: after the user acts, the system must show the effect of that action. Without affordances, users do not know what to do; without feedback, they do not know whether they did it.
 
 ## Why it matters
 
@@ -24,11 +24,11 @@ Norman's key insight is that good design communicates through the object itself,
 ## Good practice
 
 - Make interactive elements visually distinct: use cursor changes, hover states, elevation/shadow, and color contrast to signal interactivity
-- Provide immediate feedback for every user action — visual state changes, success messages, or progress indicators
+- Provide immediate feedback for every user action - visual state changes, success messages, or progress indicators
 - When an element is disabled, communicate why (tooltip, helper text) and what the user can do to enable it
 - Use established UI conventions (underlined links, raised buttons, checkboxes) rather than inventing novel interaction patterns that users must learn
-- For APIs and CLIs, return meaningful responses for every operation — even a simple "done" is better than silence
+- For APIs and CLIs, return meaningful responses for every operation - even a simple "done" is better than silence
 
 ## Sources
 
-- Norman, Don. *The Design of Everyday Things*, revised ed. Basic Books, 2013. ISBN 978-0-465-05065-9. Chapters 1–2: "The Psychopathology of Everyday Things" and "The Psychology of Everyday Actions."
+- Norman, Don. *The Design of Everyday Things*, revised ed. Basic Books, 2013. ISBN 978-0-465-05065-9. Chapters 1-2: "The Psychopathology of Everyday Things" and "The Psychology of Everyday Actions."

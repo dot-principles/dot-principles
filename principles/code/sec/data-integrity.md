@@ -1,4 +1,4 @@
-# CODE-SEC-DATA-INTEGRITY — Verify data integrity
+# CODE-SEC-DATA-INTEGRITY - Verify data integrity
 
 **Layer:** 2 (contextual)
 **Categories:** security
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Ensure that software updates, critical data, and CI/CD pipelines are protected against integrity violations. Software and Data Integrity Failures (A08:2021) occur when code and infrastructure do not verify the integrity of what they consume — unsigned software updates, untrusted deserialization, dependency confusion, and compromised CI/CD pipelines all fall under this category. Every artifact entering the system should be verified against a trusted source.
+Ensure that software updates, critical data, and CI/CD pipelines are protected against integrity violations. Software and Data Integrity Failures (A08:2021) occur when code and infrastructure do not verify the integrity of what they consume - unsigned software updates, untrusted deserialization, dependency confusion, and compromised CI/CD pipelines all fall under this category. Every artifact entering the system should be verified against a trusted source.
 
 ## Why it matters
 
@@ -33,4 +33,4 @@ Attackers who can inject malicious code into a software update, a dependency, or
 
 ## Sources
 
-- OWASP Foundation. "OWASP Top 10:2021 — A08:2021 Software and Data Integrity Failures." https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures/
+- OWASP Foundation. "OWASP Top 10:2021 - A08:2021 Software and Data Integrity Failures." https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures/

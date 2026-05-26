@@ -1,4 +1,4 @@
-# 12FACTOR-11-LOGS — Logs
+# 12FACTOR-11-LOGS - Logs
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, cloud-native, observability
@@ -11,7 +11,7 @@ Treat logs as event streams. An app should never concern itself with routing or 
 
 ## Why it matters
 
-Apps that manage their own log files couple themselves to the filesystem, require log rotation configuration, and complicate log aggregation across multiple instances. Treating logs as stdout streams lets the platform — not the app — decide where logs go: a terminal in development, a log aggregator in production.
+Apps that manage their own log files couple themselves to the filesystem, require log rotation configuration, and complicate log aggregation across multiple instances. Treating logs as stdout streams lets the platform - not the app - decide where logs go: a terminal in development, a log aggregator in production.
 
 ## Violations to detect
 

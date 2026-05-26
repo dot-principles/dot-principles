@@ -1,4 +1,4 @@
-# CODE-API-HTTP-STATUS-CODES — Use proper HTTP status codes to communicate outcomes
+# CODE-API-HTTP-STATUS-CODES - Use proper HTTP status codes to communicate outcomes
 
 **Layer:** 2
 **Categories:** api-design, rest, protocol-design
@@ -7,11 +7,11 @@
 
 ## Principle
 
-HTTP status codes are a fundamental part of the uniform interface. APIs must use them correctly to communicate the outcome of a request: 2xx for success, 3xx for redirection, 4xx for client errors, and 5xx for server errors. Each specific code carries precise semantics — 201 means a resource was created, 404 means the resource was not found, 409 means a conflict. Returning 200 for everything and embedding the real status in the response body defeats the purpose of the protocol.
+HTTP status codes are a fundamental part of the uniform interface. APIs must use them correctly to communicate the outcome of a request: 2xx for success, 3xx for redirection, 4xx for client errors, and 5xx for server errors. Each specific code carries precise semantics - 201 means a resource was created, 404 means the resource was not found, 409 means a conflict. Returning 200 for everything and embedding the real status in the response body defeats the purpose of the protocol.
 
 ## Why it matters
 
-Clients, proxies, caches, monitoring tools, and load balancers all interpret status codes to make decisions. A cache will store a 200 response but not a 500. A client retry library will retry a 503 but not a 400. Monitoring dashboards flag 5xx spikes as incidents. When an API returns 200 for errors, all of this infrastructure stops working correctly, and clients must parse response bodies to determine what actually happened — losing the benefits of the standardized protocol.
+Clients, proxies, caches, monitoring tools, and load balancers all interpret status codes to make decisions. A cache will store a 200 response but not a 500. A client retry library will retry a 503 but not a 400. Monitoring dashboards flag 5xx spikes as incidents. When an API returns 200 for errors, all of this infrastructure stops working correctly, and clients must parse response bodies to determine what actually happened - losing the benefits of the standardized protocol.
 
 ## Violations to detect
 
@@ -25,7 +25,7 @@ Clients, proxies, caches, monitoring tools, and load balancers all interpret sta
 
 - Use 200 OK for successful retrieval and general success, 201 Created when a new resource is created, and 204 No Content for successful operations with no response body
 - Use 400 Bad Request for malformed syntax, 401 Unauthorized for missing/invalid authentication, 403 Forbidden for insufficient permissions, 404 Not Found for nonexistent resources, and 409 Conflict for state conflicts
-- Use 500 Internal Server Error only for genuine unexpected server failures — never for input validation or business rule violations
+- Use 500 Internal Server Error only for genuine unexpected server failures - never for input validation or business rule violations
 - Include a structured error body with a machine-readable error code, a human-readable message, and (where applicable) a pointer to the offending field
 - Document which status codes each endpoint may return
 

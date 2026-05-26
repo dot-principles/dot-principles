@@ -1,14 +1,14 @@
-# CODE-TS-CHARACTERIZATION-TESTS — Write characterization tests before refactoring legacy code
+# CODE-TS-CHARACTERIZATION-TESTS - Write characterization tests before refactoring legacy code
 
 **Layer:** 2 (contextual)
 **Categories:** testing, quality, maintainability
 **Applies-to:** all
 **Summary:** Before refactoring legacy code, write characterization tests that pin its current behaviour as a safety net.
-**Audit-scope:** limited — auditable as the absence of test coverage over code paths actively being modified; not detectable from static analysis alone
+**Audit-scope:** limited - auditable as the absence of test coverage over code paths actively being modified; not detectable from static analysis alone
 
 ## Principle
 
-Before modifying legacy code that lacks tests, write tests that pin its current behaviour — including quirks and bugs. The goal is not to verify that the behaviour is correct, but to detect any unintended change during the refactor. Once the characterization tests are in place, refactor with confidence and then add correctness tests for the desired post-refactor behaviour.
+Before modifying legacy code that lacks tests, write tests that pin its current behaviour - including quirks and bugs. The goal is not to verify that the behaviour is correct, but to detect any unintended change during the refactor. Once the characterization tests are in place, refactor with confidence and then add correctness tests for the desired post-refactor behaviour.
 
 ## Why it matters
 
@@ -22,10 +22,10 @@ Refactoring untested code without a safety net produces regressions that are dis
 
 ## Good practice
 
-- Write a test that calls the code as-is and asserts whatever it currently returns — even if that output is surprising
+- Write a test that calls the code as-is and asserts whatever it currently returns - even if that output is surprising
 - Use the test name to document that this is a characterization: `characterizes_invoice_total_rounding_behaviour`
 - Once the refactor is complete, replace characterization tests with intent-driven tests that assert what the code *should* do
-- Treat a failing characterization test as "something changed" — investigate before assuming the change is correct
+- Treat a failing characterization test as "something changed" - investigate before assuming the change is correct
 
 ## Sources
 

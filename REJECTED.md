@@ -33,7 +33,7 @@ Each entry: name, source, rejection date, reason, and which existing principle(s
 ### Defensive Copying
 - **Source:** Bloch, *Effective Java* 3rd ed., Item 50 (ISBN 978-0134685991)
 - **Rejected:** 2026-03-22
-- **Reason:** Covered by EFFECTIVE-JAVA-MINIMIZE-MUTABILITY (prefer immutable objects, eliminating the need for defensive copies) and CODE-CC-PREFER-IMMUTABLE (prefer immutable data structures). Defensive copying is the workaround when immutability is not achieved — the catalog targets the root cause instead.
+- **Reason:** Covered by EFFECTIVE-JAVA-MINIMIZE-MUTABILITY (prefer immutable objects, eliminating the need for defensive copies) and CODE-CC-PREFER-IMMUTABLE (prefer immutable data structures). Defensive copying is the workaround when immutability is not achieved - the catalog targets the root cause instead.
 
 ### Reactive Manifesto (Responsive, Resilient, Elastic, Message-Driven)
 - **Source:** reactivemanifesto.org (Boner et al., 2014)

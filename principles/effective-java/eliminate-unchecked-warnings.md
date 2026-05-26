@@ -1,4 +1,4 @@
-# EFFECTIVE-JAVA-ELIMINATE-UNCHECKED-WARNINGS — Eliminate Unchecked Warnings
+# EFFECTIVE-JAVA-ELIMINATE-UNCHECKED-WARNINGS - Eliminate Unchecked Warnings
 
 **Layer:** 2 (contextual)
 **Categories:** api-design, developer-experience
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Eliminate every unchecked warning that you can. Every unchecked warning represents a potential `ClassCastException` at runtime. If you cannot eliminate a warning and you can prove that the code is type-safe, then — and only then — suppress the warning with `@SuppressWarnings("unchecked")` on the narrowest possible scope, and add a comment explaining why it is safe.
+Eliminate every unchecked warning that you can. Every unchecked warning represents a potential `ClassCastException` at runtime. If you cannot eliminate a warning and you can prove that the code is type-safe, then - and only then - suppress the warning with `@SuppressWarnings("unchecked")` on the narrowest possible scope, and add a comment explaining why it is safe.
 
 ## Why it matters
 
@@ -23,13 +23,13 @@ Generics provide compile-time type safety, but only if unchecked warnings are he
 ## Good practice
 
 ```java
-// Violation — @SuppressWarnings on entire method; raw type used
+// Violation - @SuppressWarnings on entire method; raw type used
 @SuppressWarnings("unchecked")
 public <T> T[] toArray(T[] a) {
     return (T[]) Arrays.copyOf(elements, size, a.getClass());
 }
 
-// Correct — suppress on narrowest scope with justification comment
+// Correct - suppress on narrowest scope with justification comment
 public <T> T[] toArray(T[] a) {
     // Safe because the array we're copying into is of type T[],
     // and we created it with the caller's array class token.
@@ -40,7 +40,7 @@ public <T> T[] toArray(T[] a) {
 ```
 
 - Always use parameterized types rather than raw types
-- When a cast is provably safe, suppress the warning on the narrowest scope — a local variable declaration, not an entire method
+- When a cast is provably safe, suppress the warning on the narrowest scope - a local variable declaration, not an entire method
 - Add a comment with every `@SuppressWarnings` explaining the reasoning
 - Treat unchecked warnings with the same urgency as errors: investigate each one
 

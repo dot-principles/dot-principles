@@ -1,4 +1,4 @@
-# CODE-SMELLS-ALTERNATIVE-CLASSES — Alternative Classes with Different Interfaces
+# CODE-SMELLS-ALTERNATIVE-CLASSES - Alternative Classes with Different Interfaces
 
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, maintainability

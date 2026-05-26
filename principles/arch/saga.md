@@ -1,4 +1,4 @@
-# ARCH-SAGA — Saga Pattern
+# ARCH-SAGA - Saga Pattern
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, distributed-systems, reliability
@@ -11,7 +11,7 @@ Coordinate long-running distributed transactions across multiple services using 
 
 ## Why it matters
 
-Two-phase commit (2PC) across service boundaries requires a distributed lock that degrades availability and creates coupling. Sagas achieve eventual consistency without distributed locks — each service commits its local transaction independently and publishes an event. The trade-off is that the intermediate states are visible and compensation logic must be explicitly designed.
+Two-phase commit (2PC) across service boundaries requires a distributed lock that degrades availability and creates coupling. Sagas achieve eventual consistency without distributed locks - each service commits its local transaction independently and publishes an event. The trade-off is that the intermediate states are visible and compensation logic must be explicitly designed.
 
 ## Violations to detect
 

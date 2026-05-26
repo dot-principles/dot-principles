@@ -1,4 +1,4 @@
-# ARCH-BACKENDS-FOR-FRONTENDS — Backends for Frontends (BFF)
+# ARCH-BACKENDS-FOR-FRONTENDS - Backends for Frontends (BFF)
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, api-design, microservices
@@ -11,7 +11,7 @@ Create a dedicated backend service for each distinct client type (web browser, m
 
 ## Why it matters
 
-A single shared backend accumulates per-client conditional logic — `if (client == "mobile") { ... }` — that makes the API harder to evolve and creates accidental coupling between unrelated frontends. One frontend's performance requirements or data-shape preferences force compromises on all others. A BFF gives each client team autonomy to evolve their API contract without coordinating with unrelated clients.
+A single shared backend accumulates per-client conditional logic - `if (client == "mobile") { ... }` - that makes the API harder to evolve and creates accidental coupling between unrelated frontends. One frontend's performance requirements or data-shape preferences force compromises on all others. A BFF gives each client team autonomy to evolve their API contract without coordinating with unrelated clients.
 
 ## Violations to detect
 
@@ -22,7 +22,7 @@ A single shared backend accumulates per-client conditional logic — `if (client
 ## Good practice
 
 - Each BFF is responsible for aggregating calls to downstream services and shaping the response for its specific client
-- BFFs do not own domain logic — they are thin orchestration layers that call authoritative downstream services
+- BFFs do not own domain logic - they are thin orchestration layers that call authoritative downstream services
 - Keep BFFs small and client-specific; if two clients have identical needs, a shared API is fine
 
 ## Sources

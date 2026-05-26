@@ -1,10 +1,10 @@
-# 12FACTOR-09-DISPOSABILITY — Disposability
+# 12FACTOR-09-DISPOSABILITY - Disposability
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, cloud-native, resilience
 **Applies-to:** cloud-native, twelve-factor-apps
 **Summary:** Design processes to start quickly, shut down gracefully on SIGTERM, and survive sudden death safely.
-**Audit-scope:** limited — can detect missing SIGTERM handlers, ack-before-process patterns, and startup migrations; cannot measure actual startup time (requires running the app)
+**Audit-scope:** limited - can detect missing SIGTERM handlers, ack-before-process patterns, and startup migrations; cannot measure actual startup time (requires running the app)
 
 ## Principle
 
@@ -17,7 +17,7 @@ Slow startups delay scaling responses and make deployments painful. Ungraceful s
 ## Violations to detect
 
 - Startup time measured in minutes rather than seconds
-- No SIGTERM handler — process killed mid-request with no cleanup
+- No SIGTERM handler - process killed mid-request with no cleanup
 - Jobs removed from the queue before they are completed (message acknowledgement before processing)
 - Shared mutable state that is corrupted when a process dies unexpectedly
 - Initialisation logic that runs long database migrations inline at startup

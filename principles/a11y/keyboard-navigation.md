@@ -1,4 +1,4 @@
-# A11Y-KEYBOARD-NAVIGATION — Interactive elements must be fully keyboard-accessible
+# A11Y-KEYBOARD-NAVIGATION - Interactive elements must be fully keyboard-accessible
 
 **Layer:** 2 (contextual)
 **Audit-scope:** full
@@ -8,7 +8,7 @@
 
 ## Principle
 
-Every interactive element — buttons, links, form controls, modals, dropdowns, tabs — must be reachable and operable using only a keyboard. This means: focusable via Tab/Shift-Tab, activatable via Enter or Space, and escapable via Escape where appropriate. Mouse-only interactions are a hard barrier for users with motor impairments, power users, and anyone relying on keyboard-driven workflows.
+Every interactive element - buttons, links, form controls, modals, dropdowns, tabs - must be reachable and operable using only a keyboard. This means: focusable via Tab/Shift-Tab, activatable via Enter or Space, and escapable via Escape where appropriate. Mouse-only interactions are a hard barrier for users with motor impairments, power users, and anyone relying on keyboard-driven workflows.
 
 ## Why it matters
 
@@ -27,8 +27,8 @@ An estimated 7% of working-age adults have a severe dexterity impairment. Beyond
 ## Inspection
 
 - `grep -rnE 'onClick\s*=' --include="*.jsx" --include="*.tsx" --include="*.html" $TARGET | grep -v "onKeyDown\|onKeyPress\|onKeyUp\|<button\|<a \|<input\|<select\|<textarea"` | HIGH | onClick on potentially non-focusable element without keyboard handler
-- `grep -rnE 'tabIndex\s*=\s*[{"]?-1[}"]?' --include="*.jsx" --include="*.tsx" --include="*.html" $TARGET` | MEDIUM | tabIndex -1 removes element from tab order — verify intentional
-- `grep -rnE 'onMouseEnter|onMouseLeave|onMouseOver' --include="*.jsx" --include="*.tsx" $TARGET` | MEDIUM | Mouse-only hover handlers — verify onFocus/onBlur equivalents exist
+- `grep -rnE 'tabIndex\s*=\s*[{"]?-1[}"]?' --include="*.jsx" --include="*.tsx" --include="*.html" $TARGET` | MEDIUM | tabIndex -1 removes element from tab order - verify intentional
+- `grep -rnE 'onMouseEnter|onMouseLeave|onMouseOver' --include="*.jsx" --include="*.tsx" $TARGET` | MEDIUM | Mouse-only hover handlers - verify onFocus/onBlur equivalents exist
 - `grep -rnE 'role\s*=\s*["'"'"'](button|link|menuitem|tab|checkbox|radio)['"'"'"](?![^>]*tabIndex)' --include="*.jsx" --include="*.tsx" --include="*.html" $TARGET` | HIGH | ARIA interactive role without tabIndex
 
 ## Good practice
@@ -50,7 +50,7 @@ An estimated 7% of working-age adults have a severe dexterity impairment. Beyond
   Open menu
 </div>
 
-// Hover tooltip — also needs focus equivalent
+// Hover tooltip - also needs focus equivalent
 <div
   onMouseEnter={showTooltip}
   onMouseLeave={hideTooltip}
@@ -61,7 +61,7 @@ An estimated 7% of working-age adults have a severe dexterity impairment. Beyond
 </div>
 ```
 
-- Native `<button>` and `<a href>` elements are keyboard-focusable and activatable by default — prefer them
+- Native `<button>` and `<a href>` elements are keyboard-focusable and activatable by default - prefer them
 - For custom widgets (combobox, date picker, tree), follow the WAI-ARIA Authoring Practices keyboard interaction patterns
 - Ensure focus indicators are visible (never `outline: none` without a custom replacement)
 - Test by unplugging the mouse and navigating the entire UI with Tab, Shift-Tab, Enter, Space, Escape, and arrow keys
@@ -70,4 +70,4 @@ An estimated 7% of working-age adults have a severe dexterity impairment. Beyond
 
 - W3C. *WCAG 2.1*, SC 2.1.1 Keyboard (Level A). https://www.w3.org/TR/WCAG21/#keyboard
 - W3C. *WCAG 2.1*, SC 2.4.3 Focus Order (Level A). https://www.w3.org/TR/WCAG21/#focus-order
-- W3C WAI-ARIA Authoring Practices Guide — Keyboard Interaction. https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/
+- W3C WAI-ARIA Authoring Practices Guide - Keyboard Interaction. https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/

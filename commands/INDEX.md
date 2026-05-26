@@ -1,4 +1,4 @@
-# commands — Index
+# commands - Index
 
 | Path | Description |
 |---|---|

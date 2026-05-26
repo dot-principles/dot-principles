@@ -1,4 +1,4 @@
-# templates/claude — Index
+# templates/claude - Index
 
 | File | Description |
 |---|---|

@@ -1,4 +1,4 @@
-# EIP-CORRELATION-IDENTIFIER — Correlation Identifier
+# EIP-CORRELATION-IDENTIFIER - Correlation Identifier
 
 **Layer:** 2 (contextual)
 **Categories:** integration, observability, messaging
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Attach a unique Correlation Identifier to every message — request and reply alike — so that any message can be matched to the request that initiated it and to other messages in the same logical flow. The ID must be propagated through every downstream call and included in all log entries and trace spans.
+Attach a unique Correlation Identifier to every message - request and reply alike - so that any message can be matched to the request that initiated it and to other messages in the same logical flow. The ID must be propagated through every downstream call and included in all log entries and trace spans.
 
 ## Why it matters
 
@@ -23,7 +23,7 @@ In asynchronous and distributed systems, operations span multiple messages, serv
 ## Good practice
 
 - Generate a UUID correlation ID at the system entry point (HTTP gateway, message consumer) if none is present
-- Propagate it in every outbound call — HTTP headers (`X-Correlation-ID`, W3C `traceparent`), message metadata, queue message attributes
+- Propagate it in every outbound call - HTTP headers (`X-Correlation-ID`, W3C `traceparent`), message metadata, queue message attributes
 - Log it alongside every log entry for the operation
 - Verify propagation with integration tests that assert the ID appears in downstream service logs
 

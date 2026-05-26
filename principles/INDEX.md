@@ -1,4 +1,4 @@
-# principles — Index
+# principles - Index
 
 | Namespace | Description |
 |---|---|

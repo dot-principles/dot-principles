@@ -1,4 +1,4 @@
-# 12FACTOR-04-BACKING-SERVICES — Backing Services
+# 12FACTOR-04-BACKING-SERVICES - Backing Services
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, cloud-native, dependency-management
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Treat backing services — databases, caches, message queues, email services — as attached resources accessed via a URL or credentials stored in config. A twelve-factor app makes no distinction between local and third-party services; both are attached resources that can be swapped without code changes.
+Treat backing services - databases, caches, message queues, email services - as attached resources accessed via a URL or credentials stored in config. A twelve-factor app makes no distinction between local and third-party services; both are attached resources that can be swapped without code changes.
 
 ## Why it matters
 

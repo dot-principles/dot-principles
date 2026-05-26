@@ -1,4 +1,4 @@
-# CODE-SMELLS-DIVERGENT-CHANGE — Divergent Change
+# CODE-SMELLS-DIVERGENT-CHANGE - Divergent Change
 
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, maintainability

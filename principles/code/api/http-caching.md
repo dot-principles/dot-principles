@@ -1,4 +1,4 @@
-# CODE-API-HTTP-CACHING — Set Cache-Control and validation headers on cacheable responses
+# CODE-API-HTTP-CACHING - Set Cache-Control and validation headers on cacheable responses
 
 **Layer:** 2
 **Categories:** api-design, performance, rest
@@ -7,11 +7,11 @@
 
 ## Principle
 
-Every GET response must carry explicit `Cache-Control` directives that communicate whether and for how long the response may be cached. Cacheable resources should also include `ETag` or `Last-Modified` headers to support conditional revalidation. Private or sensitive resources must be explicitly marked `Cache-Control: no-store`. Never rely on default caching behaviour in intermediaries — always be explicit.
+Every GET response must carry explicit `Cache-Control` directives that communicate whether and for how long the response may be cached. Cacheable resources should also include `ETag` or `Last-Modified` headers to support conditional revalidation. Private or sensitive resources must be explicitly marked `Cache-Control: no-store`. Never rely on default caching behaviour in intermediaries - always be explicit.
 
 ## Why it matters
 
-Caching is the primary mechanism for reducing latency and origin load in HTTP systems. Clients, CDNs, and reverse proxies all make caching decisions based on `Cache-Control`. Omitting these headers hands the decision to each intermediary's defaults, which vary widely — some will cache everything (including private data), others nothing (wasting bandwidth). Incorrect caching can serve stale data, expose private information through shared caches, or re-fetch unchanged resources on every request.
+Caching is the primary mechanism for reducing latency and origin load in HTTP systems. Clients, CDNs, and reverse proxies all make caching decisions based on `Cache-Control`. Omitting these headers hands the decision to each intermediary's defaults, which vary widely - some will cache everything (including private data), others nothing (wasting bandwidth). Incorrect caching can serve stale data, expose private information through shared caches, or re-fetch unchanged resources on every request.
 
 ## Violations to detect
 

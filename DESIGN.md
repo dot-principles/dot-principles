@@ -1,4 +1,4 @@
-# .principles — System Design
+# .principles - System Design
 
 This document describes the full architecture of the `.principles` hierarchy system for contributors and adopters.
 
@@ -6,11 +6,11 @@ This document describes the full architecture of the `.principles` hierarchy sys
 
 ## 🗺️ 1. Overview
 
-**What it is:** A portable, project-local configuration system that tells AI agents which engineering principles apply to your project — whether the file being worked on is source code, documentation, infrastructure, configuration, a schema, or a pipeline. Similar in spirit to `.gitignore`, but for engineering guidance.
+**What it is:** A portable, project-local configuration system that tells AI agents which engineering principles apply to your project - whether the file being worked on is source code, documentation, infrastructure, configuration, a schema, or a pipeline. Similar in spirit to `.gitignore`, but for engineering guidance.
 
-**Philosophy:** `.principles` does not teach the AI anything — the AI already knows SOLID, OWASP, DDD, and the rest. It *focuses and triggers* that knowledge: giving the AI context about which principles matter for this codebase, delivered via per-group principle files in `.github/instructions/` (Copilot Code Review) and `.claude/rules/` (Claude Code). The AI instructions tell the agent how to behave; `.principles` tells it which engineering lens to apply.
+**Philosophy:** `.principles` does not teach the AI anything - the AI already knows SOLID, OWASP, DDD, and the rest. It *focuses and triggers* that knowledge: giving the AI context about which principles matter for this codebase, delivered via per-group principle files in `.github/instructions/` (Copilot Code Review) and `.claude/rules/` (Claude Code). The AI instructions tell the agent how to behave; `.principles` tells it which engineering lens to apply.
 
-> See [DISCLAIMER.md](DISCLAIMER.md) — this is a proof of concept. Groups are opinionated, gaps exist, and the catalog is not exhaustive.
+> See [DISCLAIMER.md](DISCLAIMER.md) - this is a proof of concept. Groups are opinionated, gaps exist, and the catalog is not exhaustive.
 
 **Who it is for:**
 - **Developers** who want consistent, principle-driven code review and generation across all their projects
@@ -24,9 +24,20 @@ This document describes the full architecture of the `.principles` hierarchy sys
 4. The AI resolves a hierarchy of `.principles` files (innermost overrides outermost) and reads the full principle content before coding or reviewing
 5. The artifact type of the file being reviewed is detected (code, docs, config, infra, schema, pipeline) and the matching principle stack from `layers/<type>/` is loaded
 
-**"X as Code":** `.principles` is built for the "X as Code" world — *docs as code*, *infrastructure as code*, *configuration as code*, *pipeline as code*, *schema as code*. All of these are plain text in version control, and all of them benefit from principled review. The system ships with dedicated artifact stacks for each type (see Section 5).
+**"X as Code":** `.principles` is built for the "X as Code" world - *docs as code*, *infrastructure as code*, *configuration as code*, *pipeline as code*, *schema as code*. All of these are plain text in version control, and all of them benefit from principled review. The system ships with dedicated artifact stacks for each type (see Section 5).
 
-**Plain-Text-as-Code:** This repo is itself a **[Plain-Text-as-Code](https://github.com/Plain-Text-as-Code)** system. Every artefact is plain text in version control — diffable, composable, portable, and natively readable by both humans and AI tools. Principle files are Markdown, group files are YAML, and the catalog is YAML. No binary formats, no generated code, no lock-in.
+**Plain-Text-as-Code:** This repo is itself a **[Plain-Text-as-Code](https://github.com/Plain-Text-as-Code)** system. Every artefact is plain text in version control - diffable, composable, portable, and natively readable by both humans and AI tools. Principle files are Markdown, group files are YAML, and the catalog is YAML. No binary formats, no generated code, no lock-in.
+
+### Public documentation layer
+
+This repository now also contains an in-repo public documentation site built with VitePress.
+
+- `.vitepress/` holds the site configuration and theme wiring.
+- `content/` is the VitePress source directory for visitor-facing docs pages.
+- `docs/` is reserved for docs-about-docs material such as ADRs and authoring guidance.
+- `README.md`, `INSTALL.md`, `DESIGN.md`, and `demo/presentation.md` remain the canonical deep references and are linked from the public site rather than copied wholesale.
+
+This follows the same design principle as the rest of the repo: public guidance stays plain-text, version-controlled, and colocated with the product it describes. The documentation site is a presentation layer for discoverability and onboarding, not a second source of truth.
 
 ---
 
@@ -118,17 +129,17 @@ Each namespace contains three pre-compiled files that consolidate all its princi
 
 | File | Used by | Contains |
 |------|---------|----------|
-| `.context-prime.md` | `dot-prime` Phase 4 | Principle statement, Why it matters, Good practice — for all principles in the namespace |
-| `.context-audit.md` | `dot-audit` Phase 4 | Principle statement, Violations to detect — for all principles in the namespace |
-| `.context-inspect.md` | `dot-audit` Phase 5 | Machine-executable pre-scan patterns (grep/awk/find commands) — for principles with deterministic inspection patterns |
+| `.context-prime.md` | `dot-prime` Phase 4 | Principle statement, Why it matters, Good practice - for all principles in the namespace |
+| `.context-audit.md` | `dot-audit` Phase 4 | Principle statement, Violations to detect - for all principles in the namespace |
+| `.context-inspect.md` | `dot-audit` Phase 5 | Machine-executable pre-scan patterns (grep/awk/find commands) - for principles with deterministic inspection patterns |
 
 The command reads one file per namespace and filters to only the entries in the final active set. This avoids reading N individual principle files.
 
 **`code/` sub-namespace split:** Because the `code/` namespace contains 110 principles across 11 sub-namespaces, its context files are split per sub-namespace rather than held in a single file. Each of `code/api/`, `code/ar/`, `code/cc/`, `code/cs/`, `code/dx/`, `code/ob/`, `code/pf/`, `code/rl/`, `code/sec/`, `code/tp/`, and `code/ts/` has its own `.context-prime.md`, `.context-audit.md`, and (where applicable) `.context-inspect.md`. The root `code/.context-*.md` files contain only a pointer comment listing the sub-namespace directories. `dot-prime` and `dot-audit` use a longest-prefix-match table to resolve `CODE-<sub>-*` IDs to the correct sub-namespace file before falling back to `code/` for unrecognised sub-prefixes.
 
-### `.agents/principles-catalog/` — vendored project subset
+### `.agents/principles-catalog/` - vendored project subset
 
-When `install.sh vendor <dir>` (or the interactive installer) is run, it copies the subset of `principles/` and `groups/` referenced by the project's `.principles` files into `<dir>/.agents/principles-catalog/`. This directory mirrors the structure of the full catalog but contains only the namespaces and groups the project actually uses. It also generates `index.tsv` — a flat pipe-delimited file listing every vendored principle in `ID|LAYER|SUMMARY` format, one line per principle. `dot-scout` reads this single file to compile the active block without walking individual namespace files.
+When `install.sh vendor <dir>` (or the interactive installer) is run, it copies the subset of `principles/` and `groups/` referenced by the project's `.principles` files into `<dir>/.agents/principles-catalog/`. This directory mirrors the structure of the full catalog but contains only the namespaces and groups the project actually uses. It also generates `index.tsv` - a flat pipe-delimited file listing every vendored principle in `ID|LAYER|SUMMARY` format, one line per principle. `dot-scout` reads this single file to compile the active block without walking individual namespace files.
 
 **Commit `.agents/principles-catalog/` to your repo.** The installed commands reference it as their data source. With it committed, every team member and CI environment gets the correct principle data without needing access to the `.principles` repo.
 
@@ -158,7 +169,7 @@ Three sources of extra catalogs are collected automatically during `install.sh v
 | `<project>/.principles-extra` | Middle | Project-level; committed to the project repo |
 | `--extra-catalog <path>` | Highest | CLI flag; repeatable; ad-hoc or CI use |
 
-All sources are merged into `.agents/principles-catalog/` at vendor time. Built-in namespaces (`solid`, `gof`, `ddd`, etc.) cannot be overridden — extra catalog entries for the same namespace are skipped with a warning.
+All sources are merged into `.agents/principles-catalog/` at vendor time. Built-in namespaces (`solid`, `gof`, `ddd`, etc.) cannot be overridden - extra catalog entries for the same namespace are skipped with a warning.
 
 The `generate_compact_index()` step scans individual principle `.md` files from extra catalog source directories in addition to `$SCRIPT_DIR/principles`, so extra principles appear in `index.tsv` and are visible to `dot-scout`.
 
@@ -169,7 +180,7 @@ See [INSTALL.md §9](INSTALL.md#9-corporate--personal-principles) for setup inst
 Pre-compiled inspection patterns for `dot-audit` Phase 5 (Pre-Scan). Each principle's entry contains bash commands that produce `file:line:match` output:
 
 ```markdown
-# .principles inspect context — <namespace>
+# .principles inspect context - <namespace>
 # Machine-executable pre-scan patterns per principle
 
 ### CODE-SEC-VALIDATE-INPUT
@@ -197,7 +208,7 @@ description: "Human-readable description of this namespace"
 |-------|----------|-------------|
 | `description` | Yes | Human-readable description of the namespace |
 
-The namespace is the directory name. IDs are derived from file paths (see Section 5) — no explicit `namespace` or `id-prefix` fields are needed. The system discovers all `principles/*/catalog.yaml` files automatically.
+The namespace is the directory name. IDs are derived from file paths (see Section 5) - no explicit `namespace` or `id-prefix` fields are needed. The system discovers all `principles/*/catalog.yaml` files automatically.
 
 ---
 
@@ -212,7 +223,7 @@ The `**Summary:**` field from each principle file is extracted verbatim into `.a
 **Copilot Code Review** (`.github/instructions/<group>.instructions.md`):
 
 ```markdown
-<!-- generated by dot-scout vVERSION — do not edit manually, re-run dot-scout to refresh -->
+<!-- generated by dot-scout vVERSION - do not edit manually, re-run dot-scout to refresh -->
 ---
 applyTo:
   - "**/*.java"
@@ -226,7 +237,7 @@ applyTo:
 **Claude Code** (`.claude/rules/<group>.md`):
 
 ```markdown
-<!-- generated by dot-scout vVERSION — do not edit manually, re-run dot-scout to refresh -->
+<!-- generated by dot-scout vVERSION - do not edit manually, re-run dot-scout to refresh -->
 ---
 paths:
   - "**/*.java"
@@ -253,7 +264,7 @@ Each group YAML file has an optional `globs:` field that defines which file type
 | Pipeline | `pipeline`, `cd` | `.github/workflows/**`, `Jenkinsfile`, etc. |
 | Docs | `docs`, `docs-as-code` | `**/*.md`, `**/*.adoc`, `**/*.rst` |
 | Schema | `schema` | `**/*.proto`, `**/*.graphql`, `**/openapi.yaml`, etc. |
-| Cross-cutting | `microservices`, `solid`, `ddd`, etc. | No `globs:` field — defaults to `**/*` |
+| Cross-cutting | `microservices`, `solid`, `ddd`, etc. | No `globs:` field - defaults to `**/*` |
 
 Groups that `includes:` other groups inherit the included group's `globs:` (union of all).
 
@@ -270,13 +281,13 @@ A `principles-core` file is always emitted in both directories with `applyTo: "*
 
 ### Two-tier context system
 
-Per-group files act as **tier 1** context — always present, always fast. They are the primary source for `dot-prime` and `dot-audit` fast paths:
+Per-group files act as **tier 1** context - always present, always fast. They are the primary source for `dot-prime` and `dot-audit` fast paths:
 
 | Tier | Source | Loaded by |
 |------|--------|-----------|
-| 1 — Per-group files | Emitted to `.github/instructions/` and `.claude/rules/` by `dot-scout` | `dot-prime`, `dot-audit` (always) |
-| 2 — Namespace context | `.context-prime.md` / `.context-audit.md` per namespace | `dot-prime` Phase 4, `dot-audit` Phase 4 |
-| 3 — Inspection patterns | `.context-inspect.md` per namespace | `dot-audit` Phase 5 only |
+| 1 - Per-group files | Emitted to `.github/instructions/` and `.claude/rules/` by `dot-scout` | `dot-prime`, `dot-audit` (always) |
+| 2 - Namespace context | `.context-prime.md` / `.context-audit.md` per namespace | `dot-prime` Phase 4, `dot-audit` Phase 4 |
+| 3 - Inspection patterns | `.context-inspect.md` per namespace | `dot-audit` Phase 5 only |
 
 `dot-prime` and `dot-audit` glob for per-group files first (tier 1) then load the relevant namespace context files (tier 2) for full principle guidance. Per-group files avoid tree-walking `.principles` files on every invocation.
 
@@ -284,23 +295,23 @@ Per-group files act as **tier 1** context — always present, always fast. They 
 
 ## 🗂️ 4. Artifact Types and Stacks
 
-The layer model is not a single three-layer stack — it is a family of stacks, one per artifact type. The correct stack is selected by detecting the artifact type of the file being reviewed.
+The layer model is not a single three-layer stack - it is a family of stacks, one per artifact type. The correct stack is selected by detecting the artifact type of the file being reviewed.
 
 ### Artifact Types (`layers/artifact-types.yaml`)
 
 `layers/artifact-types.yaml` defines:
-- **Universal principles** — active for all artifact types regardless of stack
-- **Artifact type definitions** — each with a description, a stack name, and detection signals (file extensions, filenames, path patterns)
+- **Universal principles** - active for all artifact types regardless of stack
+- **Artifact type definitions** - each with a description, a stack name, and detection signals (file extensions, filenames, path patterns)
 
 Detection precedence resolves ambiguity: more specific matches win. For example, `Chart.yaml` matches the `infra` type (not `config`) because `infra` signals are evaluated before `config` signals for Helm charts.
 
 ### Stacks (`layers/<stack>/`)
 
-Each stack lives in its own subdirectory under `layers/` and contains 2–3 files:
+Each stack lives in its own subdirectory under `layers/` and contains 2-3 files:
 
 | File | Purpose |
 |------|---------|
-| `layer-1-universal.md` | Always active for this artifact type — a table of principles with ID, title, and one-line summary |
+| `layer-1-universal.md` | Always active for this artifact type - a table of principles with ID, title, and one-line summary |
 | `layer-2-contexts.yaml` | Context-activated principles, triggered by content signals within the file |
 | `layer-3-risk-signals.yaml` | Risk-elevated principles (code and infra stacks only) |
 
@@ -335,14 +346,14 @@ The `**Layer:**` frontmatter field on principle files refers to the layer within
 - Layer 2 = context-dependent (activated by content signals)
 - Layer 3 = risk-elevated (activated by risk signals)
 
-Principles in the universal set (above) are considered "stack-universal" rather than stack Layer 1 — they activate regardless of which stack is selected.
+Principles in the universal set (above) are considered "stack-universal" rather than stack Layer 1 - they activate regardless of which stack is selected.
 
 ---
 
 ## 🔑 5. ID Derivation
 
 
-IDs are **derived from file path** — no separate ID field is needed in the file itself.
+IDs are **derived from file path** - no separate ID field is needed in the file itself.
 
 ### Algorithm
 
@@ -393,8 +404,8 @@ Every principle file follows this template:
 
 **Layer**: [1 | 2 | 3]
 **Categories**: [comma-separated]
-**Applies-to**: [all | comma-separated — languages, platforms, domains, or contexts]
-**Summary**: [One actionable sentence — max ~15 words, written as a rule]
+**Applies-to**: [all | comma-separated - languages, platforms, domains, or contexts]
+**Summary**: [One actionable sentence - max ~15 words, written as a rule]
 
 ## Principle
 
@@ -402,7 +413,7 @@ Every principle file follows this template:
 
 ## Why it matters
 
-[Explanation of the consequences of ignoring this principle — bugs, maintenance debt, security risks, etc.]
+[Explanation of the consequences of ignoring this principle - bugs, maintenance debt, security risks, etc.]
 
 ## Violations to detect
 
@@ -411,7 +422,7 @@ Every principle file follows this template:
 
 ## Inspection
 
-<!-- Optional — see "Inspection" field guidance below. -->
+<!-- Optional - see "Inspection" field guidance below. -->
 
 ## Good practice
 
@@ -439,13 +450,13 @@ Every principle file follows this template:
 
 **Diagrams:** Include a `mermaid` code block in the *Good practice* section whenever the concept has a structural form (class hierarchies, relationships, flows). Mermaid adds machine-readable semantics. If you can draw it, draw it.
 
-### `## Inspection` — When to Add
+### `## Inspection` - When to Add
 
 The `## Inspection` section is **optional**. It contains bash commands that `dot-audit` Phase 5 runs to flag likely violations *before* the LLM reads the code. Not every principle is a good fit.
 
-**Add inspection patterns when** the violation has a textual signature that grep/awk/find can match reliably — e.g., `eval(`, empty `catch {}` blocks, files over 300 lines. These are surface-level patterns that narrow the search space for the LLM.
+**Add inspection patterns when** the violation has a textual signature that grep/awk/find can match reliably - e.g., `eval(`, empty `catch {}` blocks, files over 300 lines. These are surface-level patterns that narrow the search space for the LLM.
 
-**Do not add inspection patterns when** the violation requires understanding intent, context, or design — e.g., whether a class has too many responsibilities (SRP beyond line count), whether an abstraction is premature (YAGNI), whether naming reveals intent, or whether a system follows Postel's Law. These are **semantic-only** principles that only an LLM can evaluate.
+**Do not add inspection patterns when** the violation requires understanding intent, context, or design - e.g., whether a class has too many responsibilities (SRP beyond line count), whether an abstraction is premature (YAGNI), whether naming reveals intent, or whether a system follows Postel's Law. These are **semantic-only** principles that only an LLM can evaluate.
 
 **Rule of thumb:** if you cannot write a grep pattern that produces fewer than ~30% false positives on a typical codebase, leave the section empty. A noisy pre-scan is worse than none.
 
@@ -495,7 +506,7 @@ principles:
 
 ### Composition
 
-`includes` is resolved recursively. `spring-data-jpa` includes `spring-boot`, which includes `java` — the result is the full union of all three groups' principles.
+`includes` is resolved recursively. `spring-data-jpa` includes `spring-boot`, which includes `java` - the result is the full union of all three groups' principles.
 
 **Cycle detection:** The system detects cycles in `includes` chains and raises an error rather than looping infinitely.
 
@@ -503,37 +514,37 @@ principles:
 
 | Group              | Includes         | Purpose                                         |
 |--------------------|------------------|-------------------------------------------------|
-| `solid`            | —                | All five SOLID principles                       |
-| `gof`              | —                | All 27 GoF entries                              |
-| `gof-creational`   | —                | 5 GoF creational patterns                       |
-| `gof-structural`   | —                | 7 GoF structural patterns                       |
-| `gof-behavioral`   | —                | 11 GoF behavioral patterns                      |
-| `ddd`              | —                | 13 Domain-Driven Design building blocks         |
-| `simple-design`    | —                | Kent Beck's 4 Rules of Simple Design            |
-| `clean-arch`       | —                | 4 Clean Architecture principles                 |
-| `effective-java`   | —                | 15 Effective Java best practices                |
-| `code-smells`      | —                | 22 Fowler code smells                           |
-| `grasp`            | —                | All nine GRASP responsibility patterns          |
-| `12factor`         | —                | All twelve Twelve-Factor App practices          |
-| `owasp`            | —                | OWASP Top 10 (2021) security risks              |
+| `solid`            | -                | All five SOLID principles                       |
+| `gof`              | -                | All 27 GoF entries                              |
+| `gof-creational`   | -                | 5 GoF creational patterns                       |
+| `gof-structural`   | -                | 7 GoF structural patterns                       |
+| `gof-behavioral`   | -                | 11 GoF behavioral patterns                      |
+| `ddd`              | -                | 13 Domain-Driven Design building blocks         |
+| `simple-design`    | -                | Kent Beck's 4 Rules of Simple Design            |
+| `clean-arch`       | -                | 4 Clean Architecture principles                 |
+| `effective-java`   | -                | 15 Effective Java best practices                |
+| `code-smells`      | -                | 22 Fowler code smells                           |
+| `grasp`            | -                | All nine GRASP responsibility patterns          |
+| `12factor`         | -                | All twelve Twelve-Factor App practices          |
+| `owasp`            | -                | OWASP Top 10 (2021) security risks              |
 | `java`             | effective-java   | Java language fundamentals                      |
-| `typescript`       | —                | TypeScript type safety and patterns             |
-| `python`           | —                | Python readability and Pythonic patterns        |
-| `go`               | —                | Go composition and concurrency                  |
+| `typescript`       | -                | TypeScript type safety and patterns             |
+| `python`           | -                | Python readability and Pythonic patterns        |
+| `go`               | -                | Go composition and concurrency                  |
 | `csharp`           | solid            | C# OOP and async patterns                       |
-| `rust`             | —                | Rust ownership and type safety                  |
+| `rust`             | -                | Rust ownership and type safety                  |
 | `spring-boot`      | java             | Spring Boot REST and DI                         |
 | `spring-data-jpa`  | spring-boot, ddd | JPA repositories and aggregates                 |
 | `react`            | typescript       | React components and hooks                      |
 | `angular`          | typescript       | Angular components and DI                       |
 | `django`           | python           | Django models and views                         |
 | `fastapi`          | python           | FastAPI async endpoints                         |
-| `microservices`    | —                | Inter-service resilience and observability      |
+| `microservices`    | -                | Inter-service resilience and observability      |
 | `security-focused` | owasp            | Security-heavy codebases                        |
 
 ### Rules
 
-- Groups are **additive only** — no exclusions inside groups
+- Groups are **additive only** - no exclusions inside groups
 - Exclusion is a per-project human decision in `.principles` files
 - Groups ship in `groups/` at repo root
 
@@ -548,15 +559,15 @@ Plain text. One entry per line. Filesystem mtime is the implicit last-modified t
 ```
 # This is a comment (ignored)
 
-# Groups — prefixed with @
+# Groups - prefixed with @
 @spring-boot
 @company-arch
 
-# Bare IDs — direct includes
+# Bare IDs - direct includes
 CODE-OB-SERVICE-LEVEL-OBJECTIVES
 CORP-0001
 
-# Exclusions — suppresses even if a group activates it
+# Exclusions - suppresses even if a group activates it
 !CODE-API-HATEOAS
 !CODE-TS-TEST-FIRST
 ```
@@ -588,7 +599,7 @@ Collect all `.principles` files encountered, ordered **root → target** (outerm
 
 **Resolution:**
 
-1. `active = { Layer 1 universals }` — always seeded
+1. `active = { Layer 1 universals }` - always seeded
 2. For each `.principles` file (root → target):
    - Expand each `@group` recursively → union into active
    - Union bare IDs into active
@@ -641,7 +652,7 @@ Activates principles before writing code. Run it before starting work on a task.
 
 Reviews code against activated principles. Outputs findings grouped by severity. Supports explicit principle override via `--with <spec>`, `@<group>`, or `<spec> on <target>` syntax to force a specific principle set regardless of `.principles` files.
 
-**Interactive use only.** `dot-audit` is a chat-based, on-demand command — run it in Copilot Chat, Claude Code, or any interactive AI session when you want a deep, targeted review with optional fix and PR workflow. It is not automatically invoked during pull request review; that role belongs to the per-group instruction files emitted by `dot-scout`.
+**Interactive use only.** `dot-audit` is a chat-based, on-demand command - run it in Copilot Chat, Claude Code, or any interactive AI session when you want a deep, targeted review with optional fix and PR workflow. It is not automatically invoked during pull request review; that role belongs to the per-group instruction files emitted by `dot-scout`.
 
 **Phases:**
 
@@ -658,11 +669,11 @@ Reviews code against activated principles. Outputs findings grouped by severity.
 | 9     | Commit *(optional, gated)*    | Presents commit message + PR body for review; offers re-run audit (if Medium+ findings), commit-only, commit-and-push, or exit    |
 | 10    | Pull Request *(optional, gated)* | Asks "Shall I open a pull request?"; on approval creates a PR targeting the default branch |
 
-**Gated workflow rules (Phases 8–10):** Each phase is a mandatory stop — the default is always to ask, never to proceed. Identifying issues ≠ permission to fix; fixing ≠ permission to commit; committing ≠ permission to push or open a PR. Silence or likely intent never count as approval.
+**Gated workflow rules (Phases 8-10):** Each phase is a mandatory stop - the default is always to ask, never to proceed. Identifying issues ≠ permission to fix; fixing ≠ permission to commit; committing ≠ permission to push or open a PR. Silence or likely intent never count as approval.
 
-**Re-audit loop (Phase 9 → Phase 5):** When the audit found at least one Medium or higher finding, Phase 9 offers a "Re-run audit" option (option 0). Choosing it jumps back to Phase 5 (Pre-Scan) using the same already-resolved target and principles, then re-runs Phases 6 and 7. This backward edge is conditional — it is not offered for low-only audits. The intent is to surface issues that were masked by the more prominent findings in the first pass. The branch from Phase 8.1 is reused; the pass number increments and is recorded in the eventual commit message.
+**Re-audit loop (Phase 9 → Phase 5):** When the audit found at least one Medium or higher finding, Phase 9 offers a "Re-run audit" option (option 0). Choosing it jumps back to Phase 5 (Pre-Scan) using the same already-resolved target and principles, then re-runs Phases 6 and 7. This backward edge is conditional - it is not offered for low-only audits. The intent is to surface issues that were masked by the more prominent findings in the first pass. The branch from Phase 8.1 is reused; the pass number increments and is recorded in the eventual commit message.
 
-> **Automatic vs. interactive review:** Copilot Code Review and Claude Code's automatic review use the per-group files from `dot-scout` (`.github/instructions/*.instructions.md`, `REVIEW.md`) — these are passive and post findings as review comments. They do not run `dot-audit` and cannot trigger Phases 8–10. The fix gate is intentionally interactive: you invoke `dot-audit` when you are ready to decide whether to apply fixes.
+> **Automatic vs. interactive review:** Copilot Code Review and Claude Code's automatic review use the per-group files from `dot-scout` (`.github/instructions/*.instructions.md`, `REVIEW.md`) - these are passive and post findings as review comments. They do not run `dot-audit` and cannot trigger Phases 8-10. The fix gate is intentionally interactive: you invoke `dot-audit` when you are ready to decide whether to apply fixes.
 
 ### 🔍 `dot-scout`
 
@@ -674,7 +685,7 @@ Analyses a project directory and creates or updates `.principles` files, then co
 |-------|--------------------|-----------------------------------------------------------------------------------------------|
 | 1     | Resolve Target     | Resolves `$ARGUMENTS` or CWD as the target directory                                          |
 | 2     | Detect Profile     | Detects language, framework, domain; analyses per-directory profiles                          |
-| 3     | Propose Placements | Proposes `.principles` placements — root + overrides for test dirs, security dirs, submodules |
+| 3     | Propose Placements | Proposes `.principles` placements - root + overrides for test dirs, security dirs, submodules |
 | 4     | Exclusion Density  | Checks each parent-level proposed entry against child profiles; demotes entries excluded in >50% of children to the child level; consolidates widespread individual exclusions to the parent level |
 | 5     | Check Existing     | Merges additions only; never removes or touches `!exclusions`                                 |
 | 6     | Write Files        | Creates or updates files; reports created/updated/unchanged per path                          |
@@ -685,11 +696,11 @@ Analyses a project directory and creates or updates `.principles` files, then co
 
 ## 📦 10. Installer Targets
 
-`install.sh` deploys the three commands (`dot-scout`, `dot-prime`, `dot-audit`) to supported AI tool families. The installer is **template-driven** — skill content is defined in `templates/agents/` (canonical); tool-specific wrappers in `templates/claude/`.
+`install.sh` deploys the three commands (`dot-scout`, `dot-prime`, `dot-audit`) to supported AI tool families. The installer is **template-driven** - skill content is defined in `templates/agents/` (canonical); tool-specific wrappers in `templates/claude/`.
 
-**Prerequisites:** Bash 4+. See [REQUIREMENTS.md](REQUIREMENTS.md). On Windows, use `install.ps1` (PowerShell) or `install.cmd` (CMD) — thin wrappers that detect bash and forward all arguments to `install.sh`. See [INSTALL.md](INSTALL.md) for platform-specific instructions.
+**Prerequisites:** Bash 4+. See [REQUIREMENTS.md](REQUIREMENTS.md). On Windows, use `install.ps1` (PowerShell) or `install.cmd` (CMD) - thin wrappers that detect bash and forward all arguments to `install.sh`. See [INSTALL.md](INSTALL.md) for platform-specific instructions.
 
-Install is **repo-local only** — a `<dir>` argument is always required. There is no global install.
+Install is **repo-local only** - a `<dir>` argument is always required. There is no global install.
 
 | Command | What it does |
 |---|---|
@@ -703,8 +714,8 @@ Install is **repo-local only** — a `<dir>` argument is always required. There 
 
 Every install (interactive or `vendor`) always writes:
 
-1. **AI skills** (`<dir>/.agents/skills/<slug>/SKILL.md`) — canonical skill files containing the full prompt. Discovered natively by Copilot CLI, Copilot IDE, Codex, and any tool that reads `.agents/skills/`.
-2. **Vendor catalog** (`<dir>/.agents/principles-catalog/`) — the subset of `principles/` and `groups/` referenced by the project's `.principles` files, plus `index.tsv` (flat `ID|LAYER|SUMMARY` index).
+1. **AI skills** (`<dir>/.agents/skills/<slug>/SKILL.md`) - canonical skill files containing the full prompt. Discovered natively by Copilot CLI, Copilot IDE, Codex, and any tool that reads `.agents/skills/`.
+2. **Vendor catalog** (`<dir>/.agents/principles-catalog/`) - the subset of `principles/` and `groups/` referenced by the project's `.principles` files, plus `index.tsv` (flat `ID|LAYER|SUMMARY` index).
 
 ### 🤖 Claude Code wrappers (optional)
 
@@ -726,8 +737,8 @@ Claude Code discovers slash commands by scanning `.claude/commands/` for `.md` f
 ### 🐙 GitHub Copilot (native, no wrapper needed)
 
 Both Copilot CLI and Copilot IDE discover `.agents/skills/` natively:
-- **Copilot CLI** — discovers skills by scanning `.agents/skills/` for `SKILL.md` files; exposes them as `@<slug>` in the terminal
-- **Copilot IDE** (VS Code / JetBrains / Visual Studio) — discovers skills and exposes them as `/skills:<slug>` in Copilot Chat
+- **Copilot CLI** - discovers skills by scanning `.agents/skills/` for `SKILL.md` files; exposes them as `@<slug>` in the terminal
+- **Copilot IDE** (VS Code / JetBrains / Visual Studio) - discovers skills and exposes them as `/skills:<slug>` in Copilot Chat
 
 No wrapper files are written. The canonical skill at `.agents/skills/<slug>/SKILL.md` is the only file needed.
 
@@ -739,7 +750,7 @@ Codex discovers repo skills by scanning `.agents/skills/` from the current worki
 
 ### 📦 Vendor (`./install.sh vendor <dir>`)
 
-Copies the subset of `principles/` and `groups/` referenced by the project's `.principles` files into `<dir>/.agents/principles-catalog/`, and generates `<dir>/.agents/principles-catalog/index.tsv` — a pipe-delimited flat file (`ID|LAYER|SUMMARY`) of every vendored principle. Also reinstalls skills and hub blocks. Commit `.agents/principles-catalog/` to the repo.
+Copies the subset of `principles/` and `groups/` referenced by the project's `.principles` files into `<dir>/.agents/principles-catalog/`, and generates `<dir>/.agents/principles-catalog/index.tsv` - a pipe-delimited flat file (`ID|LAYER|SUMMARY`) of every vendored principle. Also reinstalls skills and hub blocks. Commit `.agents/principles-catalog/` to the repo.
 
 ### 🗑️ Uninstall (`./uninstall.sh <dir>`)
 
@@ -750,7 +761,7 @@ Removes all assets written by `install.sh`:
 - Per-group principle files from `<dir>/.github/instructions/` and `<dir>/.claude/rules/` (files with `<!-- generated by dot-scout -->` marker)
 - Legacy assets: `<!-- .principles:start/end -->` hub block from `AGENTS.md`/`CLAUDE.md` (if present from earlier installs), `<dir>/.principles-catalog/`, `<dir>/.github/skills/`, `<dir>/.github/prompts/`, compiled blocks from `AGENTS.md`/`CLAUDE.md`/`copilot-instructions.md`, legacy `~/.principles`
 
-**Content-based detection:** All generated files are identified by the `generated-by: .principles` frontmatter watermark — not by matching current command names. This makes uninstall version-agnostic: files from renamed commands are cleaned up correctly. Legacy command names are checked as a fallback for pre-watermark installs.
+**Content-based detection:** All generated files are identified by the `generated-by: .principles` frontmatter watermark - not by matching current command names. This makes uninstall version-agnostic: files from renamed commands are cleaned up correctly. Legacy command names are checked as a fallback for pre-watermark installs.
 
 On Windows, use `uninstall.ps1` or `uninstall.cmd`.
 
@@ -769,18 +780,18 @@ templates/
 └── extra-catalog/            # Starter scaffold for custom extra-catalogs
 ```
 
-**`manifest.cfg`** — bash-sourceable key=value config:
-- `TOOL_ID` — unique identifier (e.g. `agents`, `claude`)
-- `TOOL_LABEL` — human-readable name for installer output
-- `OUTPUT_DIR` — target directory pattern (may contain `{{COMMAND_SLUG}}`)
-- `OUTPUT_FILE` — target filename pattern (may contain `{{COMMAND_SLUG}}`)
-- `PATCHES` — optional sed expressions applied to the command body
+**`manifest.cfg`** - bash-sourceable key=value config:
+- `TOOL_ID` - unique identifier (e.g. `agents`, `claude`)
+- `TOOL_LABEL` - human-readable name for installer output
+- `OUTPUT_DIR` - target directory pattern (may contain `{{COMMAND_SLUG}}`)
+- `OUTPUT_FILE` - target filename pattern (may contain `{{COMMAND_SLUG}}`)
+- `PATCHES` - optional sed expressions applied to the command body
 
-**`wrapper.md`** — output skeleton using placeholders:
-- `{{COMMAND_NAME}}` — the command path relative to `commands/` without extension (e.g. `dot/audit`)
-- `{{COMMAND_SLUG}}` — flat slug derived from the path (slashes → dashes, e.g. `dot-audit`)
-- `{{FRONTMATTER}}` — replaced with the frontmatter fields from the source command file
-- `{{COMMAND_BODY}}` — replaced with the command content (everything after the source frontmatter)
+**`wrapper.md`** - output skeleton using placeholders:
+- `{{COMMAND_NAME}}` - the command path relative to `commands/` without extension (e.g. `dot/audit`)
+- `{{COMMAND_SLUG}}` - flat slug derived from the path (slashes → dashes, e.g. `dot-audit`)
+- `{{FRONTMATTER}}` - replaced with the frontmatter fields from the source command file
+- `{{COMMAND_BODY}}` - replaced with the command content (everything after the source frontmatter)
 
 #### Frontmatter fields
 
@@ -801,7 +812,7 @@ The `generated-by: .principles` watermark is defined in each `wrapper.md` and us
 
 To add a thin wrapper for a new AI tool:
 1. Create `templates/<newtool>/manifest.cfg` with the output directory and filename pattern
-2. Create `templates/<newtool>/wrapper.md` — for a thin wrapper, the body is just `Follow the instructions in .agents/skills/{{COMMAND_SLUG}}/SKILL.md.`
+2. Create `templates/<newtool>/wrapper.md` - for a thin wrapper, the body is just `Follow the instructions in .agents/skills/{{COMMAND_SLUG}}/SKILL.md.`
 3. Wire up a call to `install_from_template "$TEMPLATE_DIR/<newtool>" "$project_dir"` in `lib/ui.sh`
 
 If the tool reads `.agents/skills/` natively (like Copilot CLI/IDE and Codex), no wrapper template is needed at all.
@@ -842,10 +853,10 @@ The system discovers all `principles/*/catalog.yaml` files automatically. The na
 
 ### Naming Conventions
 
-- Namespace prefix: uppercase, short (2-6 chars) — `CODE`, `CORP`, `ARCH`
-- Category segment: 2-4 uppercase chars — `SD`, `API`, `SEC`, `AR`
+- Namespace prefix: uppercase, short (2-6 chars) - `CODE`, `CORP`, `ARCH`
+- Category segment: 2-4 uppercase chars - `SD`, `API`, `SEC`, `AR`
 - Named files: the full filename is used verbatim as the final ID segment (e.g., `solid/srp.md` → `SOLID-SRP`, `code/api/standard-http-methods.md` → `CODE-API-STANDARD-HTTP-METHODS`, `owasp/01-broken-access-control.md` → `OWASP-01-BROKEN-ACCESS-CONTROL`). Numeric prefixes work the same way (e.g., `12factor/01-codebase.md` → `12FACTOR-01-CODEBASE`).
-- Prefer descriptive slugs to opaque numbers — `validate-input.md` is immediately clear; `sec-001.md` is not.
+- Prefer descriptive slugs to opaque numbers - `validate-input.md` is immediately clear; `sec-001.md` is not.
 - Avoid: special characters, spaces, mixed case
 
 ### Depth Recommendations

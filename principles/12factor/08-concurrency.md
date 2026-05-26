@@ -1,4 +1,4 @@
-# 12FACTOR-08-CONCURRENCY — Concurrency
+# 12FACTOR-08-CONCURRENCY - Concurrency
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, cloud-native, scalability
@@ -18,7 +18,7 @@ Threading and forking within a single process are limited by the machine's resou
 - Monolithic process handling web requests, background jobs, and scheduled tasks in the same runtime with shared state
 - Scaling strategy that is exclusively vertical (bigger machines) with no horizontal process model
 - Background threads spawned inside the web process sharing memory with request handlers
-- No process type distinction — all work done in one type of process regardless of its nature
+- No process type distinction - all work done in one type of process regardless of its nature
 
 ## Good practice
 

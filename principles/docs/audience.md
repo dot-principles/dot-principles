@@ -1,4 +1,4 @@
-# DOC-AUDIENCE — Write for a specific, named audience
+# DOC-AUDIENCE - Write for a specific, named audience
 
 **Layer:** 2 (contextual)
 **Categories:** documentation, readability
@@ -13,7 +13,7 @@ A document written for "anyone" is optimized for no one. Choosing an audience fo
 
 ## Why it matters
 
-When a document lacks a defined audience, authors hedge — they over-explain concepts experts find patronizing, while glossing over assumptions that beginners need spelled out. The result is a document that neither audience finds useful. Defining the audience up front makes every writing decision easier and every resulting sentence more useful.
+When a document lacks a defined audience, authors hedge - they over-explain concepts experts find patronizing, while glossing over assumptions that beginners need spelled out. The result is a document that neither audience finds useful. Defining the audience up front makes every writing decision easier and every resulting sentence more useful.
 
 ## Violations to detect
 
@@ -33,5 +33,5 @@ When a document lacks a defined audience, authors hedge — they over-explain co
 
 ## Sources
 
-- Procida, Daniele. "Diátaxis — A systematic approach to technical documentation authoring." https://diataxis.fr (accessed 2026-03-18).
+- Procida, Daniele. "Diátaxis - A systematic approach to technical documentation authoring." https://diataxis.fr (accessed 2026-03-18).
 - Strimling, Yoel. "Beyond Accuracy: What Documentation Quality Means to Readers." *SIGDOC*, 2017.

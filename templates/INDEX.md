@@ -1,4 +1,4 @@
-# templates — Index
+# templates - Index
 
 | Path | Description |
 |---|---|

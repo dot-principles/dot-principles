@@ -1,4 +1,4 @@
-# GRASP-PURE-FABRICATION — Pure Fabrication
+# GRASP-PURE-FABRICATION - Pure Fabrication
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, responsibility-assignment
@@ -7,7 +7,7 @@
 
 ## Principle
 
-When no domain class is a suitable candidate for a responsibility — because assigning it there would violate High Cohesion or Low Coupling — invent a class that does not represent a domain concept but exists solely to fulfil the design need.
+When no domain class is a suitable candidate for a responsibility - because assigning it there would violate High Cohesion or Low Coupling - invent a class that does not represent a domain concept but exists solely to fulfil the design need.
 
 ## Why it matters
 
@@ -25,7 +25,7 @@ Forcing every responsibility onto domain objects leads to bloated, low-cohesion 
 - Create a `CustomerRepository` (pure fabrication) to handle persistence, leaving `Customer` focused on domain behaviour
 - Create a `PaymentGatewayAdapter` to handle external payment API calls
 - Name pure fabrications by their role, not by a domain concept they don't represent
-- Accept that some classes will not map to domain concepts — that is intentional
+- Accept that some classes will not map to domain concepts - that is intentional
 
 ## Sources
 

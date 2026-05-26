@@ -1,4 +1,4 @@
-# CODE-AR-IMMUTABLE-INFRASTRUCTURE — Design infrastructure for immutability — replace, don't patch
+# CODE-AR-IMMUTABLE-INFRASTRUCTURE - Design infrastructure for immutability - replace, don't patch
 
 **Layer:** 2
 **Categories:** architecture, infrastructure, devops
@@ -7,11 +7,11 @@
 
 ## Principle
 
-Infrastructure components should be treated as immutable after creation. When a change is needed — a new OS patch, a configuration update, a new application version — build a new instance with the change baked in and replace the old one, rather than modifying the running instance in place. Servers, containers, and infrastructure components should be disposable and reproducible, not precious and hand-maintained.
+Infrastructure components should be treated as immutable after creation. When a change is needed - a new OS patch, a configuration update, a new application version - build a new instance with the change baked in and replace the old one, rather than modifying the running instance in place. Servers, containers, and infrastructure components should be disposable and reproducible, not precious and hand-maintained.
 
 ## Why it matters
 
-Mutable infrastructure accumulates hidden state over time: patches applied in one order, packages added for debugging and never removed, configuration files hand-edited. This configuration drift makes instances unreproducible and fragile — rebuilding from scratch produces something subtly different from what is running. Immutable infrastructure eliminates drift by definition: every instance is built from the same image or definition, and no changes are made after deployment.
+Mutable infrastructure accumulates hidden state over time: patches applied in one order, packages added for debugging and never removed, configuration files hand-edited. This configuration drift makes instances unreproducible and fragile - rebuilding from scratch produces something subtly different from what is running. Immutable infrastructure eliminates drift by definition: every instance is built from the same image or definition, and no changes are made after deployment.
 
 ## Violations to detect
 
@@ -25,7 +25,7 @@ Mutable infrastructure accumulates hidden state over time: patches applied in on
 
 - Build machine images (AMIs, VM images) or container images with all dependencies and configuration baked in at build time
 - Deploy new versions by launching new instances from the updated image and draining traffic from old instances (blue-green or rolling deployment)
-- Disable or tightly restrict SSH access to production instances — if you need to debug, connect to a disposable clone
+- Disable or tightly restrict SSH access to production instances - if you need to debug, connect to a disposable clone
 - Use auto-scaling groups or orchestrators (Kubernetes) that automatically replace failed instances with fresh ones from the current image
 - Treat any manual change to a running instance as technical debt that must be encoded into the build process
 

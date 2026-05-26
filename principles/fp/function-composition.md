@@ -1,4 +1,4 @@
-# FP-FUNCTION-COMPOSITION — Function composition
+# FP-FUNCTION-COMPOSITION - Function composition
 
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, software-design, maintainability
@@ -7,11 +7,11 @@
 
 ## Principle
 
-Build complex behaviour by combining small, single-purpose functions where the output of one becomes the input of the next. Composition is the primary mechanism for building large programs from small, tested, reusable pieces — analogous to how Unix pipelines combine simple tools. Each composed function remains independently testable and reusable.
+Build complex behaviour by combining small, single-purpose functions where the output of one becomes the input of the next. Composition is the primary mechanism for building large programs from small, tested, reusable pieces - analogous to how Unix pipelines combine simple tools. Each composed function remains independently testable and reusable.
 
 ## Why it matters
 
-When logic is encoded in large, monolithic functions, every change risks breaking multiple concerns simultaneously. Composed pipelines of small functions are easier to reason about — each step has one job and can be verified independently. Composition also enables reuse: a function written for one pipeline can be dropped into another without modification.
+When logic is encoded in large, monolithic functions, every change risks breaking multiple concerns simultaneously. Composed pipelines of small functions are easier to reason about - each step has one job and can be verified independently. Composition also enables reuse: a function written for one pipeline can be dropped into another without modification.
 
 ## Violations to detect
 

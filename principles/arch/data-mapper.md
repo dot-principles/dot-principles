@@ -1,4 +1,4 @@
-# ARCH-DATA-MAPPER — Data Mapper
+# ARCH-DATA-MAPPER - Data Mapper
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, data-access, separation-of-concerns

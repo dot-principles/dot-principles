@@ -1,4 +1,4 @@
-# FP-FUNCTOR-MONAD — Functor and monad abstractions
+# FP-FUNCTOR-MONAD - Functor and monad abstractions
 
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, abstraction, type-safety, error-handling
@@ -11,7 +11,7 @@ A functor is any type that supports `map`: applying a function to a value inside
 
 ## Why it matters
 
-Without these abstractions, every context type requires its own ad-hoc composition pattern: manual null-checking for `Option`, nested try/catch for exceptions, callback nesting for async, nested loops for collections. Functor and monad give a single vocabulary — `map` for transforming, `flatMap` for sequencing — that works uniformly across all of these contexts, reducing cognitive overhead and enabling generic utilities that work across context types.
+Without these abstractions, every context type requires its own ad-hoc composition pattern: manual null-checking for `Option`, nested try/catch for exceptions, callback nesting for async, nested loops for collections. Functor and monad give a single vocabulary - `map` for transforming, `flatMap` for sequencing - that works uniformly across all of these contexts, reducing cognitive overhead and enabling generic utilities that work across context types.
 
 ## Violations to detect
 
@@ -30,5 +30,5 @@ Without these abstractions, every context type requires its own ad-hoc compositi
 ## Sources
 
 - Hutton, Graham. *Programming in Haskell*, 2nd ed. Cambridge University Press, 2016. ISBN 978-1-316-62622-1. Chapter 12.
-- Chiusano, Paul and Bjarnason, Rúnar. *Functional Programming in Scala*. Manning, 2014. ISBN 978-1-61729-065-7. Chapters 11–12.
-- Milewski, Bartosz. *Category Theory for Programmers*. Self-published, 2019. https://github.com/hmemcpy/milewski-ctfp-pdf (accessed 2026-03-16). Parts I–II.
+- Chiusano, Paul and Bjarnason, Rúnar. *Functional Programming in Scala*. Manning, 2014. ISBN 978-1-61729-065-7. Chapters 11-12.
+- Milewski, Bartosz. *Category Theory for Programmers*. Self-published, 2019. https://github.com/hmemcpy/milewski-ctfp-pdf (accessed 2026-03-16). Parts I-II.

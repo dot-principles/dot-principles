@@ -1,4 +1,4 @@
-# ARCH-MVC — Model-View-Controller (MVC)
+# ARCH-MVC - Model-View-Controller (MVC)
 
 **Layer:** 1 (universal)
 **Categories:** architecture, separation-of-concerns, user-interface
@@ -11,7 +11,7 @@ Separate an application into three distinct responsibilities: the Model (domain 
 
 ## Why it matters
 
-Without MVC separation, view code contains business rules, controllers contain rendering logic, and models contain presentation state — producing tightly coupled code that cannot be tested, reused, or changed in isolation. The pattern is foundational to the design of virtually every web framework, GUI toolkit, and UI architecture.
+Without MVC separation, view code contains business rules, controllers contain rendering logic, and models contain presentation state - producing tightly coupled code that cannot be tested, reused, or changed in isolation. The pattern is foundational to the design of virtually every web framework, GUI toolkit, and UI architecture.
 
 ## Violations to detect
 

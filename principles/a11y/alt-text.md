@@ -1,4 +1,4 @@
-# A11Y-ALT-TEXT — Images must have meaningful alternative text
+# A11Y-ALT-TEXT - Images must have meaningful alternative text
 
 **Layer:** 2 (contextual)
 **Audit-scope:** full
@@ -12,7 +12,7 @@ Every informative image must have an `alt` attribute that conveys the same infor
 
 ## Why it matters
 
-Screen readers and other assistive technologies cannot interpret pixel content. Users who are blind, have low vision, or have images disabled rely entirely on alternative text to understand what an image communicates. Missing or misleading `alt` text makes content inaccessible or actively confusing, and fails WCAG 2.1 Success Criterion 1.1.1 (Level A) — the minimum accessibility conformance level.
+Screen readers and other assistive technologies cannot interpret pixel content. Users who are blind, have low vision, or have images disabled rely entirely on alternative text to understand what an image communicates. Missing or misleading `alt` text makes content inaccessible or actively confusing, and fails WCAG 2.1 Success Criterion 1.1.1 (Level A) - the minimum accessibility conformance level.
 
 ## Violations to detect
 
@@ -26,7 +26,7 @@ Screen readers and other assistive technologies cannot interpret pixel content. 
 ## Inspection
 
 - `grep -rnE '<img(?![^>]*\balt\s*=)[^>]*>' --include="*.html" --include="*.jsx" --include="*.tsx" --include="*.vue" --include="*.svelte" $TARGET` | HIGH | img element missing alt attribute entirely
-- `grep -rnE '<img[^>]*alt\s*=\s*["'"'"']\s*["'"'"'][^>]*>' --include="*.html" --include="*.jsx" --include="*.tsx" $TARGET` | MEDIUM | img with empty alt — verify image is decorative
+- `grep -rnE '<img[^>]*alt\s*=\s*["'"'"']\s*["'"'"'][^>]*>' --include="*.html" --include="*.jsx" --include="*.tsx" $TARGET` | MEDIUM | img with empty alt - verify image is decorative
 - `grep -rnE 'alt\s*=\s*["'"'"'](image|photo|picture|icon|logo|img)\b' -i --include="*.html" --include="*.jsx" --include="*.tsx" $TARGET` | MEDIUM | Generic or meaningless alt text
 
 ## Good practice
@@ -45,7 +45,7 @@ Screen readers and other assistive technologies cannot interpret pixel content. 
 ```
 
 - Write `alt` text that describes the *purpose* or *information*, not the visual appearance
-- Do not start `alt` text with "Image of" or "Picture of" — screen readers already announce it as an image
+- Do not start `alt` text with "Image of" or "Picture of" - screen readers already announce it as an image
 - For complex images (charts, diagrams), either include a full text description nearby or use `aria-describedby` pointing to an explanation
 - Audit with a screen reader (NVDA, JAWS, VoiceOver) or the axe browser extension
 

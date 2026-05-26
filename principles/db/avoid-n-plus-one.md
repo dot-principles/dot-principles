@@ -1,4 +1,4 @@
-# DB-AVOID-N-PLUS-ONE — Avoid N+1 queries — never issue a query per row of a result set
+# DB-AVOID-N-PLUS-ONE - Avoid N+1 queries - never issue a query per row of a result set
 
 **Layer:** 2
 **Categories:** database, performance, query-optimization
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Never issue a separate database query for each row returned by an initial query. The N+1 pattern — one query to fetch N parent records, then one query per parent to fetch related children — is the most common database performance anti-pattern in application code. Replace it with a single join, a batch load (IN clause), or the ORM's eager-loading facility.
+Never issue a separate database query for each row returned by an initial query. The N+1 pattern - one query to fetch N parent records, then one query per parent to fetch related children - is the most common database performance anti-pattern in application code. Replace it with a single join, a batch load (IN clause), or the ORM's eager-loading facility.
 
 ## Why it matters
 
@@ -23,7 +23,7 @@ N+1 queries degrade performance non-linearly: a page displaying 50 orders that e
 ## Inspection
 
 ```
-# Queries inside loops — potential N+1 (language-agnostic heuristic)
+# Queries inside loops - potential N+1 (language-agnostic heuristic)
 # Look for database call patterns inside for/foreach/while blocks
 grep -rn "for\s\|foreach\s\|\.forEach\|while\s" --include="*.py" --include="*.java" --include="*.ts" --include="*.rb" .
 ```

@@ -1,4 +1,4 @@
-# GRASP-INFORMATION-EXPERT — Information Expert
+# GRASP-INFORMATION-EXPERT - Information Expert
 
 **Layer:** 1 (universal)
 **Categories:** software-design, responsibility-assignment
@@ -24,7 +24,7 @@ Placing behaviour far from the data it operates on creates excessive coupling: t
 
 - Ask "which class has the information to compute this?" and put the method there
 - Replace `order.getItems().stream().mapToDouble(Item::getPrice).sum()` with `order.totalPrice()`
-- Use the principle iteratively — a responsibility may be split across multiple objects, requiring a new class to aggregate them
+- Use the principle iteratively - a responsibility may be split across multiple objects, requiring a new class to aggregate them
 
 ## Sources
 

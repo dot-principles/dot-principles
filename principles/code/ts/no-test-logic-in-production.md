@@ -1,4 +1,4 @@
-# CODE-TS-NO-TEST-LOGIC-IN-PRODUCTION — Never add test-specific branches to production code
+# CODE-TS-NO-TEST-LOGIC-IN-PRODUCTION - Never add test-specific branches to production code
 
 **Layer:** 2 (contextual)
 **Categories:** testing, quality, reliability
@@ -7,11 +7,11 @@
 
 ## Principle
 
-Production code must not contain branches, imports, or configuration that exist solely to accommodate tests. Test-specific conditionals — environment guards, `if testing`, `if process.env.NODE_ENV === 'test'`, `#ifdef TEST`, or references to test package names — indicate that the code is not designed for testability. Use dependency injection, seams, or the Humble Object pattern instead.
+Production code must not contain branches, imports, or configuration that exist solely to accommodate tests. Test-specific conditionals - environment guards, `if testing`, `if process.env.NODE_ENV === 'test'`, `#ifdef TEST`, or references to test package names - indicate that the code is not designed for testability. Use dependency injection, seams, or the Humble Object pattern instead.
 
 ## Why it matters
 
-Test-only branches ship to production and can be exploited or cause unexpected behaviour. They also mask the real design problem: the code was not written to be testable. Every such branch is evidence of a missing abstraction — a seam where a dependency should be injected.
+Test-only branches ship to production and can be exploited or cause unexpected behaviour. They also mask the real design problem: the code was not written to be testable. Every such branch is evidence of a missing abstraction - a seam where a dependency should be injected.
 
 ## Violations to detect
 
@@ -31,7 +31,7 @@ Test-only branches ship to production and can be exploited or cause unexpected b
 - Use dependency injection to supply real or substitute implementations at the call site; the production class never knows which it received
 - Apply the Humble Object pattern (see CODE-TS-HUMBLE-OBJECT) to move untestable infrastructure concerns to a thin shell
 - Use environment-agnostic feature flags backed by a configuration interface rather than hard-coded env checks
-- If a seam is needed in an existing codebase, extract an interface and inject it — do not add a conditional
+- If a seam is needed in an existing codebase, extract an interface and inject it - do not add a conditional
 
 ## Sources
 

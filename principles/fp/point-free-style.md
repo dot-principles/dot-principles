@@ -1,4 +1,4 @@
-# FP-POINT-FREE-STYLE — Point-free style
+# FP-POINT-FREE-STYLE - Point-free style
 
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, software-design, abstraction
@@ -11,7 +11,7 @@ Point-free (tacit) style defines functions by composing other functions without 
 
 ## Why it matters
 
-Named intermediate arguments in simple pipeline functions are noise: they add syntax without adding information. Point-free style removes this noise, making the transformation pipeline the subject of the code. It also encourages composability — functions must accept and return compatible types to be composed without manual wiring, which surfaces design problems early.
+Named intermediate arguments in simple pipeline functions are noise: they add syntax without adding information. Point-free style removes this noise, making the transformation pipeline the subject of the code. It also encourages composability - functions must accept and return compatible types to be composed without manual wiring, which surfaces design problems early.
 
 ## Violations to detect
 
@@ -22,9 +22,9 @@ Named intermediate arguments in simple pipeline functions are noise: they add sy
 ## Good practice
 
 - Apply point-free style selectively: use it where the argument name adds no meaning; revert to explicit arguments when naming the argument clarifies the intent
-- Avoid deeply nested point-free expressions — if the composed function requires a comment to explain what it does, the style is obscuring rather than clarifying
+- Avoid deeply nested point-free expressions - if the composed function requires a comment to explain what it does, the style is obscuring rather than clarifying
 - Use `pipe` (left-to-right composition) for readability: `const process = pipe(validate, normalise, transform)` reads in the order of execution
-- Treat point-free style as a tool for removing noise, not a goal in itself — never sacrifice readability to achieve it
+- Treat point-free style as a tool for removing noise, not a goal in itself - never sacrifice readability to achieve it
 
 ## Sources
 

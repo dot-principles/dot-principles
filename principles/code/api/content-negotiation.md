@@ -1,4 +1,4 @@
-# CODE-API-CONTENT-NEGOTIATION — Honour the Accept header and respond with the negotiated content type
+# CODE-API-CONTENT-NEGOTIATION - Honour the Accept header and respond with the negotiated content type
 
 **Layer:** 2
 **Categories:** api-design, rest, interoperability
@@ -17,7 +17,7 @@ Hardcoding `application/json` prevents the API from serving clients with differe
 
 - Endpoints that always respond with `application/json` regardless of the client's `Accept` header
 - Missing or incorrect `Content-Type` header on responses
-- No handling for `Accept: */*` — the server must select its default type and declare it in `Content-Type`
+- No handling for `Accept: */*` - the server must select its default type and declare it in `Content-Type`
 - Returning 500 or 400 instead of 406 when the client requests an unsupported media type
 - Request bodies parsed without checking `Content-Type`, silently accepting arbitrary or malformed formats
 

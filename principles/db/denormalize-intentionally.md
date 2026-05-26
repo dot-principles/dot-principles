@@ -1,4 +1,4 @@
-# DB-DENORMALIZE-INTENTIONALLY — Denormalise intentionally — introduce redundancy only with a measured justification and explicit consistency enforcement
+# DB-DENORMALIZE-INTENTIONALLY - Denormalise intentionally - introduce redundancy only with a measured justification and explicit consistency enforcement
 
 **Layer:** 2
 **Categories:** database, performance, data-modeling, maintainability
@@ -11,12 +11,12 @@ Normalisation is the default; denormalisation is a deliberate trade-off made to 
 
 ## Why it matters
 
-Unplanned denormalisation — adding a column "for convenience" or "because joins are slow" without evidence — produces the worst of both worlds: the schema acquires redundancy without the performance benefit, the redundancy is never consistently maintained, and the data silently diverges. Bugs in denormalised data are among the most expensive to diagnose: the schema appears correct, the application logic is valid, but the stored values disagree.
+Unplanned denormalisation - adding a column "for convenience" or "because joins are slow" without evidence - produces the worst of both worlds: the schema acquires redundancy without the performance benefit, the redundancy is never consistently maintained, and the data silently diverges. Bugs in denormalised data are among the most expensive to diagnose: the schema appears correct, the application logic is valid, but the stored values disagree.
 
 ## Violations to detect
 
 - Denormalised columns (e.g. `order_total`, `item_count`) that are updated by some code paths but not others, causing the stored value to drift from the computed value
-- No documented canonical source for a denormalised value — the team disagrees about which table is authoritative
+- No documented canonical source for a denormalised value - the team disagrees about which table is authoritative
 - Denormalisation introduced as an upfront schema decision before measuring whether the normalised query is actually slow
 - Materialised or pre-computed columns with no test that validates them against the source data
 

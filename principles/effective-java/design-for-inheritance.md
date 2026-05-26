@@ -1,4 +1,4 @@
-# EFFECTIVE-JAVA-DESIGN-FOR-INHERITANCE — Design and Document for Inheritance, or Prohibit It
+# EFFECTIVE-JAVA-DESIGN-FOR-INHERITANCE - Design and Document for Inheritance, or Prohibit It
 
 **Layer:** 2 (contextual)
 **Categories:** object-oriented, maintainability, api-design
@@ -11,7 +11,7 @@ Design and document a class for inheritance, or else prohibit it. A class that i
 
 ## Why it matters
 
-Inheritance exposes implementation details. If a class's internal method calls its own overridable methods, a subclass that overrides those methods can break the superclass's invariants in ways neither party intended. The only safe inheritance is inheritance by deliberate design — everything else is accidental and fragile.
+Inheritance exposes implementation details. If a class's internal method calls its own overridable methods, a subclass that overrides those methods can break the superclass's invariants in ways neither party intended. The only safe inheritance is inheritance by deliberate design - everything else is accidental and fragile.
 
 ## Violations to detect
 
@@ -25,7 +25,7 @@ Inheritance exposes implementation details. If a class's internal method calls i
 - Mark classes `final` unless designed for inheritance
 - If designing for inheritance: document all self-use of overridable methods; test with concrete subclasses before release; never call overridable methods from constructors
 - Prefer abstract classes with template methods or interfaces with default methods for intentional extension points
-- In Kotlin, all classes are `final` by default — use `open` intentionally
+- In Kotlin, all classes are `final` by default - use `open` intentionally
 
 ## Sources
 

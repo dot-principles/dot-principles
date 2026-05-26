@@ -1,4 +1,4 @@
-# CODE-API-RATE-LIMITING — Enforce rate limits and signal capacity constraints with standard headers
+# CODE-API-RATE-LIMITING - Enforce rate limits and signal capacity constraints with standard headers
 
 **Layer:** 2
 **Categories:** api-design, reliability, security
@@ -28,12 +28,12 @@ An API without rate limiting is vulnerable to accidental overload from misbehavi
 
 ## Good practice
 
-- Apply rate limiting as middleware at the API gateway or framework filter level — not ad hoc per endpoint
+- Apply rate limiting as middleware at the API gateway or framework filter level - not ad hoc per endpoint
 - Return `Retry-After: <seconds>` or `Retry-After: <HTTP-date>` alongside every 429 response
 - Expose quota headers on every response so clients can adjust before hitting the ceiling:
-  - `RateLimit-Limit: 100` — requests allowed per window
-  - `RateLimit-Remaining: 42` — requests left in the current window
-  - `RateLimit-Reset: 1711234567` — epoch seconds when the window resets
+  - `RateLimit-Limit: 100` - requests allowed per window
+  - `RateLimit-Remaining: 42` - requests left in the current window
+  - `RateLimit-Reset: 1711234567` - epoch seconds when the window resets
 - Distinguish user-level, application-level, and IP-level limits; include which limit was exceeded in the 429 body
 - Document rate limit policies in the API reference so clients can design around them
 

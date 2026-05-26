@@ -1,4 +1,4 @@
-# EFFECTIVE-JAVA-PREFER-CLASS-HIERARCHIES — Prefer Class Hierarchies to Tagged Classes
+# EFFECTIVE-JAVA-PREFER-CLASS-HIERARCHIES - Prefer Class Hierarchies to Tagged Classes
 
 **Layer:** 2 (contextual)
 **Categories:** api-design, developer-experience
@@ -7,7 +7,7 @@
 
 ## Principle
 
-A tagged class — one that uses a field to indicate which "flavour" of instance it is, with switch statements branching on that tag — is a verbose, error-prone, and inefficient imitation of a class hierarchy. Replace it with an abstract class and concrete subclasses, placing each variant's behaviour and data in the subclass where it belongs.
+A tagged class - one that uses a field to indicate which "flavour" of instance it is, with switch statements branching on that tag - is a verbose, error-prone, and inefficient imitation of a class hierarchy. Replace it with an abstract class and concrete subclasses, placing each variant's behaviour and data in the subclass where it belongs.
 
 ## Why it matters
 
@@ -23,7 +23,7 @@ Tagged classes are cluttered with boilerplate: tag fields, switch statements, fi
 ## Good practice
 
 ```java
-// Violation — tagged class
+// Violation - tagged class
 class Shape {
     enum Type { CIRCLE, RECTANGLE }
     Type type;
@@ -37,7 +37,7 @@ class Shape {
     }
 }
 
-// Correct — class hierarchy; each variant is self-contained
+// Correct - class hierarchy; each variant is self-contained
 abstract class Shape { abstract double area(); }
 class Circle extends Shape {
     double radius;

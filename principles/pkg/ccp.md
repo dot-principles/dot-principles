@@ -1,4 +1,4 @@
-# PKG-CCP — Common Closure Principle (CCP)
+# PKG-CCP - Common Closure Principle (CCP)
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, package-design, modularity, maintainability
@@ -11,13 +11,13 @@ Gather into components the classes that change for the same reasons at the same 
 
 ## Why it matters
 
-When a change touches many components, it requires coordinating many separate releases and re-validating many consumers. Grouping classes that change together keeps the blast radius of any change small — one reason to change means one component to release.
+When a change touches many components, it requires coordinating many separate releases and re-validating many consumers. Grouping classes that change together keeps the blast radius of any change small - one reason to change means one component to release.
 
 ## Violations to detect
 
 - A single change (e.g., a new authentication requirement) touches classes spread across many components
 - Unrelated things bundled together mean that any change to one forces re-release of the whole bundle
-- No discernible axis of change within a component — classes that clearly change for different reasons
+- No discernible axis of change within a component - classes that clearly change for different reasons
 
 ## Good practice
 

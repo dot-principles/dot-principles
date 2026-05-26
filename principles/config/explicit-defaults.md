@@ -1,4 +1,4 @@
-# CONFIG-EXPLICIT-DEFAULTS — Declare and document defaults for every optional key
+# CONFIG-EXPLICIT-DEFAULTS - Declare and document defaults for every optional key
 
 **Layer:** 1 (universal)
 **Categories:** configuration, reliability, maintainability
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Every optional configuration key must have an explicit, documented default value declared in the schema or configuration reference — not inferred from application fallback logic buried in code. Defaults must be safe and correct for local development but clearly unsuitable for production without conscious override; production values must always be set explicitly. No configuration key's default should be a surprise.
+Every optional configuration key must have an explicit, documented default value declared in the schema or configuration reference - not inferred from application fallback logic buried in code. Defaults must be safe and correct for local development but clearly unsuitable for production without conscious override; production values must always be set explicitly. No configuration key's default should be a surprise.
 
 ## Why it matters
 
@@ -31,6 +31,6 @@ Implicit defaults are hidden assumptions. A connection timeout defaulting to 30 
 
 ## Sources
 
-- Wiggins, Adam. "The Twelve-Factor App — III. Config." https://12factor.net/config (accessed 2026-03-22).
-- Pydantic. "Fields — Default Values." https://docs.pydantic.dev/latest/concepts/fields/#default-values (accessed 2026-03-22).
+- Wiggins, Adam. "The Twelve-Factor App - III. Config." https://12factor.net/config (accessed 2026-03-22).
+- Pydantic. "Fields - Default Values." https://docs.pydantic.dev/latest/concepts/fields/#default-values (accessed 2026-03-22).
 - Spring Framework. "Externalized Configuration." Spring Boot Reference Documentation. https://docs.spring.io/spring-boot/reference/features/external-config.html (accessed 2026-03-22).

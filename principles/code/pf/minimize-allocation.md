@@ -1,4 +1,4 @@
-# CODE-PF-MINIMIZE-ALLOCATION — Avoid premature allocation — minimize garbage and allocation pressure
+# CODE-PF-MINIMIZE-ALLOCATION - Avoid premature allocation - minimize garbage and allocation pressure
 
 **Layer:** 3 (risk-elevated)
 **Categories:** performance
@@ -7,11 +7,11 @@
 
 ## Principle
 
-Reduce unnecessary object creation in performance-sensitive code paths. Every allocation consumes memory bandwidth, increases garbage collector pressure, and may trigger collection pauses at unpredictable times. Reuse objects where safe, prefer value types or stack allocation when available, and avoid creating short-lived objects in tight loops. The goal is not to avoid allocation entirely — it is to avoid wasteful allocation that delivers no value.
+Reduce unnecessary object creation in performance-sensitive code paths. Every allocation consumes memory bandwidth, increases garbage collector pressure, and may trigger collection pauses at unpredictable times. Reuse objects where safe, prefer value types or stack allocation when available, and avoid creating short-lived objects in tight loops. The goal is not to avoid allocation entirely - it is to avoid wasteful allocation that delivers no value.
 
 ## Why it matters
 
-In garbage-collected languages, allocation is cheap in isolation but expensive in aggregate. Each unnecessary object shortens the interval between GC cycles, increases the amount of work the collector must do, and raises the probability of a stop-the-world pause. In latency-sensitive applications — trading systems, game loops, real-time services — even brief GC pauses can violate SLAs. In non-GC languages, excessive allocation fragments the heap and increases allocator overhead.
+In garbage-collected languages, allocation is cheap in isolation but expensive in aggregate. Each unnecessary object shortens the interval between GC cycles, increases the amount of work the collector must do, and raises the probability of a stop-the-world pause. In latency-sensitive applications - trading systems, game loops, real-time services - even brief GC pauses can violate SLAs. In non-GC languages, excessive allocation fragments the heap and increases allocator overhead.
 
 ## Violations to detect
 

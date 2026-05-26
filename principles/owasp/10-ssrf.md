@@ -1,4 +1,4 @@
-# OWASP-10-SSRF — Server-Side Request Forgery (SSRF)
+# OWASP-10-SSRF - Server-Side Request Forgery (SSRF)
 
 **Layer:** 2 (contextual)
 **Categories:** security, injection, network
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Validate and restrict all server-side requests to remote resources. SSRF flaws occur when an application fetches a remote resource using a URL or address supplied or influenced by user input, allowing an attacker to coerce the server to send requests to unintended destinations — internal services, cloud metadata endpoints, or arbitrary internet hosts.
+Validate and restrict all server-side requests to remote resources. SSRF flaws occur when an application fetches a remote resource using a URL or address supplied or influenced by user input, allowing an attacker to coerce the server to send requests to unintended destinations - internal services, cloud metadata endpoints, or arbitrary internet hosts.
 
 ## Why it matters
 
@@ -18,7 +18,7 @@ In cloud-native architectures, SSRF is particularly dangerous: the AWS/GCP/Azure
 - Accepting a URL as user input and fetching it server-side without validation
 - No allowlist of permitted destination hosts or IP ranges for outbound server-side requests
 - HTTP redirect following that can redirect from an allowlisted host to an internal address
-- DNS rebinding protections absent — hostname resolves to a public IP but rebinds to internal before the request
+- DNS rebinding protections absent - hostname resolves to a public IP but rebinds to internal before the request
 - Access to internal metadata endpoints (`169.254.169.254`, `fd00:ec2::254`) not blocked
 
 ## Good practice
@@ -31,4 +31,4 @@ In cloud-native architectures, SSRF is particularly dangerous: the AWS/GCP/Azure
 
 ## Sources
 
-- OWASP Foundation. "A10:2021 – Server-Side Request Forgery (SSRF)." *OWASP Top 10*, 2021. https://owasp.org/Top10/A10_2021-Server-Side_Request_Forgery_%28SSRF%29/
+- OWASP Foundation. "A10:2021 - Server-Side Request Forgery (SSRF)." *OWASP Top 10*, 2021. https://owasp.org/Top10/A10_2021-Server-Side_Request_Forgery_%28SSRF%29/

@@ -1,4 +1,4 @@
-# A11Y-SEMANTIC-HTML — Use semantic HTML elements; do not build interactive controls from divs
+# A11Y-SEMANTIC-HTML - Use semantic HTML elements; do not build interactive controls from divs
 
 **Layer:** 2 (contextual)
 **Audit-scope:** full
@@ -12,7 +12,7 @@ Use the HTML element that most precisely describes the content's meaning and rol
 
 ## Why it matters
 
-Assistive technologies rely on the HTML element type and ARIA landmark roles to build a structural model of the page. A `<div>` carrying an `onClick` is invisible to a screen reader as an interactive element, cannot be reached by keyboard, and provides no context about what it does. Recreating the native behaviour manually requires implementing all of: `role`, `tabIndex`, keyboard event handlers, focus styling, and state management — and most implementations miss at least one. Using the right element gives all of this for free.
+Assistive technologies rely on the HTML element type and ARIA landmark roles to build a structural model of the page. A `<div>` carrying an `onClick` is invisible to a screen reader as an interactive element, cannot be reached by keyboard, and provides no context about what it does. Recreating the native behaviour manually requires implementing all of: `role`, `tabIndex`, keyboard event handlers, focus styling, and state management - and most implementations miss at least one. Using the right element gives all of this for free.
 
 Relates to WCAG 2.1 SC 1.3.1 Info and Relationships (Level A), SC 2.4.1 Bypass Blocks (Level A), and SC 4.1.2 Name, Role, Value (Level A).
 
@@ -22,14 +22,14 @@ Relates to WCAG 2.1 SC 1.3.1 Info and Relationships (Level A), SC 2.4.1 Bypass B
 - `<div>` used as a navigation menu without `<nav>` or `role="navigation"`
 - Page layout with no landmark elements (`<main>`, `<header>`, `<footer>`, `<nav>`, `<aside>`)
 - `<div>` used as a button (`<div class="btn" onClick=...>`) instead of `<button>`
-- `<div>` or `<span>` used as a heading instead of `<h1>`–`<h6>`
+- `<div>` or `<span>` used as a heading instead of `<h1>`-`<h6>`
 - Form controls built from `<div>` without matching `role="checkbox"`, `role="radio"`, etc.
 - Tables used for layout rather than for tabular data
 
 ## Inspection
 
-- `grep -rnE '<div[^>]*onClick' --include="*.html" --include="*.jsx" --include="*.tsx" --include="*.vue" $TARGET` | HIGH | Clickable div — use button or anchor instead
-- `grep -rnE '<span[^>]*onClick' --include="*.html" --include="*.jsx" --include="*.tsx" $TARGET` | HIGH | Clickable span — use button instead
+- `grep -rnE '<div[^>]*onClick' --include="*.html" --include="*.jsx" --include="*.tsx" --include="*.vue" $TARGET` | HIGH | Clickable div - use button or anchor instead
+- `grep -rnE '<span[^>]*onClick' --include="*.html" --include="*.jsx" --include="*.tsx" $TARGET` | HIGH | Clickable span - use button instead
 - `grep -rnE '<div[^>]*class\s*=\s*["'"'"'][^"'"'"']*\b(btn|button|link|nav-item)\b' --include="*.html" --include="*.jsx" --include="*.tsx" $TARGET` | MEDIUM | Div styled as interactive element
 - `grep -rnE '<(main|header|footer|nav|aside)' --include="*.html" --include="*.jsx" --include="*.tsx" $TARGET` | INFO | Verify landmark elements are present for page structure
 
@@ -61,7 +61,7 @@ Relates to WCAG 2.1 SC 1.3.1 Info and Relationships (Level A), SC 2.4.1 Bypass B
 ```
 
 - Prefer `<button>` for actions that do not change the URL; prefer `<a href>` for navigation
-- Use heading levels (`<h1>`–`<h6>`) to communicate document hierarchy, not to control font size
+- Use heading levels (`<h1>`-`<h6>`) to communicate document hierarchy, not to control font size
 - Use `<ul>`/`<ol>` for lists, `<table>` for tabular data, `<form>` for forms
 - Add ARIA only where native HTML semantics are genuinely insufficient; `aria-` is a patch, not a substitute
 

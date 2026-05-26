@@ -1,4 +1,4 @@
-# GOF-INTERPRETER — Interpreter Pattern
+# GOF-INTERPRETER - Interpreter Pattern
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
@@ -11,12 +11,12 @@ Given a language, define a representation for its grammar along with an interpre
 
 ## Why it matters
 
-Without Interpreter, processing domain-specific expressions, rules, or queries typically requires hand-coded conditional logic scattered across the codebase. Interpreter makes each grammatical element explicit and extensible — adding a new expression type means adding a new class, not modifying existing parsing or evaluation logic.
+Without Interpreter, processing domain-specific expressions, rules, or queries typically requires hand-coded conditional logic scattered across the codebase. Interpreter makes each grammatical element explicit and extensible - adding a new expression type means adding a new class, not modifying existing parsing or evaluation logic.
 
 ## Violations to detect
 
 - Hard-coded evaluation of domain expressions (search filters, business rules, configuration queries) spread across multiple methods
-- A parser that builds intermediate data structures and then immediately switches on type codes to evaluate them — a sign that an object hierarchy would be cleaner
+- A parser that builds intermediate data structures and then immediately switches on type codes to evaluate them - a sign that an object hierarchy would be cleaner
 - New expression variants requiring changes to a central evaluator or switch statement
 
 ## Good practice
@@ -67,4 +67,4 @@ System.out.println(rule.interpret(new Context("Julie")));  // false
 
 ## Sources
 
-- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. ISBN 978-0-201-63361-0. Chapter 5, Behavioral Patterns — Interpreter.
+- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. ISBN 978-0-201-63361-0. Chapter 5, Behavioral Patterns - Interpreter.

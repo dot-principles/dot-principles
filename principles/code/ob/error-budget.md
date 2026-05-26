@@ -1,4 +1,4 @@
-# CODE-OB-ERROR-BUDGET — Operationalise reliability through error budget burn-rate alerting
+# CODE-OB-ERROR-BUDGET - Operationalise reliability through error budget burn-rate alerting
 
 **Layer:** 2 (contextual)
 **Categories:** observability, operations, reliability
@@ -7,7 +7,7 @@
 
 ## Principle
 
-An SLO's error budget — the permitted amount of unreliability within a rolling window — should drive alerting and engineering policy. Alert on *burn rate* (how fast the budget is being consumed) rather than on instantaneous metric thresholds. Use a multi-window, multi-burn-rate strategy: a fast burn catches severe outages quickly; a slow burn catches subtle degradation that would exhaust the budget before the window closes. When the budget is exhausted, treat reliability work as the team's highest priority.
+An SLO's error budget - the permitted amount of unreliability within a rolling window - should drive alerting and engineering policy. Alert on *burn rate* (how fast the budget is being consumed) rather than on instantaneous metric thresholds. Use a multi-window, multi-burn-rate strategy: a fast burn catches severe outages quickly; a slow burn catches subtle degradation that would exhaust the budget before the window closes. When the budget is exhausted, treat reliability work as the team's highest priority.
 
 ## Why it matters
 

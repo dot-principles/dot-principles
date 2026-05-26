@@ -1,4 +1,4 @@
-# EFFECTIVE-JAVA-INTERFACES-FOR-TYPES — Use Interfaces Only to Define Types
+# EFFECTIVE-JAVA-INTERFACES-FOR-TYPES - Use Interfaces Only to Define Types
 
 **Layer:** 2 (contextual)
 **Categories:** api-design, developer-experience
@@ -7,7 +7,7 @@
 
 ## Principle
 
-An interface should define a type — a set of methods that a class can implement to indicate that its instances can be used in a certain way. Using an interface solely to export constants (the "constant interface" antipattern) is a misuse of the mechanism. Constants are an implementation detail; leaking them into a type definition pollutes the API and commits all implementing classes to those constants forever.
+An interface should define a type - a set of methods that a class can implement to indicate that its instances can be used in a certain way. Using an interface solely to export constants (the "constant interface" antipattern) is a misuse of the mechanism. Constants are an implementation detail; leaking them into a type definition pollutes the API and commits all implementing classes to those constants forever.
 
 ## Why it matters
 

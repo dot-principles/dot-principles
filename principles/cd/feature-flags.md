@@ -1,4 +1,4 @@
-# CD-FEATURE-FLAGS — Decouple deployment from release; hide incomplete work behind flags, not branches
+# CD-FEATURE-FLAGS - Decouple deployment from release; hide incomplete work behind flags, not branches
 
 **Layer:** 2
 **Categories:** devops, continuous-delivery, deployment, release-management
@@ -35,7 +35,7 @@ grep -rn "if (false)\|if(false)" --include="*.js" --include="*.ts" --include="*.
 
 - Introduce a feature flag library or service (LaunchDarkly, Unleash, Flipt, or a simple config-driven map) rather than ad-hoc `if` checks
 - Treat flags as temporary: set a deletion date when the flag is created; remove flags once the feature is fully rolled out and stable
-- Use flags to enable canary rollouts — gradually increase the percentage of users who see the feature
+- Use flags to enable canary rollouts - gradually increase the percentage of users who see the feature
 - Keep flag checks at the outermost layer of the call stack; avoid scattering them through business logic
 - Log flag evaluations so you can correlate flag state with production behaviour
 

@@ -1,4 +1,4 @@
-# CODE-PF-PREDICTABLE-LATENCY — Design for predictable latency — avoid lock contention and GC pauses in hot paths
+# CODE-PF-PREDICTABLE-LATENCY - Design for predictable latency - avoid lock contention and GC pauses in hot paths
 
 **Layer:** 3 (risk-elevated)
 **Categories:** performance
@@ -11,7 +11,7 @@ In latency-sensitive code paths, design for predictability, not just throughput.
 
 ## Why it matters
 
-Many systems are judged not by average latency but by tail latency — the 99th or 99.9th percentile response time. A single lock contention event or GC pause can spike a request's latency by orders of magnitude, violating SLAs and degrading user experience. Systems that appear fast under light load can become unpredictable under contention. Designing for predictable latency requires eliminating or bounding the sources of jitter in the hot path.
+Many systems are judged not by average latency but by tail latency - the 99th or 99.9th percentile response time. A single lock contention event or GC pause can spike a request's latency by orders of magnitude, violating SLAs and degrading user experience. Systems that appear fast under light load can become unpredictable under contention. Designing for predictable latency requires eliminating or bounding the sources of jitter in the hot path.
 
 ## Violations to detect
 
@@ -23,7 +23,7 @@ Many systems are judged not by average latency but by tail latency — the 99th 
 ## Good practice
 
 - Use lock-free or wait-free data structures (e.g., compare-and-swap rings, the LMAX Disruptor pattern) for inter-thread communication in hot paths
-- Minimize allocation in the hot path — pre-allocate buffers, reuse objects, and avoid autoboxing to reduce GC pressure
+- Minimize allocation in the hot path - pre-allocate buffers, reuse objects, and avoid autoboxing to reduce GC pressure
 - Separate latency-sensitive work from background work onto different thread pools, so GC pauses or lock contention in batch processing do not affect real-time requests
 - Monitor and alert on tail latency (p99, p99.9) in addition to averages, and use latency histograms to detect jitter caused by contention or GC events
 

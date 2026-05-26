@@ -1,4 +1,4 @@
-# CODE-CC-HIGHER-LEVEL-CONCURRENCY — Use higher-level concurrency utilities over wait/notify
+# CODE-CC-HIGHER-LEVEL-CONCURRENCY - Use higher-level concurrency utilities over wait/notify
 
 **Layer:** 2
 **Categories:** concurrency, thread-safety, performance
@@ -7,11 +7,11 @@
 
 ## Principle
 
-Low-level threading primitives such as `wait()`, `notify()`, and `notifyAll()` (or their equivalents: condition variables, manual signaling) are difficult to use correctly and easy to misuse. Modern platforms provide higher-level concurrency utilities—blocking queues, latches, semaphores, executors, futures, and concurrent collections—that encapsulate the tricky synchronization logic and have been thoroughly tested. Prefer these building blocks over hand-rolled wait/notify protocols.
+Low-level threading primitives such as `wait()`, `notify()`, and `notifyAll()` (or their equivalents: condition variables, manual signaling) are difficult to use correctly and easy to misuse. Modern platforms provide higher-level concurrency utilities-blocking queues, latches, semaphores, executors, futures, and concurrent collections-that encapsulate the tricky synchronization logic and have been thoroughly tested. Prefer these building blocks over hand-rolled wait/notify protocols.
 
 ## Why it matters
 
-Incorrect use of wait/notify leads to missed signals, spurious wake-ups, lost notifications, and deadlocks—bugs that are subtle, intermittent, and resistant to testing. Higher-level utilities handle these edge cases internally, significantly reducing the surface area for concurrency bugs while also producing clearer, more maintainable code.
+Incorrect use of wait/notify leads to missed signals, spurious wake-ups, lost notifications, and deadlocks-bugs that are subtle, intermittent, and resistant to testing. Higher-level utilities handle these edge cases internally, significantly reducing the surface area for concurrency bugs while also producing clearer, more maintainable code.
 
 ## Violations to detect
 

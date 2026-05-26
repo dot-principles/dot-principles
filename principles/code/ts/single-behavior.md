@@ -1,4 +1,4 @@
-# CODE-TS-SINGLE-BEHAVIOR — Each test should verify one behavior
+# CODE-TS-SINGLE-BEHAVIOR - Each test should verify one behavior
 
 **Layer:** 2 (contextual)
 **Categories:** testing, quality

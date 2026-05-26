@@ -1,4 +1,4 @@
-# GOF-PROGRAM-TO-INTERFACE — Program to an Interface, Not an Implementation
+# GOF-PROGRAM-TO-INTERFACE - Program to an Interface, Not an Implementation
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
@@ -46,11 +46,11 @@ classDiagram
 ```
 
 ```java
-// Violation — typed to a concrete class
+// Violation - typed to a concrete class
 QuickSort sorter = new QuickSort();
 sorter.sort(data);
 
-// Correct — typed to the interface; implementation injected
+// Correct - typed to the interface; implementation injected
 Sorter sorter = new QuickSort();  // or MergeSort, or a test double
 sorter.sort(data);
 ```

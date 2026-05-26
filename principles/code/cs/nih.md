@@ -1,4 +1,4 @@
-# CODE-CS-NIH — NIH: Not Invented Here
+# CODE-CS-NIH - NIH: Not Invented Here
 
 **Layer:** 1 (universal)
 **Categories:** dependency-management, pragmatism, simplicity
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Prefer proven, well-maintained external solutions over building equivalent functionality in-house. The Not Invented Here bias — the instinct to distrust or reject solutions because they originated outside the team — leads to reinventing wheels that are poorly tested, undermaintained, and underdocumented compared to the battle-hardened alternatives they replace.
+Prefer proven, well-maintained external solutions over building equivalent functionality in-house. The Not Invented Here bias - the instinct to distrust or reject solutions because they originated outside the team - leads to reinventing wheels that are poorly tested, undermaintained, and underdocumented compared to the battle-hardened alternatives they replace.
 
 The inverse trap is equally real: pulling in a heavy dependency for trivial functionality (Cargo Cult adoption). The principle is about resisting the bias against adoption, not blindly maximising dependency counts.
 
@@ -20,7 +20,7 @@ Custom implementations of general-purpose problems (auth, crypto, serialization,
 - Custom implementations of auth, cryptography, or token handling instead of established libraries
 - In-house queue, cache, or retry logic when Redis, RabbitMQ, or equivalent would serve
 - Hand-rolled date parsing, serialization, HTTP clients, or logging frameworks
-- "We can't use that — we don't own it" as the primary objection to an established library
+- "We can't use that - we don't own it" as the primary objection to an established library
 - Internal forks of open-source tools with no meaningful divergence from upstream
 
 ## Good practice

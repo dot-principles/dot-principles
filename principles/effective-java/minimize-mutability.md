@@ -1,4 +1,4 @@
-# EFFECTIVE-JAVA-MINIMIZE-MUTABILITY — Minimize Mutability — Prefer Immutable Classes
+# EFFECTIVE-JAVA-MINIMIZE-MUTABILITY - Minimize Mutability - Prefer Immutable Classes
 
 **Layer:** 2 (contextual)
 **Categories:** api-design, developer-experience
@@ -11,7 +11,7 @@ An immutable class is one whose instances cannot be modified after creation. All
 
 ## Why it matters
 
-Immutable objects are inherently thread-safe — they require no synchronization. They can be shared freely, cached, and used as map keys or set elements without risk. They make reasoning about program state far simpler because an immutable object's state is the same at every point after construction.
+Immutable objects are inherently thread-safe - they require no synchronization. They can be shared freely, cached, and used as map keys or set elements without risk. They make reasoning about program state far simpler because an immutable object's state is the same at every point after construction.
 
 ## Violations to detect
 
@@ -23,13 +23,13 @@ Immutable objects are inherently thread-safe — they require no synchronization
 ## Good practice
 
 ```java
-// Violation — mutable Money class
+// Violation - mutable Money class
 class Money {
     private BigDecimal amount;
     public void setAmount(BigDecimal a) { this.amount = a; }  // mutable
 }
 
-// Correct — immutable Money; operations return new instances
+// Correct - immutable Money; operations return new instances
 public final class Money {
     private final BigDecimal amount;
     private final Currency currency;

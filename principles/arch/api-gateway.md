@@ -1,4 +1,4 @@
-# ARCH-API-GATEWAY — API Gateway
+# ARCH-API-GATEWAY - API Gateway
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, api-design, microservices
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Route all external client traffic through a single entry-point service — the API Gateway — that handles cross-cutting concerns: authentication, authorization, rate limiting, SSL termination, request routing, and response aggregation. Clients communicate only with the gateway; internal services are not directly addressable from outside the system.
+Route all external client traffic through a single entry-point service - the API Gateway - that handles cross-cutting concerns: authentication, authorization, rate limiting, SSL termination, request routing, and response aggregation. Clients communicate only with the gateway; internal services are not directly addressable from outside the system.
 
 ## Why it matters
 
@@ -24,7 +24,7 @@ Without a gateway, every internal service must independently implement auth, rat
 - The gateway handles only cross-cutting infrastructure concerns; it does not own business logic
 - Authenticate and authorize at the gateway; pass authenticated identity downstream in a signed header
 - Version the gateway's public API surface independently of internal service APIs
-- Treat the gateway as a high-availability infrastructure component — test it with load and chaos
+- Treat the gateway as a high-availability infrastructure component - test it with load and chaos
 
 ## Sources
 

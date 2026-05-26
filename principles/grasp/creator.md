@@ -1,4 +1,4 @@
-# GRASP-CREATOR — Creator
+# GRASP-CREATOR - Creator
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, responsibility-assignment, object-creation
@@ -22,8 +22,8 @@ Arbitrary or centralised object creation scatters construction logic and creates
 
 ## Good practice
 
-- Have `Order` create `OrderLine` objects — it aggregates them and has the product and quantity data
-- Have `Playlist` create `PlaylistEntry` — it contains entries and has the track reference
+- Have `Order` create `OrderLine` objects - it aggregates them and has the product and quantity data
+- Have `Playlist` create `PlaylistEntry` - it contains entries and has the track reference
 - Use Factory patterns only when the Creator heuristic doesn't clearly apply (e.g., the creator varies at runtime)
 
 ## Sources

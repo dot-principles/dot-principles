@@ -1,13 +1,13 @@
-# CODE-AR-TEST-INFRASTRUCTURE — Test infrastructure code like application code
+# CODE-AR-TEST-INFRASTRUCTURE - Test infrastructure code like application code
 
 **Layer:** 2
 **Categories:** architecture, infrastructure, devops
 **Applies-to:** all
-**Summary:** Test infrastructure code at every level — static analysis, unit, integration, and compliance — before applying it.
+**Summary:** Test infrastructure code at every level - static analysis, unit, integration, and compliance - before applying it.
 
 ## Principle
 
-Infrastructure code must be tested at multiple levels, just as application code is. This includes static analysis and linting, unit tests for individual modules, integration tests that provision real infrastructure in an isolated environment, and compliance tests that verify security and policy requirements. Untested infrastructure code is just as risky as untested application code — the blast radius is often larger.
+Infrastructure code must be tested at multiple levels, just as application code is. This includes static analysis and linting, unit tests for individual modules, integration tests that provision real infrastructure in an isolated environment, and compliance tests that verify security and policy requirements. Untested infrastructure code is just as risky as untested application code - the blast radius is often larger.
 
 ## Why it matters
 
@@ -15,7 +15,7 @@ Infrastructure mistakes can take down entire environments, expose sensitive data
 
 ## Violations to detect
 
-- Infrastructure modules with no tests of any kind — no linting, no unit tests, no integration tests
+- Infrastructure modules with no tests of any kind - no linting, no unit tests, no integration tests
 - Infrastructure code that is only tested by applying it to production and checking whether anything breaks
 - Tests that only validate syntax but never actually provision resources to verify behavior
 - Security and compliance requirements verified only by manual audit rather than automated policy tests
@@ -27,7 +27,7 @@ Infrastructure mistakes can take down entire environments, expose sensitive data
 - Write unit tests for infrastructure modules using tools like Terratest, Kitchen-Terraform, or Pulumi's testing frameworks
 - Maintain an isolated test environment where integration tests provision real infrastructure, verify it works, and tear it down
 - Include policy-as-code tests (Open Policy Agent, Sentinel) that enforce security, tagging, and compliance rules
-- Run infrastructure tests in CI on every pull request — do not merge untested infrastructure changes
+- Run infrastructure tests in CI on every pull request - do not merge untested infrastructure changes
 
 ## Sources
 

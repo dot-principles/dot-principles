@@ -1,4 +1,4 @@
-# INFRA-PIN-BASE-IMAGES — Pin base images to a specific digest or version tag; never use `latest`
+# INFRA-PIN-BASE-IMAGES - Pin base images to a specific digest or version tag; never use `latest`
 
 **Layer:** 1
 **Categories:** security, container, supply-chain, infrastructure
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Every `FROM` instruction in a Dockerfile must reference a specific, immutable image version — a digest (`sha256:…`) for the strongest guarantee, or at minimum a full `major.minor.patch` version tag. Never use `:latest` or an unqualified image name without a tag. Mutable tags do not uniquely identify an image; the content they point to can change silently between builds, introducing uncontrolled changes to the runtime environment.
+Every `FROM` instruction in a Dockerfile must reference a specific, immutable image version - a digest (`sha256:…`) for the strongest guarantee, or at minimum a full `major.minor.patch` version tag. Never use `:latest` or an unqualified image name without a tag. Mutable tags do not uniquely identify an image; the content they point to can change silently between builds, introducing uncontrolled changes to the runtime environment.
 
 ## Why it matters
 
@@ -36,5 +36,5 @@ Using `FROM node:latest` means each build pulls whatever the upstream maintainer
 ## Sources
 
 - CIS. "CIS Docker Benchmark v1.6.0." Center for Internet Security, 2023. Section 4.1. https://www.cisecurity.org/benchmark/docker (accessed 2026-03-22).
-- Docker Inc. "Best practices for writing Dockerfiles — FROM." https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#from (accessed 2026-03-22).
+- Docker Inc. "Best practices for writing Dockerfiles - FROM." https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#from (accessed 2026-03-22).
 - OpenSSF. "SLSA: Supply-chain Levels for Software Artifacts." v1.0, 2023. https://slsa.dev/spec/v1.0/requirements (accessed 2026-03-22).

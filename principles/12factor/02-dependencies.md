@@ -1,4 +1,4 @@
-# 12FACTOR-02-DEPENDENCIES — Dependencies
+# 12FACTOR-02-DEPENDENCIES - Dependencies
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, cloud-native, dependency-management
@@ -16,7 +16,7 @@ Implicit dependencies create works-on-my-machine failures. If an app relies on a
 ## Violations to detect
 
 - Relying on globally installed system packages (e.g., `ImageMagick`, `curl`) that are not declared in the project
-- No lock file — dependencies pinned to a range rather than an exact resolved version
+- No lock file - dependencies pinned to a range rather than an exact resolved version
 - Instructions to "manually install X before running" in the README
 - Vendored dependencies not version-controlled or reproduced at build time
 

@@ -1,4 +1,4 @@
-# INFRA-INFRASTRUCTURE-AS-CODE — All infrastructure is code; nothing is configured manually
+# INFRA-INFRASTRUCTURE-AS-CODE - All infrastructure is code; nothing is configured manually
 
 **Layer:** 1 (universal)
 **Categories:** infrastructure, devops, repeatability
@@ -7,11 +7,11 @@
 
 ## Principle
 
-Every infrastructure resource — servers, networks, load balancers, IAM roles, DNS records, monitoring rules — must be declared in version-controlled code and applied through an automated pipeline. No human should ever log into a production system and make a configuration change directly. If a change cannot be expressed as code, the tooling or process must be fixed until it can.
+Every infrastructure resource - servers, networks, load balancers, IAM roles, DNS records, monitoring rules - must be declared in version-controlled code and applied through an automated pipeline. No human should ever log into a production system and make a configuration change directly. If a change cannot be expressed as code, the tooling or process must be fixed until it can.
 
 ## Why it matters
 
-Manual changes are invisible, unrepeatable, and unauditable. A server configured by hand cannot be reliably recreated after failure. A firewall rule added through a console disappears from version history. Over time, environments drift apart — what works in staging stops working in production not because of application bugs but because of invisible infrastructure differences. Infrastructure-as-code eliminates drift by making the desired state explicit and enforceable.
+Manual changes are invisible, unrepeatable, and unauditable. A server configured by hand cannot be reliably recreated after failure. A firewall rule added through a console disappears from version history. Over time, environments drift apart - what works in staging stops working in production not because of application bugs but because of invisible infrastructure differences. Infrastructure-as-code eliminates drift by making the desired state explicit and enforceable.
 
 ## Violations to detect
 
@@ -30,5 +30,5 @@ Manual changes are invisible, unrepeatable, and unauditable. A server configured
 
 ## Sources
 
-- Morris, Kief. *Infrastructure as Code*, 2nd ed. O'Reilly, 2020. ISBN 978-1-4920-7522-6. Chapters 1–3.
+- Morris, Kief. *Infrastructure as Code*, 2nd ed. O'Reilly, 2020. ISBN 978-1-4920-7522-6. Chapters 1-3.
 - Kim, Gene et al. *The DevOps Handbook*, 2nd ed. IT Revolution, 2021. ISBN 978-1-9502-8818-4. Part III.

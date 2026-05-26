@@ -1,4 +1,4 @@
-# CODE-API-BACKWARD-COMPATIBILITY — Support backward compatibility — never break existing clients
+# CODE-API-BACKWARD-COMPATIBILITY - Support backward compatibility - never break existing clients
 
 **Layer:** 2
 **Categories:** api-design, rest, protocol-design
@@ -11,7 +11,7 @@ Once an API is published and clients depend on it, changes must be backward comp
 
 ## Why it matters
 
-APIs are shared contracts. Unlike internal code, you do not control who calls your API or when they update. A breaking change that seems minor — removing an unused field, changing a date format — can cause silent data loss or outright failures in client applications you have never seen. The cost of a breaking change is multiplied by the number of clients and the difficulty of coordinating their updates.
+APIs are shared contracts. Unlike internal code, you do not control who calls your API or when they update. A breaking change that seems minor - removing an unused field, changing a date format - can cause silent data loss or outright failures in client applications you have never seen. The cost of a breaking change is multiplied by the number of clients and the difficulty of coordinating their updates.
 
 ## Violations to detect
 
@@ -24,7 +24,7 @@ APIs are shared contracts. Unlike internal code, you do not control who calls yo
 
 ## Good practice
 
-- Treat published API fields and endpoints as immutable contracts — add, never remove or rename
+- Treat published API fields and endpoints as immutable contracts - add, never remove or rename
 - Use additive changes: new optional fields, new endpoints, new optional query parameters
 - When breaking changes are necessary, use explicit versioning (URI path versioning like `/v2/`, or content-type versioning via `Accept` headers)
 - Provide a deprecation policy: announce deprecation, give clients a migration window, and document the replacement

@@ -1,4 +1,4 @@
-# EFFECTIVE-JAVA-DESIGN-INTERFACES-FOR-POSTERITY — Design Interfaces for Posterity
+# EFFECTIVE-JAVA-DESIGN-INTERFACES-FOR-POSTERITY - Design Interfaces for Posterity
 
 **Layer:** 2 (contextual)
 **Categories:** api-design, maintainability
@@ -17,7 +17,7 @@ Before Java 8, an interface was a binding contract: any class that compiled agai
 
 - Adding a non-trivial default method to a widely-implemented public interface without auditing all known implementations
 - Default methods that modify shared state or have complex preconditions that may not hold for all existing implementations
-- Assuming that a default method is "safe" because it compiles — correct compilation is necessary but not sufficient
+- Assuming that a default method is "safe" because it compiles - correct compilation is necessary but not sufficient
 
 ## Good practice
 

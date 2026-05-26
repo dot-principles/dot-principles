@@ -1,4 +1,4 @@
-# GOF-COMPOSITION-OVER-INHERITANCE — Favor Composition over Inheritance
+# GOF-COMPOSITION-OVER-INHERITANCE - Favor Composition over Inheritance
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
@@ -46,13 +46,13 @@ classDiagram
 ```
 
 ```java
-// Violation — inheritance to reuse formatting behavior
+// Violation - inheritance to reuse formatting behavior
 class JsonLogger extends BaseLogger {
     @Override
     protected String format(String msg) { return "{\"msg\":\"" + msg + "\"}"; }
 }
 
-// Correct — compose with a Formatter strategy
+// Correct - compose with a Formatter strategy
 class Logger {
     private final Formatter formatter;
     Logger(Formatter formatter) { this.formatter = formatter; }

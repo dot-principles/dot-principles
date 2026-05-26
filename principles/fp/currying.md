@@ -1,4 +1,4 @@
-# FP-CURRYING — Currying and partial application
+# FP-CURRYING - Currying and partial application
 
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, software-design, abstraction
@@ -11,7 +11,7 @@ Currying transforms a function of multiple arguments into a chain of single-argu
 
 ## Why it matters
 
-Functions that require all arguments at the same point and place are difficult to reuse in contexts where some arguments are known early and others late. Currying and partial application eliminate this friction: a general function can be partially applied at the point where some arguments are known, producing a specialised function that can be passed and applied elsewhere — enabling composition and reuse without wrapper functions.
+Functions that require all arguments at the same point and place are difficult to reuse in contexts where some arguments are known early and others late. Currying and partial application eliminate this friction: a general function can be partially applied at the point where some arguments are known, producing a specialised function that can be passed and applied elsewhere - enabling composition and reuse without wrapper functions.
 
 ## Violations to detect
 

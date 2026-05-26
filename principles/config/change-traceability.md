@@ -1,4 +1,4 @@
-# CONFIG-CHANGE-TRACEABILITY — All configuration changes must be versioned, reviewed, and auditable
+# CONFIG-CHANGE-TRACEABILITY - All configuration changes must be versioned, reviewed, and auditable
 
 **Layer:** 2 (contextual)
 **Categories:** configuration, auditability, security, devops
@@ -7,11 +7,11 @@
 
 ## Principle
 
-Every change to a configuration value must be traceable: who changed it, what changed, when, and why. Configuration changes flow through version control and peer review — the same process as code changes. Ad-hoc manual edits to configuration on running systems are prohibited except in declared, time-limited break-glass procedures that are logged and followed by a post-incident config reconciliation.
+Every change to a configuration value must be traceable: who changed it, what changed, when, and why. Configuration changes flow through version control and peer review - the same process as code changes. Ad-hoc manual edits to configuration on running systems are prohibited except in declared, time-limited break-glass procedures that are logged and followed by a post-incident config reconciliation.
 
 ## Why it matters
 
-Configuration changes are a leading cause of production incidents. Without traceability, diagnosing "what changed before the outage" requires guesswork. Without review, a single misconfiguration — a wrong timeout, a missing flag, a rotated key not propagated — can take down a service. GitOps and change-management disciplines extend code review and audit practices to the configuration plane.
+Configuration changes are a leading cause of production incidents. Without traceability, diagnosing "what changed before the outage" requires guesswork. Without review, a single misconfiguration - a wrong timeout, a missing flag, a rotated key not propagated - can take down a service. GitOps and change-management disciplines extend code review and audit practices to the configuration plane.
 
 ## Violations to detect
 
@@ -32,5 +32,5 @@ Configuration changes are a leading cause of production incidents. Without trace
 ## Sources
 
 - Humble, Jez & Farley, David. *Continuous Delivery: Reliable Software Releases through Build, Test, and Deployment Automation*. Addison-Wesley, 2010. ISBN 978-0-321-60191-9. Chapter 2 (Configuration Management).
-- Beyer, Betsy et al. *Site Reliability Engineering: How Google Runs Production Systems*. O'Reilly, 2016. ISBN 978-1-491-92912-4. Chapter 25 (Data Processing Pipelines — Configuration Management).
-- Weaveworks. "GitOps — Operations by Pull Request." https://www.weave.works/blog/gitops-operations-by-pull-request (2017, accessed 2026-03-22).
+- Beyer, Betsy et al. *Site Reliability Engineering: How Google Runs Production Systems*. O'Reilly, 2016. ISBN 978-1-491-92912-4. Chapter 25 (Data Processing Pipelines - Configuration Management).
+- Weaveworks. "GitOps - Operations by Pull Request." https://www.weave.works/blog/gitops-operations-by-pull-request (2017, accessed 2026-03-22).

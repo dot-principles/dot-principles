@@ -1,4 +1,4 @@
-# DOC-SELF-CONTAINED — Every page must make sense without requiring other pages to be read first
+# DOC-SELF-CONTAINED - Every page must make sense without requiring other pages to be read first
 
 **Layer:** 2 (contextual)
 **Categories:** documentation, usability, information-architecture
@@ -7,13 +7,13 @@
 
 ## Principle
 
-Every documentation page should be intelligible to a reader who arrives at it directly — via a search engine, a shared link, or an in-app help link — without having read any other page in the documentation. The page must establish its own context: define or link to any prerequisite concepts it relies on, state what the reader needs to know before proceeding, and not assume awareness of content established elsewhere in the same documentation set.
+Every documentation page should be intelligible to a reader who arrives at it directly - via a search engine, a shared link, or an in-app help link - without having read any other page in the documentation. The page must establish its own context: define or link to any prerequisite concepts it relies on, state what the reader needs to know before proceeding, and not assume awareness of content established elsewhere in the same documentation set.
 
 This is the "Every Page is Page One" principle: on the web, every page is potentially the first page a reader encounters.
 
 ## Why it matters
 
-Documentation navigation assumptions were formed in the era of printed manuals read sequentially from page one. Web readers arrive from external search engines, deep links in Stack Overflow answers, and error message references. A page that opens mid-explanation — using undefined terms, referencing prior steps, or assuming a context established elsewhere — fails every reader who arrives without that context, which in practice is most readers.
+Documentation navigation assumptions were formed in the era of printed manuals read sequentially from page one. Web readers arrive from external search engines, deep links in Stack Overflow answers, and error message references. A page that opens mid-explanation - using undefined terms, referencing prior steps, or assuming a context established elsewhere - fails every reader who arrives without that context, which in practice is most readers.
 
 ## Violations to detect
 
@@ -38,4 +38,4 @@ Documentation navigation assumptions were formed in the era of printed manuals r
 ## Sources
 
 - Baker, Mark. *Every Page is Page One: Topic-Based Writing for Technical Communication and the Web*. XML Press, 2013. ISBN 978-1937434281. Chapter 4: "Every page is page one."
-- Procida, Daniele. "Diátaxis — A systematic approach to technical documentation authoring." https://diataxis.fr (accessed 2026-03-22).
+- Procida, Daniele. "Diátaxis - A systematic approach to technical documentation authoring." https://diataxis.fr (accessed 2026-03-22).

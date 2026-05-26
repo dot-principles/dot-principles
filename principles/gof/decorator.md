@@ -1,4 +1,4 @@
-# GOF-DECORATOR — Decorator Pattern
+# GOF-DECORATOR - Decorator Pattern
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
@@ -53,10 +53,10 @@ classDiagram
 ```
 
 ```java
-// Violation — new subclass for every combination
+// Violation - new subclass for every combination
 class EncryptedCompressedFileDataSource extends FileDataSource { ... }
 
-// Correct — stack decorators at runtime
+// Correct - stack decorators at runtime
 DataSource source = new CompressionDecorator(
                         new EncryptionDecorator(
                             new FileDataSource("data.bin")));

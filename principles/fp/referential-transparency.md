@@ -1,4 +1,4 @@
-# FP-REFERENTIAL-TRANSPARENCY — Referential transparency
+# FP-REFERENTIAL-TRANSPARENCY - Referential transparency
 
 **Layer:** 1 (universal)
 **Categories:** functional-programming, software-design, maintainability
@@ -11,7 +11,7 @@ An expression is referentially transparent if it can be replaced by its evaluate
 
 ## Why it matters
 
-Without referential transparency, understanding a piece of code requires tracing its entire execution history and the global state at every call site — a combinatorial problem that grows with codebase size. Referential transparency collapses this: to understand a function call, you only need to know its arguments, not the history of the world.
+Without referential transparency, understanding a piece of code requires tracing its entire execution history and the global state at every call site - a combinatorial problem that grows with codebase size. Referential transparency collapses this: to understand a function call, you only need to know its arguments, not the history of the world.
 
 ## Violations to detect
 
@@ -22,7 +22,7 @@ Without referential transparency, understanding a piece of code requires tracing
 
 ## Good practice
 
-- Use referential transparency as a design test: ask "could I replace this call with its cached result everywhere?" — if no, the expression is not transparent
+- Use referential transparency as a design test: ask "could I replace this call with its cached result everywhere?" - if no, the expression is not transparent
 - Isolate impure computations (I/O, time, randomness) at system boundaries and pass their results into a referentially transparent core
 - Prefer expression-oriented code (functions that return values) over statement-oriented code (functions called for effect)
 

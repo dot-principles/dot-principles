@@ -1,4 +1,4 @@
-# CODE-TS-TEST-DOUBLES — Use test doubles judiciously
+# CODE-TS-TEST-DOUBLES - Use test doubles judiciously
 
 **Layer:** 2 (contextual)
 **Categories:** testing, quality
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Prefer real collaborators over test doubles (mocks, stubs, fakes) when practical. Test doubles are valuable for isolating external dependencies — network services, databases, clocks — but overusing them couples tests to implementation details and creates a false sense of confidence. A test that passes with mocks may still fail with real collaborators.
+Prefer real collaborators over test doubles (mocks, stubs, fakes) when practical. Test doubles are valuable for isolating external dependencies - network services, databases, clocks - but overusing them couples tests to implementation details and creates a false sense of confidence. A test that passes with mocks may still fail with real collaborators.
 
 ## Why it matters
 
@@ -26,7 +26,7 @@ Over-mocking produces tests that verify the wiring between objects rather than t
 - Use real objects when they are fast, deterministic, and have no external side effects
 - Reserve test doubles for boundaries: network, file system, time, randomness, third-party services
 - Prefer fakes (lightweight in-memory implementations) over mocks for complex collaborators
-- When using mocks, stub queries and verify commands — avoid verifying every interaction
+- When using mocks, stub queries and verify commands - avoid verifying every interaction
 - Treat excessive mocking as a design signal: if a class needs many mocks, it may have too many dependencies
 
 ## Sources

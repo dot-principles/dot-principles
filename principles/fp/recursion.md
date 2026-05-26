@@ -1,4 +1,4 @@
-# FP-RECURSION — Recursion as primary iteration
+# FP-RECURSION - Recursion as primary iteration
 
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, software-design
@@ -11,11 +11,11 @@ In functional programming, repetition is expressed through recursive function ca
 
 ## Why it matters
 
-Imperative loops rely on mutable state — a counter or index that is incremented on each iteration — which reintroduces shared mutable state at the micro level. Recursive functions express the same iteration without mutation: each call receives its inputs as arguments and produces its result as a return value. The structure of the recursion often mirrors the structure of the data, making the algorithm easier to understand and verify.
+Imperative loops rely on mutable state - a counter or index that is incremented on each iteration - which reintroduces shared mutable state at the micro level. Recursive functions express the same iteration without mutation: each call receives its inputs as arguments and produces its result as a return value. The structure of the recursion often mirrors the structure of the data, making the algorithm easier to understand and verify.
 
 ## Violations to detect
 
-- Recursive functions without a clearly identified base case — risk infinite recursion
+- Recursive functions without a clearly identified base case - risk infinite recursion
 - Recursion over data structures that do not have a direct structural correspondence to the recursive structure (mismatch between data shape and algorithm shape)
 - Using recursion where a standard higher-order function (`map`, `fold`, `filter`) already captures the pattern and would be clearer
 - Recursion used to iterate a fixed number of times when a simple range/fold would be more readable
@@ -24,7 +24,7 @@ Imperative loops rely on mutable state — a counter or index that is incremente
 
 - Identify the base case first and ensure it is reachable from the recursive case with every call
 - Mirror the recursive structure of the data: a function over a list has a base case for the empty list and a recursive case for `head :: tail`; a function over a tree recurses on left and right subtrees
-- Prefer standard higher-order functions (`map`, `fold`, `filter`) over hand-written recursion for common patterns — they are more readable and already correct
+- Prefer standard higher-order functions (`map`, `fold`, `filter`) over hand-written recursion for common patterns - they are more readable and already correct
 - Use tail recursion (see FP-TAIL-CALL-OPTIMISATION) when the recursion depth may be large
 
 ## Sources

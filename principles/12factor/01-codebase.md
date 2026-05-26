@@ -1,4 +1,4 @@
-# 12FACTOR-01-CODEBASE — Codebase
+# 12FACTOR-01-CODEBASE - Codebase
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, cloud-native, deployment
@@ -7,7 +7,7 @@
 
 ## Principle
 
-One codebase tracked in version control, deployed to many environments. If there are multiple codebases, it is a distributed system — each component of which may independently be a twelve-factor app. Multiple apps sharing the same code should extract that code into a library.
+One codebase tracked in version control, deployed to many environments. If there are multiple codebases, it is a distributed system - each component of which may independently be a twelve-factor app. Multiple apps sharing the same code should extract that code into a library.
 
 ## Why it matters
 
@@ -22,7 +22,7 @@ Multiple codebases for the same app make coordinated deployments error-prone, dr
 
 ## Good practice
 
-- One repo → many deploys (staging, production, developer preview) — each is a different deployed version of the same codebase
+- One repo → many deploys (staging, production, developer preview) - each is a different deployed version of the same codebase
 - Use package managers and versioned libraries for shared code; never copy-paste across repos
 - Track every deploy to a specific commit SHA for full auditability
 

@@ -1,4 +1,4 @@
-# DB-CAP-THEOREM — CAP theorem — a distributed store can guarantee at most two of consistency, availability, and partition tolerance
+# DB-CAP-THEOREM - CAP theorem - a distributed store can guarantee at most two of consistency, availability, and partition tolerance
 
 **Layer:** 2
 **Categories:** database, distributed-systems, architecture, reliability
@@ -15,16 +15,16 @@ Ignoring the CAP theorem leads to systems that make implicit, undocumented consi
 
 ## Violations to detect
 
-- Distributed data stores configured to advertise strong consistency but with no mechanism to reject reads from partitioned replicas — the guarantee cannot actually be kept
+- Distributed data stores configured to advertise strong consistency but with no mechanism to reject reads from partitioned replicas - the guarantee cannot actually be kept
 - Architecture documents that choose a database without stating whether the system requires CP or AP behaviour under partition
-- Multi-region deployments with synchronous replication and no defined fallback when replication lag causes write failures — implicit choice of CP without acknowledging the availability cost
+- Multi-region deployments with synchronous replication and no defined fallback when replication lag causes write failures - implicit choice of CP without acknowledging the availability cost
 - Read-your-writes requirements in a system backed by an eventually consistent store, with no sticky routing or version-checking strategy
 
 ## Good practice
 
 - Document the explicit CP vs AP choice for every distributed data store and explain which product scenarios drove it
 - For AP stores (Cassandra, DynamoDB, CouchDB), design the application to handle stale reads and conflicting writes; implement reconciliation or last-write-wins semantics
-- For CP stores (HBase, Zookeeper, etcd), design the application to handle unavailability during partition events — timeouts, retries with backoff, and graceful degradation
+- For CP stores (HBase, Zookeeper, etcd), design the application to handle unavailability during partition events - timeouts, retries with backoff, and graceful degradation
 - Revisit the choice as access patterns evolve; a store that starts as AP may need CP guarantees as regulatory or financial requirements emerge
 
 ## Sources

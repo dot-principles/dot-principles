@@ -1,4 +1,4 @@
-# DDD-REPOSITORY — Repository
+# DDD-REPOSITORY - Repository
 
 **Layer:** 2 (contextual)
 **Categories:** domain-modeling, domain-driven-design
@@ -7,7 +7,7 @@
 
 ## Principle
 
-A Repository provides a collection-like interface for accessing Aggregates, encapsulating all the logic needed to store and retrieve domain objects from their underlying data store. The domain layer works with Repositories as if they were in-memory collections — adding, removing, and finding objects — without any knowledge of SQL, ORM configuration, API calls, or serialization details. This separation keeps domain logic pure and infrastructure-agnostic.
+A Repository provides a collection-like interface for accessing Aggregates, encapsulating all the logic needed to store and retrieve domain objects from their underlying data store. The domain layer works with Repositories as if they were in-memory collections - adding, removing, and finding objects - without any knowledge of SQL, ORM configuration, API calls, or serialization details. This separation keeps domain logic pure and infrastructure-agnostic.
 
 ## Why it matters
 

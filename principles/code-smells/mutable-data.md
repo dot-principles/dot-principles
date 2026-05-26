@@ -1,4 +1,4 @@
-# CODE-SMELLS-MUTABLE-DATA — Mutable Data
+# CODE-SMELLS-MUTABLE-DATA - Mutable Data
 
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, reliability
@@ -11,7 +11,7 @@ Mutable Data is the smell that arises when data can be changed from multiple pla
 
 ## Why it matters
 
-Mutable state is one of the most common sources of difficult bugs. When a value changes unexpectedly, the developer must mentally trace every code path that could have written it. The more mutation is spread across the codebase — through public setters, passed-by-reference parameters that get modified, or widely accessible mutable fields — the harder this tracing becomes. This smell is distinct from Global Data (which is specifically about widely scoped access) and from Mutable Data as a concurrency concern: even in single-threaded code, excessive mutation within a single call stack produces code that is hard to reason about and test.
+Mutable state is one of the most common sources of difficult bugs. When a value changes unexpectedly, the developer must mentally trace every code path that could have written it. The more mutation is spread across the codebase - through public setters, passed-by-reference parameters that get modified, or widely accessible mutable fields - the harder this tracing becomes. This smell is distinct from Global Data (which is specifically about widely scoped access) and from Mutable Data as a concurrency concern: even in single-threaded code, excessive mutation within a single call stack produces code that is hard to reason about and test.
 
 ## Violations to detect
 
@@ -23,7 +23,7 @@ Mutable state is one of the most common sources of difficult bugs. When a value 
 
 ## Good practice
 
-- Replace modifications of input parameters with return values; use the Command–Query Separation principle
+- Replace modifications of input parameters with return values; use the Command-Query Separation principle
 - Restrict setters to only the fields that genuinely need post-construction mutation; make the rest final/readonly
 - Prefer returning new collections rather than mutating a passed-in one; use `map`, `filter`, and `reduce` rather than modifying in place
 - Encapsulate mutation: if state must change, confine all mutations to one method in one class, rather than letting callers reach in

@@ -1,4 +1,4 @@
-# SEC-ARCH-ECONOMY-OF-MECHANISM — Keep security mechanisms as simple as possible
+# SEC-ARCH-ECONOMY-OF-MECHANISM - Keep security mechanisms as simple as possible
 
 **Layer:** 2 (contextual)
 **Categories:** security, architecture, maintainability
@@ -24,11 +24,11 @@ Complex security mechanisms are difficult to audit, easy to misuse, and fragile 
 
 ## Inspection
 
-- `grep -rnE '(AES|DES|RSA|SHA[0-9]|HMAC|encrypt|decrypt|cipher)\s*[\(\.]' --include="*.java" --include="*.py" --include="*.ts" --include="*.go" --include="*.cs" $TARGET` | MEDIUM | Potential hand-rolled cryptography — verify library usage
+- `grep -rnE '(AES|DES|RSA|SHA[0-9]|HMAC|encrypt|decrypt|cipher)\s*[\(\.]' --include="*.java" --include="*.py" --include="*.ts" --include="*.go" --include="*.cs" $TARGET` | MEDIUM | Potential hand-rolled cryptography - verify library usage
 
 ## Good practice
 
-- Use well-established, widely-audited libraries for all cryptographic operations — never implement your own
+- Use well-established, widely-audited libraries for all cryptographic operations - never implement your own
 - Centralise authentication and authorisation in a single, well-tested module or middleware; do not scatter security decisions across the codebase
 - Prefer flat, explicit allow-lists over complex hierarchical permission models
 - Limit the number of code paths that handle security-critical decisions; each additional branch is a potential bypass

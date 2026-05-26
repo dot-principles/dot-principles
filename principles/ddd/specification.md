@@ -1,4 +1,4 @@
-# DDD-SPECIFICATION — Specification Pattern
+# DDD-SPECIFICATION - Specification Pattern
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, ddd, object-oriented, domain-logic
@@ -11,24 +11,24 @@ Encapsulate a business rule or criterion in a separate **Specification** object 
 
 ## Why it matters
 
-When selection criteria are expressed in ad-hoc query strings, service methods with boolean flags, or inline conditionals scattered across the codebase, the business rules become invisible. Changing a rule requires finding and updating every place it appears. Specifications give business rules a name, a location, and a type — they can be tested, composed, and passed as arguments without leaking their implementation.
+When selection criteria are expressed in ad-hoc query strings, service methods with boolean flags, or inline conditionals scattered across the codebase, the business rules become invisible. Changing a rule requires finding and updating every place it appears. Specifications give business rules a name, a location, and a type - they can be tested, composed, and passed as arguments without leaking their implementation.
 
 ## Violations to detect
 
 - Selection logic duplicated in multiple repository methods, service calls, and UI filters that all implement the same underlying business rule
-- Repository methods with boolean parameters (`findOrders(boolean isPending, boolean isLargeOrder)`) — each combination should be a named specification
+- Repository methods with boolean parameters (`findOrders(boolean isPending, boolean isLargeOrder)`) - each combination should be a named specification
 - Business rules expressed as raw SQL fragments, JPQL strings, or predicate lambdas inline at the call site, with no reusable named object
 - Complex eligibility or validation rules written as multi-condition `if` chains that cannot be passed, stored, or composed
 
 ## Good practice
 
 ```java
-// Violation — rule duplicated and anonymous at every call site
+// Violation - rule duplicated and anonymous at every call site
 List<Order> largeOrders = orders.stream()
     .filter(o -> o.getStatus() == PENDING && o.getTotal().compareTo(THRESHOLD) > 0)
     .collect(toList());
 
-// Correct — named, composable, testable specifications
+// Correct - named, composable, testable specifications
 Specification<Order> isPending = new PendingOrderSpec();
 Specification<Order> isLarge   = new LargeOrderSpec(THRESHOLD);
 Specification<Order> needsReview = isPending.and(isLarge);

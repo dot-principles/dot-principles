@@ -1,4 +1,4 @@
-# DDD-ENTITY — Entity
+# DDD-ENTITY - Entity
 
 **Layer:** 2 (contextual)
 **Categories:** domain-modeling, domain-driven-design

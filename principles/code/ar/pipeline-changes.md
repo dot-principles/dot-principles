@@ -1,4 +1,4 @@
-# CODE-AR-PIPELINE-CHANGES — Make infrastructure changes through a pipeline, not direct access
+# CODE-AR-PIPELINE-CHANGES - Make infrastructure changes through a pipeline, not direct access
 
 **Layer:** 2
 **Categories:** architecture, infrastructure, devops
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Infrastructure changes should flow through an automated pipeline — commit code, run validation, plan the change, get approval, apply it. No one should apply infrastructure changes by running commands directly from their workstation. The pipeline is the only path to production infrastructure, ensuring that every change is tested, reviewed, and auditable.
+Infrastructure changes should flow through an automated pipeline - commit code, run validation, plan the change, get approval, apply it. No one should apply infrastructure changes by running commands directly from their workstation. The pipeline is the only path to production infrastructure, ensuring that every change is tested, reviewed, and auditable.
 
 ## Why it matters
 
@@ -24,7 +24,7 @@ Direct access to infrastructure tooling means that changes bypass testing, revie
 ## Good practice
 
 - Set up CI/CD pipelines (GitHub Actions, GitLab CI, Jenkins, etc.) that automatically run `plan`/`preview` on pull requests and `apply` on merge
-- Restrict production infrastructure credentials to the pipeline service account — individual engineers should not have direct apply permissions
+- Restrict production infrastructure credentials to the pipeline service account - individual engineers should not have direct apply permissions
 - Include policy-as-code checks (Open Policy Agent, Sentinel, Checkov) in the pipeline to catch security and compliance violations before apply
 - Provide a break-glass procedure for genuine emergencies that still logs all actions and requires post-incident reconciliation with code
 - Make the pipeline output (plan diffs) visible in pull requests so reviewers can see exactly what will change

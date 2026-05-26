@@ -1,4 +1,4 @@
-# DB-POLYGLOT-PERSISTENCE — Polyglot persistence — use the most appropriate storage technology for each distinct access pattern
+# DB-POLYGLOT-PERSISTENCE - Polyglot persistence - use the most appropriate storage technology for each distinct access pattern
 
 **Layer:** 2
 **Categories:** database, architecture, scalability
@@ -11,14 +11,14 @@ Do not force all data into a single storage technology. Different data access pa
 
 ## Why it matters
 
-A single relational database used for everything is often adequate for small systems but becomes a constraint as the system grows. Storing social graph data in SQL requires expensive recursive joins; storing time-series metrics in a document store wastes storage and produces slow aggregations. Polyglot persistence allows each component to use the store it is genuinely best suited to, but it introduces operational complexity — more systems to provision, monitor, backup, and reason about.
+A single relational database used for everything is often adequate for small systems but becomes a constraint as the system grows. Storing social graph data in SQL requires expensive recursive joins; storing time-series metrics in a document store wastes storage and produces slow aggregations. Polyglot persistence allows each component to use the store it is genuinely best suited to, but it introduces operational complexity - more systems to provision, monitor, backup, and reason about.
 
 ## Violations to detect
 
-- Using a relational database for full-text search by implementing LIKE queries on large text columns — produces full table scans instead of inverted index lookups
+- Using a relational database for full-text search by implementing LIKE queries on large text columns - produces full table scans instead of inverted index lookups
 - Storing time-series data (metrics, sensor readings) in a general-purpose relational or document database when a time-series store (InfluxDB, TimescaleDB, Prometheus) would reduce storage by an order of magnitude and serve range queries natively
 - Adding a document store when a relational model with JSONB columns would serve the same purpose with one fewer operational dependency
-- Adopting polyglot persistence at the beginning of a project before validating that a single store is genuinely insufficient — premature complexity
+- Adopting polyglot persistence at the beginning of a project before validating that a single store is genuinely insufficient - premature complexity
 
 ## Good practice
 

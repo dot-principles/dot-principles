@@ -1,4 +1,4 @@
-# GRASP-LOW-COUPLING — Low Coupling
+# GRASP-LOW-COUPLING - Low Coupling
 
 **Layer:** 1 (universal)
 **Categories:** software-design, maintainability, dependency-management
@@ -11,7 +11,7 @@ Assign responsibilities so that coupling remains low. A class should depend on a
 
 ## Why it matters
 
-High coupling means a change in one class forces changes in many others — a ripple effect that makes the system fragile and expensive to evolve. Tightly coupled classes are also difficult to test in isolation, reuse in other contexts, or understand independently.
+High coupling means a change in one class forces changes in many others - a ripple effect that makes the system fragile and expensive to evolve. Tightly coupled classes are also difficult to test in isolation, reuse in other contexts, or understand independently.
 
 ## Violations to detect
 

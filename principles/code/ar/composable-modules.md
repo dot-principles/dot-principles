@@ -1,4 +1,4 @@
-# CODE-AR-COMPOSABLE-MODULES — Keep infrastructure modules small and composable
+# CODE-AR-COMPOSABLE-MODULES - Keep infrastructure modules small and composable
 
 **Layer:** 2
 **Categories:** architecture, infrastructure, devops
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Infrastructure code should be organized into small, focused, independently manageable modules — each responsible for a single concern such as a network, a database cluster, or a compute group. These modules should be composed together to build complete environments, rather than defining everything in a single monolithic stack. Each module should have a clear interface (inputs and outputs), be independently testable, and be reusable across environments and projects.
+Infrastructure code should be organized into small, focused, independently manageable modules - each responsible for a single concern such as a network, a database cluster, or a compute group. These modules should be composed together to build complete environments, rather than defining everything in a single monolithic stack. Each module should have a clear interface (inputs and outputs), be independently testable, and be reusable across environments and projects.
 
 ## Why it matters
 
@@ -24,7 +24,7 @@ Monolithic infrastructure stacks are slow to plan, risky to change, and impossib
 ## Good practice
 
 - Organize infrastructure into modules by logical component: networking, compute, database, monitoring, DNS
-- Define clear input variables and output values for each module — treat modules like functions with explicit interfaces
+- Define clear input variables and output values for each module - treat modules like functions with explicit interfaces
 - Use module registries or Git repositories to share and version infrastructure modules across teams and projects
 - Keep each module's state independent so it can be planned and applied without affecting unrelated components
 - Compose modules in environment-level configurations that wire outputs from one module into inputs of another

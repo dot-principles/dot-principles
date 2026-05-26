@@ -1,4 +1,4 @@
-# CODE-SMELLS-GLOBAL-DATA — Global Data
+# CODE-SMELLS-GLOBAL-DATA - Global Data
 
 **Layer:** 1 (universal)
 **Categories:** code-smells, refactoring, coupling, maintainability
@@ -7,11 +7,11 @@
 
 ## Principle
 
-Global Data is any data that can be accessed and modified from anywhere in the codebase — global variables, class variables (static mutable fields), singletons, and global constants that hold mutable state. Global data is the most insidious form of coupling: you can never tell what code changes it, and finding all places it affects requires searching the entire codebase.
+Global Data is any data that can be accessed and modified from anywhere in the codebase - global variables, class variables (static mutable fields), singletons, and global constants that hold mutable state. Global data is the most insidious form of coupling: you can never tell what code changes it, and finding all places it affects requires searching the entire codebase.
 
 ## Why it matters
 
-Global mutable state makes a program's behavior depend on history — the sequence in which code runs — rather than on local inputs. It makes testing hard (tests share state and interfere with each other), makes concurrency dangerous (race conditions), and makes the code hard to reason about in isolation.
+Global mutable state makes a program's behavior depend on history - the sequence in which code runs - rather than on local inputs. It makes testing hard (tests share state and interfere with each other), makes concurrency dangerous (race conditions), and makes the code hard to reason about in isolation.
 
 ## Violations to detect
 

@@ -1,4 +1,4 @@
-# CD-DEPLOYMENT-SMOKE-TESTS — Run a minimal automated test suite after every deployment to verify the service is alive before routing real traffic
+# CD-DEPLOYMENT-SMOKE-TESTS - Run a minimal automated test suite after every deployment to verify the service is alive before routing real traffic
 
 **Layer:** 2
 **Categories:** devops, continuous-delivery, testing, deployment, reliability
@@ -7,11 +7,11 @@
 
 ## Principle
 
-Immediately after deploying to any environment, run a small set of automated tests — smoke tests or deployment verification tests — that exercise the most critical paths of the service. These tests do not replace a full acceptance suite; they answer one question: "Did the deployment succeed and is the service basically functional?" If smoke tests fail, halt the pipeline and revert before real traffic is affected.
+Immediately after deploying to any environment, run a small set of automated tests - smoke tests or deployment verification tests - that exercise the most critical paths of the service. These tests do not replace a full acceptance suite; they answer one question: "Did the deployment succeed and is the service basically functional?" If smoke tests fail, halt the pipeline and revert before real traffic is affected.
 
 ## Why it matters
 
-A deployment can complete without errors at the infrastructure level while the application itself is broken — a misconfigured environment variable, a missing secret, or a bad startup path can silently disable core functionality. Smoke tests catch these failures before users do. Running them after every deployment, not just in staging, ensures that production deployments are verified rather than assumed to have succeeded.
+A deployment can complete without errors at the infrastructure level while the application itself is broken - a misconfigured environment variable, a missing secret, or a bad startup path can silently disable core functionality. Smoke tests catch these failures before users do. Running them after every deployment, not just in staging, ensures that production deployments are verified rather than assumed to have succeeded.
 
 ## Violations to detect
 
@@ -31,9 +31,9 @@ find . \( -name "*smoke*" \) \( -name "*.py" -o -name "*.js" -o -name "*.ts" -o 
 
 ## Good practice
 
-- Keep the smoke test suite small and fast — under two minutes; it should test happy paths, not edge cases
+- Keep the smoke test suite small and fast - under two minutes; it should test happy paths, not edge cases
 - Include connectivity checks: can the service reach its database, cache, and critical downstream APIs?
-- Run smoke tests against the exact deployed instance before routing traffic (blue-green or canary) — not against a separate test environment
+- Run smoke tests against the exact deployed instance before routing traffic (blue-green or canary) - not against a separate test environment
 - Automate rollback: if smoke tests fail, the pipeline should revert the deployment without human intervention
 - Tag smoke tests clearly in the test framework so they can be run in isolation
 

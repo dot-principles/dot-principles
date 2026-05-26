@@ -1,4 +1,4 @@
-# CODE-CC-TASK-BASED-CONCURRENCY — Prefer task-based concurrency over raw threads
+# CODE-CC-TASK-BASED-CONCURRENCY - Prefer task-based concurrency over raw threads
 
 **Layer:** 2
 **Categories:** concurrency, thread-safety, performance

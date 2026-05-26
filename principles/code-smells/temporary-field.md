@@ -1,4 +1,4 @@
-# CODE-SMELLS-TEMPORARY-FIELD — Temporary Field
+# CODE-SMELLS-TEMPORARY-FIELD - Temporary Field
 
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, maintainability

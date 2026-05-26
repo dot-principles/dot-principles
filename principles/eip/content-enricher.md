@@ -1,4 +1,4 @@
-# EIP-CONTENT-ENRICHER — Content Enricher
+# EIP-CONTENT-ENRICHER - Content Enricher
 
 **Layer:** 2 (contextual)
 **Categories:** integration, messaging, maintainability
@@ -7,7 +7,7 @@
 
 ## Principle
 
-A Content Enricher augments an incoming message with additional data — looked up from a data store, a service call, or a local computation — before passing the enriched message downstream. The enrichment concern belongs in a dedicated component at the pipeline boundary. No downstream consumer should need to perform its own enrichment lookups for data that could have been added upstream.
+A Content Enricher augments an incoming message with additional data - looked up from a data store, a service call, or a local computation - before passing the enriched message downstream. The enrichment concern belongs in a dedicated component at the pipeline boundary. No downstream consumer should need to perform its own enrichment lookups for data that could have been added upstream.
 
 ## Why it matters
 
@@ -17,14 +17,14 @@ When enrichment is embedded in consumer logic, the same lookup is duplicated acr
 
 - Multiple consumers each making the same external lookup (database query, API call) to retrieve the same additional data for the same message type
 - Enrichment data fetched inside a message handler that is expected to complete quickly, but the fetch blocks the handler thread on a slow or unavailable dependency
-- Enrichment logic that is not independently testable — it can only be tested end-to-end with the full consumer pipeline active
-- A consumer that receives a sparse message and immediately queries the originating system to reconstruct a fully populated view — the producer should have emitted a richer event, or the enricher should have augmented it at the boundary
+- Enrichment logic that is not independently testable - it can only be tested end-to-end with the full consumer pipeline active
+- A consumer that receives a sparse message and immediately queries the originating system to reconstruct a fully populated view - the producer should have emitted a richer event, or the enricher should have augmented it at the boundary
 
 ## Good practice
 
 - Place the Content Enricher as a discrete pipeline stage between the inbound channel and the processing consumers
 - Cache frequently enriched data with an appropriate TTL to avoid per-message round-trips to a slow data source
-- Fail or dead-letter the message in the enricher if required enrichment data cannot be retrieved — do not pass an incompletely enriched message downstream to be silently mishandled
+- Fail or dead-letter the message in the enricher if required enrichment data cannot be retrieved - do not pass an incompletely enriched message downstream to be silently mishandled
 - Test the enricher in isolation: given an input message, assert the expected fields are added without testing any downstream processing logic
 
 ## Sources

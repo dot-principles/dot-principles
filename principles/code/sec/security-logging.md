@@ -1,4 +1,4 @@
-# CODE-SEC-SECURITY-LOGGING — Log security events and monitor for attacks
+# CODE-SEC-SECURITY-LOGGING - Log security events and monitor for attacks
 
 **Layer:** 2 (contextual)
 **Categories:** security
@@ -28,9 +28,9 @@ The average time to detect a breach is measured in months, not minutes. Without 
 - Include structured context in every log entry: timestamp, user ID, source IP, action, resource, and outcome
 - Send logs to a centralized, tamper-resistant logging system (SIEM) in near-real time
 - Configure alerts for anomalous patterns: brute-force attempts, privilege escalation, unusual volumes of access
-- Never log sensitive data — mask or exclude passwords, tokens, credit card numbers, and PII
+- Never log sensitive data - mask or exclude passwords, tokens, credit card numbers, and PII
 - Establish and regularly test an incident response plan that uses log data for investigation and remediation
 
 ## Sources
 
-- OWASP Foundation. "OWASP Top 10:2021 — A09:2021 Security Logging and Monitoring Failures." https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/
+- OWASP Foundation. "OWASP Top 10:2021 - A09:2021 Security Logging and Monitoring Failures." https://owasp.org/Top10/A09_2021-Security_Logging_and_Monitoring_Failures/

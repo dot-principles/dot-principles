@@ -1,4 +1,4 @@
-# DDD-OPEN-HOST-SERVICE — Open Host Service
+# DDD-OPEN-HOST-SERVICE - Open Host Service
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, domain-driven-design, api-design
@@ -7,11 +7,11 @@
 
 ## Principle
 
-Define a well-specified protocol for other Bounded Contexts to access your context's capabilities. The Open Host Service is a published, versioned API — REST, gRPC, event schema, or similar — that is stable, documented, and decoupled from the internal domain model. Consumers use this protocol; the internal model is free to evolve independently.
+Define a well-specified protocol for other Bounded Contexts to access your context's capabilities. The Open Host Service is a published, versioned API - REST, gRPC, event schema, or similar - that is stable, documented, and decoupled from the internal domain model. Consumers use this protocol; the internal model is free to evolve independently.
 
 ## Why it matters
 
-Without an Open Host Service, other contexts integrate by importing your internal types or accessing your database directly, creating tight coupling to your implementation details. When your internal model changes — as it must — you break all your consumers. A well-defined protocol provides a stable integration surface that absorbs internal change without propagating it to consumers.
+Without an Open Host Service, other contexts integrate by importing your internal types or accessing your database directly, creating tight coupling to your implementation details. When your internal model changes - as it must - you break all your consumers. A well-defined protocol provides a stable integration surface that absorbs internal change without propagating it to consumers.
 
 ## Violations to detect
 
@@ -23,7 +23,7 @@ Without an Open Host Service, other contexts integrate by importing your interna
 ## Good practice
 
 - Define the protocol (OpenAPI spec, Protobuf, Avro schema, AsyncAPI) before implementation
-- Version it explicitly — consumers depend on the version, not the implementation
+- Version it explicitly - consumers depend on the version, not the implementation
 - Translate between the internal domain model and the protocol in a dedicated translation layer; never expose internal entities directly
 - Write consumer contract tests to verify the protocol remains backward-compatible
 

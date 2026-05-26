@@ -1,4 +1,4 @@
-# ARCH-LAYERED — Layered Architecture
+# ARCH-LAYERED - Layered Architecture
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, separation-of-concerns
@@ -11,7 +11,7 @@ Organise software into horizontal layers where each layer has a specific respons
 
 ## Why it matters
 
-Layering creates predictable dependency direction, making each layer independently testable and replaceable. Violations — presentation logic in the database layer, business logic in controllers, data access in the UI — produce code that cannot be tested without instantiating the full stack and cannot be changed without ripple effects across unrelated concerns.
+Layering creates predictable dependency direction, making each layer independently testable and replaceable. Violations - presentation logic in the database layer, business logic in controllers, data access in the UI - produce code that cannot be tested without instantiating the full stack and cannot be changed without ripple effects across unrelated concerns.
 
 ## Violations to detect
 
@@ -24,7 +24,7 @@ Layering creates predictable dependency direction, making each layer independent
 
 - Map each layer to a package or module boundary; enforce the rule with architectural tests (ArchUnit, Dependency Cruiser, import-linter)
 - Define clear interfaces at each layer boundary
-- Keep business logic in the domain/application layer — the persistence layer is a detail
+- Keep business logic in the domain/application layer - the persistence layer is a detail
 
 ## Sources
 

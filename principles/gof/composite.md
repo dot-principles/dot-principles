@@ -1,4 +1,4 @@
-# GOF-COMPOSITE — Composite Pattern
+# GOF-COMPOSITE - Composite Pattern
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
@@ -44,14 +44,14 @@ classDiagram
 ```
 
 ```java
-// Violation — client must check type at every step
+// Violation - client must check type at every step
 if (item instanceof Directory) {
     for (FileSystemItem child : ((Directory) item).getChildren()) { ... }
 } else {
     processFile((File) item);
 }
 
-// Correct — uniform interface; client never knows if it's a leaf or composite
+// Correct - uniform interface; client never knows if it's a leaf or composite
 FileSystemItem root = new Directory("root");
 root.getSize();  // recursively sums children or returns file size
 ```

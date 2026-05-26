@@ -1,4 +1,4 @@
-# CODE-DX-DELETE-DEAD-CODE — Delete dead code
+# CODE-DX-DELETE-DEAD-CODE - Delete dead code
 
 **Layer:** 1 (universal)
 **Categories:** developer-experience, readability
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Remove code that is no longer executed or referenced. Dead code — unreachable branches, unused functions, commented-out blocks, obsolete feature flags — adds noise to the codebase without providing value. It misleads readers into thinking it is relevant, increases the surface area for bugs, and slows down comprehension. Version control preserves history; the codebase should reflect only what is currently needed.
+Remove code that is no longer executed or referenced. Dead code - unreachable branches, unused functions, commented-out blocks, obsolete feature flags - adds noise to the codebase without providing value. It misleads readers into thinking it is relevant, increases the surface area for bugs, and slows down comprehension. Version control preserves history; the codebase should reflect only what is currently needed.
 
 ## Why it matters
 
@@ -29,7 +29,7 @@ Dead code imposes a maintenance tax on every developer who encounters it. Reader
 
 ## Good practice
 
-- Delete dead code immediately when you identify it — do not leave it "just in case"
+- Delete dead code immediately when you identify it - do not leave it "just in case"
 - Trust version control to preserve historical code; do not use comments as a backup mechanism
 - Use static analysis tools and IDE features to detect unused code automatically
 - Clean up feature flags and their associated code paths as part of the flag retirement process

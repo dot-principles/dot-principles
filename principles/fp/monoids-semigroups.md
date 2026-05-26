@@ -1,4 +1,4 @@
-# FP-MONOIDS-SEMIGROUPS — Monoids and semigroups
+# FP-MONOIDS-SEMIGROUPS - Monoids and semigroups
 
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, abstraction, software-design
@@ -7,11 +7,11 @@
 
 ## Principle
 
-A semigroup is a type with an associative binary operation for combining two values of that type. A monoid is a semigroup that additionally has an identity element — a neutral value that, when combined with any other value, returns that value unchanged. Recognising these algebraic structures in your domain types enables generic, composable, and parallelisable aggregation operations without ad-hoc special cases.
+A semigroup is a type with an associative binary operation for combining two values of that type. A monoid is a semigroup that additionally has an identity element - a neutral value that, when combined with any other value, returns that value unchanged. Recognising these algebraic structures in your domain types enables generic, composable, and parallelisable aggregation operations without ad-hoc special cases.
 
 ## Why it matters
 
-Many common operations — concatenating strings, adding numbers, merging maps, combining validation errors — share the same algebraic structure. When this structure is made explicit, the same generic `fold`/`reduce` implementation works for all of them, and associativity guarantees that the operation can be split across threads and recombined without changing the result. Monoids also make the identity element explicit, eliminating the need for special handling of empty collections.
+Many common operations - concatenating strings, adding numbers, merging maps, combining validation errors - share the same algebraic structure. When this structure is made explicit, the same generic `fold`/`reduce` implementation works for all of them, and associativity guarantees that the operation can be split across threads and recombined without changing the result. Monoids also make the identity element explicit, eliminating the need for special handling of empty collections.
 
 ## Violations to detect
 

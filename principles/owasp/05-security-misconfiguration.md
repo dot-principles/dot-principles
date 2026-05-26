@@ -1,4 +1,4 @@
-# OWASP-05-SECURITY-MISCONFIGURATION — Security Misconfiguration
+# OWASP-05-SECURITY-MISCONFIGURATION - Security Misconfiguration
 
 **Layer:** 2 (contextual)
 **Categories:** security, configuration, hardening
@@ -11,7 +11,7 @@ Secure and harden all configuration: default credentials changed, unnecessary fe
 
 ## Why it matters
 
-Default configurations are optimised for ease of use, not security. Default passwords, open admin consoles, verbose error messages exposing stack traces, permissive CORS, and missing security headers are trivially exploitable — they require no sophisticated attack, just knowledge of the default.
+Default configurations are optimised for ease of use, not security. Default passwords, open admin consoles, verbose error messages exposing stack traces, permissive CORS, and missing security headers are trivially exploitable - they require no sophisticated attack, just knowledge of the default.
 
 ## Violations to detect
 
@@ -31,4 +31,4 @@ Default configurations are optimised for ease of use, not security. Default pass
 
 ## Sources
 
-- OWASP Foundation. "A05:2021 – Security Misconfiguration." *OWASP Top 10*, 2021. https://owasp.org/Top10/A05_2021-Security_Misconfiguration/
+- OWASP Foundation. "A05:2021 - Security Misconfiguration." *OWASP Top 10*, 2021. https://owasp.org/Top10/A05_2021-Security_Misconfiguration/

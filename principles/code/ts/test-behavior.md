@@ -1,4 +1,4 @@
-# CODE-TS-TEST-BEHAVIOR — Test behavior, not implementation
+# CODE-TS-TEST-BEHAVIOR - Test behavior, not implementation
 
 **Layer:** 2 (contextual)
 **Categories:** testing, quality
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Tests should specify what a unit of code does, not how it does it. A test coupled to internal structure — such as the order of method calls, private method invocations, or internal data representation — breaks whenever the implementation is refactored, even if the behavior remains correct. Tests should exercise the public contract and verify observable outcomes.
+Tests should specify what a unit of code does, not how it does it. A test coupled to internal structure - such as the order of method calls, private method invocations, or internal data representation - breaks whenever the implementation is refactored, even if the behavior remains correct. Tests should exercise the public contract and verify observable outcomes.
 
 ## Why it matters
 
@@ -24,9 +24,9 @@ Implementation-coupled tests punish refactoring. Every internal change forces te
 ## Good practice
 
 - Assert on return values, output state, published events, or observable side effects
-- Use mocks sparingly — prefer verifying outcomes over verifying interactions
+- Use mocks sparingly - prefer verifying outcomes over verifying interactions
 - Write tests against the public API of the module or class, not its internals
-- Ask "if I refactored the internals, would this test still pass?" — if not, the test is too coupled
+- Ask "if I refactored the internals, would this test still pass?" - if not, the test is too coupled
 
 ## Sources
 

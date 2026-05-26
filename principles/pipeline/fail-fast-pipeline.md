@@ -1,4 +1,4 @@
-# PIPELINE-FAIL-FAST-PIPELINE — Abort the pipeline on the first meaningful failure
+# PIPELINE-FAIL-FAST-PIPELINE - Abort the pipeline on the first meaningful failure
 
 **Layer:** 1 (universal)
 **Categories:** reliability, pipeline, efficiency
@@ -7,7 +7,7 @@
 
 ## Principle
 
-When a pipeline stage fails, subsequent dependent stages must not execute. The pipeline should abort as early as possible and report the failure clearly, rather than continuing to run downstream stages whose results are meaningless because an upstream dependency failed. Allow-failure and continue-on-error directives must be used sparingly and only for explicitly non-blocking checks — never for core build, test, or deploy stages.
+When a pipeline stage fails, subsequent dependent stages must not execute. The pipeline should abort as early as possible and report the failure clearly, rather than continuing to run downstream stages whose results are meaningless because an upstream dependency failed. Allow-failure and continue-on-error directives must be used sparingly and only for explicitly non-blocking checks - never for core build, test, or deploy stages.
 
 ## Why it matters
 
@@ -20,7 +20,7 @@ A pipeline that continues after failure wastes compute resources, delays feedbac
 - `|| true` or `set +e` appended to commands in pipeline scripts to suppress failures
 - Deploy stages that run unconditionally regardless of test stage outcomes (no `needs:` or `depends_on:` dependencies)
 - `when: always` or `when: on_failure` on deploy steps that should only run after a successful test
-- Missing stage dependencies in CI configuration — stages run in parallel when they should be sequential with failure propagation
+- Missing stage dependencies in CI configuration - stages run in parallel when they should be sequential with failure propagation
 - `try/catch` blocks in Jenkinsfile that silently swallow stage failures
 
 ## Inspection
@@ -35,7 +35,7 @@ A pipeline that continues after failure wastes compute resources, delays feedbac
 - Use `needs:` (GitHub Actions), `needs:` or `dependencies:` (GitLab CI), or `dependsOn` (Azure Pipelines) to express stage ordering
 - Reserve `continue-on-error` for genuinely non-blocking advisory checks (e.g., optional linting, coverage reporting)
 - In Jenkinsfile, let stage failures propagate naturally rather than wrapping in try/catch
-- Configure the pipeline to report the first failure prominently — not buried under subsequent stage outputs
+- Configure the pipeline to report the first failure prominently - not buried under subsequent stage outputs
 - Use `set -euo pipefail` at the top of bash scripts in pipeline steps to catch command failures, unset variables, and pipe failures
 
 ## Sources

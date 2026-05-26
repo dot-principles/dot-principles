@@ -1,4 +1,4 @@
-# EFFECTIVE-JAVA-BUILDER — Consider Builders for Constructors with Many Parameters
+# EFFECTIVE-JAVA-BUILDER - Consider Builders for Constructors with Many Parameters
 
 **Layer:** 2 (contextual)
 **Categories:** api-design, developer-experience
@@ -7,7 +7,7 @@
 
 ## Principle
 
-When a constructor or static factory method would require many parameters — especially optional ones — consider the Builder pattern. A builder lets the client set parameters one at a time in a fluent style and then call a `build()` method that validates the parameters and constructs the object. Builders combine the safety of telescoping constructors with the readability of the JavaBeans pattern.
+When a constructor or static factory method would require many parameters - especially optional ones - consider the Builder pattern. A builder lets the client set parameters one at a time in a fluent style and then call a `build()` method that validates the parameters and constructs the object. Builders combine the safety of telescoping constructors with the readability of the JavaBeans pattern.
 
 ## Why it matters
 
@@ -23,10 +23,10 @@ Telescoping constructors (overloading constructors with increasing numbers of pa
 ## Good practice
 
 ```java
-// Violation — telescoping constructor; easy to transpose arguments
+// Violation - telescoping constructor; easy to transpose arguments
 NutritionFacts cocaCola = new NutritionFacts(240, 8, 100, 0, 35, 27);
 
-// Correct — fluent builder; only required fields are mandatory
+// Correct - fluent builder; only required fields are mandatory
 NutritionFacts cocaCola = new NutritionFacts.Builder(240, 8)
     .calories(100)
     .sodium(35)
@@ -37,7 +37,7 @@ NutritionFacts cocaCola = new NutritionFacts.Builder(240, 8)
 - Make the builder a `static` inner class of the class it builds
 - Return `this` from each setter method to enable method chaining
 - Perform validation in the `build()` method, not in individual setter methods, to enforce cross-field constraints
-- Consider making the built class immutable — the builder is the only way to set its fields
+- Consider making the built class immutable - the builder is the only way to set its fields
 
 ## Sources
 

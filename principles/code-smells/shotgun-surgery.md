@@ -1,4 +1,4 @@
-# CODE-SMELLS-SHOTGUN-SURGERY — Shotgun Surgery
+# CODE-SMELLS-SHOTGUN-SURGERY - Shotgun Surgery
 
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, maintainability

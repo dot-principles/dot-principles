@@ -1,4 +1,4 @@
-# CODE-TS-TEST-INDEPENDENCE — Tests must be independent and isolated
+# CODE-TS-TEST-INDEPENDENCE - Tests must be independent and isolated
 
 **Layer:** 2 (contextual)
 **Categories:** testing, quality
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Each test must be able to run in any order, in isolation or in parallel, and produce the same result. Tests must not share mutable state — no test should depend on the side effects of another test. Each test is responsible for setting up its own preconditions and cleaning up after itself.
+Each test must be able to run in any order, in isolation or in parallel, and produce the same result. Tests must not share mutable state - no test should depend on the side effects of another test. Each test is responsible for setting up its own preconditions and cleaning up after itself.
 
 ## Why it matters
 
@@ -23,7 +23,7 @@ Coupled tests produce intermittent failures that depend on execution order, maki
 
 ## Good practice
 
-- Use fresh fixtures for each test — create the state you need in setup, tear it down afterward
+- Use fresh fixtures for each test - create the state you need in setup, tear it down afterward
 - Prefer in-memory or transactional test databases that roll back after each test
 - Avoid class-level mutable state in test classes; use per-test instance variables
 - Run tests in random order periodically to surface hidden coupling

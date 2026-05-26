@@ -1,4 +1,4 @@
-# CODE-TP-MAKE-ILLEGAL-STATES-UNREPRESENTABLE — Make illegal states unrepresentable through types
+# CODE-TP-MAKE-ILLEGAL-STATES-UNREPRESENTABLE - Make illegal states unrepresentable through types
 
 **Layer:** 2
 **Categories:** type-safety, correctness
@@ -23,9 +23,9 @@ Runtime checks and validation are necessary at system boundaries, but within the
 
 ## Good practice
 
-- Use discriminated unions (sum types) to represent states that have different associated data — each variant carries exactly the fields relevant to that state
+- Use discriminated unions (sum types) to represent states that have different associated data - each variant carries exactly the fields relevant to that state
 - Replace boolean flag combinations with an enum that lists only the valid states
-- Make constructors enforce invariants — if a value cannot exist without certain data, require that data at construction time
+- Make constructors enforce invariants - if a value cannot exist without certain data, require that data at construction time
 - Use the type system to distinguish between validated and unvalidated data (e.g., `EmailAddress` vs. raw `string`)
 - When you find yourself writing "this should never happen" in a runtime check, ask whether the type system could prevent it instead
 

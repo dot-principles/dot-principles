@@ -1,4 +1,4 @@
-# CODE-DX-RECOGNITION-OVER-RECALL — Support recognition over recall in interfaces
+# CODE-DX-RECOGNITION-OVER-RECALL - Support recognition over recall in interfaces
 
 **Layer:** 2
 **Categories:** developer-experience, usability, ux-design
@@ -11,7 +11,7 @@ Minimize the user's memory load by making objects, actions, and options visible.
 
 ## Why it matters
 
-Human working memory is limited — people can reliably hold only a few items at a time. Interfaces that require users to remember exact command names, configuration key spellings, or the output from a previous screen impose unnecessary cognitive load. Recognition (seeing and choosing from options) is fundamentally easier than recall (producing the answer from memory), so interfaces that support recognition are faster to use and produce fewer errors.
+Human working memory is limited - people can reliably hold only a few items at a time. Interfaces that require users to remember exact command names, configuration key spellings, or the output from a previous screen impose unnecessary cognitive load. Recognition (seeing and choosing from options) is fundamentally easier than recall (producing the answer from memory), so interfaces that support recognition are faster to use and produce fewer errors.
 
 ## Violations to detect
 
@@ -27,7 +27,7 @@ Human working memory is limited — people can reliably hold only a few items at
 - Use JSON Schema, TypeScript types, or similar mechanisms to enable IDE autocompletion for configuration files
 - In multi-step workflows, display a summary of previous selections so users can verify context without going back
 - Offer command palettes, search, and contextual menus that let users browse available actions rather than memorize them
-- Provide examples alongside documentation — users recognize correct usage patterns faster than they recall syntax rules
+- Provide examples alongside documentation - users recognize correct usage patterns faster than they recall syntax rules
 
 ## Sources
 

@@ -1,4 +1,4 @@
-# CODE-OB-DISTRIBUTED-TRACING — Trace requests across service boundaries with correlation IDs
+# CODE-OB-DISTRIBUTED-TRACING - Trace requests across service boundaries with correlation IDs
 
 **Layer:** 2 (contextual)
 **Categories:** observability, operations, reliability

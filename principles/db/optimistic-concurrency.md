@@ -1,4 +1,4 @@
-# DB-OPTIMISTIC-CONCURRENCY — Optimistic concurrency control — detect write conflicts at commit time rather than blocking readers
+# DB-OPTIMISTIC-CONCURRENCY - Optimistic concurrency control - detect write conflicts at commit time rather than blocking readers
 
 **Layer:** 2
 **Categories:** database, concurrency, transactions, performance
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Allow multiple transactions to read and prepare writes concurrently without acquiring locks. At commit time, verify that the data read during the transaction has not been modified by another committed transaction; if it has, abort and retry. Optimistic concurrency control (OCC) outperforms pessimistic locking in read-heavy, low-conflict workloads — it eliminates lock contention and deadlocks at the cost of occasional retries.
+Allow multiple transactions to read and prepare writes concurrently without acquiring locks. At commit time, verify that the data read during the transaction has not been modified by another committed transaction; if it has, abort and retry. Optimistic concurrency control (OCC) outperforms pessimistic locking in read-heavy, low-conflict workloads - it eliminates lock contention and deadlocks at the cost of occasional retries.
 
 ## Why it matters
 
@@ -16,14 +16,14 @@ Pessimistic locking serialises concurrent readers unnecessarily: a long-running 
 ## Violations to detect
 
 - Using SELECT FOR UPDATE (pessimistic row lock) on read-heavy paths where conflicts are rare, introducing unnecessary serialisation and deadlock risk
-- No version column or timestamp field on entities that are subject to concurrent updates — concurrent writes silently overwrite each other with the last writer winning
-- Retrying failed OCC transactions indefinitely without a bounded retry limit or backoff — can produce livelock under genuinely high conflict
-- Mixing optimistic and pessimistic locking strategies on the same entity without documentation — creates unpredictable behaviour under concurrency
+- No version column or timestamp field on entities that are subject to concurrent updates - concurrent writes silently overwrite each other with the last writer winning
+- Retrying failed OCC transactions indefinitely without a bounded retry limit or backoff - can produce livelock under genuinely high conflict
+- Mixing optimistic and pessimistic locking strategies on the same entity without documentation - creates unpredictable behaviour under concurrency
 
 ## Good practice
 
 - Add a `version` integer or `updated_at` timestamp column to every entity subject to concurrent mutation; increment or update it on every write
-- In the UPDATE statement, include `WHERE id = ? AND version = ?`; if zero rows are affected, a conflict occurred — retry the transaction
+- In the UPDATE statement, include `WHERE id = ? AND version = ?`; if zero rows are affected, a conflict occurred - retry the transaction
 - Use ORM-level optimistic locking (Hibernate `@Version`, ActiveRecord optimistic locking, SQLAlchemy `version_id_col`) rather than re-implementing it manually
 - Reserve pessimistic locking (`SELECT FOR UPDATE`) for genuinely high-conflict operations where the cost of repeated retries exceeds the cost of holding a lock
 

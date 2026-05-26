@@ -1,4 +1,4 @@
-# CODE-SMELLS-PRIMITIVE-OBSESSION — Primitive Obsession
+# CODE-SMELLS-PRIMITIVE-OBSESSION - Primitive Obsession
 
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, maintainability
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Primitive Obsession is the tendency to use built-in types — strings, integers, floats — to represent domain concepts that deserve their own small objects. A phone number is not a string; money is not a float; a ZIP code is not an integer. When primitives stand in for domain concepts, validation and behaviour scatter across the codebase instead of living in one place.
+Primitive Obsession is the tendency to use built-in types - strings, integers, floats - to represent domain concepts that deserve their own small objects. A phone number is not a string; money is not a float; a ZIP code is not an integer. When primitives stand in for domain concepts, validation and behaviour scatter across the codebase instead of living in one place.
 
 ## Why it matters
 

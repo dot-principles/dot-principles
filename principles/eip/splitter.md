@@ -1,4 +1,4 @@
-# EIP-SPLITTER — Splitter
+# EIP-SPLITTER - Splitter
 
 **Layer:** 2 (contextual)
 **Categories:** integration, messaging
@@ -11,7 +11,7 @@ A Splitter decomposes a single composite message that contains multiple items in
 
 ## Why it matters
 
-When splitting is implemented ad hoc — iterating a collection and publishing directly inside a business-logic method — the splitting concern becomes entangled with routing, transformation, and processing logic. The result is code where a single method reads, splits, routes, and partially processes messages, making it impossible to test or reuse any one concern independently. Without correlation on each sub-message, downstream processors cannot aggregate results back or track whether all items were successfully processed.
+When splitting is implemented ad hoc - iterating a collection and publishing directly inside a business-logic method - the splitting concern becomes entangled with routing, transformation, and processing logic. The result is code where a single method reads, splits, routes, and partially processes messages, making it impossible to test or reuse any one concern independently. Without correlation on each sub-message, downstream processors cannot aggregate results back or track whether all items were successfully processed.
 
 ## Violations to detect
 
@@ -27,7 +27,7 @@ When splitting is implemented ad hoc — iterating a collection and publishing d
 - Add a correlation ID and a sequence number to each sub-message, along with the total count, so downstream processors and aggregators can track completeness
 - Pair the Splitter with an Aggregator when the results of individual processing steps must be recombined into a composite reply
 - Handle partial failures explicitly: dead-letter failed sub-messages and decide whether to fail the whole batch or accept partial success
-- Test the splitter in isolation — verify it emits the correct number of sub-messages with the correct payloads and metadata
+- Test the splitter in isolation - verify it emits the correct number of sub-messages with the correct payloads and metadata
 
 ## Sources
 

@@ -1,4 +1,4 @@
-# CODE-CS-DESIGN-BY-CONTRACT — Design by Contract
+# CODE-CS-DESIGN-BY-CONTRACT - Design by Contract
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, correctness, object-oriented
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Every operation has a contract: a **precondition** the caller must satisfy before calling, a **postcondition** the implementation guarantees after returning, and a **class invariant** that holds at all observable points. The caller is responsible for meeting preconditions; the implementer is responsible for delivering postconditions. If a precondition is violated, the fault is the caller's — the implementation is free to fail fast.
+Every operation has a contract: a **precondition** the caller must satisfy before calling, a **postcondition** the implementation guarantees after returning, and a **class invariant** that holds at all observable points. The caller is responsible for meeting preconditions; the implementer is responsible for delivering postconditions. If a precondition is violated, the fault is the caller's - the implementation is free to fail fast.
 
 ## Why it matters
 
@@ -16,7 +16,7 @@ Undocumented and unenforced assumptions about inputs and outputs create latent b
 ## Violations to detect
 
 - Methods with no documented or enforced precondition that fail silently or crash deep in the call stack when given invalid input
-- Postconditions never checked — method claims to return a sorted list but callers cannot rely on it
+- Postconditions never checked - method claims to return a sorted list but callers cannot rely on it
 - Invariants (e.g., "balance is always ≥ 0") that are only informally understood and routinely violated in tests or edge cases
 - Defensive checks scattered in callers rather than defined once at the contract boundary
 

@@ -1,4 +1,4 @@
-# EFFECTIVE-JAVA-STATIC-FACTORY — Prefer Static Factory Methods over Constructors
+# EFFECTIVE-JAVA-STATIC-FACTORY - Prefer Static Factory Methods over Constructors
 
 **Layer:** 2 (contextual)
 **Categories:** api-design, developer-experience
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Instead of — or in addition to — public constructors, consider providing static factory methods. A static factory method is a static method that returns an instance of the class. Unlike constructors, factory methods have names, are not required to create a new object each time, and can return an object of any subtype of the declared return type.
+Instead of - or in addition to - public constructors, consider providing static factory methods. A static factory method is a static method that returns an instance of the class. Unlike constructors, factory methods have names, are not required to create a new object each time, and can return an object of any subtype of the declared return type.
 
 ## Why it matters
 
@@ -23,7 +23,7 @@ Static factory methods give API designers more control and expressiveness. A wel
 ## Good practice
 
 - Use conventional names: `of`, `valueOf`, `getInstance`, `newInstance`, `from`, `create`
-- Use factory methods to control instance creation — return cached instances or subclass instances as appropriate
+- Use factory methods to control instance creation - return cached instances or subclass instances as appropriate
 - Keep public constructors when the class is simple and a factory method would add no clarity
 - Document factory methods prominently, as they are less discoverable than constructors in IDE auto-complete
 

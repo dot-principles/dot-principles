@@ -1,4 +1,4 @@
-# 12FACTOR-05-BUILD-RELEASE-RUN — Build, Release, Run
+# 12FACTOR-05-BUILD-RELEASE-RUN - Build, Release, Run
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, cloud-native, deployment
@@ -16,9 +16,9 @@ Blurring these stages leads to untraceable deployments where "what is running?" 
 ## Violations to detect
 
 - Modifying code or config on a running server (SSH and edit in place)
-- No distinct build artifact — code deployed directly from version control at runtime
+- No distinct build artifact - code deployed directly from version control at runtime
 - Release bundles that include environment-specific config baked in (instead of injected at release time)
-- No release identifier — inability to determine which version is currently running
+- No release identifier - inability to determine which version is currently running
 
 ## Good practice
 

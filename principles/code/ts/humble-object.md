@@ -1,4 +1,4 @@
-# CODE-TS-HUMBLE-OBJECT — Extract logic from untestable shells into Humble Objects
+# CODE-TS-HUMBLE-OBJECT - Extract logic from untestable shells into Humble Objects
 
 **Layer:** 2 (contextual)
 **Categories:** testing, quality, software-design
@@ -8,7 +8,7 @@
 
 ## Principle
 
-When a class is hard to test because it is entangled with a framework, UI runtime, or external infrastructure, extract its logic into a plain, dependency-free class — the Humble Object. The shell class (UI widget, framework controller, message consumer) is left as thin as possible, delegating all meaningful work to the easily testable inner class.
+When a class is hard to test because it is entangled with a framework, UI runtime, or external infrastructure, extract its logic into a plain, dependency-free class - the Humble Object. The shell class (UI widget, framework controller, message consumer) is left as thin as possible, delegating all meaningful work to the easily testable inner class.
 
 ## Why it matters
 

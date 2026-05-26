@@ -1,4 +1,4 @@
-# CODE-RL-IDEMPOTENCY — Make operations idempotent to enable safe retries
+# CODE-RL-IDEMPOTENCY - Make operations idempotent to enable safe retries
 
 **Layer:** 2 (contextual)
 **Categories:** reliability, distributed-systems
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Design operations so that performing them multiple times produces the same result as performing them once. In a distributed system, messages can be delivered more than once, retries can re-execute a request whose original attempt actually succeeded, and clients may resubmit after a timeout. If operations are idempotent, these duplicates are harmless — the system converges to the correct state regardless of how many times the operation is applied.
+Design operations so that performing them multiple times produces the same result as performing them once. In a distributed system, messages can be delivered more than once, retries can re-execute a request whose original attempt actually succeeded, and clients may resubmit after a timeout. If operations are idempotent, these duplicates are harmless - the system converges to the correct state regardless of how many times the operation is applied.
 
 ## Why it matters
 
@@ -23,7 +23,7 @@ Network communication provides at-most-once or at-least-once delivery, but exact
 ## Good practice
 
 - Assign a unique idempotency key to each operation and track which keys have been processed, ignoring duplicates
-- Design state mutations as "set to value X" rather than "increment by Y" where possible — absolute assignments are naturally idempotent
+- Design state mutations as "set to value X" rather than "increment by Y" where possible - absolute assignments are naturally idempotent
 - Use database constraints (unique indexes, conditional writes) as a safety net to prevent duplicate effects
 - In event-driven systems, record the offset or sequence number of the last processed event so that reprocessing skips already-applied events
 

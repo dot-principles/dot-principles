@@ -1,10 +1,10 @@
-# DOC-AS-CODE — Treat documentation as source code
+# DOC-AS-CODE - Treat documentation as source code
 
 **Layer:** 1 (universal)
 **Categories:** documentation, maintainability, process
 **Applies-to:** docs
 **Summary:** Store documentation in version control alongside code and apply the same review and CI workflow.
-**Audit-scope:** limited — CI integration and external-wiki usage are not detectable from file contents; the presence of doc validation config and plain-text doc files is detectable
+**Audit-scope:** limited - CI integration and external-wiki usage are not detectable from file contents; the presence of doc validation config and plain-text doc files is detectable
 
 ## Principle
 
@@ -14,7 +14,7 @@ Treating docs as code couples documentation updates to code changes structurally
 
 ## Why it matters
 
-Documentation maintained outside version control — in wikis, shared drives, or standalone CMS systems — drifts from the code it describes because updates to docs and code are not coupled. There is no audit trail, no diff, and no review gate. Engineers most qualified to write accurate documentation are excluded from the editing workflow. Over time, unreviewed content accumulates and trust in the documentation collapses.
+Documentation maintained outside version control - in wikis, shared drives, or standalone CMS systems - drifts from the code it describes because updates to docs and code are not coupled. There is no audit trail, no diff, and no review gate. Engineers most qualified to write accurate documentation are excluded from the editing workflow. Over time, unreviewed content accumulates and trust in the documentation collapses.
 
 ## Violations to detect
 
@@ -35,7 +35,7 @@ Documentation maintained outside version control — in wikis, shared drives, or
 - Use plain-text formats (Markdown, AsciiDoc, reStructuredText) that are diffable and mergeable
 - Require documentation updates in the pull request that changes user-facing behavior; make it part of the definition of done
 - Run link checkers, spell checkers, and doc-tests in CI on every PR that touches documentation
-- Review documentation with the same rigour as code — assign a reviewer, leave comments, and request changes
+- Review documentation with the same rigour as code - assign a reviewer, leave comments, and request changes
 
 ## Sources
 

@@ -1,4 +1,4 @@
-# CODE-OB-HIGH-CARDINALITY — Use high-cardinality fields for debugging in production
+# CODE-OB-HIGH-CARDINALITY - Use high-cardinality fields for debugging in production
 
 **Layer:** 2 (contextual)
 **Categories:** observability, operations, reliability
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Include high-cardinality fields — such as user IDs, request IDs, shopping cart IDs, or specific parameter values — in your telemetry. High-cardinality dimensions let you identify the specific user, request, or entity experiencing a problem, rather than only knowing that "something is wrong somewhere." Traditional metrics systems discard this detail through aggregation; observability requires preserving it.
+Include high-cardinality fields - such as user IDs, request IDs, shopping cart IDs, or specific parameter values - in your telemetry. High-cardinality dimensions let you identify the specific user, request, or entity experiencing a problem, rather than only knowing that "something is wrong somewhere." Traditional metrics systems discard this detail through aggregation; observability requires preserving it.
 
 ## Why it matters
 

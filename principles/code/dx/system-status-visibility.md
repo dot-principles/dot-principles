@@ -1,4 +1,4 @@
-# CODE-DX-SYSTEM-STATUS-VISIBILITY — Provide clear visibility of system status
+# CODE-DX-SYSTEM-STATUS-VISIBILITY - Provide clear visibility of system status
 
 **Layer:** 2
 **Categories:** developer-experience, usability, ux-design
@@ -7,7 +7,7 @@
 
 ## Principle
 
-The system should always keep users informed about what is going on, through appropriate feedback within reasonable time. When a user initiates an action, the system must indicate that the action was received, show progress if the operation takes time, and clearly communicate the outcome — success, failure, or partial completion. Silence is the worst response a system can give.
+The system should always keep users informed about what is going on, through appropriate feedback within reasonable time. When a user initiates an action, the system must indicate that the action was received, show progress if the operation takes time, and clearly communicate the outcome - success, failure, or partial completion. Silence is the worst response a system can give.
 
 ## Why it matters
 
@@ -25,7 +25,7 @@ When users cannot see what the system is doing, they lose trust and make mistake
 
 - Show immediate acknowledgment when a user action is received (spinner, progress bar, "saving..." text)
 - For long-running tasks, provide progress updates with estimates when possible
-- Clearly distinguish between "in progress," "succeeded," and "failed" states — use visual differentiation (color, icons) and text
+- Clearly distinguish between "in progress," "succeeded," and "failed" states - use visual differentiation (color, icons) and text
 - Display timestamps on data to make freshness visible (e.g., "last updated 2 minutes ago")
 - For CLI tools, provide verbose and quiet modes so users can choose their level of visibility
 

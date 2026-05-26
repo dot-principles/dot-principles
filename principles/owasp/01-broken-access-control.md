@@ -1,4 +1,4 @@
-# OWASP-01-BROKEN-ACCESS-CONTROL — Broken Access Control
+# OWASP-01-BROKEN-ACCESS-CONTROL - Broken Access Control
 
 **Layer:** 2 (contextual)
 **Categories:** security, access-control, authorisation
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Enforce authorisation checks on every request for a protected resource or action. Access control failures occur when users can act outside their intended permissions — reading another user's data, accessing admin functions, or elevating their own privilege. Controls must be enforced server-side, not just client-side.
+Enforce authorisation checks on every request for a protected resource or action. Access control failures occur when users can act outside their intended permissions - reading another user's data, accessing admin functions, or elevating their own privilege. Controls must be enforced server-side, not just client-side.
 
 ## Why it matters
 
@@ -30,4 +30,4 @@ Broken access control was the #1 OWASP risk in 2021, found in 94% of tested appl
 
 ## Sources
 
-- OWASP Foundation. "A01:2021 – Broken Access Control." *OWASP Top 10*, 2021. https://owasp.org/Top10/A01_2021-Broken_Access_Control/
+- OWASP Foundation. "A01:2021 - Broken Access Control." *OWASP Top 10*, 2021. https://owasp.org/Top10/A01_2021-Broken_Access_Control/

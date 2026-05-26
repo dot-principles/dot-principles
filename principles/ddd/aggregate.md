@@ -1,4 +1,4 @@
-# DDD-AGGREGATE — Aggregate
+# DDD-AGGREGATE - Aggregate
 
 **Layer:** 2 (contextual)
 **Categories:** domain-modeling, domain-driven-design
@@ -42,7 +42,7 @@ classDiagram
     Order --> Money
 ```
 
-- Keep Aggregates small — prefer single-Entity Aggregates and use references (by ID) to other Aggregates rather than direct object references
+- Keep Aggregates small - prefer single-Entity Aggregates and use references (by ID) to other Aggregates rather than direct object references
 - Identify the true invariants the Aggregate must enforce and use those to determine what belongs inside the boundary
 - Use eventual consistency and Domain Events to synchronize state between Aggregates
 - Each Aggregate should be loadable and savable as a single atomic unit; design your persistence around this constraint

@@ -1,4 +1,4 @@
-# CODE-DX-NAMING — Name things by what they represent
+# CODE-DX-NAMING - Name things by what they represent
 
 **Layer:** 1 (universal)
 **Categories:** developer-experience, readability, maintainability
@@ -28,10 +28,10 @@ Code is read far more often than it is written. Poor names force every future re
 
 ## Good practice
 
-- Use domain vocabulary — name things using the language of the problem domain, not technical jargon
-- Make the name proportional to its scope — wider scope demands more descriptive names
+- Use domain vocabulary - name things using the language of the problem domain, not technical jargon
+- Make the name proportional to its scope - wider scope demands more descriptive names
 - Use verb phrases for functions (`calculateTotal`, `validateInput`), noun phrases for values and types (`orderTotal`, `UserAccount`)
-- If you struggle to name something, it may have too many responsibilities — consider splitting it
+- If you struggle to name something, it may have too many responsibilities - consider splitting it
 
 ## Sources
 

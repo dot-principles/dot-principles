@@ -1,4 +1,4 @@
-# PTAC-LEAN-CONTENT — Lean Content
+# PTAC-LEAN-CONTENT - Lean Content
 
 **Layer:** 1
 **Categories**: content, readability, token-efficiency
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Put the most critical information — the decision, constraint, or summary — first.
+Put the most critical information - the decision, constraint, or summary - first.
 Cut any sentence that doesn't change a reader's understanding or action.
 Link to one canonical source rather than repeating the same fact across files.
 
@@ -31,7 +31,7 @@ Token budgets are finite and costly. Verbose documents inflate AI context, incre
 
 ```
 # Front-load                         # Avoid burying the lead
-✅ Decision/summary (line 1–3)       ❌ Background (10 lines)
+✅ Decision/summary (line 1-3)       ❌ Background (10 lines)
    Constraints and rationale              Context (5 lines)
    Examples only if non-obvious           History (5 lines)
                                           THE ACTUAL DECISION (line 25)

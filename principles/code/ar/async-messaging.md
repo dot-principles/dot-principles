@@ -1,4 +1,4 @@
-# CODE-AR-ASYNC-MESSAGING — Use messaging for asynchronous integration between services
+# CODE-AR-ASYNC-MESSAGING - Use messaging for asynchronous integration between services
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, integration, distributed-systems
@@ -11,7 +11,7 @@ Prefer asynchronous messaging over synchronous remote procedure calls when integ
 
 ## Why it matters
 
-Synchronous calls between services create tight runtime coupling — if the downstream service is slow or unavailable, the caller blocks or fails. Asynchronous messaging absorbs transient failures, smooths load spikes through buffering, and allows producers and consumers to operate at different speeds. This is foundational to building systems that remain responsive under real-world conditions.
+Synchronous calls between services create tight runtime coupling - if the downstream service is slow or unavailable, the caller blocks or fails. Asynchronous messaging absorbs transient failures, smooths load spikes through buffering, and allows producers and consumers to operate at different speeds. This is foundational to building systems that remain responsive under real-world conditions.
 
 ## Violations to detect
 

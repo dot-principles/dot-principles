@@ -1,4 +1,4 @@
-# ARCH-SERVICE-LAYER — Service Layer
+# ARCH-SERVICE-LAYER - Service Layer
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, separation-of-concerns
@@ -11,7 +11,7 @@ Define an application's boundary with a layer of service objects that coordinate
 
 ## Why it matters
 
-Without a service layer, business logic leaks into controllers, event handlers, and batch jobs — duplicating coordination logic and making it impossible to invoke the same use case from different entry points (HTTP, CLI, message consumer) without duplicating code. A service layer provides a single, testable place where each use case is fully expressed.
+Without a service layer, business logic leaks into controllers, event handlers, and batch jobs - duplicating coordination logic and making it impossible to invoke the same use case from different entry points (HTTP, CLI, message consumer) without duplicating code. A service layer provides a single, testable place where each use case is fully expressed.
 
 ## Violations to detect
 
@@ -22,7 +22,7 @@ Without a service layer, business logic leaks into controllers, event handlers, 
 
 ## Good practice
 
-- Define one service method per use case; keep service methods thin — they orchestrate, not implement domain logic
+- Define one service method per use case; keep service methods thin - they orchestrate, not implement domain logic
 - Place all transaction boundaries in the service layer
 - Test service methods directly without going through the HTTP/CLI entry point
 - Keep the service layer technology-agnostic: it should not depend on the web framework

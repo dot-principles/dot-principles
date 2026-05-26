@@ -1,4 +1,4 @@
-# EFFECTIVE-JAVA-PREFER-DEPENDENCY-INJECTION — Prefer Dependency Injection to Hardwiring Resources
+# EFFECTIVE-JAVA-PREFER-DEPENDENCY-INJECTION - Prefer Dependency Injection to Hardwiring Resources
 
 **Layer:** 1 (universal)
 **Categories:** software-design, object-oriented, testability

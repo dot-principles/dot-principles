@@ -1,4 +1,4 @@
-# DOC-MINIMAL — Write only what is necessary
+# DOC-MINIMAL - Write only what is necessary
 
 **Layer:** 1 (universal)
 **Categories:** documentation, simplicity
@@ -34,5 +34,5 @@ Over-documented systems create an illusion of completeness while hiding what mat
 
 ## Sources
 
-- Procida, Daniele. "Diátaxis — A systematic approach to technical documentation authoring." https://diataxis.fr (accessed 2026-03-18).
+- Procida, Daniele. "Diátaxis - A systematic approach to technical documentation authoring." https://diataxis.fr (accessed 2026-03-18).
 - Beck, Kent. *Extreme Programming Explained: Embrace Change*. 2nd ed. Addison-Wesley, 2004. ISBN 978-0-321-27865-4. (YAGNI applied to documentation.)

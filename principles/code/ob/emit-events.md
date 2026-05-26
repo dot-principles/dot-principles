@@ -1,4 +1,4 @@
-# CODE-OB-EMIT-EVENTS — Emit events, not just metrics
+# CODE-OB-EMIT-EVENTS - Emit events, not just metrics
 
 **Layer:** 2 (contextual)
 **Categories:** observability, operations, reliability
@@ -7,11 +7,11 @@
 
 ## Principle
 
-Emit rich, contextual events that capture what happened during a unit of work, rather than relying solely on pre-aggregated metrics (counters, gauges, histograms). An event is an immutable record of a single occurrence — a request handled, a query executed, a job completed — enriched with all relevant dimensions. Events can be aggregated into metrics after the fact, but metrics cannot be decomposed back into events.
+Emit rich, contextual events that capture what happened during a unit of work, rather than relying solely on pre-aggregated metrics (counters, gauges, histograms). An event is an immutable record of a single occurrence - a request handled, a query executed, a job completed - enriched with all relevant dimensions. Events can be aggregated into metrics after the fact, but metrics cannot be decomposed back into events.
 
 ## Why it matters
 
-Pre-aggregated metrics answer questions you anticipated when you defined them. Events answer questions you did not know to ask. During a novel incident, engineers need to explore data interactively — slicing by unexpected dimensions, correlating fields, and discovering patterns. Events preserve the raw detail that makes this exploration possible.
+Pre-aggregated metrics answer questions you anticipated when you defined them. Events answer questions you did not know to ask. During a novel incident, engineers need to explore data interactively - slicing by unexpected dimensions, correlating fields, and discovering patterns. Events preserve the raw detail that makes this exploration possible.
 
 ## Violations to detect
 
@@ -24,7 +24,7 @@ Pre-aggregated metrics answer questions you anticipated when you defined them. E
 ## Good practice
 
 - Emit one structured event per unit of work (request, transaction, job), enriched with timing, outcome, and contextual fields
-- Use wide events — include many fields per event rather than emitting many narrow metric series
+- Use wide events - include many fields per event rather than emitting many narrow metric series
 - Store events in a system that supports high-cardinality, ad-hoc querying (not just time-series aggregation)
 - Derive dashboards and alerts from events rather than maintaining separate metrics pipelines
 - Include both success and failure details in events so that normal behavior can be compared to anomalies

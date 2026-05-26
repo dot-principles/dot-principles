@@ -1,4 +1,4 @@
-# EIP-MESSAGE-FILTER — Message Filter
+# EIP-MESSAGE-FILTER - Message Filter
 
 **Layer:** 2 (contextual)
 **Categories:** integration, messaging
@@ -23,7 +23,7 @@ Consumers that receive messages they do not need must either process them wastef
 
 - Place a filter component between the producer channel and the consumer channel
 - Express filter criteria in configuration or a rules engine rather than code, where possible
-- Test the filter independently — verify it passes the right messages and drops the right messages
+- Test the filter independently - verify it passes the right messages and drops the right messages
 - Distinguish filtering (dropping irrelevant messages) from content-based routing (sending different messages to different channels)
 
 ## Sources

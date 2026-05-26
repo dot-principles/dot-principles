@@ -1,6 +1,6 @@
 # Extra Catalog Template
 
-This directory is a **starter template** for your own corporate or personal principles catalog — to be used alongside `.principles` without forking the main repo.
+This directory is a **starter template** for your own corporate or personal principles catalog - to be used alongside `.principles` without forking the main repo.
 
 Copy this directory, rename it, and add your own principles. Then point `install.sh` at it via `--extra-catalog` or a config file.
 
@@ -52,11 +52,11 @@ Principle IDs are derived from the file path relative to `principles/`:
    mv principles/example principles/acme
    ```
 
-3. **Edit `principles/acme/catalog.yaml`** — set your namespace description.
+3. **Edit `principles/acme/catalog.yaml`** - set your namespace description.
 
-4. **Add principle files** — use `principles/example/example-principle.md` as a guide.
+4. **Add principle files** - use `principles/example/example-principle.md` as a guide.
 
-5. **Update the pre-compiled context files** — copy the relevant content from your principle files into `.context-prime.md` and `.context-audit.md` (see the examples in this template).
+5. **Update the pre-compiled context files** - copy the relevant content from your principle files into `.context-prime.md` and `.context-audit.md` (see the examples in this template).
 
 6. **Register your catalog with a project:**
    ```bash
@@ -80,7 +80,7 @@ Principle IDs are derived from the file path relative to `principles/`:
 
 ## Versioning
 
-An extra catalog is just a directory — version-control it as a git repo:
+An extra catalog is just a directory - version-control it as a git repo:
 
 ```bash
 cd ~/my-principles

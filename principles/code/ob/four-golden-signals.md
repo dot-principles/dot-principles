@@ -1,4 +1,4 @@
-# CODE-OB-FOUR-GOLDEN-SIGNALS — Instrument every service for Latency, Traffic, Errors, and Saturation
+# CODE-OB-FOUR-GOLDEN-SIGNALS - Instrument every service for Latency, Traffic, Errors, and Saturation
 
 **Layer:** 2 (contextual)
 **Categories:** observability, operations, reliability
@@ -7,18 +7,18 @@
 
 ## Principle
 
-Every service should be instrumented to expose four signals: Latency (how long requests take, distinguishing successful from failed requests), Traffic (the demand placed on the service — requests per second, messages per second), Errors (the rate of requests that fail, explicitly or implicitly), and Saturation (how "full" the service is — the utilisation of its most constrained resource). These four dimensions cover the most common causes of user-visible service degradation.
+Every service should be instrumented to expose four signals: Latency (how long requests take, distinguishing successful from failed requests), Traffic (the demand placed on the service - requests per second, messages per second), Errors (the rate of requests that fail, explicitly or implicitly), and Saturation (how "full" the service is - the utilisation of its most constrained resource). These four dimensions cover the most common causes of user-visible service degradation.
 
 ## Why it matters
 
-Monitoring that is incomplete across any of these four dimensions leaves blind spots. A service may appear healthy in error rate and latency while silently approaching saturation — the queue is full before the first timeout fires. Conversely, focusing only on saturation ignores the quality of traffic flowing through headroom. The Four Golden Signals provide the minimum coverage to detect and diagnose degradation before or as it becomes user-visible.
+Monitoring that is incomplete across any of these four dimensions leaves blind spots. A service may appear healthy in error rate and latency while silently approaching saturation - the queue is full before the first timeout fires. Conversely, focusing only on saturation ignores the quality of traffic flowing through headroom. The Four Golden Signals provide the minimum coverage to detect and diagnose degradation before or as it becomes user-visible.
 
 ## Violations to detect
 
 - Services with latency dashboards that show only averages or maximums, not percentile distributions
 - Latency metrics that do not distinguish between the latency of successful requests and error responses (errors are typically fast and distort averages downward)
 - Traffic metrics absent from a service (impossible to correlate load changes with error or latency changes)
-- Saturation metrics absent — no queue depth, thread pool utilisation, or connection pool fill metrics
+- Saturation metrics absent - no queue depth, thread pool utilisation, or connection pool fill metrics
 - Error counters that capture only HTTP 5xx responses, omitting soft errors (timeouts, partial failures, fallback responses)
 
 ## Good practice

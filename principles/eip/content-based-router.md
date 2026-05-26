@@ -1,4 +1,4 @@
-# EIP-CONTENT-BASED-ROUTER — Content-Based Router
+# EIP-CONTENT-BASED-ROUTER - Content-Based Router
 
 **Layer:** 2 (contextual)
 **Categories:** integration, messaging
@@ -15,7 +15,7 @@ Without a Content-Based Router, each consumer must inspect all messages and filt
 
 ## Violations to detect
 
-- Consumers that begin with a large `if` / `switch` block inspecting message type or content to decide whether to process the message — the routing logic belongs in a router, not the consumer
+- Consumers that begin with a large `if` / `switch` block inspecting message type or content to decide whether to process the message - the routing logic belongs in a router, not the consumer
 - Routing conditions duplicated across multiple consumers that each handle a different message type
 - New message types requiring modifications to existing consumer code to handle or ignore them
 

@@ -1,4 +1,4 @@
-# CODE-CS-POSTELS-LAW — Postel's Law (Robustness Principle)
+# CODE-CS-POSTELS-LAW - Postel's Law (Robustness Principle)
 
 **Layer:** 2 (contextual)
 **Categories:** api-design, interoperability, resilience
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Be conservative in what you send; be liberal in what you accept. When producing output, conform strictly to the spec — send only well-formed, minimal, expected data. When consuming input, be tolerant of minor variations: extra fields, different orderings, whitespace differences, missing optional values. This asymmetry makes systems more interoperable and more resilient to the inevitable imperfections of real-world integrations.
+Be conservative in what you send; be liberal in what you accept. When producing output, conform strictly to the spec - send only well-formed, minimal, expected data. When consuming input, be tolerant of minor variations: extra fields, different orderings, whitespace differences, missing optional values. This asymmetry makes systems more interoperable and more resilient to the inevitable imperfections of real-world integrations.
 
 ## Why it matters
 
@@ -24,10 +24,10 @@ In distributed systems and public APIs, producers and consumers evolve independe
 
 - On the receive side: ignore unknown fields, apply lenient parsing for format variations, treat missing optional fields as their defined defaults
 - On the send side: emit only documented fields, use standard formats, omit optional fields when empty rather than sending nulls
-- Apply extra conservatism at public API boundaries — what you send becomes part of your implicit contract (see Hyrum's Law)
-- Do not take liberal acceptance as licence to accept malformed or malicious input — validate for security and correctness, tolerate for interoperability
+- Apply extra conservatism at public API boundaries - what you send becomes part of your implicit contract (see Hyrum's Law)
+- Do not take liberal acceptance as licence to accept malformed or malicious input - validate for security and correctness, tolerate for interoperability
 
 ## Sources
 
 - Postel, Jon. *RFC 793: Transmission Control Protocol*, DARPA, 1981. §2.10: "Robustness Principle."
-- Deutsch, Martin. "The Robustness Principle Reconsidered." (critique: liberal acceptance can propagate errors — apply with judgement)
+- Deutsch, Martin. "The Robustness Principle Reconsidered." (critique: liberal acceptance can propagate errors - apply with judgement)

@@ -1,4 +1,4 @@
-# CODE-API-CONDITIONAL-REQUESTS — Support conditional requests for safe concurrent writes and cache revalidation
+# CODE-API-CONDITIONAL-REQUESTS - Support conditional requests for safe concurrent writes and cache revalidation
 
 **Layer:** 2
 **Categories:** api-design, reliability, rest
@@ -11,7 +11,7 @@ Resources that may be updated concurrently must support conditional write semant
 
 ## Why it matters
 
-Without conditional requests, concurrent clients performing read-modify-write cycles silently overwrite each other's changes — the last writer always wins and earlier writes are lost with no error. This is a correctness hazard in any multi-user API. Conditional GETs also allow clients and caches to avoid re-downloading unchanged resources, directly reducing bandwidth and latency.
+Without conditional requests, concurrent clients performing read-modify-write cycles silently overwrite each other's changes - the last writer always wins and earlier writes are lost with no error. This is a correctness hazard in any multi-user API. Conditional GETs also allow clients and caches to avoid re-downloading unchanged resources, directly reducing bandwidth and latency.
 
 ## Violations to detect
 
@@ -19,7 +19,7 @@ Without conditional requests, concurrent clients performing read-modify-write cy
 - GET endpoints that return mutable resources without an `ETag` or `Last-Modified` header
 - `If-None-Match` requests that receive a full 200 response instead of 304 when the ETag matches
 - `If-Match` failures that return 200 (success) instead of 412 (precondition failed)
-- `If-Match: *` not handled — this wildcard must succeed only if the resource exists
+- `If-Match: *` not handled - this wildcard must succeed only if the resource exists
 
 ## Inspection
 

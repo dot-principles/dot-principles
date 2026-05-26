@@ -1,4 +1,4 @@
-# EFFECTIVE-JAVA-WRITE-DOC-COMMENTS — Write Doc Comments for All Exposed API Elements
+# EFFECTIVE-JAVA-WRITE-DOC-COMMENTS - Write Doc Comments for All Exposed API Elements
 
 **Layer:** 2 (contextual)
 **Categories:** api-design, developer-experience
@@ -11,7 +11,7 @@ Document every exported class, interface, constructor, method, and field with a 
 
 ## Why it matters
 
-Documentation is the primary way API consumers learn how to use a component correctly. Without it, users must read source code — assuming they have access — or guess. Poor or missing documentation leads to misuse, bugs, and reluctance to adopt otherwise well-designed APIs.
+Documentation is the primary way API consumers learn how to use a component correctly. Without it, users must read source code - assuming they have access - or guess. Poor or missing documentation leads to misuse, bugs, and reluctance to adopt otherwise well-designed APIs.
 
 ## Violations to detect
 
@@ -25,7 +25,7 @@ Documentation is the primary way API consumers learn how to use a component corr
 - Describe *what* the method does and its contract, not *how* it is implemented
 - Use `@param` for every parameter, `@return` for non-void methods, and `@throws` for each checked and notable unchecked exception
 - Document thread-safety: is the class immutable, thread-safe, or not thread-safe?
-- Write the first sentence of each doc comment as a summary — tools use it as the short description
+- Write the first sentence of each doc comment as a summary - tools use it as the short description
 
 ## Sources
 

@@ -1,4 +1,4 @@
-# CODE-SEC-SECURITY-BY-DESIGN — Design for security from the start
+# CODE-SEC-SECURITY-BY-DESIGN - Design for security from the start
 
 **Layer:** 2 (contextual)
 **Categories:** security
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Security must be a first-class concern in system design, not a feature bolted on after implementation. Insecure Design (A04:2021) is a broad category reflecting the absence of security-focused design patterns, threat modeling, and secure architecture decisions. Unlike implementation bugs, insecure design cannot be fixed by a perfect implementation — a missing defense cannot be patched in after the architecture is set.
+Security must be a first-class concern in system design, not a feature bolted on after implementation. Insecure Design (A04:2021) is a broad category reflecting the absence of security-focused design patterns, threat modeling, and secure architecture decisions. Unlike implementation bugs, insecure design cannot be fixed by a perfect implementation - a missing defense cannot be patched in after the architecture is set.
 
 ## Why it matters
 
@@ -16,11 +16,11 @@ When systems are designed without considering abuse cases, trust boundaries, and
 ## Violations to detect
 
 - No threat modeling or abuse-case analysis documented for the feature or system
-- Trust boundaries not identified — all components treated as equally trusted
+- Trust boundaries not identified - all components treated as equally trusted
 - Missing rate limiting or resource controls on operations that could be abused (account creation, password reset, file upload)
 - Business logic that assumes users will follow the intended workflow without enforcement
 - Sensitive operations lacking confirmation steps or re-authentication
-- No defense-in-depth — a single control as the only barrier to a critical asset
+- No defense-in-depth - a single control as the only barrier to a critical asset
 
 ## Good practice
 
@@ -33,4 +33,4 @@ When systems are designed without considering abuse cases, trust boundaries, and
 
 ## Sources
 
-- OWASP Foundation. "OWASP Top 10:2021 — A04:2021 Insecure Design." https://owasp.org/Top10/A04_2021-Insecure_Design/
+- OWASP Foundation. "OWASP Top 10:2021 - A04:2021 Insecure Design." https://owasp.org/Top10/A04_2021-Insecure_Design/

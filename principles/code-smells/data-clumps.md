@@ -1,4 +1,4 @@
-# CODE-SMELLS-DATA-CLUMPS — Data Clumps
+# CODE-SMELLS-DATA-CLUMPS - Data Clumps
 
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, maintainability
@@ -7,7 +7,7 @@
 
 ## Principle
 
-When the same group of data items — three or more fields or parameters — appears together in multiple places, they are a Data Clump. These groups typically represent a concept that deserves its own object. A good test: if you deleted one of the items, would the others still make sense together? If so, they belong in a class.
+When the same group of data items - three or more fields or parameters - appears together in multiple places, they are a Data Clump. These groups typically represent a concept that deserves its own object. A good test: if you deleted one of the items, would the others still make sense together? If so, they belong in a class.
 
 ## Why it matters
 

@@ -1,4 +1,4 @@
-# FP-FUNCTIONAL-CORE-IMPERATIVE-SHELL — Functional core, imperative shell
+# FP-FUNCTIONAL-CORE-IMPERATIVE-SHELL - Functional core, imperative shell
 
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, software-design, testability, architecture
@@ -7,11 +7,11 @@
 
 ## Principle
 
-Structure programs with a pure functional core — containing all business logic as data transformations — surrounded by a thin imperative shell that handles I/O, side effects, and integration with the outside world. The shell translates real-world inputs into data, calls the core to transform it, and translates the output back into real-world effects. The core never performs I/O; the shell contains minimal logic.
+Structure programs with a pure functional core - containing all business logic as data transformations - surrounded by a thin imperative shell that handles I/O, side effects, and integration with the outside world. The shell translates real-world inputs into data, calls the core to transform it, and translates the output back into real-world effects. The core never performs I/O; the shell contains minimal logic.
 
 ## Why it matters
 
-When business logic is interleaved with I/O (database reads, API calls, file writes), testing requires mocking or faking every external dependency. Separating the core from the shell means the business logic — the part most likely to be complex and buggy — can be tested with plain input/output assertions, no mocks required. The shell, being thin and mechanical, rarely contains bugs worth testing.
+When business logic is interleaved with I/O (database reads, API calls, file writes), testing requires mocking or faking every external dependency. Separating the core from the shell means the business logic - the part most likely to be complex and buggy - can be tested with plain input/output assertions, no mocks required. The shell, being thin and mechanical, rarely contains bugs worth testing.
 
 ## Violations to detect
 
@@ -24,7 +24,7 @@ When business logic is interleaved with I/O (database reads, API calls, file wri
 
 - Identify the pure transformation at the heart of each use case and express it as a function from inputs to outputs with no I/O
 - Write the shell as a sequence: gather all inputs via I/O → call the pure core → execute the resulting effects
-- Prefer returning a description of effects (a command object, an event list, a set of instructions) from the core rather than performing them — let the shell execute what the core decided
+- Prefer returning a description of effects (a command object, an event list, a set of instructions) from the core rather than performing them - let the shell execute what the core decided
 - Test the core with pure unit tests; test the shell with integration tests focused on wiring correctness, not business logic
 
 ## Sources

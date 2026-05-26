@@ -1,4 +1,4 @@
-# INFRA-IMMUTABLE-INFRASTRUCTURE — Infrastructure is immutable: replace, never patch
+# INFRA-IMMUTABLE-INFRASTRUCTURE - Infrastructure is immutable: replace, never patch
 
 **Layer:** 2 (contextual)
 **Categories:** infrastructure, devops, reliability
@@ -11,7 +11,7 @@ Once a server, container image, or VM is deployed, it is never modified in place
 
 ## Why it matters
 
-Mutable servers accumulate undocumented state. Packages are installed, files are edited, services are restarted with different arguments — none of which appears in version history. The longer a server runs, the more it diverges from the original specification and from its peers. Immutable infrastructure eliminates this class of problem: if a server cannot be modified, it cannot drift, and every running instance is provably identical to what version control says it should be.
+Mutable servers accumulate undocumented state. Packages are installed, files are edited, services are restarted with different arguments - none of which appears in version history. The longer a server runs, the more it diverges from the original specification and from its peers. Immutable infrastructure eliminates this class of problem: if a server cannot be modified, it cannot drift, and every running instance is provably identical to what version control says it should be.
 
 ## Violations to detect
 

@@ -1,4 +1,4 @@
-# CD-PIPELINE-AS-CODE — CI/CD pipeline definitions are committed to version control alongside application code
+# CD-PIPELINE-AS-CODE - CI/CD pipeline definitions are committed to version control alongside application code
 
 **Layer:** 1
 **Categories:** devops, continuous-delivery, automation, version-control
@@ -7,7 +7,7 @@
 
 ## Principle
 
-The CI/CD pipeline — every build, test, and deployment step — is defined in code committed to version control and reviewed like any other change. Pipeline definitions live in the repository they govern (Jenkinsfile, `.github/workflows/`, `.gitlab-ci.yml`, `Buildkite pipeline.yml`, etc.). Pipelines configured only in a CI tool's UI are invisible, unreviewed, and not reproducible.
+The CI/CD pipeline - every build, test, and deployment step - is defined in code committed to version control and reviewed like any other change. Pipeline definitions live in the repository they govern (Jenkinsfile, `.github/workflows/`, `.gitlab-ci.yml`, `Buildkite pipeline.yml`, etc.). Pipelines configured only in a CI tool's UI are invisible, unreviewed, and not reproducible.
 
 ## Why it matters
 
@@ -32,7 +32,7 @@ ls .circleci/config.yml .buildkite/pipeline.yml 2>/dev/null
 ## Good practice
 
 - Store pipeline definitions in the root of the repository or in a well-known directory (`.github/workflows/`, `.circleci/`, etc.)
-- Apply the same code review standards to pipeline changes as to application code — require approval before merging
+- Apply the same code review standards to pipeline changes as to application code - require approval before merging
 - Use pipeline templates or shared libraries to avoid duplicating pipeline logic across services
 - Pin action/plugin versions to specific commits or version tags to prevent silent pipeline changes from upstream updates
 - Test pipeline changes in a branch before merging; use dry-run modes where available

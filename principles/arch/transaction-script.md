@@ -1,4 +1,4 @@
-# ARCH-TRANSACTION-SCRIPT — Transaction Script
+# ARCH-TRANSACTION-SCRIPT - Transaction Script
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, domain-logic
@@ -7,11 +7,11 @@
 
 ## Principle
 
-A Transaction Script organises business logic as a single procedure per use case — one script per transaction. Each script retrieves inputs, executes the business logic procedurally, and writes the result back to the database. It is appropriate for simple, low-complexity domains; it degrades into unmaintainable spaghetti as complexity grows and logic is duplicated across scripts.
+A Transaction Script organises business logic as a single procedure per use case - one script per transaction. Each script retrieves inputs, executes the business logic procedurally, and writes the result back to the database. It is appropriate for simple, low-complexity domains; it degrades into unmaintainable spaghetti as complexity grows and logic is duplicated across scripts.
 
 ## Why it matters
 
-Transaction Script is the default pattern for most developers learning to build software. It is straightforward for simple cases but does not scale with domain complexity: shared logic is copy-pasted across scripts, invariants are enforced inconsistently, and the lack of a domain model means there is nowhere to centralise domain concepts. Recognising Transaction Script as a deliberate choice — and knowing when to migrate to a Domain Model — is essential for long-term maintainability.
+Transaction Script is the default pattern for most developers learning to build software. It is straightforward for simple cases but does not scale with domain complexity: shared logic is copy-pasted across scripts, invariants are enforced inconsistently, and the lack of a domain model means there is nowhere to centralise domain concepts. Recognising Transaction Script as a deliberate choice - and knowing when to migrate to a Domain Model - is essential for long-term maintainability.
 
 ## Violations to detect
 

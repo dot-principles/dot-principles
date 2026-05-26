@@ -1,4 +1,4 @@
-# CODE-TS-ARRANGE-ACT-ASSERT — Use the Arrange-Act-Assert pattern for test structure
+# CODE-TS-ARRANGE-ACT-ASSERT - Use the Arrange-Act-Assert pattern for test structure
 
 **Layer:** 2 (contextual)
 **Categories:** testing, quality
@@ -17,13 +17,13 @@ A consistent test structure reduces cognitive load when reading and writing test
 
 - Tests with assertions interleaved between multiple actions (act-assert-act-assert)
 - Tests where setup, action, and verification are mixed together with no clear separation
-- Tests with no visible act phase — asserting on fixture setup alone
+- Tests with no visible act phase - asserting on fixture setup alone
 - Tests that perform multiple unrelated actions before a single assertion block
 
 ## Good practice
 
 - Visually separate the three phases with blank lines or comments if the language does not enforce structure
-- Keep the Arrange phase focused — extract complex setup into helper methods or builders
+- Keep the Arrange phase focused - extract complex setup into helper methods or builders
 - Limit the Act phase to a single statement or method call when possible
 - Place all assertions at the end, verifying different facets of the same outcome
 

@@ -1,4 +1,4 @@
-# CODE-CS-UNIFORM-ACCESS — Uniform Access Principle
+# CODE-CS-UNIFORM-ACCESS - Uniform Access Principle
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, api-design, encapsulation
@@ -7,7 +7,7 @@
 
 ## Principle
 
-All services offered by a module should be available through a uniform notation, whether they are implemented through storage (a stored field) or through computation (a calculated method). Callers should not need to know — or care — whether the value they are accessing is stored or computed. The distinction is an implementation detail that should be hidden.
+All services offered by a module should be available through a uniform notation, whether they are implemented through storage (a stored field) or through computation (a calculated method). Callers should not need to know - or care - whether the value they are accessing is stored or computed. The distinction is an implementation detail that should be hidden.
 
 ## Why it matters
 
@@ -16,17 +16,17 @@ When an API exposes whether a value is stored or computed, callers become couple
 ## Violations to detect
 
 - A public field that is later changed to a method, requiring updates at every call site
-- An API that exposes `getX()` for computed values and direct field access for stored values — callers must know which is which
+- An API that exposes `getX()` for computed values and direct field access for stored values - callers must know which is which
 - Changing from lazy-computed to eagerly-stored (or vice versa) breaking client code
 
 ## Good practice
 
 ```csharp
-// Violation — callers distinguish field from computation
+// Violation - callers distinguish field from computation
 public string FirstName;          // stored
-public string FullName() { ... }  // computed — different call syntax
+public string FullName() { ... }  // computed - different call syntax
 
-// Correct — uniform property syntax regardless of storage
+// Correct - uniform property syntax regardless of storage
 public string FirstName { get; set; }
 public string FullName => $"{FirstName} {LastName}";
 ```

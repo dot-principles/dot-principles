@@ -1,4 +1,4 @@
-# DB-INDEX-FOR-ACCESS-PATTERNS — Index for access patterns — design indexes from the queries, not the schema
+# DB-INDEX-FOR-ACCESS-PATTERNS - Index for access patterns - design indexes from the queries, not the schema
 
 **Layer:** 2
 **Categories:** database, performance, query-optimization
@@ -11,7 +11,7 @@ Design indexes based on the specific queries the application runs, not on the sh
 
 ## Why it matters
 
-Missing indexes cause full table scans that scale with data size — a query that runs in milliseconds on 10,000 rows may take seconds on 10 million. Conversely, excess indexes slow every write, consume storage, and confuse the query planner. The right indexes are those derived from measured query plans, not from schema aesthetics.
+Missing indexes cause full table scans that scale with data size - a query that runs in milliseconds on 10,000 rows may take seconds on 10 million. Conversely, excess indexes slow every write, consume storage, and confuse the query planner. The right indexes are those derived from measured query plans, not from schema aesthetics.
 
 ## Violations to detect
 

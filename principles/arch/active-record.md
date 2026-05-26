@@ -1,4 +1,4 @@
-# ARCH-ACTIVE-RECORD — Active Record Pattern
+# ARCH-ACTIVE-RECORD - Active Record Pattern
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, data-access
@@ -7,7 +7,7 @@
 
 ## Principle
 
-An Active Record is a domain object that wraps a single database row and includes both data and the data access logic for that row — methods like `save()`, `find()`, `delete()`. It is the appropriate pattern for simple CRUD domains where the data model and the domain model are closely aligned. It should not be used when rich domain behaviour, complex invariants, or significant business logic is needed.
+An Active Record is a domain object that wraps a single database row and includes both data and the data access logic for that row - methods like `save()`, `find()`, `delete()`. It is the appropriate pattern for simple CRUD domains where the data model and the domain model are closely aligned. It should not be used when rich domain behaviour, complex invariants, or significant business logic is needed.
 
 ## Why it matters
 

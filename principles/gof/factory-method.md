@@ -1,4 +1,4 @@
-# GOF-FACTORY-METHOD — Factory Method Pattern
+# GOF-FACTORY-METHOD - Factory Method Pattern
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
@@ -44,7 +44,7 @@ classDiagram
 ```
 
 ```java
-// Violation — creator hard-codes the product
+// Violation - creator hard-codes the product
 class Notifier {
     void notify(String msg) {
         EmailChannel ch = new EmailChannel();  // coupled to EmailChannel
@@ -52,7 +52,7 @@ class Notifier {
     }
 }
 
-// Correct — factory method defers instantiation to subclass
+// Correct - factory method defers instantiation to subclass
 abstract class Notifier {
     void notify(String msg) { createChannel().send(msg); }
     protected abstract Channel createChannel();

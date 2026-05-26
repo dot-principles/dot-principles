@@ -1,4 +1,4 @@
-# DB-OUTBOX-PATTERN — Outbox pattern — write events transactionally with domain changes to avoid dual-write
+# DB-OUTBOX-PATTERN - Outbox pattern - write events transactionally with domain changes to avoid dual-write
 
 **Layer:** 2
 **Categories:** database, reliability, distributed-systems, messaging
@@ -11,14 +11,14 @@ When a service must both persist a domain change and publish an event or message
 
 ## Why it matters
 
-The naive approach — write to the database, then publish to a message broker — has a window of failure between the two operations. If the process crashes after the database write but before the broker publish, the downstream consumer never receives the event. The dual-write problem produces subtle, hard-to-detect inconsistencies: the database says one thing, the event stream says another, and the two silently diverge.
+The naive approach - write to the database, then publish to a message broker - has a window of failure between the two operations. If the process crashes after the database write but before the broker publish, the downstream consumer never receives the event. The dual-write problem produces subtle, hard-to-detect inconsistencies: the database says one thing, the event stream says another, and the two silently diverge.
 
 ## Violations to detect
 
 - Calling a message broker publish method directly inside a service method after a database save, with no transactional coordination between the two
-- Catching message broker publish failures and logging them as warnings rather than treating them as blocking errors — the system continues with an unpublished event
-- Attempting to solve dual-write with a distributed transaction (XA/2PC) between the database and broker — high complexity and low availability compared to the outbox
-- Outbox relay processes that mark events as processed before confirming broker acknowledgement — creates the same loss window in reverse
+- Catching message broker publish failures and logging them as warnings rather than treating them as blocking errors - the system continues with an unpublished event
+- Attempting to solve dual-write with a distributed transaction (XA/2PC) between the database and broker - high complexity and low availability compared to the outbox
+- Outbox relay processes that mark events as processed before confirming broker acknowledgement - creates the same loss window in reverse
 
 ## Good practice
 

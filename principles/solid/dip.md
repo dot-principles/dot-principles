@@ -1,4 +1,4 @@
-# SOLID-DIP — Dependency Inversion Principle
+# SOLID-DIP - Dependency Inversion Principle
 
 **Layer:** 1 (universal)
 **Categories:** software-design, dependency-management, testability
@@ -22,7 +22,7 @@ When high-level policy directly instantiates or imports low-level detail (a spec
 
 ## Good practice
 
-`OrderService` depends on the `PaymentGateway` abstraction — not on `Stripe` or `PayPal` directly. Either implementation can be injected at runtime or swapped in tests.
+`OrderService` depends on the `PaymentGateway` abstraction - not on `Stripe` or `PayPal` directly. Either implementation can be injected at runtime or swapped in tests.
 
 ```mermaid
 classDiagram
@@ -47,7 +47,7 @@ classDiagram
 ```
 
 ```java
-// Violation — OrderService locked to Stripe; untestable
+// Violation - OrderService locked to Stripe; untestable
 class OrderService {
     void checkout(Order o) {
         Stripe stripe = new Stripe(); // hard dependency on concrete class
@@ -55,7 +55,7 @@ class OrderService {
     }
 }
 
-// Correct — depend on the abstraction; inject the detail
+// Correct - depend on the abstraction; inject the detail
 interface PaymentGateway {
     void pay(double amount);
 }
@@ -80,7 +80,7 @@ new OrderService(new PayPal());
 new OrderService(new FakePaymentGateway()); // test double
 ```
 
-- Use a dependency injection container or factory at the composition root — not inside business logic
+- Use a dependency injection container or factory at the composition root - not inside business logic
 - Define interfaces in the high-level module's package; let the low-level module implement them (the "plugin" architecture)
 
 ## Sources

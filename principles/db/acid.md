@@ -1,4 +1,4 @@
-# DB-ACID — ACID properties — guarantee correctness of every database transaction
+# DB-ACID - ACID properties - guarantee correctness of every database transaction
 
 **Layer:** 1
 **Categories:** database, transactions, reliability, correctness
@@ -11,7 +11,7 @@ Every database transaction must satisfy four properties: Atomicity (all operatio
 
 ## Why it matters
 
-Without ACID guarantees, concurrent writes produce phantom reads and dirty data, partial failures leave databases in inconsistent states, and hardware crashes silently corrupt records. Applications built on a non-ACID store must re-implement these guarantees in application code — an error-prone exercise that most teams get wrong under edge cases like sudden process death or network partition.
+Without ACID guarantees, concurrent writes produce phantom reads and dirty data, partial failures leave databases in inconsistent states, and hardware crashes silently corrupt records. Applications built on a non-ACID store must re-implement these guarantees in application code - an error-prone exercise that most teams get wrong under edge cases like sudden process death or network partition.
 
 ## Violations to detect
 
@@ -23,7 +23,7 @@ Without ACID guarantees, concurrent writes produce phantom reads and dirty data,
 ## Good practice
 
 - Always wrap logically atomic multi-step operations in a single database transaction; commit only when all steps succeed
-- Choose the appropriate isolation level explicitly and document it — READ COMMITTED for typical OLTP, SERIALIZABLE for financial operations
+- Choose the appropriate isolation level explicitly and document it - READ COMMITTED for typical OLTP, SERIALIZABLE for financial operations
 - Use database constraints (NOT NULL, UNIQUE, foreign keys, CHECK) to enforce the Consistency guarantee at the data layer, not just the application layer
 - Verify transaction durability settings in your database configuration (e.g. `fsync=on` in PostgreSQL, `innodb_flush_log_at_trx_commit=1` in MySQL)
 

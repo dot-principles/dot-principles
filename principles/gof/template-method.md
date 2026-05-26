@@ -1,4 +1,4 @@
-# GOF-TEMPLATE-METHOD — Template Method Pattern
+# GOF-TEMPLATE-METHOD - Template Method Pattern
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
@@ -47,7 +47,7 @@ classDiagram
 ```
 
 ```java
-// Violation — skeleton duplicated in every subclass
+// Violation - skeleton duplicated in every subclass
 class PDFMiner {
     void mine() { openPDF(); extractPDF(); parsePDF(); analyze(); report(); }
 }
@@ -55,9 +55,9 @@ class CSVMiner {
     void mine() { openCSV(); extractCSV(); parseCSV(); analyze(); report(); }
 }
 
-// Correct — skeleton in base class; only format-specific steps overridden
+// Correct - skeleton in base class; only format-specific steps overridden
 abstract class DataMiner {
-    final void mine(String path) {  // template method — final to prevent override
+    final void mine(String path) {  // template method - final to prevent override
         openFile(path); extractData(); parseData(); analyzeData(); sendReport();
     }
     protected abstract void openFile(String path);
@@ -76,4 +76,4 @@ abstract class DataMiner {
 
 ## Sources
 
-- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. ISBN 978-0-201-63361-0. Chapter 5, Behavioral Patterns — Template Method.
+- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. ISBN 978-0-201-63361-0. Chapter 5, Behavioral Patterns - Template Method.

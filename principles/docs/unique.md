@@ -1,4 +1,4 @@
-# DOC-UNIQUE — Each piece of information has exactly one home
+# DOC-UNIQUE - Each piece of information has exactly one home
 
 **Layer:** 1 (universal)
 **Categories:** documentation, maintainability, consistency
@@ -25,7 +25,7 @@ Duplicated documentation creates silent inconsistency. When a procedure changes,
 
 ## Inspection
 
-- `grep -rl "Installation\|Prerequisites\|Getting Started" $TARGET --include="*.md" | wc -l` | INFO | Count of files with common duplicated section headings — high counts warrant review
+- `grep -rl "Installation\|Prerequisites\|Getting Started" $TARGET --include="*.md" | wc -l` | INFO | Count of files with common duplicated section headings - high counts warrant review
 
 ## Good practice
 

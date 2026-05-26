@@ -1,4 +1,4 @@
-# 12FACTOR-06-PROCESSES — Processes
+# 12FACTOR-06-PROCESSES - Processes
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, cloud-native, scalability
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Execute the app as one or more stateless processes. Processes share nothing. Any data that must persist is stored in a stateful backing service. Memory and the local filesystem may be used only as a brief, single-transaction cache — never as a durable store shared across requests.
+Execute the app as one or more stateless processes. Processes share nothing. Any data that must persist is stored in a stateful backing service. Memory and the local filesystem may be used only as a brief, single-transaction cache - never as a durable store shared across requests.
 
 ## Why it matters
 

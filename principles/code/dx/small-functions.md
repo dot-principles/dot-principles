@@ -1,4 +1,4 @@
-# CODE-DX-SMALL-FUNCTIONS — Keep functions small and single-purpose
+# CODE-DX-SMALL-FUNCTIONS - Keep functions small and single-purpose
 
 **Layer:** 1 (universal)
 **Categories:** developer-experience, readability
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Functions should do one thing, do it well, and do it only. A function should be small enough to be understood at a glance — typically no more than a screenful of code. When a function does more than one thing, extract the additional responsibilities into separate, well-named functions. Small functions with a single purpose are easier to read, test, reuse, and replace.
+Functions should do one thing, do it well, and do it only. A function should be small enough to be understood at a glance - typically no more than a screenful of code. When a function does more than one thing, extract the additional responsibilities into separate, well-named functions. Small functions with a single purpose are easier to read, test, reuse, and replace.
 
 ## Why it matters
 
@@ -16,7 +16,7 @@ Large, multi-purpose functions are the primary source of accidental complexity i
 ## Violations to detect
 
 - Functions longer than approximately 20-30 lines (a reasonable heuristic, not an absolute rule)
-- Functions with multiple levels of abstraction — high-level orchestration mixed with low-level detail
+- Functions with multiple levels of abstraction - high-level orchestration mixed with low-level detail
 - Functions with many parameters, suggesting they handle multiple concerns
 - Functions that require extensive scrolling to read in their entirety
 - Functions whose name requires "and" or "or" to describe what they do
@@ -28,9 +28,9 @@ Large, multi-purpose functions are the primary source of accidental complexity i
 ## Good practice
 
 - Extract each distinct step or responsibility into its own function with a descriptive name
-- Keep functions at a single level of abstraction — a function should either orchestrate or perform detail work, not both
+- Keep functions at a single level of abstraction - a function should either orchestrate or perform detail work, not both
 - Use the "extract till you drop" technique: keep extracting until each function does exactly one thing
-- Treat the number of function parameters as a smell — more than two or three often signals that a concept should be grouped into an object
+- Treat the number of function parameters as a smell - more than two or three often signals that a concept should be grouped into an object
 
 ## Sources
 

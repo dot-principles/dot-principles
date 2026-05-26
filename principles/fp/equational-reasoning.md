@@ -1,4 +1,4 @@
-# FP-EQUATIONAL-REASONING — Equational reasoning
+# FP-EQUATIONAL-REASONING - Equational reasoning
 
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, correctness, software-design
@@ -7,11 +7,11 @@
 
 ## Principle
 
-Equational reasoning is the practice of verifying program correctness by substituting equal expressions for equal expressions — the same algebraic manipulation used in mathematics. It is possible precisely because pure, referentially transparent functions behave like mathematical functions: `f(x)` always equals the same value for a given `x`, so it can be substituted for that value (or vice versa) without changing meaning.
+Equational reasoning is the practice of verifying program correctness by substituting equal expressions for equal expressions - the same algebraic manipulation used in mathematics. It is possible precisely because pure, referentially transparent functions behave like mathematical functions: `f(x)` always equals the same value for a given `x`, so it can be substituted for that value (or vice versa) without changing meaning.
 
 ## Why it matters
 
-In an impure codebase, understanding a function call requires simulating the execution — tracking what state was mutated, in what order, by which concurrent thread. Equational reasoning replaces simulation with algebra: to verify a property, substitute expressions, simplify, and check that both sides reduce to the same value. This scales: a property proved once holds everywhere, not just for specific test inputs.
+In an impure codebase, understanding a function call requires simulating the execution - tracking what state was mutated, in what order, by which concurrent thread. Equational reasoning replaces simulation with algebra: to verify a property, substitute expressions, simplify, and check that both sides reduce to the same value. This scales: a property proved once holds everywhere, not just for specific test inputs.
 
 ## Violations to detect
 
@@ -23,7 +23,7 @@ In an impure codebase, understanding a function call requires simulating the exe
 ## Good practice
 
 - Use pure functions as the default; this is a prerequisite for equational reasoning to apply
-- Verify properties of composed functions algebraically: `map(f, map(g, xs))` should equal `map(compose(f, g), xs)` — write a test to confirm this rather than testing only specific examples
+- Verify properties of composed functions algebraically: `map(f, map(g, xs))` should equal `map(compose(f, g), xs)` - write a test to confirm this rather than testing only specific examples
 - Prefer laws-based reasoning when choosing abstractions: choose `map`/`flatMap` because they obey functor/monad laws, not just because they look familiar
 - Document non-obvious algebraic properties of your domain types as comments or property-based tests
 

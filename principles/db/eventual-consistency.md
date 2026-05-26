@@ -1,4 +1,4 @@
-# DB-EVENTUAL-CONSISTENCY — Eventual consistency — distributed systems that favour availability must explicitly manage staleness
+# DB-EVENTUAL-CONSISTENCY - Eventual consistency - distributed systems that favour availability must explicitly manage staleness
 
 **Layer:** 2
 **Categories:** database, distributed-systems, reliability, architecture
@@ -7,7 +7,7 @@
 
 ## Principle
 
-In distributed systems that prioritise availability over strong consistency (per the CAP theorem), replicas may temporarily diverge, and reads may return stale data. This is "eventual consistency": if no new writes occur, all replicas will converge to the same state eventually. Systems built on eventually consistent stores must be explicitly designed for this model — conflict detection, read-your-writes routing, monotonic reads, and causal consistency must be considered and implemented where required.
+In distributed systems that prioritise availability over strong consistency (per the CAP theorem), replicas may temporarily diverge, and reads may return stale data. This is "eventual consistency": if no new writes occur, all replicas will converge to the same state eventually. Systems built on eventually consistent stores must be explicitly designed for this model - conflict detection, read-your-writes routing, monotonic reads, and causal consistency must be considered and implemented where required.
 
 ## Why it matters
 
@@ -15,10 +15,10 @@ Treating an eventually consistent store as if it were strongly consistent produc
 
 ## Violations to detect
 
-- Reading from the same database immediately after writing without accounting for replication lag — assuming read-your-writes when the store does not guarantee it
+- Reading from the same database immediately after writing without accounting for replication lag - assuming read-your-writes when the store does not guarantee it
 - Services that treat "no record found" on an eventually consistent store as authoritative without considering that the record may simply not have replicated yet
 - Concurrent write paths with no conflict detection or last-write-wins policy, allowing conflicting updates to silently overwrite each other
-- No documentation of the consistency model for each data store used — developers assume stronger guarantees than the store provides
+- No documentation of the consistency model for each data store used - developers assume stronger guarantees than the store provides
 
 ## Good practice
 

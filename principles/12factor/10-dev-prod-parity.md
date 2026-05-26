@@ -1,10 +1,10 @@
-# 12FACTOR-10-DEV-PROD-PARITY — Dev/Prod Parity
+# 12FACTOR-10-DEV-PROD-PARITY - Dev/Prod Parity
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, cloud-native, quality
 **Applies-to:** cloud-native, twelve-factor-apps
 **Summary:** Keep development, staging, and production environments as similar as possible to prevent environment-specific bugs.
-**Audit-scope:** limited — can detect env-conditional branches and hard-coded local connection strings; cannot verify whether dev and prod use different backing services (requires deployment config)
+**Audit-scope:** limited - can detect env-conditional branches and hard-coded local connection strings; cannot verify whether dev and prod use different backing services (requires deployment config)
 
 ## Principle
 
@@ -18,7 +18,7 @@ The "works on my machine" failure mode is caused by environment divergence. SQLi
 
 - Different database engines in development and production (SQLite vs. PostgreSQL, H2 vs. MySQL)
 - Long-lived feature branches that are only merged and deployed infrequently
-- No staging environment — code goes directly from development to production
+- No staging environment - code goes directly from development to production
 - Developers who write code but do not deploy or observe it in production
 - Environment-specific workarounds or conditional code paths for dev vs. production
 

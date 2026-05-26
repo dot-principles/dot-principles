@@ -1,4 +1,4 @@
-# INFRA-OBSERVABLE-INFRASTRUCTURE — All infrastructure emits centralised, structured telemetry
+# INFRA-OBSERVABLE-INFRASTRUCTURE - All infrastructure emits centralised, structured telemetry
 
 **Layer:** 1 (universal)
 **Categories:** infrastructure, observability, operations, monitoring
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Every infrastructure layer — compute, network, storage, and platform services — must emit structured telemetry: logs, metrics, and health signals. Centralise this telemetry into a queryable observability platform. Infrastructure that cannot be observed cannot be reliably operated; incidents on unobserved infrastructure are diagnosed by intuition rather than evidence.
+Every infrastructure layer - compute, network, storage, and platform services - must emit structured telemetry: logs, metrics, and health signals. Centralise this telemetry into a queryable observability platform. Infrastructure that cannot be observed cannot be reliably operated; incidents on unobserved infrastructure are diagnosed by intuition rather than evidence.
 
 ## Why it matters
 
@@ -16,9 +16,9 @@ Application observability tells you what the application is doing. Infrastructur
 ## Violations to detect
 
 - Infrastructure resources (VMs, containers, databases, load balancers) with no logging or metrics configured
-- Logs accessible only by SSH-ing into the host — not centralised or searchable
+- Logs accessible only by SSH-ing into the host - not centralised or searchable
 - No alerting on infrastructure-level leading indicators: disk utilisation trending up, memory pressure, network error rates, certificate expiry
-- Application and infrastructure observability in disconnected stacks — correlating a request trace to a host metric requires logging into two separate systems
+- Application and infrastructure observability in disconnected stacks - correlating a request trace to a host metric requires logging into two separate systems
 - Alerts with no linked runbook or documented response procedure
 
 ## Good practice

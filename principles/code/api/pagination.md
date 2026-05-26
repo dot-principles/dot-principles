@@ -1,4 +1,4 @@
-# CODE-API-PAGINATION — Paginate all collection resources; never return unbounded results
+# CODE-API-PAGINATION - Paginate all collection resources; never return unbounded results
 
 **Layer:** 2
 **Categories:** api-design, performance, reliability
@@ -11,7 +11,7 @@ Collection endpoints must never return an unbounded number of items in a single 
 
 ## Why it matters
 
-An unbounded collection response becomes a reliability and performance hazard as data grows. A table with millions of rows will eventually cause out-of-memory errors, request timeouts, and database strain — and clients that consume the full result set on every call will break silently as the dataset scales. Cursor-based pagination avoids the "missing row" and "duplicate row" anomalies caused by insertions during offset-based traversal.
+An unbounded collection response becomes a reliability and performance hazard as data grows. A table with millions of rows will eventually cause out-of-memory errors, request timeouts, and database strain - and clients that consume the full result set on every call will break silently as the dataset scales. Cursor-based pagination avoids the "missing row" and "duplicate row" anomalies caused by insertions during offset-based traversal.
 
 ## Violations to detect
 

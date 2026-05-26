@@ -1,4 +1,4 @@
-# DDD-AGGREGATE-ROOT — Aggregate Root
+# DDD-AGGREGATE-ROOT - Aggregate Root
 
 **Layer:** 2 (contextual)
 **Categories:** domain-modeling, domain-driven-design
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Every Aggregate has a single root Entity — the Aggregate Root — which is the only object through which external code may obtain references to or interact with the Aggregate's internals. Outside objects may hold references to the root but must not hold persistent references to internal Entities or Value Objects. All modifications to the Aggregate's state must go through the root, which is responsible for enforcing the Aggregate's invariants.
+Every Aggregate has a single root Entity - the Aggregate Root - which is the only object through which external code may obtain references to or interact with the Aggregate's internals. Outside objects may hold references to the root but must not hold persistent references to internal Entities or Value Objects. All modifications to the Aggregate's state must go through the root, which is responsible for enforcing the Aggregate's invariants.
 
 ## Why it matters
 
@@ -45,11 +45,11 @@ classDiagram
 ```
 
 ```java
-// Violation — external code modifies internal entity directly
+// Violation - external code modifies internal entity directly
 OrderLineItem item = order.getLineItems().get(0);
 item.setQuantity(5);  // bypasses Order's invariant checks
 
-// Correct — all mutations go through the Aggregate Root
+// Correct - all mutations go through the Aggregate Root
 order.updateLineItemQuantity(lineItemId, 5);  // root validates invariants
 ```
 

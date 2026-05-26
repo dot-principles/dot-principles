@@ -1,4 +1,4 @@
-# PKG-REP — Reuse/Release Equivalence Principle (REP)
+# PKG-REP - Reuse/Release Equivalence Principle (REP)
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, package-design, modularity
@@ -7,11 +7,11 @@
 
 ## Principle
 
-The granule of reuse is the granule of release. Classes and modules that are grouped into a component must belong together — they must form a cohesive unit that makes sense to release and maintain as a whole. If you are not willing to maintain and release a set of classes together, they should not be in the same component.
+The granule of reuse is the granule of release. Classes and modules that are grouped into a component must belong together - they must form a cohesive unit that makes sense to release and maintain as a whole. If you are not willing to maintain and release a set of classes together, they should not be in the same component.
 
 ## Why it matters
 
-Consumers of a reusable component need stability and versioning. If a component bundles unrelated things, any change to any part forces a new release that all consumers must evaluate and adopt — even those that don't use the changed part. Grouping by release cohesion gives consumers predictable versioning boundaries.
+Consumers of a reusable component need stability and versioning. If a component bundles unrelated things, any change to any part forces a new release that all consumers must evaluate and adopt - even those that don't use the changed part. Grouping by release cohesion gives consumers predictable versioning boundaries.
 
 ## Violations to detect
 

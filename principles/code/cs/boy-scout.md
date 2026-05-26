@@ -1,14 +1,14 @@
-# CODE-CS-BOY-SCOUT — The Boy Scout Rule
+# CODE-CS-BOY-SCOUT - The Boy Scout Rule
 
 **Layer:** 1 (universal)
 **Categories:** maintainability, refactoring, craftsmanship
 **Applies-to:** all
 **Summary:** Always leave the code cleaner than you found it by making small improvements on every touch.
-**Audit-scope:** limited — git diff context (`$GIT_DIFF`) is loaded in Phase 1.4 and used for detection; new smells introduced in changed lines are detectable; whether the contributor made every possible improvement is a subjective judgment that cannot be automated
+**Audit-scope:** limited - git diff context (`$GIT_DIFF`) is loaded in Phase 1.4 and used for detection; new smells introduced in changed lines are detectable; whether the contributor made every possible improvement is a subjective judgment that cannot be automated
 
 ## Principle
 
-Always leave the code cleaner than you found it. When you touch a file to add a feature or fix a bug, make a small improvement to the surrounding code — rename a confusing variable, extract a long inline expression, delete a stale comment, remove a dead branch. These micro-improvements compound over time and counteract the entropy that accumulates in any active codebase.
+Always leave the code cleaner than you found it. When you touch a file to add a feature or fix a bug, make a small improvement to the surrounding code - rename a confusing variable, extract a long inline expression, delete a stale comment, remove a dead branch. These micro-improvements compound over time and counteract the entropy that accumulates in any active codebase.
 
 ## Why it matters
 
@@ -23,9 +23,9 @@ Code quality degrades incrementally through hundreds of small compromises. No si
 
 ## Good practice
 
-- Scope improvements to the code you are already touching — do not refactor an entire module as a side effect of a one-line bug fix
+- Scope improvements to the code you are already touching - do not refactor an entire module as a side effect of a one-line bug fix
 - Keep Boy Scout changes in the same commit as the feature or fix when trivial; use a separate commit when the improvement is larger, to keep diffs reviewable
-- Treat the rule as a minimum, not a maximum — it does not prohibit larger refactors, it just ensures every change contributes something positive
+- Treat the rule as a minimum, not a maximum - it does not prohibit larger refactors, it just ensures every change contributes something positive
 - Apply the rule to tests and documentation, not just production code
 
 ## Sources

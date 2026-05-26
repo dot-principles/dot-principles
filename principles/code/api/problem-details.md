@@ -1,4 +1,4 @@
-# CODE-API-PROBLEM-DETAILS — Return structured error responses using the RFC 7807 Problem Details format
+# CODE-API-PROBLEM-DETAILS - Return structured error responses using the RFC 7807 Problem Details format
 
 **Layer:** 2
 **Categories:** api-design, developer-experience, rest
@@ -25,7 +25,7 @@ Inconsistent error formats force API consumers to write custom parsing logic for
 
 - Return `Content-Type: application/problem+json` for all error responses
 - Minimum required fields: `type`, `title`, `status`, `detail`
-- Use a stable, documented URI as `type` — it should identify the class of error, not the specific instance
+- Use a stable, documented URI as `type` - it should identify the class of error, not the specific instance
 - Extend with custom members for domain context (e.g., `invalid-params` array for validation errors per RFC 9457)
 - Handle all unhandled exceptions in a global error handler that maps them to a Problem Details response
 - Log the `instance` URI server-side to correlate client-reported errors with server traces

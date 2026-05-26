@@ -1,4 +1,4 @@
-# 12FACTOR-03-CONFIG — Config
+# 12FACTOR-03-CONFIG - Config
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, cloud-native, security, configuration
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Store config in the environment, not in the code. Config is everything that varies between deploys (staging, production, developer environments) — database URLs, credentials, external service addresses. Code does not change between deploys; config does.
+Store config in the environment, not in the code. Config is everything that varies between deploys (staging, production, developer environments) - database URLs, credentials, external service addresses. Code does not change between deploys; config does.
 
 ## Why it matters
 
@@ -25,7 +25,7 @@ Config hardcoded in source is a security risk (credentials in version control) a
 - Read all config from environment variables at startup
 - Use secrets management systems (Vault, AWS Secrets Manager, Kubernetes Secrets) for sensitive values
 - Validate required environment variables at startup and fail fast with a clear error if any are missing
-- Keep config flat and explicit — avoid complex config file formats when environment variables suffice
+- Keep config flat and explicit - avoid complex config file formats when environment variables suffice
 
 ## Sources
 

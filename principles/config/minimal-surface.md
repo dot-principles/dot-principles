@@ -1,4 +1,4 @@
-# CONFIG-MINIMAL-SURFACE — Expose only the configuration the application reads
+# CONFIG-MINIMAL-SURFACE - Expose only the configuration the application reads
 
 **Layer:** 2 (contextual)
 **Categories:** configuration, security, maintainability
@@ -7,11 +7,11 @@
 
 ## Principle
 
-A configuration file should contain only the keys the application actively reads and uses. Unused, deprecated, commented-out, and duplicated configuration keys must be removed. A smaller configuration surface means fewer keys to misunderstand, misconfigure, audit, and rotate — and a clearer contract between the config file and the application that consumes it.
+A configuration file should contain only the keys the application actively reads and uses. Unused, deprecated, commented-out, and duplicated configuration keys must be removed. A smaller configuration surface means fewer keys to misunderstand, misconfigure, audit, and rotate - and a clearer contract between the config file and the application that consumes it.
 
 ## Why it matters
 
-Dead configuration keys create confusion ("is this still active?"), create hidden security exposure (a key for a removed feature may still be read by overlooked code), and make audits harder. OWASP A05 (Security Misconfiguration) identifies unnecessary features and unremediated default configuration as primary misconfiguration sources. Overly large config files are the configuration equivalent of dead code — noise that conceals signal.
+Dead configuration keys create confusion ("is this still active?"), create hidden security exposure (a key for a removed feature may still be read by overlooked code), and make audits harder. OWASP A05 (Security Misconfiguration) identifies unnecessary features and unremediated default configuration as primary misconfiguration sources. Overly large config files are the configuration equivalent of dead code - noise that conceals signal.
 
 ## Violations to detect
 
@@ -35,6 +35,6 @@ Dead configuration keys create confusion ("is this still active?"), create hidde
 
 ## Sources
 
-- OWASP. "A05:2021 — Security Misconfiguration." OWASP Top 10. https://owasp.org/Top10/A05_2021-Security_Misconfiguration/ (accessed 2026-03-22).
-- Nygard, Michael T. *Release It! Design and Deploy Production-Ready Software*. 2nd edition. Pragmatic Bookshelf, 2018. ISBN 978-1-68050-239-8. Chapter 5 (Stability Patterns — Configuration).
-- Saltzer, Jerome H. & Schroeder, Michael D. "The Protection of Information in Computer Systems." *Proceedings of the IEEE* 63, no. 9 (1975): 1278–1308. (Principle of Economy of Mechanism — minimal attack surface.)
+- OWASP. "A05:2021 - Security Misconfiguration." OWASP Top 10. https://owasp.org/Top10/A05_2021-Security_Misconfiguration/ (accessed 2026-03-22).
+- Nygard, Michael T. *Release It! Design and Deploy Production-Ready Software*. 2nd edition. Pragmatic Bookshelf, 2018. ISBN 978-1-68050-239-8. Chapter 5 (Stability Patterns - Configuration).
+- Saltzer, Jerome H. & Schroeder, Michael D. "The Protection of Information in Computer Systems." *Proceedings of the IEEE* 63, no. 9 (1975): 1278-1308. (Principle of Economy of Mechanism - minimal attack surface.)

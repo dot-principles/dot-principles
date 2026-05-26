@@ -1,4 +1,4 @@
-# SOLID-SRP — Single Responsibility Principle
+# SOLID-SRP - Single Responsibility Principle
 
 **Layer:** 1 (universal)
 **Categories:** software-design, maintainability
@@ -7,7 +7,7 @@
 
 ## Principle
 
-A module, class, or function should have one, and only one, reason to change. Each unit of code is responsible to a single actor — a single stakeholder or group of stakeholders who can require it to change.
+A module, class, or function should have one, and only one, reason to change. Each unit of code is responsible to a single actor - a single stakeholder or group of stakeholders who can require it to change.
 
 ## Why it matters
 
@@ -27,7 +27,7 @@ When a class serves multiple stakeholders, a change for one can inadvertently br
 
 ## Good practice
 
-Split each responsibility into its own class. The diagram and code below show a monolithic `User` class refactored into three focused classes — each owned by a different stakeholder.
+Split each responsibility into its own class. The diagram and code below show a monolithic `User` class refactored into three focused classes - each owned by a different stakeholder.
 
 ```mermaid
 classDiagram
@@ -46,14 +46,14 @@ classDiagram
 ```
 
 ```java
-// Violation — one class, three reasons to change
+// Violation - one class, three reasons to change
 class User {
     void login(Credentials c) { ... }
     void updateProfile(ProfileData d) { ... }
     void sendWelcomeEmail() { ... }
 }
 
-// Correct — each class has exactly one reason to change
+// Correct - each class has exactly one reason to change
 class UserAuth {
     void login(Credentials c) { ... }
 }

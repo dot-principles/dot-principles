@@ -1,4 +1,4 @@
-# INFRA-NO-SECRETS-IN-CODE — Secrets never appear in code, config files, or logs
+# INFRA-NO-SECRETS-IN-CODE - Secrets never appear in code, config files, or logs
 
 **Layer:** 1 (universal)
 **Categories:** infrastructure, security, devops
@@ -11,7 +11,7 @@ Passwords, API keys, tokens, certificates, and connection strings must never be 
 
 ## Why it matters
 
-A secret committed to git is compromised — not just now, but for the full lifetime of the repository history. Rotation does not help if the old secret remains in git history. Secrets in logs are harvested by anyone with log access, which is typically a much wider audience than intended. The blast radius of a leaked secret ranges from account takeover to full infrastructure compromise.
+A secret committed to git is compromised - not just now, but for the full lifetime of the repository history. Rotation does not help if the old secret remains in git history. Secrets in logs are harvested by anyone with log access, which is typically a much wider audience than intended. The blast radius of a leaked secret ranges from account takeover to full infrastructure compromise.
 
 ## Violations to detect
 
@@ -24,11 +24,11 @@ A secret committed to git is compromised — not just now, but for the full life
 ## Good practice
 
 - Use a secrets manager (HashiCorp Vault, AWS Secrets Manager, Azure Key Vault, GCP Secret Manager) as the single source of truth for all credentials
-- Inject secrets as environment variables or mounted files at container/VM startup — never bake them into images
+- Inject secrets as environment variables or mounted files at container/VM startup - never bake them into images
 - Run a secret scanning tool (truffleHog, detect-secrets, GitHub secret scanning) in CI and as a pre-commit hook
 - Rotate secrets on a schedule and immediately on any suspected exposure
 
 ## Sources
 
-- OWASP. "A02:2021 – Cryptographic Failures." *OWASP Top Ten 2021*. https://owasp.org/Top10/A02_2021-Cryptographic_Failures/
+- OWASP. "A02:2021 - Cryptographic Failures." *OWASP Top Ten 2021*. https://owasp.org/Top10/A02_2021-Cryptographic_Failures/
 - Morris, Kief. *Infrastructure as Code*, 2nd ed. O'Reilly, 2020. ISBN 978-1-4920-7522-6. Chapter 14.

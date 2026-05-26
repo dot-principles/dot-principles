@@ -1,4 +1,4 @@
-# FP-AVOID-SHARED-MUTABLE-STATE — Avoid shared mutable state
+# FP-AVOID-SHARED-MUTABLE-STATE - Avoid shared mutable state
 
 **Layer:** 1 (universal)
 **Categories:** functional-programming, concurrency, reliability, software-design
@@ -7,11 +7,11 @@
 
 ## Principle
 
-State that is both shared (accessible from multiple locations in the program) and mutable (can change after creation) is the primary source of concurrency bugs, race conditions, and action-at-a-distance defects. Prefer designs where data flows through transformation pipelines — each step produces a new value — rather than designs where multiple components coordinate by reading and writing shared variables.
+State that is both shared (accessible from multiple locations in the program) and mutable (can change after creation) is the primary source of concurrency bugs, race conditions, and action-at-a-distance defects. Prefer designs where data flows through transformation pipelines - each step produces a new value - rather than designs where multiple components coordinate by reading and writing shared variables.
 
 ## Why it matters
 
-Race conditions caused by shared mutable state are notoriously difficult to reproduce, diagnose, and fix because their manifestation depends on non-deterministic thread scheduling. Even in single-threaded code, shared mutable state makes it impossible to reason about a function in isolation — you must trace every code path that could have modified the state before the function ran.
+Race conditions caused by shared mutable state are notoriously difficult to reproduce, diagnose, and fix because their manifestation depends on non-deterministic thread scheduling. Even in single-threaded code, shared mutable state makes it impossible to reason about a function in isolation - you must trace every code path that could have modified the state before the function ran.
 
 ## Violations to detect
 
@@ -28,7 +28,7 @@ Race conditions caused by shared mutable state are notoriously difficult to repr
 ## Good practice
 
 - Favour passing data explicitly as function arguments and returning transformed results; avoid implicit shared channels
-- Where shared state is unavoidable (e.g., a cache), encapsulate it behind a single owner — an actor, a locked struct, or a thread-safe abstraction — so the mutation is localised and controlled
+- Where shared state is unavoidable (e.g., a cache), encapsulate it behind a single owner - an actor, a locked struct, or a thread-safe abstraction - so the mutation is localised and controlled
 - Use message-passing concurrency (actors, channels, queues) instead of shared-memory concurrency where possible
 - Replace stateful loops with `map`, `filter`, `reduce` pipelines that express the transformation without mutation
 

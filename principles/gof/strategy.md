@@ -1,4 +1,4 @@
-# GOF-STRATEGY — Strategy Pattern
+# GOF-STRATEGY - Strategy Pattern
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
@@ -49,14 +49,14 @@ classDiagram
 ```
 
 ```java
-// Violation — routing algorithm embedded in Navigator with conditionals
+// Violation - routing algorithm embedded in Navigator with conditionals
 Route buildRoute(String origin, String dest, String mode) {
     if ("car".equals(mode)) { /* road algorithm */ }
     else if ("bus".equals(mode)) { /* transit algorithm */ }
     else { /* walking algorithm */ }
 }
 
-// Correct — inject the strategy; Navigator delegates to it
+// Correct - inject the strategy; Navigator delegates to it
 navigator.setStrategy(new PublicTransportStrategy());
 Route route = navigator.buildRoute("A", "B");
 ```
@@ -69,4 +69,4 @@ Route route = navigator.buildRoute("A", "B");
 
 ## Sources
 
-- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. ISBN 978-0-201-63361-0. Chapter 5, Behavioral Patterns — Strategy.
+- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. ISBN 978-0-201-63361-0. Chapter 5, Behavioral Patterns - Strategy.

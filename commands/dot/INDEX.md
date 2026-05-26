@@ -1,4 +1,4 @@
-# commands/dot — Index
+# commands/dot - Index
 
 | File | Slug | Description |
 |---|---|---|

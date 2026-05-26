@@ -1,13 +1,13 @@
-# DOC-PURPOSE — Every document has one clear purpose
+# DOC-PURPOSE - Every document has one clear purpose
 
 **Layer:** 1 (universal)
 **Categories:** documentation, readability
 **Applies-to:** docs
-**Summary:** Assign each document exactly one purpose—tutorial, how-to, reference, or explanation—and never mix them.
+**Summary:** Assign each document exactly one purpose-tutorial, how-to, reference, or explanation-and never mix them.
 
 ## Principle
 
-Every document should serve exactly one reader goal. The four fundamental documentation types — tutorials, how-to guides, reference material, and explanations — serve different purposes and should not be mixed. A document that tries to be a tutorial and a reference simultaneously fails at both: it neither guides a beginner through a task nor provides the exhaustive detail an experienced user needs.
+Every document should serve exactly one reader goal. The four fundamental documentation types - tutorials, how-to guides, reference material, and explanations - serve different purposes and should not be mixed. A document that tries to be a tutorial and a reference simultaneously fails at both: it neither guides a beginner through a task nor provides the exhaustive detail an experienced user needs.
 
 Before writing, define the document's type and its single primary question: "How do I do X?", "What does Y mean?", or "Why was Z designed this way?" Every section should advance that one answer.
 
@@ -32,5 +32,5 @@ Mixed-purpose documents disorient readers because each documentation type requir
 
 ## Sources
 
-- Procida, Daniele. "Diátaxis — A systematic approach to technical documentation authoring." https://diataxis.fr (accessed 2026-03-18).
+- Procida, Daniele. "Diátaxis - A systematic approach to technical documentation authoring." https://diataxis.fr (accessed 2026-03-18).
 - Procida, Daniele. "What nobody tells you about documentation." *PyCon Australia*, 2017. https://www.youtube.com/watch?v=azf6yzuJt54

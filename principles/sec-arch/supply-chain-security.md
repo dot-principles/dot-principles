@@ -1,4 +1,4 @@
-# SEC-ARCH-SUPPLY-CHAIN-SECURITY — Verify provenance and integrity across the build chain
+# SEC-ARCH-SUPPLY-CHAIN-SECURITY - Verify provenance and integrity across the build chain
 
 **Layer:** 2 (contextual)
 **Categories:** security, architecture, devops
@@ -11,7 +11,7 @@ Treat every external dependency, container base image, build tool, and CI action
 
 ## Why it matters
 
-Supply chain attacks — SolarWinds, XZ Utils, event-stream — demonstrate that a single compromised dependency or build tool can cascade into thousands of downstream organisations simultaneously. Lock files and checksum verification are necessary but insufficient: they verify what was fetched, but not whether the upstream source was itself compromised. Provenance attestations and hermetic builds provide a higher guarantee: every binary can be traced back to specific reviewed source code, built by a specific pipeline step, without external network access during the build. An attacker who compromises a dependency but cannot compromise the build attestation cannot inject malicious code into a verifiably attested artifact.
+Supply chain attacks - SolarWinds, XZ Utils, event-stream - demonstrate that a single compromised dependency or build tool can cascade into thousands of downstream organisations simultaneously. Lock files and checksum verification are necessary but insufficient: they verify what was fetched, but not whether the upstream source was itself compromised. Provenance attestations and hermetic builds provide a higher guarantee: every binary can be traced back to specific reviewed source code, built by a specific pipeline step, without external network access during the build. An attacker who compromises a dependency but cannot compromise the build attestation cannot inject malicious code into a verifiably attested artifact.
 
 ## Violations to detect
 

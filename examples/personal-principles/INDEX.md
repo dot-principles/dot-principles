@@ -1,4 +1,4 @@
-# examples/personal-principles — Index
+# examples/personal-principles - Index
 
 | Path | Description |
 |---|---|

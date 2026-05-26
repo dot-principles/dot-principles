@@ -1,4 +1,4 @@
-# ARCH-ANTI-CORRUPTION-LAYER — Anti-Corruption Layer
+# ARCH-ANTI-CORRUPTION-LAYER - Anti-Corruption Layer
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, domain-driven-design, integration
@@ -7,7 +7,7 @@
 
 ## Principle
 
-When integrating with an external system or a bounded context whose domain model differs from yours, introduce a dedicated translation layer — the Anti-Corruption Layer (ACL) — at the boundary. The ACL translates between the external model and your model, so your domain remains internally consistent and isolated from changes or design choices in the external system.
+When integrating with an external system or a bounded context whose domain model differs from yours, introduce a dedicated translation layer - the Anti-Corruption Layer (ACL) - at the boundary. The ACL translates between the external model and your model, so your domain remains internally consistent and isolated from changes or design choices in the external system.
 
 ## Why it matters
 
@@ -24,7 +24,7 @@ Directly importing an external system's model forces your domain to conform to f
 
 - Define the ACL as an explicit module or package with a one-way dependency: it knows about both the external model and your domain model, but neither side knows about the ACL's internals
 - Write tests that verify translation correctness independently of both sides
-- Treat the ACL as a versioned contract — when the external API changes, only the ACL needs updating
+- Treat the ACL as a versioned contract - when the external API changes, only the ACL needs updating
 
 ## Sources
 

@@ -1,4 +1,4 @@
-# CODE-RL-SCHEMA-EVOLUTION — Plan for schema evolution — design data formats for forward and backward compatibility
+# CODE-RL-SCHEMA-EVOLUTION - Plan for schema evolution - design data formats for forward and backward compatibility
 
 **Layer:** 2 (contextual)
 **Categories:** reliability, distributed-systems
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Data outlives code. Every data format — whether for storage, messaging, or API communication — will need to evolve as requirements change. Design schemas so that new versions of the writer can produce data that old readers can still consume (backward compatibility), and old versions of the writer produce data that new readers can handle (forward compatibility). This enables rolling deployments, independent service upgrades, and long-lived data archives.
+Data outlives code. Every data format - whether for storage, messaging, or API communication - will need to evolve as requirements change. Design schemas so that new versions of the writer can produce data that old readers can still consume (backward compatibility), and old versions of the writer produce data that new readers can handle (forward compatibility). This enables rolling deployments, independent service upgrades, and long-lived data archives.
 
 ## Why it matters
 
@@ -24,7 +24,7 @@ In a distributed system, you cannot upgrade all producers and consumers simultan
 
 - Use schema evolution-friendly serialization formats such as Protocol Buffers, Avro, or Thrift, which have explicit rules for adding, removing, and renaming fields
 - Add new fields as optional with sensible defaults so that old readers can ignore them and new readers handle their absence
-- Never reuse field numbers or names for a different purpose — mark old fields as deprecated and reserved
+- Never reuse field numbers or names for a different purpose - mark old fields as deprecated and reserved
 - Enforce compatibility checks in CI using a schema registry or compatibility validation tool before allowing schema changes to be published
 
 ## Sources

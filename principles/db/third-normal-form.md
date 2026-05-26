@@ -1,4 +1,4 @@
-# DB-THIRD-NORMAL-FORM — Normalise to third normal form by default — eliminate redundancy before introducing it
+# DB-THIRD-NORMAL-FORM - Normalise to third normal form by default - eliminate redundancy before introducing it
 
 **Layer:** 2
 **Categories:** database, data-modeling, correctness, maintainability
@@ -11,13 +11,13 @@ Design relational schemas in at least Third Normal Form (3NF) by default: every 
 
 ## Why it matters
 
-Unnormalised schemas store the same fact in multiple places. When that fact changes, every copy must be updated atomically — a discipline that applications routinely violate, producing inconsistent data that is expensive to clean up and impossible to trust. A 3NF schema stores each fact once; updating it is a single write with no risk of partial inconsistency.
+Unnormalised schemas store the same fact in multiple places. When that fact changes, every copy must be updated atomically - a discipline that applications routinely violate, producing inconsistent data that is expensive to clean up and impossible to trust. A 3NF schema stores each fact once; updating it is a single write with no risk of partial inconsistency.
 
 ## Violations to detect
 
 - Columns that repeat the same value across rows because they depend on a partial key or on another non-key column (e.g. storing `customer_name` and `customer_email` on every order row instead of referencing a `customers` table)
 - Tables with no primary key or with a composite primary key where some non-key columns depend only on part of the key
-- Denormalised summary columns (e.g. `order_total`) that are updated by application code rather than computed from source rows — likely to drift out of sync
+- Denormalised summary columns (e.g. `order_total`) that are updated by application code rather than computed from source rows - likely to drift out of sync
 - Redundant columns that store derived data (e.g. `full_name` alongside `first_name` and `last_name`) with no enforcement of consistency
 
 ## Good practice

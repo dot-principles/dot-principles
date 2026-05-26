@@ -1,4 +1,4 @@
-# CODE-API-GRPC-PROTOBUF — Define gRPC service contracts in .proto files; evolve them without breaking existing clients
+# CODE-API-GRPC-PROTOBUF - Define gRPC service contracts in .proto files; evolve them without breaking existing clients
 
 **Layer:** 2
 **Categories:** api-design, protocol-design, backward-compatibility
@@ -7,11 +7,11 @@
 
 ## Principle
 
-gRPC service contracts must be defined in `.proto` files and treated as the authoritative API contract — not generated code. Field numbers in Protobuf messages are permanent identifiers; once assigned and published, a field number must never be reused for a different field. Use `reserved` to retire fields and field numbers. Prefer unary RPCs for request-response interactions and server-streaming for high-throughput or push flows. Follow semantic versioning for `.proto` package names when introducing breaking changes.
+gRPC service contracts must be defined in `.proto` files and treated as the authoritative API contract - not generated code. Field numbers in Protobuf messages are permanent identifiers; once assigned and published, a field number must never be reused for a different field. Use `reserved` to retire fields and field numbers. Prefer unary RPCs for request-response interactions and server-streaming for high-throughput or push flows. Follow semantic versioning for `.proto` package names when introducing breaking changes.
 
 ## Why it matters
 
-Protobuf's binary encoding relies on field numbers, not field names. Reusing a field number for a different field corrupts messages for clients that have not updated, silently producing wrong data rather than an error. Unlike JSON APIs where breaking changes are immediately visible, Protobuf incompatibilities can go undetected until a stale client encounters a reused field number. The `.proto` file is also the only human-readable contract — if it drifts from the implementation, consumers cannot trust it.
+Protobuf's binary encoding relies on field numbers, not field names. Reusing a field number for a different field corrupts messages for clients that have not updated, silently producing wrong data rather than an error. Unlike JSON APIs where breaking changes are immediately visible, Protobuf incompatibilities can go undetected until a stale client encounters a reused field number. The `.proto` file is also the only human-readable contract - if it drifts from the implementation, consumers cannot trust it.
 
 ## Violations to detect
 
@@ -28,7 +28,7 @@ Protobuf's binary encoding relies on field numbers, not field names. Reusing a f
 
 ## Good practice
 
-- Treat the `.proto` file as the source of truth — generate server stubs and client SDKs from it, never the reverse
+- Treat the `.proto` file as the source of truth - generate server stubs and client SDKs from it, never the reverse
 - Reserve deleted field numbers and names immediately: `reserved 3, 5; reserved "old_field_name";`
 - Never change the type or cardinality of an existing field; add a new field with a new number instead
 - Use package versioning for breaking changes: `package myservice.v1;` → `package myservice.v2;`
@@ -39,5 +39,5 @@ Protobuf's binary encoding relies on field numbers, not field names. Reusing a f
 ## Sources
 
 - Google. *Protocol Buffers Language Guide (proto3).* https://protobuf.dev/programming-guides/proto3/
-- Google. *API Design Guide — gRPC.* https://cloud.google.com/apis/design
+- Google. *API Design Guide - gRPC.* https://cloud.google.com/apis/design
 - Indrasiri, Kasun; Kuruppu, Danesh. *gRPC: Up and Running*. O'Reilly, 2020. ISBN 978-1-492-05833-5.

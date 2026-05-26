@@ -1,4 +1,4 @@
-# CODE-TP-BRANDED-TYPES — Use newtypes/branded types to prevent value confusion
+# CODE-TP-BRANDED-TYPES - Use newtypes/branded types to prevent value confusion
 
 **Layer:** 2
 **Categories:** type-safety, correctness
@@ -11,7 +11,7 @@ Wrap primitive values in distinct types to prevent accidentally passing one kind
 
 ## Why it matters
 
-Primitive obsession — using raw strings, integers, and floats for domain concepts — is one of the most common sources of subtle bugs. Function signatures like `createOrder(customerId: string, productId: string, couponCode: string)` invite transposition errors that no test will catch until the wrong customer gets the wrong order. When each concept has its own type, the compiler rejects `createOrder(productId, customerId, couponCode)` immediately. The Mars Climate Orbiter was lost because one module produced thrust in pound-force-seconds and another expected newton-seconds — both were floating-point numbers.
+Primitive obsession - using raw strings, integers, and floats for domain concepts - is one of the most common sources of subtle bugs. Function signatures like `createOrder(customerId: string, productId: string, couponCode: string)` invite transposition errors that no test will catch until the wrong customer gets the wrong order. When each concept has its own type, the compiler rejects `createOrder(productId, customerId, couponCode)` immediately. The Mars Climate Orbiter was lost because one module produced thrust in pound-force-seconds and another expected newton-seconds - both were floating-point numbers.
 
 ## Violations to detect
 
@@ -23,7 +23,7 @@ Primitive obsession — using raw strings, integers, and floats for domain conce
 
 ## Good practice
 
-- Create newtype wrappers: `CustomerId(int)`, `OrderId(int)`, `EmailAddress(string)` — even if the wrapper is a single field
+- Create newtype wrappers: `CustomerId(int)`, `OrderId(int)`, `EmailAddress(string)` - even if the wrapper is a single field
 - In TypeScript, use branded types (`type CustomerId = string & { readonly __brand: 'CustomerId' }`) to get compile-time distinction without runtime overhead
 - In Kotlin, use `value class` (inline classes) to wrap primitives with zero allocation overhead
 - In Rust, use the newtype pattern (`struct CustomerId(u64)`) with the `Deref` trait only when implicit unwrapping is genuinely safe

@@ -1,4 +1,4 @@
-# CODE-CS-PARETO — The 80/20 Rule (Pareto Principle)
+# CODE-CS-PARETO - The 80/20 Rule (Pareto Principle)
 
 **Layer:** 2 (contextual)
 **Categories:** pragmatism, performance, prioritisation
@@ -11,7 +11,7 @@ Roughly 80% of outcomes come from 20% of causes. In software, this means 80% of 
 
 ## Why it matters
 
-Engineering time is finite. Applying uniform effort across all code, all features, and all performance paths is a misallocation. The Pareto distribution is empirically observable in software systems — hot paths, bug clusters, and feature usage all follow it. Teams that invest disproportionately in the high-impact minority ship faster, have more reliable systems, and avoid wasting effort on code that almost no one runs.
+Engineering time is finite. Applying uniform effort across all code, all features, and all performance paths is a misallocation. The Pareto distribution is empirically observable in software systems - hot paths, bug clusters, and feature usage all follow it. Teams that invest disproportionately in the high-impact minority ship faster, have more reliable systems, and avoid wasting effort on code that almost no one runs.
 
 ## Violations to detect
 
@@ -25,7 +25,7 @@ Engineering time is finite. Applying uniform effort across all code, all feature
 - Profile before optimising: identify the 20% of code paths that carry 80% of load, then focus there
 - Use usage data (analytics, logs, feature flags) to identify the 20% of features that deliver 80% of value before planning new work
 - Apply tiered quality standards: higher coverage, stricter review, and more thorough testing for high-impact paths
-- Regularly prune low-usage features — code that serves 1% of users at 20% of maintenance cost is a poor trade
+- Regularly prune low-usage features - code that serves 1% of users at 20% of maintenance cost is a poor trade
 
 ## Sources
 

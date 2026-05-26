@@ -1,4 +1,4 @@
-# PTAC-COMPOSABLE-FILES — Composable Files
+# PTAC-COMPOSABLE-FILES - Composable Files
 
 **Layer:** 1
 **Categories**: structure, maintainability, modularity
@@ -11,7 +11,7 @@ Each file should express one coherent concept or concern. Compose larger systems
 
 ## Why it matters
 
-Large monolithic files are hard to navigate, review, and reason about — for humans and AI tools alike. A 2000-line Terraform module, a 500-line GitHub Actions workflow, or a 300-line Markdown document overwhelms the reader and makes targeted reviews impossible. Small, composable files can be read in full, reviewed in isolation, and combined without understanding the whole.
+Large monolithic files are hard to navigate, review, and reason about - for humans and AI tools alike. A 2000-line Terraform module, a 500-line GitHub Actions workflow, or a 300-line Markdown document overwhelms the reader and makes targeted reviews impossible. Small, composable files can be read in full, reviewed in isolation, and combined without understanding the whole.
 
 ## Violations to detect
 
@@ -37,5 +37,5 @@ docs/everything.md                docs/quickstart.md
 
 ## Sources
 
-- [Plain-Text-as-Code](https://github.com/Plain-Text-as-Code) — composability principle
+- [Plain-Text-as-Code](https://github.com/Plain-Text-as-Code) - composability principle
 - Robert C. Martin, *Clean Code*, Chapter 5: "Formatting", Prentice Hall, 2008. ISBN 978-0-13-235088-4.

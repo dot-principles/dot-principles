@@ -1,4 +1,4 @@
-# FP-PURE-FUNCTIONS — Pure functions
+# FP-PURE-FUNCTIONS - Pure functions
 
 **Layer:** 1 (universal)
 **Categories:** functional-programming, software-design, maintainability, testability
@@ -7,11 +7,11 @@
 
 ## Principle
 
-A pure function always produces the same output for the same input and causes no observable side effects — it neither reads from nor writes to anything outside its own arguments and return value. Pure functions are fully described by their type signature and their input/output relationship, with no hidden dependencies on global or mutable state.
+A pure function always produces the same output for the same input and causes no observable side effects - it neither reads from nor writes to anything outside its own arguments and return value. Pure functions are fully described by their type signature and their input/output relationship, with no hidden dependencies on global or mutable state.
 
 ## Why it matters
 
-Impure functions are hard to test in isolation, difficult to reason about, and create hidden dependencies that cause bugs when state changes unexpectedly. Pure functions are trivially unit-testable, safely memoizable, and can be composed, parallelised, or reordered without risk — the compounding of these properties is what makes functional codebases easier to maintain at scale.
+Impure functions are hard to test in isolation, difficult to reason about, and create hidden dependencies that cause bugs when state changes unexpectedly. Pure functions are trivially unit-testable, safely memoizable, and can be composed, parallelised, or reordered without risk - the compounding of these properties is what makes functional codebases easier to maintain at scale.
 
 ## Violations to detect
 

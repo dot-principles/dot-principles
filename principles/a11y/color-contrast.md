@@ -1,4 +1,4 @@
-# A11Y-COLOR-CONTRAST — Text must meet minimum contrast ratio against its background
+# A11Y-COLOR-CONTRAST - Text must meet minimum contrast ratio against its background
 
 **Layer:** 2 (contextual)
 **Audit-scope:** limited
@@ -18,7 +18,7 @@ Low contrast is one of the most common accessibility failures and affects a larg
 
 ## Violations to detect
 
-- Light-grey text on white backgrounds (e.g., `color: #aaa` on `background: #fff` — ratio ≈ 2.3:1)
+- Light-grey text on white backgrounds (e.g., `color: #aaa` on `background: #fff` - ratio ≈ 2.3:1)
 - White text on light-coloured backgrounds without sufficient contrast
 - Placeholder text styled the same as regular input text but at reduced opacity (`opacity: 0.4`)
 - Disabled UI elements styled with very low contrast and still conveying meaningful information
@@ -27,33 +27,33 @@ Low contrast is one of the most common accessibility failures and affects a larg
 
 ## Inspection
 
-- `grep -rnE 'color\s*:\s*#[89a-fA-F][0-9a-fA-F]{5}' --include="*.css" --include="*.scss" --include="*.sass" $TARGET` | MEDIUM | Light colour value — verify contrast ratio against background
-- `grep -rnE 'color\s*:\s*(#[c-fC-F][0-9a-fA-F]{5}|rgba?\([^)]*0\.[1-3][^)]*\))' --include="*.css" --include="*.scss" $TARGET` | MEDIUM | Very light or low-opacity text color — likely low contrast
+- `grep -rnE 'color\s*:\s*#[89a-fA-F][0-9a-fA-F]{5}' --include="*.css" --include="*.scss" --include="*.sass" $TARGET` | MEDIUM | Light colour value - verify contrast ratio against background
+- `grep -rnE 'color\s*:\s*(#[c-fC-F][0-9a-fA-F]{5}|rgba?\([^)]*0\.[1-3][^)]*\))' --include="*.css" --include="*.scss" $TARGET` | MEDIUM | Very light or low-opacity text color - likely low contrast
 - `grep -rnE 'color\s*:\s*#(?:aaa|bbb|ccc|999|888)[^0-9a-f]' -i --include="*.css" --include="*.scss" $TARGET` | HIGH | Known low-contrast grey shorthand value
-- `grep -rnE 'opacity\s*:\s*0\.[1-4][^0-9]' --include="*.css" --include="*.scss" $TARGET` | MEDIUM | Low opacity applied to text — verify resulting contrast
+- `grep -rnE 'opacity\s*:\s*0\.[1-4][^0-9]' --include="*.css" --include="*.scss" $TARGET` | MEDIUM | Low opacity applied to text - verify resulting contrast
 
 ## Good practice
 
 ```css
-/* Bad: #767676 on white is exactly at the 4.5:1 threshold — avoid values lighter than this */
+/* Bad: #767676 on white is exactly at the 4.5:1 threshold - avoid values lighter than this */
 .caption {
-  color: #999; /* ratio ~2.8:1 on white — fails */
+  color: #999; /* ratio ~2.8:1 on white - fails */
 }
 
 /* Good: dark enough to pass 4.5:1 on white */
 .caption {
-  color: #595959; /* ratio ~7:1 on white — passes AA and AAA */
+  color: #595959; /* ratio ~7:1 on white - passes AA and AAA */
 }
 
 /* Large text (18pt+): 3:1 minimum */
 h1 {
-  color: #767676; /* ratio 4.5:1 on white — passes for large text */
+  color: #767676; /* ratio 4.5:1 on white - passes for large text */
 }
 ```
 
 - Use a contrast checker (WebAIM Contrast Checker, browser DevTools accessibility panel, axe) to verify every text/background pair
 - Design tokens and a centralised palette make systematic contrast review possible; ad-hoc inline colours make it nearly impossible
-- Do not rely solely on colour to convey information (SC 1.4.1 Use of Color) — always provide a secondary indicator (icon, label, pattern, underline)
+- Do not rely solely on colour to convey information (SC 1.4.1 Use of Color) - always provide a secondary indicator (icon, label, pattern, underline)
 - Ensure focus indicator contrast also meets 3:1 against adjacent colours (SC 1.4.11, Level AA)
 
 ## Sources

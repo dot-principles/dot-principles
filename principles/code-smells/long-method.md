@@ -1,4 +1,4 @@
-# CODE-SMELLS-LONG-METHOD — Long Method
+# CODE-SMELLS-LONG-METHOD - Long Method
 
 **Layer:** 2 (contextual)
 **Categories:** code-smells, refactoring, maintainability
@@ -7,7 +7,7 @@
 
 ## Principle
 
-A method should do one thing, and its body should communicate that one thing clearly. When a method grows long, it is almost always doing more than one thing — each conceptual block deserves its own well-named method. The key heuristic is not line count but whether you feel the need to write a comment explaining what a section of code does; that section is a candidate for extraction.
+A method should do one thing, and its body should communicate that one thing clearly. When a method grows long, it is almost always doing more than one thing - each conceptual block deserves its own well-named method. The key heuristic is not line count but whether you feel the need to write a comment explaining what a section of code does; that section is a candidate for extraction.
 
 ## Why it matters
 
@@ -15,8 +15,8 @@ Short, single-purpose methods are easier to understand, test, and reuse. Long me
 
 ## Violations to detect
 
-- Methods longer than roughly 10–15 lines that contain multiple conceptual steps
-- Comments within a method that explain "what the next block does" — a sign that block should be its own method
+- Methods longer than roughly 10-15 lines that contain multiple conceptual steps
+- Comments within a method that explain "what the next block does" - a sign that block should be its own method
 - Multiple levels of nesting (loops inside conditionals inside loops)
 - Temporary variables used to pass data between sections of the same method
 

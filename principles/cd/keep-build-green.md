@@ -1,4 +1,4 @@
-# CD-KEEP-BUILD-GREEN — A failing build is the team's highest priority; nothing else ships until it passes
+# CD-KEEP-BUILD-GREEN - A failing build is the team's highest priority; nothing else ships until it passes
 
 **Layer:** 1
 **Categories:** devops, continuous-delivery, testing, quality
@@ -7,7 +7,7 @@
 
 ## Principle
 
-The CI build must always pass on the main branch. When it breaks, fixing it is the entire team's top priority — no new work is merged until the build is green. A build that is allowed to stay red loses its value as a quality gate: teams stop trusting it and begin working around it.
+The CI build must always pass on the main branch. When it breaks, fixing it is the entire team's top priority - no new work is merged until the build is green. A build that is allowed to stay red loses its value as a quality gate: teams stop trusting it and begin working around it.
 
 ## Why it matters
 
@@ -39,8 +39,8 @@ grep -rn "|| true\|continueOnError\|ignore_errors\|continue-on-error" --include=
 
 ## Good practice
 
-- Treat a red main branch as a production incident — stop new work and revert or fix immediately
-- If a test is genuinely flaky, fix it or delete it — never disable it
+- Treat a red main branch as a production incident - stop new work and revert or fix immediately
+- If a test is genuinely flaky, fix it or delete it - never disable it
 - Set branch protection rules that block merging when CI is red
 - Use a shared dashboard or Slack/Teams notifications so every team member sees the build status immediately
 - If fixing the breakage takes more than an hour, revert the offending commit and fix forward on a branch

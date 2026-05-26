@@ -1,4 +1,4 @@
-# ARCH-SIDECAR — Deploy cross-cutting concerns as co-located sidecars, not as embedded library code
+# ARCH-SIDECAR - Deploy cross-cutting concerns as co-located sidecars, not as embedded library code
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, microservices, deployment, separation-of-concerns
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Cross-cutting operational concerns — service mesh proxying, log shipping, secrets rotation, metrics scraping, certificate management, config watching — must be deployed as separate co-located processes (sidecars) rather than embedded as in-process libraries. The sidecar shares the same network namespace and lifecycle as the main container but is independently versioned, replaced, and operated.
+Cross-cutting operational concerns - service mesh proxying, log shipping, secrets rotation, metrics scraping, certificate management, config watching - must be deployed as separate co-located processes (sidecars) rather than embedded as in-process libraries. The sidecar shares the same network namespace and lifecycle as the main container but is independently versioned, replaced, and operated.
 
 ## Why it matters
 
@@ -23,9 +23,9 @@ When operational concerns are libraries embedded in the application, every servi
 
 ## Inspection
 
-- `grep -rnE 'VaultClient|vault\.read|rotate.*cert|refreshToken.*secret' --include="*.java" --include="*.go" --include="*.py" --include="*.ts" $TARGET` | MEDIUM | In-process secrets rotation — consider delegating to sidecar/CSI driver
-- `grep -rnE 'FileWatcher|watchFile|inotify|polling.*config' --include="*.java" --include="*.go" --include="*.py" $TARGET` | LOW | In-process config file watching — verify platform does not provide a sidecar
-- `grep -rnE 'fluentd\|logstash\|splunk' --include="*.java" --include="*.go" --include="*.py" --include="*.ts" $TARGET` | LOW | Log-shipper client library — verify sidecar deployment is not available
+- `grep -rnE 'VaultClient|vault\.read|rotate.*cert|refreshToken.*secret' --include="*.java" --include="*.go" --include="*.py" --include="*.ts" $TARGET` | MEDIUM | In-process secrets rotation - consider delegating to sidecar/CSI driver
+- `grep -rnE 'FileWatcher|watchFile|inotify|polling.*config' --include="*.java" --include="*.go" --include="*.py" $TARGET` | LOW | In-process config file watching - verify platform does not provide a sidecar
+- `grep -rnE 'fluentd\|logstash\|splunk' --include="*.java" --include="*.go" --include="*.py" --include="*.ts" $TARGET` | LOW | Log-shipper client library - verify sidecar deployment is not available
 
 ## Good practice
 
@@ -45,7 +45,7 @@ spec:
 - Let the application write structured logs to stdout; let a sidecar (Fluentd, Filebeat) collect and forward them
 - Delegate certificate provisioning and rotation to cert-manager or the Kubernetes CSI secrets driver
 - Use the service mesh sidecar for retries, circuit breaking, and timeout policy rather than coding them in every service
-- Separate the sidecar lifecycle from the application lifecycle — the platform can restart the sidecar independently
+- Separate the sidecar lifecycle from the application lifecycle - the platform can restart the sidecar independently
 - Apply this pattern selectively: small services with no platform mesh do not need a sidecar; the cost/benefit is context-dependent
 
 ## Sources

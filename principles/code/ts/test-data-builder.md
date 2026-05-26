@@ -1,4 +1,4 @@
-# CODE-TS-TEST-DATA-BUILDER — Build test fixtures with the Test Data Builder pattern
+# CODE-TS-TEST-DATA-BUILDER - Build test fixtures with the Test Data Builder pattern
 
 **Layer:** 2 (contextual)
 **Categories:** testing, quality
@@ -24,7 +24,7 @@ When domain object constructors change, tests that build objects inline break en
 
 - Create a `FooBuilder` (or `FooFixture`) class with `withX(...)` methods and a `build()` method; set safe defaults in the constructor
 - Use a static factory on the builder for the most common baseline: `FooBuilder.aValidFoo().withStatus(PENDING).build()`
-- Keep builders close to the tests that use them — in a `testutil` or `fixtures` package
+- Keep builders close to the tests that use them - in a `testutil` or `fixtures` package
 - Prefer one builder per aggregate root; compose builders for nested objects
 
 ## Sources

@@ -1,4 +1,4 @@
-# CODE-SEC-PRIVACY-BY-DESIGN — Embed privacy into the design from the start
+# CODE-SEC-PRIVACY-BY-DESIGN - Embed privacy into the design from the start
 
 **Layer:** 2 (contextual)
 **Categories:** security, privacy, data-protection
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Privacy must be a first-class design constraint, not a compliance checkbox applied after delivery. Collect only the personal data required for the stated purpose, retain it only for as long as necessary, give users meaningful control over their own data, and design systems so that privacy-protective behaviour is the default — not an opt-in.
+Privacy must be a first-class design constraint, not a compliance checkbox applied after delivery. Collect only the personal data required for the stated purpose, retain it only for as long as necessary, give users meaningful control over their own data, and design systems so that privacy-protective behaviour is the default - not an opt-in.
 
 ## Why it matters
 
@@ -16,7 +16,7 @@ Systems designed without privacy in mind accumulate excessive data, create regul
 ## Violations to detect
 
 - Request or response bodies logged verbatim when they may contain PII (names, emails, passwords, payment details, health data)
-- No defined data retention policy — records accumulate indefinitely without deletion or anonymisation
+- No defined data retention policy - records accumulate indefinitely without deletion or anonymisation
 - Collecting data fields "in case they are useful later" with no declared processing purpose
 - User account deletion that leaves personal data intact in backup systems, analytics pipelines, or derived tables
 - Analytics or telemetry events that include user identifiers or device fingerprints beyond what is necessary for the stated measurement
@@ -34,5 +34,5 @@ Systems designed without privacy in mind accumulate excessive data, create regul
 ## Sources
 
 - Cavoukian, Ann. "Privacy by Design: The 7 Foundational Principles." Information and Privacy Commissioner of Ontario, 2009. https://www.ipc.on.ca/wp-content/uploads/resources/7foundationalprinciples.pdf
-- ISO/IEC 29101:2018. "Information technology — Security techniques — Privacy architecture framework." ISO, 2018.
+- ISO/IEC 29101:2018. "Information technology - Security techniques - Privacy architecture framework." ISO, 2018.
 - GDPR Article 25. "Data protection by design and by default." Regulation (EU) 2016/679. https://gdpr-info.eu/art-25-gdpr/

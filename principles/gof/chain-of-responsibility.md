@@ -1,4 +1,4 @@
-# GOF-CHAIN-OF-RESPONSIBILITY — Chain of Responsibility Pattern
+# GOF-CHAIN-OF-RESPONSIBILITY - Chain of Responsibility Pattern
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
@@ -47,11 +47,11 @@ classDiagram
 ```
 
 ```java
-// Violation — sender knows all possible handlers
+// Violation - sender knows all possible handlers
 if (request.equals("Nut")) squirrel.handle(request);
 else if (request.equals("Banana")) monkey.handle(request);
 
-// Correct — chain assembled externally; sender just calls handle()
+// Correct - chain assembled externally; sender just calls handle()
 monkey.setNext(squirrel).setNext(dog);
 monkey.handle(request);
 ```
@@ -63,4 +63,4 @@ monkey.handle(request);
 
 ## Sources
 
-- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. ISBN 978-0-201-63361-0. Chapter 5, Behavioral Patterns — Chain of Responsibility.
+- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. ISBN 978-0-201-63361-0. Chapter 5, Behavioral Patterns - Chain of Responsibility.

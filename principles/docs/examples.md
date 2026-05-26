@@ -1,4 +1,4 @@
-# DOC-EXAMPLES — Illustrate with concrete, runnable examples
+# DOC-EXAMPLES - Illustrate with concrete, runnable examples
 
 **Layer:** 2 (contextual)
 **Categories:** documentation, usability
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Abstract descriptions of behavior should be accompanied by concrete examples that a reader can try immediately. Examples are not supplementary — for many readers, the example is the primary content and the prose is the supplement. A working example communicates intent, valid inputs, expected outputs, and edge cases simultaneously, often more efficiently than paragraphs of prose.
+Abstract descriptions of behavior should be accompanied by concrete examples that a reader can try immediately. Examples are not supplementary - for many readers, the example is the primary content and the prose is the supplement. A working example communicates intent, valid inputs, expected outputs, and edge cases simultaneously, often more efficiently than paragraphs of prose.
 
 Examples must be accurate, runnable (or clearly illustrative), and representative of the common case. Do not illustrate only edge cases; show the 80% use case first.
 
@@ -35,5 +35,5 @@ Abstract descriptions leave readers uncertain whether they have understood corre
 
 ## Sources
 
-- Procida, Daniele. "Diátaxis — A systematic approach to technical documentation authoring." https://diataxis.fr (accessed 2026-03-18).
+- Procida, Daniele. "Diátaxis - A systematic approach to technical documentation authoring." https://diataxis.fr (accessed 2026-03-18).
 - Write the Docs community. "Style Guides." https://www.writethedocs.org/guide/ (accessed 2026-03-18).

@@ -1,4 +1,4 @@
-# CODE-SEC-STRONG-CRYPTOGRAPHY — Use strong cryptography correctly
+# CODE-SEC-STRONG-CRYPTOGRAPHY - Use strong cryptography correctly
 
 **Layer:** 2 (contextual)
 **Categories:** security
@@ -33,4 +33,4 @@ Cryptographic failures expose sensitive data such as passwords, financial record
 
 ## Sources
 
-- OWASP Foundation. "OWASP Top 10:2021 — A02:2021 Cryptographic Failures." https://owasp.org/Top10/A02_2021-Cryptographic_Failures/
+- OWASP Foundation. "OWASP Top 10:2021 - A02:2021 Cryptographic Failures." https://owasp.org/Top10/A02_2021-Cryptographic_Failures/

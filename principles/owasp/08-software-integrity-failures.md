@@ -1,4 +1,4 @@
-# OWASP-08-SOFTWARE-INTEGRITY-FAILURES — Software and Data Integrity Failures
+# OWASP-08-SOFTWARE-INTEGRITY-FAILURES - Software and Data Integrity Failures
 
 **Layer:** 2 (contextual)
 **Categories:** security, supply-chain, integrity
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Protect the integrity of software update pipelines, CI/CD pipelines, and serialised data. Integrity failures occur when code or data is used without verification that it has not been tampered with — unsigned updates, insecure deserialization, CI/CD pipeline compromise, and untrusted CDN resources.
+Protect the integrity of software update pipelines, CI/CD pipelines, and serialised data. Integrity failures occur when code or data is used without verification that it has not been tampered with - unsigned updates, insecure deserialization, CI/CD pipeline compromise, and untrusted CDN resources.
 
 ## Why it matters
 
@@ -31,4 +31,4 @@ Software integrity failures enable supply-chain attacks: compromised update pack
 
 ## Sources
 
-- OWASP Foundation. "A08:2021 – Software and Data Integrity Failures." *OWASP Top 10*, 2021. https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures/
+- OWASP Foundation. "A08:2021 - Software and Data Integrity Failures." *OWASP Top 10*, 2021. https://owasp.org/Top10/A08_2021-Software_and_Data_Integrity_Failures/

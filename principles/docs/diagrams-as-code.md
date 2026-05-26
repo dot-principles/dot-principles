@@ -1,4 +1,4 @@
-# DOC-DIAGRAMS-AS-CODE — Diagrams as Code
+# DOC-DIAGRAMS-AS-CODE - Diagrams as Code
 
 **Layer:** 1
 **Categories**: documentation, tooling, format
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Represent every diagram — architecture, sequence, data flow, entity-relationship — as a text file using a tool such as Mermaid, PlantUML, Graphviz DOT, or C4-DSL. Render images at build or view time. Binary diagram files (`.vsdx`, `.drawio`, hand-edited `.svg`) must not be the source of truth.
+Represent every diagram - architecture, sequence, data flow, entity-relationship - as a text file using a tool such as Mermaid, PlantUML, Graphviz DOT, or C4-DSL. Render images at build or view time. Binary diagram files (`.vsdx`, `.drawio`, hand-edited `.svg`) must not be the source of truth.
 
 ## Why it matters
 
@@ -23,7 +23,7 @@ Binary diagrams can't be diffed, reviewed in a pull request, or edited without a
 ## Good practice
 
 ```
-architecture.mmd      Mermaid — renders natively in GitHub, VS Code, Copilot
+architecture.mmd      Mermaid - renders natively in GitHub, VS Code, Copilot
 system-context.dsl    C4-DSL / Structurizr
 dataflow.puml         PlantUML
 pipeline.dot          Graphviz DOT
@@ -33,7 +33,7 @@ Commit the source file. Let CI or the viewer render the image. If a pre-rendered
 
 ## Sources
 
-- [Mermaid](https://mermaid.js.org/) — diagrams in Markdown, rendered natively on GitHub
-- [PlantUML](https://plantuml.com/) — broad UML and non-UML diagram support
-- [Structurizr DSL](https://structurizr.com/dsl) — C4 model as code
-- [Graphviz DOT](https://graphviz.org/) — general-purpose graph description language
+- [Mermaid](https://mermaid.js.org/) - diagrams in Markdown, rendered natively on GitHub
+- [PlantUML](https://plantuml.com/) - broad UML and non-UML diagram support
+- [Structurizr DSL](https://structurizr.com/dsl) - C4 model as code
+- [Graphviz DOT](https://graphviz.org/) - general-purpose graph description language

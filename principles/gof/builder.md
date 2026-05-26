@@ -1,4 +1,4 @@
-# GOF-BUILDER — Builder Pattern
+# GOF-BUILDER - Builder Pattern
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
@@ -41,10 +41,10 @@ classDiagram
 ```
 
 ```java
-// Violation — telescoping constructor
+// Violation - telescoping constructor
 Query q = new Query("users", "age > 18", null, 10, false);
 
-// Correct — fluent builder; only set what you need
+// Correct - fluent builder; only set what you need
 Query q = new QueryBuilder()
     .from("users")
     .where("age > 18")

@@ -1,4 +1,4 @@
-# GOF-COMMAND — Command Pattern
+# GOF-COMMAND - Command Pattern
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
@@ -58,10 +58,10 @@ classDiagram
 ```
 
 ```java
-// Violation — invoker calls domain method directly; no undo possible
+// Violation - invoker calls domain method directly; no undo possible
 button.onClick(() -> editor.copy());  // hard to generalize or undo
 
-// Correct — encapsulate request; invoker just calls execute()
+// Correct - encapsulate request; invoker just calls execute()
 Command copy = new CopyCommand(editor, clipboard);
 history.push(copy);
 copy.execute();
@@ -76,4 +76,4 @@ history.pop().undo();
 
 ## Sources
 
-- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. ISBN 978-0-201-63361-0. Chapter 5, Behavioral Patterns — Command.
+- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. ISBN 978-0-201-63361-0. Chapter 5, Behavioral Patterns - Command.

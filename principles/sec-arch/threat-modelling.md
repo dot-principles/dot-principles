@@ -1,10 +1,10 @@
-# SEC-ARCH-THREAT-MODELLING — Model threats before implementing security controls
+# SEC-ARCH-THREAT-MODELLING - Model threats before implementing security controls
 
 **Layer:** 2 (contextual)
 **Categories:** security, architecture
 **Applies-to:** all
 **Summary:** Enumerate threats with STRIDE before implementation and document every mitigation in version-controlled artifacts.
-**Audit-scope:** excluded — threat modelling is a design-time process; whether it occurred cannot be determined from code alone
+**Audit-scope:** excluded - threat modelling is a design-time process; whether it occurred cannot be determined from code alone
 
 ## Principle
 
@@ -12,15 +12,15 @@ Before implementing any security-sensitive feature, systematically enumerate thr
 
 ## Why it matters
 
-Security controls added reactively address known, already-exploited threats. Threat modelling before implementation surfaces the unknown ones — the missing rate limiter, the unvalidated trust boundary, the unauthenticated admin endpoint — before they become vulnerabilities in production. The STRIDE framework (Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege) provides a structured prompt that reliably surfaces categories of threats that are missed when security is reasoned about informally. The cost of identifying a missing control in a design review is orders of magnitude less than the cost of a breach.
+Security controls added reactively address known, already-exploited threats. Threat modelling before implementation surfaces the unknown ones - the missing rate limiter, the unvalidated trust boundary, the unauthenticated admin endpoint - before they become vulnerabilities in production. The STRIDE framework (Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege) provides a structured prompt that reliably surfaces categories of threats that are missed when security is reasoned about informally. The cost of identifying a missing control in a design review is orders of magnitude less than the cost of a breach.
 
 ## Violations to detect
 
 - No threat model documented for features that handle authentication, authorisation, payments, or PII
-- Trust boundaries not identified — components operating at different trust levels communicate without explicit validation
+- Trust boundaries not identified - components operating at different trust levels communicate without explicit validation
 - Security design review conducted after implementation decisions are locked in, when changes are costly
 - Threats discussed verbally during design but not recorded, tracked, or verified during implementation
-- Data flow diagrams absent — it is not possible to reason about what crosses a trust boundary
+- Data flow diagrams absent - it is not possible to reason about what crosses a trust boundary
 
 ## Good practice
 

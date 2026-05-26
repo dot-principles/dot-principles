@@ -1,4 +1,4 @@
-# PIPELINE-ENVIRONMENT-ISOLATION — Pipeline stages must not share mutable state
+# PIPELINE-ENVIRONMENT-ISOLATION - Pipeline stages must not share mutable state
 
 **Layer:** 1 (universal)
 **Categories:** reliability, pipeline, security
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Each pipeline stage — build, test, deploy — must execute in an isolated context with its own workspace, credentials, and environment variables. Stages must not share mutable filesystem state, database connections, or environment variables beyond what is explicitly passed as stage outputs. A failing or compromised stage must not be able to corrupt the workspace of another stage.
+Each pipeline stage - build, test, deploy - must execute in an isolated context with its own workspace, credentials, and environment variables. Stages must not share mutable filesystem state, database connections, or environment variables beyond what is explicitly passed as stage outputs. A failing or compromised stage must not be able to corrupt the workspace of another stage.
 
 ## Why it matters
 
@@ -34,7 +34,7 @@ Shared mutable state between pipeline stages is a source of flaky builds, phanto
 - Run each stage in a fresh container or clean workspace; do not carry over filesystem state from previous stages
 - Scope pipeline caches to the branch and stage, not globally across the entire pipeline
 - Use environment protection rules (GitHub Environments, GitLab protected environments) to restrict which stages can access which secrets
-- Pass only the minimum required outputs between stages — not the entire workspace
+- Pass only the minimum required outputs between stages - not the entire workspace
 
 ## Sources
 

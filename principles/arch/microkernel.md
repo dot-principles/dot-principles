@@ -1,4 +1,4 @@
-# ARCH-MICROKERNEL — Microkernel Architecture
+# ARCH-MICROKERNEL - Microkernel Architecture
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, extensibility, plugin
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Separate a minimal, stable core system from extensible plugin modules. The core defines the plugin API and manages plugin lifecycle; plugins implement that API to add behaviour. Plugins must not access core internals or other plugins directly — only through the published extension API. The core must remain functional without any plugins installed.
+Separate a minimal, stable core system from extensible plugin modules. The core defines the plugin API and manages plugin lifecycle; plugins implement that API to add behaviour. Plugins must not access core internals or other plugins directly - only through the published extension API. The core must remain functional without any plugins installed.
 
 ## Why it matters
 

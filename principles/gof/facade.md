@@ -1,4 +1,4 @@
-# GOF-FACADE — Facade Pattern
+# GOF-FACADE - Facade Pattern
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
@@ -42,14 +42,14 @@ classDiagram
 ```
 
 ```java
-// Violation — client orchestrates subsystem directly
+// Violation - client orchestrates subsystem directly
 VideoFile file = new VideoFile(filename);
 Codec codec = CodecFactory.extract(file);
 VideoFile buffer = BitrateReader.read(file, codec);
 VideoFile intermediate = BitrateReader.convert(buffer, codec);
 File result = AudioMixer.fix(intermediate);
 
-// Correct — Facade hides the complexity
+// Correct - Facade hides the complexity
 File result = new VideoConverter().convert(filename, "mp4");
 ```
 
@@ -60,4 +60,4 @@ File result = new VideoConverter().convert(filename, "mp4");
 
 ## Sources
 
-- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. ISBN 978-0-201-63361-0. Chapter 4, Structural Patterns — Facade.
+- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. ISBN 978-0-201-63361-0. Chapter 4, Structural Patterns - Facade.

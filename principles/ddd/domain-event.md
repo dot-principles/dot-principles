@@ -1,4 +1,4 @@
-# DDD-DOMAIN-EVENT — Domain Event
+# DDD-DOMAIN-EVENT - Domain Event
 
 **Layer:** 2 (contextual)
 **Categories:** domain-modeling, domain-driven-design
@@ -7,7 +7,7 @@
 
 ## Principle
 
-A Domain Event is an immutable record of something meaningful that happened in the domain — expressed in the past tense and in the Ubiquitous Language (e.g., `OrderPlaced`, `PaymentReceived`, `InventoryReserved`). When something important occurs within one Bounded Context, it publishes a Domain Event that other Bounded Contexts can subscribe to and react to asynchronously. This decouples the contexts: the publisher does not need to know who the consumers are or what they do with the event.
+A Domain Event is an immutable record of something meaningful that happened in the domain - expressed in the past tense and in the Ubiquitous Language (e.g., `OrderPlaced`, `PaymentReceived`, `InventoryReserved`). When something important occurs within one Bounded Context, it publishes a Domain Event that other Bounded Contexts can subscribe to and react to asynchronously. This decouples the contexts: the publisher does not need to know who the consumers are or what they do with the event.
 
 ## Why it matters
 
@@ -46,7 +46,7 @@ classDiagram
 ```
 
 ```java
-// Violation — Order directly calls downstream services
+// Violation - Order directly calls downstream services
 class Order {
     void place() {
         inventory.reserve(this);    // tight coupling
@@ -54,7 +54,7 @@ class Order {
     }
 }
 
-// Correct — Order publishes an event; downstream contexts react
+// Correct - Order publishes an event; downstream contexts react
 class Order {
     void place() {
         // ... business logic ...
@@ -66,7 +66,7 @@ class Order {
 - Name events in the past tense using domain language: `OrderShipped`, `CustomerRegistered`, `SubscriptionRenewed`
 - Make event objects immutable and include a unique event ID, a timestamp, and the minimal data consumers need to react
 - Publish events as part of the same transaction that updates the Aggregate, using the Outbox Pattern or event-sourcing to guarantee delivery
-- Design consumers to be idempotent — they should handle receiving the same event more than once without producing incorrect results
+- Design consumers to be idempotent - they should handle receiving the same event more than once without producing incorrect results
 
 ## Sources
 

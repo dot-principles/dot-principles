@@ -1,4 +1,4 @@
-# PIPELINE-MINIMAL-PERMISSIONS — Run pipeline jobs with minimal permissions
+# PIPELINE-MINIMAL-PERMISSIONS - Run pipeline jobs with minimal permissions
 
 **Layer:** 1 (universal)
 **Categories:** security, pipeline
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Every pipeline job — build, test, deploy, release — should run with the minimum permissions required to complete its specific task. Broad IAM roles, wildcard scopes (`*`), inherited admin credentials, or reused service accounts with accumulated permissions violate this principle. Permissions should be scoped per job, not inherited from a shared "pipeline user".
+Every pipeline job - build, test, deploy, release - should run with the minimum permissions required to complete its specific task. Broad IAM roles, wildcard scopes (`*`), inherited admin credentials, or reused service accounts with accumulated permissions violate this principle. Permissions should be scoped per job, not inherited from a shared "pipeline user".
 
 ## Why it matters
 

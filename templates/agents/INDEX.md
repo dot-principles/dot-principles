@@ -1,4 +1,4 @@
-# templates/codex — Index
+# templates/codex - Index
 
 | File | Description |
 |---|---|

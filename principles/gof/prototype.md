@@ -1,4 +1,4 @@
-# GOF-PROTOTYPE — Prototype Pattern
+# GOF-PROTOTYPE - Prototype Pattern
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
@@ -49,7 +49,7 @@ classDiagram
 ```
 
 ```java
-// Correct — clone a pre-configured prototype instead of rebuilding
+// Correct - clone a pre-configured prototype instead of rebuilding
 ShapeRegistry registry = new ShapeRegistry();
 registry.register("circle", new Circle(10));
 

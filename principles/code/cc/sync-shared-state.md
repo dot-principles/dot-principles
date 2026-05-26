@@ -1,4 +1,4 @@
-# CODE-CC-SYNC-SHARED-STATE — Guard shared mutable state with synchronization
+# CODE-CC-SYNC-SHARED-STATE - Guard shared mutable state with synchronization
 
 **Layer:** 2
 **Categories:** concurrency, thread-safety, performance
@@ -7,11 +7,11 @@
 
 ## Principle
 
-Whenever multiple threads can access the same mutable data, every access—both reads and writes—must be guarded by the same synchronization mechanism. Without this discipline, threads may observe stale or partially-updated values due to compiler reordering, CPU caching, and the absence of happens-before guarantees. The choice of mechanism (locks, atomic variables, concurrent data structures) matters less than applying it consistently to every code path that touches the shared state.
+Whenever multiple threads can access the same mutable data, every access-both reads and writes-must be guarded by the same synchronization mechanism. Without this discipline, threads may observe stale or partially-updated values due to compiler reordering, CPU caching, and the absence of happens-before guarantees. The choice of mechanism (locks, atomic variables, concurrent data structures) matters less than applying it consistently to every code path that touches the shared state.
 
 ## Why it matters
 
-Unsynchronized access to shared mutable state produces data races whose symptoms—corrupted data, lost updates, infinite loops on stale flags—are intermittent and nearly impossible to reproduce in testing. These bugs often surface only under production load, making them among the most expensive defects to diagnose and fix.
+Unsynchronized access to shared mutable state produces data races whose symptoms-corrupted data, lost updates, infinite loops on stale flags-are intermittent and nearly impossible to reproduce in testing. These bugs often surface only under production load, making them among the most expensive defects to diagnose and fix.
 
 ## Violations to detect
 
@@ -23,10 +23,10 @@ Unsynchronized access to shared mutable state produces data races whose symptoms
 ## Good practice
 
 - Identify every piece of shared mutable state and document which lock protects it
-- Use the same lock for all accesses—reads and writes—to a given variable or invariant
+- Use the same lock for all accesses-reads and writes-to a given variable or invariant
 - Prefer higher-level constructs (concurrent collections, atomic variables) that encapsulate synchronization correctly
 - Minimize the scope of shared mutable state; the less there is, the less you need to synchronize
 
 ## Sources
 
-- Goetz, Brian et al. *Java Concurrency in Practice*. Addison-Wesley, 2006. ISBN 978-0-321-34960-6. Chapters 2–3.
+- Goetz, Brian et al. *Java Concurrency in Practice*. Addison-Wesley, 2006. ISBN 978-0-321-34960-6. Chapters 2-3.

@@ -1,4 +1,4 @@
-# DDD-SHARED-KERNEL — Shared Kernel
+# DDD-SHARED-KERNEL - Shared Kernel
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, domain-driven-design, integration
@@ -7,7 +7,7 @@
 
 ## Principle
 
-A Shared Kernel is a small, explicitly agreed-upon subset of the domain model that two or more Bounded Contexts share. Any change to the Shared Kernel requires bilateral coordination and agreement between the teams that own the participating contexts — no team may change it unilaterally. The kernel should be kept as small as possible to minimise coordination cost.
+A Shared Kernel is a small, explicitly agreed-upon subset of the domain model that two or more Bounded Contexts share. Any change to the Shared Kernel requires bilateral coordination and agreement between the teams that own the participating contexts - no team may change it unilaterally. The kernel should be kept as small as possible to minimise coordination cost.
 
 ## Why it matters
 
@@ -23,7 +23,7 @@ Sharing code between bounded contexts is tempting but dangerous: it creates tigh
 
 - Define the Shared Kernel boundary explicitly in a dedicated package or module with a clear owner
 - Establish a change process: no changes without both teams reviewing and agreeing
-- Keep the Shared Kernel small — common Value Objects, shared IDs, common events
+- Keep the Shared Kernel small - common Value Objects, shared IDs, common events
 - Treat the kernel as a highly stable, conservative API
 
 ## Sources

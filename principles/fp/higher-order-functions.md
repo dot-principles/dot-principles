@@ -1,4 +1,4 @@
-# FP-HIGHER-ORDER-FUNCTIONS — Higher-order functions
+# FP-HIGHER-ORDER-FUNCTIONS - Higher-order functions
 
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, software-design, abstraction
@@ -7,7 +7,7 @@
 
 ## Principle
 
-A higher-order function is one that accepts other functions as arguments, returns a function as its result, or both. Treating functions as first-class values allows behaviour itself to be abstracted and parameterised — the same control structure can be reused with different logic by passing a different function, eliminating the need for repetitive boilerplate.
+A higher-order function is one that accepts other functions as arguments, returns a function as its result, or both. Treating functions as first-class values allows behaviour itself to be abstracted and parameterised - the same control structure can be reused with different logic by passing a different function, eliminating the need for repetitive boilerplate.
 
 ## Why it matters
 
@@ -15,8 +15,8 @@ Without higher-order functions, common patterns like "apply this transformation 
 
 ## Violations to detect
 
-- Repeated `for`/`while` loop structures that differ only in the body — candidates for `map`, `filter`, or `reduce`
-- Copy-pasted try/catch/finally blocks that differ only in the operation performed inside — candidates for a higher-order wrapper
+- Repeated `for`/`while` loop structures that differ only in the body - candidates for `map`, `filter`, or `reduce`
+- Copy-pasted try/catch/finally blocks that differ only in the operation performed inside - candidates for a higher-order wrapper
 - Strategy or Template Method patterns implemented with subclassing where a function parameter would suffice
 - Code that constructs a class solely to pass behaviour into another class (anonymous class as poor-man's lambda)
 

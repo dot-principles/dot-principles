@@ -1,4 +1,4 @@
-# DOC-ACCURACY — Keep documentation accurate and synchronized with the system
+# DOC-ACCURACY - Keep documentation accurate and synchronized with the system
 
 **Layer:** 2 (contextual)
 **Categories:** documentation, reliability
@@ -34,5 +34,5 @@ Developers rely on documentation to form mental models of a system. Inaccurate d
 
 ## Sources
 
-- Procida, Daniele. "Diátaxis — A systematic approach to technical documentation authoring." https://diataxis.fr (accessed 2026-03-18).
+- Procida, Daniele. "Diátaxis - A systematic approach to technical documentation authoring." https://diataxis.fr (accessed 2026-03-18).
 - Strimling, Yoel. "Beyond Accuracy: What Documentation Quality Means to Readers." *SIGDOC*, 2017.

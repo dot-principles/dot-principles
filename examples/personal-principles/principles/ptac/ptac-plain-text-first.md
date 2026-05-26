@@ -1,4 +1,4 @@
-# PTAC-PLAIN-TEXT-FIRST — Plain Text First
+# PTAC-PLAIN-TEXT-FIRST - Plain Text First
 
 **Layer:** 1
 **Categories**: format, tooling, portability
@@ -31,5 +31,5 @@ docker-compose.yml    over  docker-compose.bin
 
 ## Sources
 
-- [Plain-Text-as-Code](https://github.com/Plain-Text-as-Code) — philosophy and examples
+- [Plain-Text-as-Code](https://github.com/Plain-Text-as-Code) - philosophy and examples
 - Eric Raymond, *The Art of Unix Programming*, Chapter 5: "Textuality", Addison-Wesley, 2003.

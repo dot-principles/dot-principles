@@ -1,4 +1,4 @@
-# GOF-SINGLETON — Singleton Pattern
+# GOF-SINGLETON - Singleton Pattern
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
@@ -45,7 +45,7 @@ public class ConnectionPool {
     public static ConnectionPool getInstance() { return Holder.INSTANCE; }
 }
 
-// Preferred modern approach — inject as a shared instance via DI
+// Preferred modern approach - inject as a shared instance via DI
 // rather than calling ConnectionPool.getInstance() everywhere
 @Bean
 public ConnectionPool connectionPool() { return new ConnectionPool(); }

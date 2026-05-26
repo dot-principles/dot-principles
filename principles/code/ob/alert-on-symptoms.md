@@ -1,14 +1,14 @@
-# CODE-OB-ALERT-ON-SYMPTOMS — Alert on user-visible symptoms, not internal causes
+# CODE-OB-ALERT-ON-SYMPTOMS - Alert on user-visible symptoms, not internal causes
 
 **Layer:** 2 (contextual)
 **Categories:** observability, operations, reliability
 **Applies-to:** all
 **Summary:** Alert on user-visible symptoms like error rates and latency SLOs, not on internal resource signals.
-**Audit-scope:** limited — alert rule files (Prometheus rules, Grafana alerts, PagerDuty policies) are readable and inspectable; on-call behaviour and escalation processes are not
+**Audit-scope:** limited - alert rule files (Prometheus rules, Grafana alerts, PagerDuty policies) are readable and inspectable; on-call behaviour and escalation processes are not
 
 ## Principle
 
-Write alert rules that fire on user-visible symptoms — elevated error rates, breached latency SLOs, service unavailability — rather than on internal resource signals such as CPU usage, memory consumption, or queue depth. Cause-based alerts tell you that *something* is wrong internally; symptom-based alerts tell you that *users are being hurt*. Reserve cause-based metrics for dashboards and post-incident investigation rather than waking engineers at 3 am.
+Write alert rules that fire on user-visible symptoms - elevated error rates, breached latency SLOs, service unavailability - rather than on internal resource signals such as CPU usage, memory consumption, or queue depth. Cause-based alerts tell you that *something* is wrong internally; symptom-based alerts tell you that *users are being hurt*. Reserve cause-based metrics for dashboards and post-incident investigation rather than waking engineers at 3 am.
 
 ## Why it matters
 
@@ -20,7 +20,7 @@ Cause-based alerts generate excessive noise. CPU spikes, memory pressure, and qu
 - Alerts on queue depth or connection pool fill with no corresponding check on service-level error or latency impact
 - No alerting rules at all linked to user-facing SLOs or error rates
 - Alerts expressed as absolute metric thresholds (e.g., `response_time > 500ms`) rather than as SLO burn rates or percentile violations
-- On-call runbooks that list "check CPU" as step 1, indicating that cause-based metrics — not symptoms — are the primary operational signal
+- On-call runbooks that list "check CPU" as step 1, indicating that cause-based metrics - not symptoms - are the primary operational signal
 
 ## Good practice
 

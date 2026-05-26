@@ -1,4 +1,4 @@
-# CODE-CS-INFORMATION-HIDING — Information Hiding (Parnas)
+# CODE-CS-INFORMATION-HIDING - Information Hiding (Parnas)
 
 **Layer:** 1 (universal)
 **Categories:** software-design, modularity, encapsulation, maintainability
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Each module should hide a design decision that is likely to change. The module's interface exposes only what other modules must know to use it; the implementation — the decision being hidden — remains private. Decompose systems by identifying the design choices that are most likely to change, and assign one module per such decision.
+Each module should hide a design decision that is likely to change. The module's interface exposes only what other modules must know to use it; the implementation - the decision being hidden - remains private. Decompose systems by identifying the design choices that are most likely to change, and assign one module per such decision.
 
 ## Why it matters
 
@@ -33,4 +33,4 @@ Software changes. When modules hide volatile decisions (algorithms, data represe
 
 ## Sources
 
-- Parnas, David L. "On the criteria to be used in decomposing systems into modules." *Communications of the ACM*, 15(12), 1972, pp. 1053–1058. DOI: 10.1145/361598.361623
+- Parnas, David L. "On the criteria to be used in decomposing systems into modules." *Communications of the ACM*, 15(12), 1972, pp. 1053-1058. DOI: 10.1145/361598.361623

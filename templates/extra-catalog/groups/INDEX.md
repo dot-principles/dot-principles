@@ -1,4 +1,4 @@
-# groups — Index
+# groups - Index
 
 | File | Description |
 |---|---|

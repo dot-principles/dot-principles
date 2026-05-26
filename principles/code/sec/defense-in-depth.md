@@ -1,4 +1,4 @@
-# CODE-SEC-DEFENSE-IN-DEPTH — Layer independent security controls
+# CODE-SEC-DEFENSE-IN-DEPTH - Layer independent security controls
 
 **Layer:** 1 (universal)
 **Categories:** security
@@ -7,15 +7,15 @@
 
 ## Principle
 
-Layer independent security controls so that no single failure is catastrophic. Each layer — authentication, authorisation, input validation, encryption, audit logging — must function as if every other layer may be absent or already compromised. An attacker who defeats one layer should immediately face the next.
+Layer independent security controls so that no single failure is catastrophic. Each layer - authentication, authorisation, input validation, encryption, audit logging - must function as if every other layer may be absent or already compromised. An attacker who defeats one layer should immediately face the next.
 
 ## Why it matters
 
-A single security control creates a binary outcome: it holds, or the system is fully open. When a perimeter firewall is the only barrier, a firewall bypass grants complete access. Layered controls bound the blast radius of any single failure: bypassing the API gateway still meets authorisation checks at the service layer; bypassing authorisation still hits encryption at rest and audit logging. Defense in depth does not prevent breaches — it makes their consequences survivable and detectable.
+A single security control creates a binary outcome: it holds, or the system is fully open. When a perimeter firewall is the only barrier, a firewall bypass grants complete access. Layered controls bound the blast radius of any single failure: bypassing the API gateway still meets authorisation checks at the service layer; bypassing authorisation still hits encryption at rest and audit logging. Defense in depth does not prevent breaches - it makes their consequences survivable and detectable.
 
 ## Violations to detect
 
-- A single authentication check as the only barrier to a sensitive resource — no downstream authorisation layer
+- A single authentication check as the only barrier to a sensitive resource - no downstream authorisation layer
 - No authorisation check inside a service because the API gateway "already authenticated the caller"
 - Sensitive data stored unencrypted on the assumption that the database host is inaccessible
 - No audit logging on the grounds that access controls are considered sufficient
@@ -25,8 +25,8 @@ A single security control creates a binary outcome: it holds, or the system is f
 ## Good practice
 
 - Apply controls at every boundary: network → API gateway → service layer → database → encryption at rest
-- Design each layer to stand alone — remove any one layer and the system should still resist the next most likely attack
-- Treat audit logging as a required independent layer, not optional — it is the layer that makes other failures visible
+- Design each layer to stand alone - remove any one layer and the system should still resist the next most likely attack
+- Treat audit logging as a required independent layer, not optional - it is the layer that makes other failures visible
 - Use short-lived credentials and session tokens so that a compromised credential has a bounded blast radius
 - Test defense in depth explicitly: red-team exercises that assume one layer is bypassed verify that the next layer holds
 

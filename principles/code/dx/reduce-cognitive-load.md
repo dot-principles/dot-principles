@@ -1,4 +1,4 @@
-# CODE-DX-REDUCE-COGNITIVE-LOAD — Reduce cognitive load in code structure
+# CODE-DX-REDUCE-COGNITIVE-LOAD - Reduce cognitive load in code structure
 
 **Layer:** 2 (contextual)
 **Categories:** developer-experience, readability
@@ -18,13 +18,13 @@ Human working memory is limited. When code demands that a developer track too ma
 - Deeply nested control structures (more than two or three levels of indentation)
 - Functions that require the reader to scroll back and forth to understand variable lifetimes
 - Files that mix unrelated concerns, forcing the reader to mentally filter what is relevant
-- Inconsistent patterns within the same codebase — each inconsistency requires the reader to re-learn conventions
+- Inconsistent patterns within the same codebase - each inconsistency requires the reader to re-learn conventions
 - Long parameter lists or complex configuration objects that require cross-referencing documentation
 
 ## Good practice
 
 - Use early returns and guard clauses to flatten nested conditionals
-- Keep related code physically close together — reduce the distance between a variable's declaration and its use
+- Keep related code physically close together - reduce the distance between a variable's declaration and its use
 - Follow consistent patterns and conventions within a codebase so that developers build reliable intuition
 - Break complex flows into a sequence of named steps, each understandable in isolation
 - Limit the number of concepts introduced in any single file or module

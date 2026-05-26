@@ -1,4 +1,4 @@
-# GOF-NULL-OBJECT — Null Object Pattern
+# GOF-NULL-OBJECT - Null Object Pattern
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, object-oriented, design-patterns, null-safety
@@ -22,12 +22,12 @@ Null references propagate `NullPointerException`s and `null` checks throughout c
 ## Good practice
 
 ```java
-// Violation — caller must guard against null logger
+// Violation - caller must guard against null logger
 if (logger != null) {
     logger.log("processing");
 }
 
-// Correct — inject a NoOpLogger that implements Logger but does nothing
+// Correct - inject a NoOpLogger that implements Logger but does nothing
 class NoOpLogger implements Logger {
     @Override public void log(String msg) { /* do nothing */ }
 }

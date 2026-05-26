@@ -6,8 +6,8 @@ This guide covers installing `.principles` on Linux, macOS, and Windows.
 
 ## Prerequisites
 
-- **Bash 4+** — required by `install.sh` / `uninstall.sh`
-- **AI model** — Claude Haiku 4.5+, GPT-4.1+, or equivalent
+- **Bash 4+** - required by `install.sh` / `uninstall.sh`
+- **AI model** - Claude Haiku 4.5+, GPT-4.1+, or equivalent
 
 See [REQUIREMENTS.md](REQUIREMENTS.md) for platform-specific setup and model compatibility details.
 
@@ -24,7 +24,7 @@ cd dot-principles
 
 ## 2. Install into your project
 
-`.principles` is a **repo-local** install — there is no global install. A `<dir>` argument is always required. The primary command installs everything at once:
+`.principles` is a **repo-local** install - there is no global install. A `<dir>` argument is always required. The primary command installs everything at once:
 
 ### Linux / macOS
 
@@ -37,9 +37,9 @@ cd dot-principles
 
 Windows users need bash on `PATH`. The repo ships thin wrapper scripts for both PowerShell and Command Prompt that detect bash and forward arguments to the real `install.sh`.
 
-**Step 1 — get bash.** Install [Git for Windows](https://git-scm.com/download/win) (includes Git Bash). WSL, MSYS2, and Cygwin also work as long as `bash` is on `PATH`.
+**Step 1 - get bash.** Install [Git for Windows](https://git-scm.com/download/win) (includes Git Bash). WSL, MSYS2, and Cygwin also work as long as `bash` is on `PATH`.
 
-**Step 2 — run the wrapper.**
+**Step 2 - run the wrapper.**
 
 **PowerShell:**
 
@@ -88,7 +88,7 @@ git commit -m "Add .principles AI commands and principle files"
 You can also install a subset, or use interactive mode:
 
 ```bash
-# Interactive — select which tools to install
+# Interactive - select which tools to install
 ./install.sh <dir>
 
 # Claude Code commands only
@@ -112,7 +112,7 @@ You can also install a subset, or use interactive mode:
 
 ---
 
-## 4. Vendor subcommand — `.principles-catalog/`
+## 4. Vendor subcommand - `.principles-catalog/`
 
 The `vendor` subcommand copies the subset of the principle catalog referenced by the project's `.principles` files into `<dir>/.principles-catalog/`:
 
@@ -122,14 +122,14 @@ The `vendor` subcommand copies the subset of the principle catalog referenced by
 
 `install.sh all` runs `vendor` automatically. You only need to run it manually if you add new principles to your `.principles` files after the initial install.
 
-As part of vendoring, `install.sh vendor` also generates `<dir>/.principles-catalog/index.tsv` — a pipe-delimited flat file (`ID|LAYER|SUMMARY`, one line per principle) covering every vendored principle. `dot-scout` reads this single file to resolve active principles and emit per-group files in one pass, without walking hundreds of individual namespace files. Example entries:
+As part of vendoring, `install.sh vendor` also generates `<dir>/.principles-catalog/index.tsv` - a pipe-delimited flat file (`ID|LAYER|SUMMARY`, one line per principle) covering every vendored principle. `dot-scout` reads this single file to resolve active principles and emit per-group files in one pass, without walking hundreds of individual namespace files. Example entries:
 
 ```
 CODE-SEC-VALIDATE-INPUT|1|Validate all input at every system boundary; never trust external data.
 DDD-AGGREGATE|2|Enforce business invariants within a single aggregate boundary per transaction.
 ```
 
-**Why commit `.principles-catalog/`?** The installed commands (`dot-scout`, `dot-prime`, `dot-audit`) reference `.principles-catalog/` inside the project. Committing this directory means the commands work for every team member — even without access to the `.principles` repo — and the CI/CD environment gets the same principle data.
+**Why commit `.principles-catalog/`?** The installed commands (`dot-scout`, `dot-prime`, `dot-audit`) reference `.principles-catalog/` inside the project. Committing this directory means the commands work for every team member - even without access to the `.principles` repo - and the CI/CD environment gets the same principle data.
 
 `.principles-catalog/` contains the same file structure as the `principles/` directory in this repo, filtered to the namespaces and groups your project actually uses.
 
@@ -139,7 +139,7 @@ DDD-AGGREGATE|2|Enforce business invariants within a single aggregate boundary p
 
 After `install.sh all <dir>`, Claude Code slash commands are written to `<dir>/.claude/commands/`. Claude Code discovers these automatically when opened in that project directory.
 
-**Per-group files:** After running `dot-scout`, per-group principle files are emitted to `.claude/rules/` with `paths:` frontmatter targeting the relevant file types. Claude Code reads everything in `.claude/rules/` as always-on context — no further configuration needed.
+**Per-group files:** After running `dot-scout`, per-group principle files are emitted to `.claude/rules/` with `paths:` frontmatter targeting the relevant file types. Claude Code reads everything in `.claude/rules/` as always-on context - no further configuration needed.
 
 Run `dot-scout` once per project to populate `.principles` files and emit per-group principle files:
 
@@ -177,7 +177,7 @@ Writes prompt files into `.github/prompts/`:
 
 The `copilot` sub-command installs both CLI skills and IDE prompts. This repo ships with pre-populated `.github/prompts/` and `.github/skills/` directories so contributors working in this repo get `dot-scout`, `dot-prime`, and `dot-audit` without running the installer.
 
-**Per-group files:** After `dot-scout`, one file per active `@group` is written to `.github/instructions/` with `applyTo:` frontmatter listing the file globs for that group. Copilot Code Review activates each file only when reviewing paths that match its globs — keeping each file within the context budget.
+**Per-group files:** After `dot-scout`, one file per active `@group` is written to `.github/instructions/` with `applyTo:` frontmatter listing the file globs for that group. Copilot Code Review activates each file only when reviewing paths that match its globs - keeping each file within the context budget.
 
 ---
 
@@ -215,7 +215,7 @@ On Windows, use `uninstall.ps1` or `uninstall.cmd` with the same arguments.
 
 ## 9. Corporate & Personal Principles
 
-You can plug in your own principle namespaces — corporate standards, team conventions, or personal rules — alongside the built-in catalog, without forking this repo.
+You can plug in your own principle namespaces - corporate standards, team conventions, or personal rules - alongside the built-in catalog, without forking this repo.
 
 ### How it works
 
@@ -237,15 +237,15 @@ Three sources are merged automatically when you run `install.sh vendor` or any i
 
 | Source | How |
 |--------|-----|
-| **CLI flag** | `--extra-catalog <path>` — repeatable, highest priority |
-| **Project config** | `<project-dir>/.principles-extra` — one path per line |
-| **User config** | `~/.principles-extra` — one path per line, applies to all your projects |
+| **CLI flag** | `--extra-catalog <path>` - repeatable, highest priority |
+| **Project config** | `<project-dir>/.principles-extra` - one path per line |
+| **User config** | `~/.principles-extra` - one path per line, applies to all your projects |
 
 All sources are additive. Built-in namespaces (`solid`, `gof`, `ddd`, etc.) are always present and cannot be overridden.
 
 ### Corporate setup
 
-**Step 1** — Create a shared principles repo:
+**Step 1** - Create a shared principles repo:
 
 ```bash
 # Clone the extra-catalog template
@@ -255,7 +255,7 @@ git init && git add . && git commit -m "Initial ACME principles"
 # Push to your internal git host
 ```
 
-**Step 2** — Rename the namespace and add your principles:
+**Step 2** - Rename the namespace and add your principles:
 
 ```
 acme-principles/
@@ -270,7 +270,7 @@ acme-principles/
     acme-backend.yaml          ← @acme-backend group
 ```
 
-**Step 3** — Each developer clones the repo and registers it:
+**Step 3** - Each developer clones the repo and registers it:
 
 ```bash
 # Clone to a known path
@@ -286,7 +286,7 @@ Or register per-project (committed to the repo):
 echo /shared/acme-principles >> my-project/.principles-extra
 ```
 
-**Step 4** — Re-vendor after each update to `acme-principles`:
+**Step 4** - Re-vendor after each update to `acme-principles`:
 
 ```bash
 cd /path/to/dot-principles && ./install.sh vendor ~/projects/my-project
@@ -310,7 +310,7 @@ See [`github.com/dot-principles/example-catalog`](https://github.com/dot-princip
 
 ### Both at the same time
 
-Corporate and personal catalogs work simultaneously — just register both:
+Corporate and personal catalogs work simultaneously - just register both:
 
 ```
 # ~/.principles-extra
@@ -334,12 +334,12 @@ PTAC-PLAIN-TEXT-FIRST
 ### Conflict rules
 
 - **Duplicate namespaces**: the first-registered source wins (built-in > user config > project config > CLI). A warning is printed; the duplicate is skipped.
-- **Duplicate groups**: same rule — first wins.
+- **Duplicate groups**: same rule - first wins.
 - Extra catalogs cannot override built-in namespaces.
 
 ### Versioning your extra catalog
 
-An extra catalog is just a directory — treat it as a git repo:
+An extra catalog is just a directory - treat it as a git repo:
 
 ```bash
 cd ~/acme-principles
@@ -395,7 +395,7 @@ git checkout -b try-principles
 # or on Windows:
 # \path\to\.principles\install.ps1 all .
 
-# Run /dot-scout, /dot-prime, /dot-audit — explore without touching your main branch
+# Run /dot-scout, /dot-prime, /dot-audit - explore without touching your main branch
 # When done, delete the branch to remove everything
 git checkout main && git branch -D try-principles
 ```

@@ -1,18 +1,18 @@
-# CODE-PF-PROFILE-FIRST — Measure before optimizing — profile, don't guess
+# CODE-PF-PROFILE-FIRST - Measure before optimizing - profile, don't guess
 
 **Layer:** 3 (risk-elevated)
 **Categories:** performance
 **Applies-to:** all
 **Summary:** Always profile to identify actual bottlenecks before making any performance optimization.
-**Audit-scope:** excluded — the core violation ("optimized without profiling data") is a process event, not a code state; no artifact in the codebase proves or disproves whether profiling occurred
+**Audit-scope:** excluded - the core violation ("optimized without profiling data") is a process event, not a code state; no artifact in the codebase proves or disproves whether profiling occurred
 
 ## Principle
 
-Never optimize based on intuition alone. Before changing code for performance, measure it with a profiler to identify the actual bottleneck. Programmers are notoriously bad at predicting where a program spends its time — the real hotspot is almost never where you expect. Establish a performance baseline, make one change, and measure again to verify the improvement.
+Never optimize based on intuition alone. Before changing code for performance, measure it with a profiler to identify the actual bottleneck. Programmers are notoriously bad at predicting where a program spends its time - the real hotspot is almost never where you expect. Establish a performance baseline, make one change, and measure again to verify the improvement.
 
 ## Why it matters
 
-As Knuth famously warned, "premature optimization is the root of all evil." Optimizing code that is not on the critical path wastes development time and often makes the code harder to read, maintain, and debug — all for no measurable benefit. Worse, misguided optimizations can introduce bugs or pessimize performance by defeating compiler optimizations or disrupting cache behavior. Profiling directs effort to the places where it will actually make a difference.
+As Knuth famously warned, "premature optimization is the root of all evil." Optimizing code that is not on the critical path wastes development time and often makes the code harder to read, maintain, and debug - all for no measurable benefit. Worse, misguided optimizations can introduce bugs or pessimize performance by defeating compiler optimizations or disrupting cache behavior. Profiling directs effort to the places where it will actually make a difference.
 
 ## Violations to detect
 

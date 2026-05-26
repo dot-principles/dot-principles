@@ -1,4 +1,4 @@
-# GRASP-CONTROLLER — Controller
+# GRASP-CONTROLLER - Controller
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, responsibility-assignment, architecture
@@ -17,13 +17,13 @@ Without a controller, system event handling bleeds into UI components, domain ob
 
 - UI components (buttons, views, request handlers) containing business logic directly
 - Domain objects processing UI events or HTTP request parameters
-- No clear coordinator class — system operations scattered across the caller
+- No clear coordinator class - system operations scattered across the caller
 - Fat controllers that contain business logic rather than delegating to domain objects
 
 ## Good practice
 
 - A controller class per use-case (e.g., `ProcessOrderController`) that delegates to domain objects
-- In MVC, the controller coordinates — it does not implement — business rules
+- In MVC, the controller coordinates - it does not implement - business rules
 - Keep controllers thin: receive the event, delegate to the domain, return a result
 - Use the facade controller pattern (one controller per subsystem) for simpler systems
 

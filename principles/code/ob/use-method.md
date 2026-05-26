@@ -1,4 +1,4 @@
-# CODE-OB-USE-METHOD — For every resource, track Utilisation, Saturation, and Errors (USE Method)
+# CODE-OB-USE-METHOD - For every resource, track Utilisation, Saturation, and Errors (USE Method)
 
 **Layer:** 2 (contextual)
 **Categories:** observability, operations, reliability, performance
@@ -7,7 +7,7 @@
 
 ## Principle
 
-For every infrastructure resource — CPU, memory, disk, network interface, queue — measure three signals: Utilisation (the percentage of time the resource is busy), Saturation (the degree to which work is queued because the resource is at capacity), and Errors (the count of failed operations on that resource). These three signals, taken together, predict most resource-related performance problems before they become outages.
+For every infrastructure resource - CPU, memory, disk, network interface, queue - measure three signals: Utilisation (the percentage of time the resource is busy), Saturation (the degree to which work is queued because the resource is at capacity), and Errors (the count of failed operations on that resource). These three signals, taken together, predict most resource-related performance problems before they become outages.
 
 ## Why it matters
 
@@ -25,7 +25,7 @@ When a system slows down or fails, engineers lose time identifying which resourc
 
 - For each major resource (CPU, memory, storage I/O, network, thread pools, connection pools), instrument all three USE dimensions
 - Expose saturation as a queue-depth, wait-time, or pending-work metric alongside the utilisation percentage
-- Include error counters for every resource type — dropped packets, throttled requests, disk I/O errors
+- Include error counters for every resource type - dropped packets, throttled requests, disk I/O errors
 - Build a resource checklist as part of your incident runbook so the USE sweep happens systematically
 - Use the USE Method as a structured first pass during performance investigations before diving into application-level tracing
 

@@ -1,4 +1,4 @@
-# CODE-RL-BACKPRESSURE — Apply backpressure to protect systems from overload
+# CODE-RL-BACKPRESSURE - Apply backpressure to protect systems from overload
 
 **Layer:** 2 (contextual)
 **Categories:** reliability, distributed-systems
@@ -11,7 +11,7 @@ When a component receives work faster than it can process it, it must signal the
 
 ## Why it matters
 
-Without backpressure, a fast producer paired with a slow consumer leads to unbounded queue growth, memory exhaustion, and eventual system failure. Alternatively, if overflow is handled by silently dropping messages, data loss occurs without anyone knowing. Backpressure makes overload visible and controllable — the system either slows down to a sustainable rate or explicitly rejects excess work, giving operators and upstream callers the information they need to respond.
+Without backpressure, a fast producer paired with a slow consumer leads to unbounded queue growth, memory exhaustion, and eventual system failure. Alternatively, if overflow is handled by silently dropping messages, data loss occurs without anyone knowing. Backpressure makes overload visible and controllable - the system either slows down to a sustainable rate or explicitly rejects excess work, giving operators and upstream callers the information they need to respond.
 
 ## Violations to detect
 
@@ -23,7 +23,7 @@ Without backpressure, a fast producer paired with a slow consumer leads to unbou
 ## Good practice
 
 - Use bounded queues or buffers with explicit capacity limits, and define what happens when the limit is reached (block, reject, or drop with notification)
-- Implement pull-based consumption where possible — let the consumer request work at its own pace rather than having the producer push at an arbitrary rate
+- Implement pull-based consumption where possible - let the consumer request work at its own pace rather than having the producer push at an arbitrary rate
 - Expose metrics for queue depth, rejection rate, and processing lag so that overload conditions are detected early
 - In reactive or streaming systems, use protocols that support backpressure natively (e.g., Reactive Streams, TCP flow control, Kafka consumer lag)
 

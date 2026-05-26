@@ -1,4 +1,4 @@
-# CODE-CC-PREFER-IMMUTABLE — Prefer immutable objects for thread safety
+# CODE-CC-PREFER-IMMUTABLE - Prefer immutable objects for thread safety
 
 **Layer:** 2
 **Categories:** concurrency, thread-safety, performance
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Immutable objects—those whose state cannot be modified after construction—are inherently thread-safe because concurrent readers can never observe an inconsistent state. By designing value-carrying classes to be immutable, you eliminate an entire category of concurrency bugs without any synchronization overhead. When mutation is needed, create a new instance rather than modifying the existing one.
+Immutable objects-those whose state cannot be modified after construction-are inherently thread-safe because concurrent readers can never observe an inconsistent state. By designing value-carrying classes to be immutable, you eliminate an entire category of concurrency bugs without any synchronization overhead. When mutation is needed, create a new instance rather than modifying the existing one.
 
 ## Why it matters
 

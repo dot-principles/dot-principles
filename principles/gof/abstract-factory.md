@@ -1,4 +1,4 @@
-# GOF-ABSTRACT-FACTORY — Abstract Factory Pattern
+# GOF-ABSTRACT-FACTORY - Abstract Factory Pattern
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
@@ -46,11 +46,11 @@ classDiagram
 ```
 
 ```java
-// Violation — directly instantiates platform-specific products
+// Violation - directly instantiates platform-specific products
 Button btn = new WindowsButton();
 Checkbox cb = new WindowsCheckbox();
 
-// Correct — factory injected; client unaware of concrete family
+// Correct - factory injected; client unaware of concrete family
 UIFactory factory = resolveFactory(platform);  // WindowsFactory or MacFactory
 Button btn = factory.createButton();
 Checkbox cb = factory.createCheckbox();

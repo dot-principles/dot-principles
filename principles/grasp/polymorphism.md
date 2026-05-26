@@ -1,4 +1,4 @@
-# GRASP-POLYMORPHISM — Polymorphism
+# GRASP-POLYMORPHISM - Polymorphism
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, extensibility
@@ -25,7 +25,7 @@ Type-based conditional logic (`if/else` or `switch` on type) must be updated in 
 - Replace type checks with virtual dispatch: define a common interface, let each type implement its variant
 - Use the strategy pattern when the variation is behaviour injected at runtime
 - Use the visitor pattern when you need to add operations to a stable type hierarchy without modifying it
-- Introduce polymorphism at the second variation — not prematurely at the first
+- Introduce polymorphism at the second variation - not prematurely at the first
 
 ## Sources
 

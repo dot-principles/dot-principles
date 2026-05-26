@@ -1,4 +1,4 @@
-# SIMPLE-DESIGN-REVEALS-INTENTION — Reveals Intention
+# SIMPLE-DESIGN-REVEALS-INTENTION - Reveals Intention
 
 **Layer:** 1 (universal)
 **Categories:** software-design, readability, simplicity
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Code should clearly communicate its purpose to the reader. Every name, structure, and abstraction should reveal the programmer's intent so that another developer can understand what the code does and why without needing to decipher it. Beck states that the code should "reveal intention" — making the system easy to understand is the second most important rule of simple design.
+Code should clearly communicate its purpose to the reader. Every name, structure, and abstraction should reveal the programmer's intent so that another developer can understand what the code does and why without needing to decipher it. Beck states that the code should "reveal intention" - making the system easy to understand is the second most important rule of simple design.
 
 ## Why it matters
 

@@ -1,4 +1,4 @@
-# GOF-PROXY — Proxy Pattern
+# GOF-PROXY - Proxy Pattern
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
@@ -42,13 +42,13 @@ classDiagram
 ```
 
 ```java
-// Violation — eager, unguarded access to expensive resource
+// Violation - eager, unguarded access to expensive resource
 class Client {
     private DatabaseService db = new DatabaseService();  // slow init always
     void query() { db.execute(sql); }
 }
 
-// Correct — virtual proxy defers creation until actually needed
+// Correct - virtual proxy defers creation until actually needed
 class DatabaseServiceProxy implements DatabaseService {
     private DatabaseService real;
     public ResultSet execute(String sql) {
@@ -61,8 +61,8 @@ class DatabaseServiceProxy implements DatabaseService {
 - Give the proxy the same interface as the real subject so clients need not distinguish between them
 - Use virtual proxies to defer costly creation until the object is actually needed
 - Use protection proxies to enforce access rights in a single, consistent location
-- Keep the proxy thin — delegate real work to the subject and limit the proxy to its cross-cutting concern
+- Keep the proxy thin - delegate real work to the subject and limit the proxy to its cross-cutting concern
 
 ## Sources
 
-- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. ISBN 978-0-201-63361-0. Chapter 4, Structural Patterns — Proxy.
+- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. ISBN 978-0-201-63361-0. Chapter 4, Structural Patterns - Proxy.

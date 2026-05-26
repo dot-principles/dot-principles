@@ -1,4 +1,4 @@
-# CODE-TS-TEST-NAMING — Name tests by the behavior they verify
+# CODE-TS-TEST-NAMING - Name tests by the behavior they verify
 
 **Layer:** 2 (contextual)
 **Categories:** testing, quality
@@ -26,7 +26,7 @@ Test names serve as living documentation of the system's behavior. When named by
 - Use a naming pattern that communicates context and expectation: `[action/scenario]_[expected result]` or `should [expected behavior] when [condition]`
 - Include the relevant condition or edge case in the name (`empty_cart_returns_zero_total`)
 - Write names that read as sentences when the test class or describe block provides the subject
-- Update test names when the behavior they verify changes — stale names are misleading
+- Update test names when the behavior they verify changes - stale names are misleading
 
 ## Sources
 

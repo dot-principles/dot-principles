@@ -1,4 +1,4 @@
-# DOC-OBJECTIVE — Write in a neutral, factual tone; eliminate promotional language
+# DOC-OBJECTIVE - Write in a neutral, factual tone; eliminate promotional language
 
 **Layer:** 1 (universal)
 **Categories:** documentation, readability, trust
@@ -9,7 +9,7 @@
 
 Technical documentation should be factual and neutral. Avoid adjectives and claims that express enthusiasm, relative quality, or ease without supporting evidence: words like `"easy"`, `"simple"`, `"powerful"`, `"seamlessly"`, `"best-in-class"`, and `"robust"` signal marketing copy, not technical content. Every claim in documentation should be demonstrable; if it cannot be shown, it should not be stated.
 
-Objective documentation earns reader trust. Promotional language in technical writing signals that the author's goal is persuasion, not information — and readers adjust their reading posture accordingly, discounting everything that follows.
+Objective documentation earns reader trust. Promotional language in technical writing signals that the author's goal is persuasion, not information - and readers adjust their reading posture accordingly, discounting everything that follows.
 
 ## Why it matters
 
@@ -30,7 +30,7 @@ Usability research by Morkes and Nielsen (1997) found that rewriting promotional
 ## Good practice
 
 - Replace subjective claims with demonstrable facts: instead of `"simple to configure"`, show a minimal configuration and let the reader judge
-- Replace `"simply run X"` with `"run X"` — the qualifier adds no information and patronises readers who find it non-trivial
+- Replace `"simply run X"` with `"run X"` - the qualifier adds no information and patronises readers who find it non-trivial
 - If a comparative claim is important, back it with a benchmark, citation, or concrete example
 - Reserve emphasis (`**bold**`, `_italic_`) for technical terms and key actions, not for enthusiasm
 - Review documentation PRs specifically for promotional language as a distinct pass

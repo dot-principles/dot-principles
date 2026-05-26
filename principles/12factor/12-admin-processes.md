@@ -1,4 +1,4 @@
-# 12FACTOR-12-ADMIN-PROCESSES — Admin Processes
+# 12FACTOR-12-ADMIN-PROCESSES - Admin Processes
 
 **Layer:** 2 (contextual)
 **Categories:** architecture, cloud-native, operations
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Run admin and management tasks — database migrations, one-time data fixes, console sessions — as one-off processes in the same environment as the regular long-running processes. Admin code ships with the application code and runs against the same release.
+Run admin and management tasks - database migrations, one-time data fixes, console sessions - as one-off processes in the same environment as the regular long-running processes. Admin code ships with the application code and runs against the same release.
 
 ## Why it matters
 
@@ -23,7 +23,7 @@ Admin tasks run outside the normal request/response cycle but must operate again
 ## Good practice
 
 - Package migrations and admin commands in the app's source; run them as `heroku run`, `kubectl exec`, or equivalent
-- Use database migration frameworks (Flyway, Liquibase, Alembic, ActiveRecord migrations) — never raw SQL applied manually
+- Use database migration frameworks (Flyway, Liquibase, Alembic, ActiveRecord migrations) - never raw SQL applied manually
 - Test admin commands in staging before running in production, using the same deployment mechanism
 - Log admin process runs with who ran them, when, and what was changed
 

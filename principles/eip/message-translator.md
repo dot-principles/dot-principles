@@ -1,4 +1,4 @@
-# EIP-MESSAGE-TRANSLATOR — Message Translator
+# EIP-MESSAGE-TRANSLATOR - Message Translator
 
 **Layer:** 2 (contextual)
 **Categories:** integration, messaging, maintainability
@@ -11,14 +11,14 @@ A Message Translator converts a message from one format or schema into another, 
 
 ## Why it matters
 
-When format translation is scattered through service methods rather than confined to a dedicated boundary, the internal domain model becomes coupled to external message schemas. Changes to an external producer's message format require changes throughout the codebase — not just at the integration boundary. Multiple consumers each performing their own translation of the same external format duplicate mapping logic that will drift out of sync. Isolating translation at the boundary means the rest of the system is insulated from external schema changes.
+When format translation is scattered through service methods rather than confined to a dedicated boundary, the internal domain model becomes coupled to external message schemas. Changes to an external producer's message format require changes throughout the codebase - not just at the integration boundary. Multiple consumers each performing their own translation of the same external format duplicate mapping logic that will drift out of sync. Isolating translation at the boundary means the rest of the system is insulated from external schema changes.
 
 ## Violations to detect
 
 - A service method that receives an external DTO and maps it to a domain object inline, mixing translation with business logic in the same method body
 - Multiple classes that each independently implement their own mapping from the same external message format, duplicating and potentially diverging in their translation rules
 - Domain model classes that have direct dependencies on external message schema types, coupling the core domain to integration concerns
-- Translation logic that is neither tested independently nor separable from the service it lives in — a format change requires reasoning about the entire service
+- Translation logic that is neither tested independently nor separable from the service it lives in - a format change requires reasoning about the entire service
 
 ## Good practice
 

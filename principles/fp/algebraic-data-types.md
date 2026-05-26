@@ -1,4 +1,4 @@
-# FP-ALGEBRAIC-DATA-TYPES — Algebraic data types (ADTs)
+# FP-ALGEBRAIC-DATA-TYPES - Algebraic data types (ADTs)
 
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, type-safety, software-design
@@ -7,7 +7,7 @@
 
 ## Principle
 
-Algebraic data types are composite types constructed from two primitives: product types (records, structs, tuples — "this AND that") and sum types (variants, unions, enums with data — "this OR that"). Using ADTs to model domain concepts makes impossible states unrepresentable and forces exhaustive handling of every case, shifting a class of runtime errors to compile-time errors.
+Algebraic data types are composite types constructed from two primitives: product types (records, structs, tuples - "this AND that") and sum types (variants, unions, enums with data - "this OR that"). Using ADTs to model domain concepts makes impossible states unrepresentable and forces exhaustive handling of every case, shifting a class of runtime errors to compile-time errors.
 
 ## Why it matters
 
@@ -15,7 +15,7 @@ When domain concepts are represented with primitive types or inheritance hierarc
 
 ## Violations to detect
 
-- Boolean flags on a record that represent mutually exclusive states (`isLoading`, `hasError`, `isSuccess` — use a sum type)
+- Boolean flags on a record that represent mutually exclusive states (`isLoading`, `hasError`, `isSuccess` - use a sum type)
 - Nullable fields that are only valid in some states (use a sum type with the field scoped to the relevant variant)
 - `instanceof` or `typeof` chains in business logic that would be better expressed as pattern matching on a sum type
 - Stringly-typed status fields (`status: string`) that have a finite set of valid values

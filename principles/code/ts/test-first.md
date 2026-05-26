@@ -1,10 +1,10 @@
-# CODE-TS-TEST-FIRST — Write the test before the code
+# CODE-TS-TEST-FIRST - Write the test before the code
 
 **Layer:** 2 (contextual)
 **Categories:** testing, quality
 **Applies-to:** all
 **Summary:** Write a failing test before any production code and follow the red-green-refactor cycle strictly.
-**Audit-scope:** limited — can detect absence of corresponding tests; cannot determine whether tests were written before production code (requires git history)
+**Audit-scope:** limited - can detect absence of corresponding tests; cannot determine whether tests were written before production code (requires git history)
 
 ## Principle
 
@@ -24,7 +24,7 @@ TDD produces code that is testable by construction. By writing the test first, y
 ## Good practice
 
 - Start each task by writing one small, specific failing test
-- Write only enough production code to pass the current failing test — resist the urge to write ahead
+- Write only enough production code to pass the current failing test - resist the urge to write ahead
 - Refactor after each green phase, improving design while tests stay green
 - Commit at each green-refactor boundary to preserve working states
 

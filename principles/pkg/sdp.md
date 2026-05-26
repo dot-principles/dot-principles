@@ -1,4 +1,4 @@
-# PKG-SDP — Stable Dependencies Principle (SDP)
+# PKG-SDP - Stable Dependencies Principle (SDP)
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, package-design, modularity, architecture

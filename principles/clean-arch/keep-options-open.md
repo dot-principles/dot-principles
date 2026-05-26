@@ -1,4 +1,4 @@
-# CLEAN-ARCH-KEEP-OPTIONS-OPEN — Keep Options Open
+# CLEAN-ARCH-KEEP-OPTIONS-OPEN - Keep Options Open
 
 **Layer:** 2 (contextual)
 **Categories:** architecture
@@ -11,7 +11,7 @@ A good architecture maximizes the number of decisions not made. Defer binding to
 
 ## Why it matters
 
-Early commitment to a framework or database shapes every decision that follows and makes reversal expensive. When the architecture treats these choices as deferred details rather than foundational commitments, the team can prototype with a simple in-memory implementation, delay vendor selection until requirements stabilize, and switch technologies when better options emerge — all without rewriting the core application.
+Early commitment to a framework or database shapes every decision that follows and makes reversal expensive. When the architecture treats these choices as deferred details rather than foundational commitments, the team can prototype with a simple in-memory implementation, delay vendor selection until requirements stabilize, and switch technologies when better options emerge - all without rewriting the core application.
 
 ## Violations to detect
 
@@ -22,7 +22,7 @@ Early commitment to a framework or database shapes every decision that follows a
 
 ## Good practice
 
-- Define repository interfaces, gateway interfaces, and service interfaces in the domain layer — implement them with concrete technology in the infrastructure layer
+- Define repository interfaces, gateway interfaces, and service interfaces in the domain layer - implement them with concrete technology in the infrastructure layer
 - Build and test the core application against in-memory or fake implementations before committing to production infrastructure
 - Evaluate frameworks and databases as late as responsibly possible, treating them as pluggable details
 - Document technology decisions as Architecture Decision Records (ADRs) so the reasoning is preserved and revisitable

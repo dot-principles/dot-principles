@@ -1,4 +1,4 @@
-# CODE-CS-YAGNI — YAGNI: You Aren't Gonna Need It
+# CODE-CS-YAGNI - YAGNI: You Aren't Gonna Need It
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, simplicity, agile
@@ -7,11 +7,11 @@
 
 ## Principle
 
-Do not add functionality until it is actually needed. Every feature costs time to build, test, document, and maintain — features built speculatively for hypothetical future requirements carry those costs without delivering value. Implement the simplest thing that works for the current need; extend when a real requirement arrives.
+Do not add functionality until it is actually needed. Every feature costs time to build, test, document, and maintain - features built speculatively for hypothetical future requirements carry those costs without delivering value. Implement the simplest thing that works for the current need; extend when a real requirement arrives.
 
 ## Why it matters
 
-Speculative features add complexity without delivering value. They inflate the codebase, slow future refactoring, and often encode the wrong abstraction — built before the actual use case is understood. The cost of removing unused code is always higher than never writing it. Premature generality is one of the most common sources of accidental complexity.
+Speculative features add complexity without delivering value. They inflate the codebase, slow future refactoring, and often encode the wrong abstraction - built before the actual use case is understood. The cost of removing unused code is always higher than never writing it. Premature generality is one of the most common sources of accidental complexity.
 
 ## Violations to detect
 
@@ -26,7 +26,7 @@ Speculative features add complexity without delivering value. They inflate the c
 
 - Implement the simplest solution that satisfies the current requirement
 - Wait for a second real use case before extracting a shared abstraction
-- Delete speculative code on sight — if it is not tested and not called, remove it
+- Delete speculative code on sight - if it is not tested and not called, remove it
 - Defer architectural decisions until the requirements that drive them are concrete
 
 ## Sources

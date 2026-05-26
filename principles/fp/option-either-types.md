@@ -1,4 +1,4 @@
-# FP-OPTION-EITHER-TYPES — Model absence and errors with types
+# FP-OPTION-EITHER-TYPES - Model absence and errors with types
 
 **Layer:** 2 (contextual)
 **Categories:** functional-programming, type-safety, error-handling, reliability
@@ -11,7 +11,7 @@ Use `Option`/`Maybe` to represent values that may legitimately be absent, and `E
 
 ## Why it matters
 
-`null` and unchecked exceptions are invisible in type signatures: a function that returns `User` when it can actually return `null` misleads every caller. `NullPointerException` and unhandled exceptions are among the most common runtime failures in production systems. Encoding absence and failure in the type system converts runtime surprises into compile-time obligations — the caller must explicitly decide what to do when a value is absent or an operation fails.
+`null` and unchecked exceptions are invisible in type signatures: a function that returns `User` when it can actually return `null` misleads every caller. `NullPointerException` and unhandled exceptions are among the most common runtime failures in production systems. Encoding absence and failure in the type system converts runtime surprises into compile-time obligations - the caller must explicitly decide what to do when a value is absent or an operation fails.
 
 ## Violations to detect
 
@@ -24,7 +24,7 @@ Use `Option`/`Maybe` to represent values that may legitimately be absent, and `E
 ## Inspection
 
 - `grep -rn "=== null\|== null\|!= null\|!== null" --include="*.ts" --include="*.js" $TARGET` | MEDIUM | Null checks that could be replaced with Option/Maybe types
-- `grep -rn "throws\|throw new" --include="*.ts" --include="*.java" --include="*.kt" $TARGET` | LOW | Exception throwing — verify these are truly exceptional, not recoverable errors
+- `grep -rn "throws\|throw new" --include="*.ts" --include="*.java" --include="*.kt" $TARGET` | LOW | Exception throwing - verify these are truly exceptional, not recoverable errors
 
 ## Good practice
 
@@ -36,5 +36,5 @@ Use `Option`/`Maybe` to represent values that may legitimately be absent, and `E
 ## Sources
 
 - Hutton, Graham. *Programming in Haskell*, 2nd ed. Cambridge University Press, 2016. ISBN 978-1-316-62622-1. Chapter 8.
-- Chiusano, Paul and Bjarnason, Rúnar. *Functional Programming in Scala*. Manning, 2014. ISBN 978-1-61729-065-7. Chapters 4–5.
+- Chiusano, Paul and Bjarnason, Rúnar. *Functional Programming in Scala*. Manning, 2014. ISBN 978-1-61729-065-7. Chapters 4-5.
 - Wlaschin, Scott. *Domain Modelling Made Functional*. Pragmatic Bookshelf, 2018. ISBN 978-1-68050-329-4. Chapter 6.

@@ -1,4 +1,4 @@
-# CODE-DX-DATA-INK-RATIO — Minimize data-ink ratio in visualizations
+# CODE-DX-DATA-INK-RATIO - Minimize data-ink ratio in visualizations
 
 **Layer:** 2
 **Categories:** developer-experience, usability, ux-design
@@ -7,7 +7,7 @@
 
 ## Principle
 
-In any data visualization, the share of ink (or pixels) devoted to displaying actual data should be maximized, and the share devoted to non-data elements — grid lines, borders, decorations, redundant labels, 3D effects — should be minimized. Tufte defines the data-ink ratio as the proportion of a graphic's ink that represents data. A large share of ink in a typical graphic can be removed without loss of information. Every element in a visualization should earn its place by conveying data or aiding comprehension.
+In any data visualization, the share of ink (or pixels) devoted to displaying actual data should be maximized, and the share devoted to non-data elements - grid lines, borders, decorations, redundant labels, 3D effects - should be minimized. Tufte defines the data-ink ratio as the proportion of a graphic's ink that represents data. A large share of ink in a typical graphic can be removed without loss of information. Every element in a visualization should earn its place by conveying data or aiding comprehension.
 
 ## Why it matters
 
@@ -23,11 +23,11 @@ Visual clutter competes with data for the viewer's attention. Heavy gridlines, c
 
 ## Good practice
 
-- Remove or lighten gridlines — use faint lines or remove them entirely if axis labels are sufficient
+- Remove or lighten gridlines - use faint lines or remove them entirely if axis labels are sufficient
 - Eliminate chart borders, background fills, and 3D effects that add no information
 - Use direct labeling (placing labels on or next to data elements) instead of legends when there are few series
 - Prefer high data-density formats: small multiples, sparklines, and tables over heavily decorated single charts
-- Choose the simplest chart type that accurately represents the data — bar charts for comparison, line charts for trends, tables for exact values
+- Choose the simplest chart type that accurately represents the data - bar charts for comparison, line charts for trends, tables for exact values
 
 ## Sources
 

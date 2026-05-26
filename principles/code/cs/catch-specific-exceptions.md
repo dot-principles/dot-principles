@@ -1,4 +1,4 @@
-# CODE-CS-CATCH-SPECIFIC-EXCEPTIONS — Catch the most specific exception type possible
+# CODE-CS-CATCH-SPECIFIC-EXCEPTIONS - Catch the most specific exception type possible
 
 **Layer:** 1 (universal)
 **Categories:** error-handling, reliability, code-quality
@@ -51,7 +51,7 @@ try {
 ```
 
 - Catch one exception type per `catch` block where possible; avoid multi-catch for unrelated types
-- At top-level / framework boundaries (servlet filters, message consumers, scheduled jobs), a broad catch is acceptable — log it and fail the unit of work, do not silently continue
+- At top-level / framework boundaries (servlet filters, message consumers, scheduled jobs), a broad catch is acceptable - log it and fail the unit of work, do not silently continue
 - In languages with checked exceptions, declare thrown types precisely so callers can make informed decisions
 
 ## Sources

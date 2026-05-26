@@ -1,4 +1,4 @@
-# groups — Index
+# groups - Index
 
 53 built-in groups. Use `@<name>` in `.principles` to activate.
 

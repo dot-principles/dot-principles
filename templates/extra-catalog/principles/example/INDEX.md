@@ -1,4 +1,4 @@
-# principles/example — Index
+# principles/example - Index
 
 | File | Description |
 |---|---|

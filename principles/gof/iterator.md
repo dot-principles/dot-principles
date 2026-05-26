@@ -1,4 +1,4 @@
-# GOF-ITERATOR — Iterator Pattern
+# GOF-ITERATOR - Iterator Pattern
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
@@ -49,11 +49,11 @@ classDiagram
 ```
 
 ```java
-// Violation — client knows the tree's internal node structure
+// Violation - client knows the tree's internal node structure
 Node current = tree.getRoot();
 while (current != null) { process(current); current = current.nextInOrder(); }
 
-// Correct — iterate without knowing the tree's internals
+// Correct - iterate without knowing the tree's internals
 Iterator<String> it = tree.createIterator();
 while (it.hasNext()) { process(it.next()); }
 ```
@@ -65,4 +65,4 @@ while (it.hasNext()) { process(it.next()); }
 
 ## Sources
 
-- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. ISBN 978-0-201-63361-0. Chapter 5, Behavioral Patterns — Iterator.
+- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. ISBN 978-0-201-63361-0. Chapter 5, Behavioral Patterns - Iterator.

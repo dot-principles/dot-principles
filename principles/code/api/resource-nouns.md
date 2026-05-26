@@ -1,4 +1,4 @@
-# CODE-API-RESOURCE-NOUNS — Design resources around nouns, not verbs
+# CODE-API-RESOURCE-NOUNS - Design resources around nouns, not verbs
 
 **Layer:** 2
 **Categories:** api-design, rest, protocol-design
@@ -7,7 +7,7 @@
 
 ## Principle
 
-REST APIs expose resources — entities and collections that are identified by URIs. Resource URIs should be nouns representing the things in your domain (`/orders`, `/users/42`, `/invoices/2024-001/line-items`), not verbs representing actions (`/getUser`, `/createOrder`). The HTTP method supplies the verb; the URI identifies the resource being acted upon. This separation is central to the uniform interface constraint.
+REST APIs expose resources - entities and collections that are identified by URIs. Resource URIs should be nouns representing the things in your domain (`/orders`, `/users/42`, `/invoices/2024-001/line-items`), not verbs representing actions (`/getUser`, `/createOrder`). The HTTP method supplies the verb; the URI identifies the resource being acted upon. This separation is central to the uniform interface constraint.
 
 ## Why it matters
 
@@ -17,7 +17,7 @@ When URIs contain verbs, the API drifts toward an RPC style where every operatio
 
 - URIs containing action verbs: `/getUser`, `/createOrder`, `/deleteItem`, `/updateProfile`
 - Endpoints that duplicate the HTTP method in the path: `POST /api/createUser` instead of `POST /api/users`
-- Inconsistent resource naming — mixing plural and singular forms (`/user/42` vs. `/orders`)
+- Inconsistent resource naming - mixing plural and singular forms (`/user/42` vs. `/orders`)
 - Deeply nested verbs-as-resources: `/api/orders/42/cancel` where a state-transition resource like `POST /api/orders/42/cancellation` would be more RESTful
 
 ## Good practice

@@ -1,4 +1,4 @@
-# GOF-ADAPTER — Adapter Pattern
+# GOF-ADAPTER - Adapter Pattern
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
@@ -39,11 +39,11 @@ classDiagram
 ```
 
 ```java
-// Violation — inline translation repeated at every call site
+// Violation - inline translation repeated at every call site
 StripeClient stripe = new StripeClient();
 StripeResponse r = stripe.createCharge(amount * 100, currency);
 
-// Correct — adapter translates at the boundary; client uses the target interface
+// Correct - adapter translates at the boundary; client uses the target interface
 PaymentGateway gateway = new StripeAdapter(new StripeClient());
 Receipt receipt = gateway.charge(amount, currency);
 ```

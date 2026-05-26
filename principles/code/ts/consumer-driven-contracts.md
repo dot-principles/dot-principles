@@ -1,4 +1,4 @@
-# CODE-TS-CONSUMER-DRIVEN-CONTRACTS — Let consumers define and verify the contract they need from a provider
+# CODE-TS-CONSUMER-DRIVEN-CONTRACTS - Let consumers define and verify the contract they need from a provider
 
 **Layer:** 2 (contextual)
 **Categories:** testing, quality, api-design
@@ -12,7 +12,7 @@ In a consumer-driven contract test, each consumer of a service records the exact
 
 ## Why it matters
 
-Integration tests that use shared test environments are slow, fragile, and create tight scheduling dependencies between teams. Consumer-driven contracts catch breaking API changes before deployment — without standing up real services — and make the impact of a provider change visible to all affected consumers immediately.
+Integration tests that use shared test environments are slow, fragile, and create tight scheduling dependencies between teams. Consumer-driven contracts catch breaking API changes before deployment - without standing up real services - and make the impact of a provider change visible to all affected consumers immediately.
 
 ## Violations to detect
 

@@ -1,4 +1,4 @@
-# CODE-CC-SAFE-PUBLICATION — Never publish a reference to an incompletely constructed object
+# CODE-CC-SAFE-PUBLICATION - Never publish a reference to an incompletely constructed object
 
 **Layer:** 2
 **Categories:** concurrency, thread-safety, performance
@@ -7,7 +7,7 @@
 
 ## Principle
 
-An object is "published" when a reference to it becomes accessible to code outside its current scope. If publication happens before the constructor has finished executing, other threads may observe the object in a partially initialized state—with default or stale field values—even if all fields are set by the time the constructor returns. This includes implicit publication via the `this` reference escaping during construction.
+An object is "published" when a reference to it becomes accessible to code outside its current scope. If publication happens before the constructor has finished executing, other threads may observe the object in a partially initialized state-with default or stale field values-even if all fields are set by the time the constructor returns. This includes implicit publication via the `this` reference escaping during construction.
 
 ## Why it matters
 
@@ -22,7 +22,7 @@ When an incompletely constructed object is visible to other threads, those threa
 
 ## Good practice
 
-- Do not let `this` escape during construction—use static factory methods to perform post-construction registration
+- Do not let `this` escape during construction-use static factory methods to perform post-construction registration
 - If construction requires starting a thread or registering a listener, do it in a separate `start()` or `initialize()` method called after the constructor completes
 - Use safe-publication idioms: `volatile` fields, `final` fields (which guarantee visibility after construction), `AtomicReference`, or initialization within a synchronized block
 - Prefer immutable objects, which are safely published as soon as the constructor completes as long as all fields are `final`

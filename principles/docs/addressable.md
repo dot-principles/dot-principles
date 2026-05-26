@@ -1,4 +1,4 @@
-# DOC-ADDRESSABLE — Make every section directly linkable
+# DOC-ADDRESSABLE - Make every section directly linkable
 
 **Layer:** 2 (contextual)
 **Categories:** documentation, usability, information-architecture
@@ -9,7 +9,7 @@
 
 Every meaningful section of a document should be reachable by a stable, direct link. In practice this means: use headings consistently so that renderers generate anchor IDs, keep heading text stable once published so that anchors do not silently break, avoid duplicate headings within a file (which produce colliding or unpredictable anchors), and use explicit anchor syntax (`{#id}` in Pandoc Markdown, `[[id]]` in AsciiDoc) where stable IDs are required regardless of heading text changes.
 
-A documentation page that cannot be linked to at the section level forces readers to share page-level links with instructions like `"scroll down to the third heading"` — a fragile and frustrating experience.
+A documentation page that cannot be linked to at the section level forces readers to share page-level links with instructions like `"scroll down to the third heading"` - a fragile and frustrating experience.
 
 ## Why it matters
 
@@ -18,7 +18,7 @@ Technical documentation is referenced constantly: in issue trackers, pull reques
 ## Violations to detect
 
 - Duplicate heading text within the same file (produces colliding anchor IDs in most renderers: `#overview`, `#overview-1`, `#overview-2`)
-- Headings that are too vague to produce useful anchors: `"Details"`, `"More"`, `"Notes"`, `"Other"` — readers cannot predict or remember the anchor
+- Headings that are too vague to produce useful anchors: `"Details"`, `"More"`, `"Notes"`, `"Other"` - readers cannot predict or remember the anchor
 - A long document (more than one screen of content) with no headings, making no section linkable at all
 - AsciiDoc or Pandoc Markdown files where sections intended as stable reference targets have no explicit anchor ID, relying solely on auto-generated heading slugs that will break if the heading is reworded
 - Internal cross-references using bare `"see below"` or `"see above"` rather than a named section link

@@ -1,4 +1,4 @@
-# EIP-DEAD-LETTER-CHANNEL — Dead Letter Channel
+# EIP-DEAD-LETTER-CHANNEL - Dead Letter Channel
 
 **Layer:** 2 (contextual)
 **Categories:** integration, messaging, reliability
@@ -11,7 +11,7 @@ When a message cannot be delivered or processed successfully after all retry att
 
 ## Why it matters
 
-Silently discarding undeliverable messages causes silent data loss — business operations that should have been executed are simply never executed, with no alert and no recovery path. Blocking the pipeline on an unprocessable message halts all subsequent messages. A dead-letter channel preserves the message for human inspection or automated recovery, making failure visible and recoverable.
+Silently discarding undeliverable messages causes silent data loss - business operations that should have been executed are simply never executed, with no alert and no recovery path. Blocking the pipeline on an unprocessable message halts all subsequent messages. A dead-letter channel preserves the message for human inspection or automated recovery, making failure visible and recoverable.
 
 ## Violations to detect
 

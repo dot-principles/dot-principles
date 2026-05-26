@@ -1,4 +1,4 @@
-# CONFIG-EXPLICIT-OVER-CONVENTIONAL — Prefer explicit keys over magic conventions
+# CONFIG-EXPLICIT-OVER-CONVENTIONAL - Prefer explicit keys over magic conventions
 
 **Layer:** 1 (universal)
 **Categories:** configuration, maintainability, readability
@@ -7,11 +7,11 @@
 
 ## Principle
 
-Configuration keys and their effects must be explicit and self-evident — not dependent on knowing a framework's undocumented defaults or magic conventions. Every key that influences behaviour should be named and present in the config file. When a framework treats an absent key as "use the default", that default must be documented in the schema, not discovered by reading the framework source.
+Configuration keys and their effects must be explicit and self-evident - not dependent on knowing a framework's undocumented defaults or magic conventions. Every key that influences behaviour should be named and present in the config file. When a framework treats an absent key as "use the default", that default must be documented in the schema, not discovered by reading the framework source.
 
 ## Why it matters
 
-Convention-based configuration creates invisible coupling between config files and framework internals. When defaults change between framework versions, or when a new team member inherits the system, implicit conventions become subtle bugs. A config file that is only understandable to someone who knows the framework deeply is a maintenance liability — it looks correct but hides assumptions.
+Convention-based configuration creates invisible coupling between config files and framework internals. When defaults change between framework versions, or when a new team member inherits the system, implicit conventions become subtle bugs. A config file that is only understandable to someone who knows the framework deeply is a maintenance liability - it looks correct but hides assumptions.
 
 ## Violations to detect
 
@@ -32,4 +32,4 @@ Convention-based configuration creates invisible coupling between config files a
 ## Sources
 
 - Hunt, Andrew & Thomas, David. *The Pragmatic Programmer: Your Journey to Mastery*. 20th Anniversary Edition. Addison-Wesley, 2019. ISBN 978-0-13-595705-9. Tip 14: "There Are No Final Decisions" (favour explicitness over hidden defaults).
-- Wiggins, Adam. "The Twelve-Factor App — III. Config." https://12factor.net/config (accessed 2026-03-22).
+- Wiggins, Adam. "The Twelve-Factor App - III. Config." https://12factor.net/config (accessed 2026-03-22).

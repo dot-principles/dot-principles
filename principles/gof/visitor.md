@@ -1,4 +1,4 @@
-# GOF-VISITOR — Visitor Pattern
+# GOF-VISITOR - Visitor Pattern
 
 **Layer:** 2 (contextual)
 **Categories:** software-design, design-patterns, object-oriented
@@ -58,13 +58,13 @@ classDiagram
 ```
 
 ```java
-// Violation — each new operation requires modifying Circle and Rectangle
+// Violation - each new operation requires modifying Circle and Rectangle
 class Circle {
     double area() { return Math.PI * radius * radius; }
     String toXml() { return "<circle r='" + radius + "'/>"; }  // unrelated concerns
 }
 
-// Correct — element accepts a visitor; new operations = new visitor classes
+// Correct - element accepts a visitor; new operations = new visitor classes
 class Circle implements Shape {
     public void accept(Visitor v) { v.visitCircle(this); }
 }
@@ -76,9 +76,9 @@ class AreaCalculator implements Visitor {
 
 - Define a `Visitor` interface with a `visit` method for each concrete element type
 - Each element class implements `accept(Visitor v)` and calls `v.visit(this)` (double dispatch)
-- Add new operations by adding new Visitor implementations — no changes to element classes
+- Add new operations by adding new Visitor implementations - no changes to element classes
 - Use Visitor when the element hierarchy is stable and new operations are the common change; prefer other patterns if new element types are frequently added
 
 ## Sources
 
-- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. ISBN 978-0-201-63361-0. Chapter 5, Behavioral Patterns — Visitor.
+- Gamma, Erich; Helm, Richard; Johnson, Ralph; Vlissides, John. *Design Patterns: Elements of Reusable Object-Oriented Software*. Addison-Wesley, 1994. ISBN 978-0-201-63361-0. Chapter 5, Behavioral Patterns - Visitor.

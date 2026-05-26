@@ -1,4 +1,4 @@
-# CODE-TP-EXHAUSTIVE-PATTERN-MATCHING — Use exhaustive pattern matching — handle all cases
+# CODE-TP-EXHAUSTIVE-PATTERN-MATCHING - Use exhaustive pattern matching - handle all cases
 
 **Layer:** 2
 **Categories:** type-safety, correctness
@@ -7,7 +7,7 @@
 
 ## Principle
 
-When branching on a value that has a known set of variants — an enum, a discriminated union, a sealed class hierarchy — use exhaustive pattern matching to ensure every case is handled. The compiler should produce an error when a new variant is added and existing match expressions do not cover it. A catch-all default branch should be avoided unless there is a genuine "all others" semantic, because it silently swallows new variants.
+When branching on a value that has a known set of variants - an enum, a discriminated union, a sealed class hierarchy - use exhaustive pattern matching to ensure every case is handled. The compiler should produce an error when a new variant is added and existing match expressions do not cover it. A catch-all default branch should be avoided unless there is a genuine "all others" semantic, because it silently swallows new variants.
 
 ## Why it matters
 
@@ -27,7 +27,7 @@ Forgetting to handle a case is one of the most common sources of bugs when exten
 - Avoid default/wildcard cases unless the semantics genuinely apply to all future variants
 - In languages without exhaustiveness checking (e.g., Java `switch` before JDK 21), add a default branch that throws an explicit error for unhandled cases
 - When adding a new variant to a union type, intentionally let the compiler errors guide you to every call site that needs updating
-- Prefer flat pattern matches over nested if-else chains — they are easier to read and easier for the compiler to verify
+- Prefer flat pattern matches over nested if-else chains - they are easier to read and easier for the compiler to verify
 
 ## Sources
 

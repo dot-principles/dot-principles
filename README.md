@@ -1,6 +1,6 @@
 # .principles
 
-[![License: MIT](https://img.shields.io/badge/tooling-MIT-green.svg)](https://opensource.org/licenses/MIT) [![License: CC BY-SA 4.0](https://img.shields.io/badge/principles-CC%20BY--SA%204.0-blue.svg)](https://creativecommons.org/licenses/by-sa/4.0/) [![GitHub release](https://img.shields.io/github/v/release/dot-principles/dot-principles)](https://github.com/dot-principles/dot-principles/releases)
+[![License: MIT](https://img.shields.io/badge/tooling-MIT-green.svg)](https://opensource.org/licenses/MIT) [![License: CC BY-SA 4.0](https://img.shields.io/badge/principles-CC%20BY--SA%204.0-blue.svg)](https://creativecommons.org/licenses/by-sa/4.0/) [![GitHub release](https://img.shields.io/github/v/release/dot-principles/dot-principles.github.io)](https://github.com/dot-principles/dot-principles.github.io/releases)
 
 **Select the engineering principles you want your AI agent to apply - for code, docs, infrastructure, configuration, schemas, and pipelines.**
 
@@ -10,7 +10,7 @@ A curated catalog of engineering principles, organized into a `.principles` hier
 
 > 🌐 **Start with the guided docs:** [Why `.principles`](content/why.md) → [Getting Started](content/getting-started.md) → [How It Works](content/how-it-works.md) → [Commands](content/commands.md) → [Extending](content/extending.md)
 >
-> 📦 **Latest release:** [v0.11.0](https://github.com/dot-principles/dot-principles/releases/latest) - see [all releases](https://github.com/dot-principles/dot-principles/releases) and [CHANGELOG](CHANGELOG.md).
+> 📦 **Latest release:** [v0.11.0](https://github.com/dot-principles/dot-principles.github.io/releases/latest) - see [all releases](https://github.com/dot-principles/dot-principles.github.io/releases) and [CHANGELOG](CHANGELOG.md).
 
 ---
 
@@ -132,7 +132,7 @@ The AI figures out the scope from context:
 
 ```bash
 # Clone the repo
-git clone https://github.com/dot-principles/dot-principles.git
+git clone https://github.com/dot-principles/dot-principles.github.io.git
 
 # Install into your project (Claude Code commands + Copilot files + Codex skills + vendor catalog)
 ./install.sh all <project-dir>

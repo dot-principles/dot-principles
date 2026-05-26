@@ -78,4 +78,4 @@ configure intent → load intent → write → review against intent
 
 ## Deep reference
 
-For the full architecture, schema details, and resolution rules, see [`DESIGN.md`](https://github.com/dot-principles/dot-principles/blob/main/DESIGN.md).
+For the full architecture, schema details, and resolution rules, see [`DESIGN.md`](https://github.com/dot-principles/dot-principles.github.io/blob/main/DESIGN.md).

@@ -4,7 +4,7 @@ The best way to understand `.principles` is to see the full loop in motion.
 
 ## The demo path
 
-The canonical walkthrough lives in [`demo/presentation.md`](https://github.com/dot-principles/dot-principles/blob/main/demo/presentation.md).
+The canonical walkthrough lives in [`demo/presentation.md`](https://github.com/dot-principles/dot-principles.github.io/blob/main/demo/presentation.md).
 
 It demonstrates the project on a real codebase and shows the flow end to end:
 

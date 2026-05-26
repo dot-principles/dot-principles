@@ -20,7 +20,7 @@ That installs the command files for the supported agent environments and vendors
 
 If you are on Windows, or if you want a narrower install target such as Copilot-only or Codex-only, use the full guide:
 
-- [`INSTALL.md`](https://github.com/dot-principles/dot-principles/blob/main/INSTALL.md)
+- [`INSTALL.md`](https://github.com/dot-principles/dot-principles.github.io/blob/main/INSTALL.md)
 
 ## 2. Commit the installed files
 

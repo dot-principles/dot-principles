@@ -18,11 +18,11 @@ export default withMermaid(
       sidebar: [
         { text: 'Overview', link: '/' },
         { text: 'Why `.principles`', link: '/why' },
-        { text: 'Getting Started', link: '/getting-started' },
-        { text: 'How It Works', link: '/how-it-works' },
-        { text: 'Command Workflow', link: '/commands' },
-        { text: 'Extending the Catalog', link: '/extending' },
         { text: 'Examples and Demo', link: '/examples' },
+        { text: 'Getting Started', link: '/getting-started' },
+        { text: 'Command Workflow', link: '/commands' },
+        { text: 'How It Works', link: '/how-it-works' },
+        { text: 'Extending the Catalog', link: '/extending' },
       ],
     },
   })

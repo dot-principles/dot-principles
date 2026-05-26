@@ -43,7 +43,7 @@ Contribute upstream when the principle belongs to the public software engineerin
 
 ## Deep reference and examples
 
-- [`templates/extra-catalog/`](https://github.com/dot-principles/dot-principles/tree/main/templates/extra-catalog)
+- [`templates/extra-catalog/`](https://github.com/dot-principles/dot-principles.github.io/tree/main/templates/extra-catalog)
 - [`example-catalog`](https://github.com/dot-principles/example-catalog)
-- [`INSTALL.md` section 9](https://github.com/dot-principles/dot-principles/blob/main/INSTALL.md#9-corporate--personal-principles)
-- [`DESIGN.md` section 11](https://github.com/dot-principles/dot-principles/blob/main/DESIGN.md#-11-adding-a-new-namespace)
+- [`INSTALL.md` section 9](https://github.com/dot-principles/dot-principles.github.io/blob/main/INSTALL.md#9-corporate--personal-principles)
+- [`DESIGN.md` section 11](https://github.com/dot-principles/dot-principles.github.io/blob/main/DESIGN.md#-11-adding-a-new-namespace)

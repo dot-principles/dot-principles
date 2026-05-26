@@ -76,4 +76,4 @@ These are agent commands, not traditional CLI subcommands. You can usually descr
 
 ## See the full walkthrough
 
-For an end-to-end demonstration, see [Examples](examples.md) and the canonical demo file at [`demo/presentation.md`](https://github.com/dot-principles/dot-principles/blob/main/demo/presentation.md).
+For an end-to-end demonstration, see [Examples](examples.md) and the canonical demo file at [`demo/presentation.md`](https://github.com/dot-principles/dot-principles.github.io/blob/main/demo/presentation.md).

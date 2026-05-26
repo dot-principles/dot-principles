@@ -427,21 +427,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
-[Unreleased]: https://github.com/dot-principles/dot-principles/compare/v0.13.0...HEAD
-[v0.13.0]: https://github.com/dot-principles/dot-principles/compare/v0.12.0...v0.13.0
-[v0.12.0]: https://github.com/dot-principles/dot-principles/compare/v0.11.0...v0.12.0
-[v0.11.0]: https://github.com/dot-principles/dot-principles/compare/v0.10.0...v0.11.0
-[v0.10.0]: https://github.com/dot-principles/dot-principles/compare/v0.9.0...v0.10.0
-[v0.9.0]: https://github.com/dot-principles/dot-principles/compare/v0.8.1...v0.9.0
-[v0.8.1]: https://github.com/dot-principles/dot-principles/compare/v0.8.0...v0.8.1
-[v0.8.0]: https://github.com/dot-principles/dot-principles/compare/v0.7.1...v0.8.0
-[v0.7.1]: https://github.com/dot-principles/dot-principles/compare/v0.7.0...v0.7.1
-[v0.7.0]: https://github.com/dot-principles/dot-principles/compare/v0.6.0...v0.7.0
-[v0.6.0]: https://github.com/dot-principles/dot-principles/compare/v0.5.0...v0.6.0
-[v0.5.0]: https://github.com/dot-principles/dot-principles/compare/v0.4.0...v0.5.0
-[v0.4.0]: https://github.com/dot-principles/dot-principles/compare/v0.3.2...v0.4.0
-[v0.3.2]: https://github.com/dot-principles/dot-principles/compare/v0.3.1...v0.3.2
-[v0.3.1]: https://github.com/dot-principles/dot-principles/compare/v0.3.0...v0.3.1
-[v0.3.0]: https://github.com/dot-principles/dot-principles/compare/v0.2.0...v0.3.0
-[v0.2.0]: https://github.com/dot-principles/dot-principles/compare/v0.1.0...v0.2.0
-[v0.1.0]: https://github.com/dot-principles/dot-principles/releases/tag/v0.1.0
+[Unreleased]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.13.0...HEAD
+[v0.13.0]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.12.0...v0.13.0
+[v0.12.0]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.11.0...v0.12.0
+[v0.11.0]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.10.0...v0.11.0
+[v0.10.0]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.9.0...v0.10.0
+[v0.9.0]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.8.1...v0.9.0
+[v0.8.1]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.8.0...v0.8.1
+[v0.8.0]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.7.1...v0.8.0
+[v0.7.1]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.7.0...v0.7.1
+[v0.7.0]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.6.0...v0.7.0
+[v0.6.0]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.5.0...v0.6.0
+[v0.5.0]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.4.0...v0.5.0
+[v0.4.0]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.3.2...v0.4.0
+[v0.3.2]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.3.1...v0.3.2
+[v0.3.1]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.3.0...v0.3.1
+[v0.3.0]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.2.0...v0.3.0
+[v0.2.0]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.1.0...v0.2.0
+[v0.1.0]: https://github.com/dot-principles/dot-principles.github.io/releases/tag/v0.1.0

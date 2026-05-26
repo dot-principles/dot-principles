@@ -10,7 +10,7 @@ A curated catalog of engineering principles, organized into a `.principles` hier
 
 > 🌐 **Guided docs:** [dot-principles.github.io](https://dot-principles.github.io/) — Why → Examples → Getting Started → Commands → How It Works → Extending
 >
-> 📦 **Latest release:** [v0.13.1](https://github.com/dot-principles/dot-principles.github.io/releases/latest) - see [all releases](https://github.com/dot-principles/dot-principles.github.io/releases) and [CHANGELOG](CHANGELOG.md).
+> 📦 **Latest release:** [v0.13.2](https://github.com/dot-principles/dot-principles.github.io/releases/latest) - see [all releases](https://github.com/dot-principles/dot-principles.github.io/releases) and [CHANGELOG](CHANGELOG.md).
 
 ---
 

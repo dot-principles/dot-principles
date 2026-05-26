@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
-## [Unreleased]
+## [v0.13.2] - 2026-05-27
 
 **Changed**
 
@@ -441,7 +441,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
-[Unreleased]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.13.1...HEAD
+[Unreleased]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.13.2...HEAD
+[v0.13.2]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.13.1...v0.13.2
 [v0.13.1]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.13.0...v0.13.1
 [v0.13.0]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.12.0...v0.13.0
 [v0.12.0]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.11.0...v0.12.0

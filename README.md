@@ -178,7 +178,7 @@ echo /shared/acme-principles >> my-project/.principles-extra
 ./install.sh vendor my-project --extra-catalog ~/acme-principles
 ```
 
-Corporate and personal catalogs work simultaneously - just list both in `~/.principles-extra`. See [INSTALL.md §9](INSTALL.md#9-corporate--personal-principles) for the full setup guide. A starter template lives in [`templates/extra-catalog/`](templates/extra-catalog/). A complete working example lives at [`github.com/dot-principles/example-catalog`](https://github.com/dot-principles/example-catalog) (Plain-Text-as-Code namespace).
+Corporate and personal catalogs work simultaneously - just list both in `~/.principles-extra`. See [INSTALL.md §10](INSTALL.md#10-installing-an-extra-catalog) for the full setup guide. A starter template lives in [`templates/extra-catalog/`](templates/extra-catalog/). A complete working example lives at [`github.com/dot-principles/example-catalog`](https://github.com/dot-principles/example-catalog) (Plain-Text-as-Code namespace).
 
 ## 📚 Principle catalog
 

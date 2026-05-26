@@ -173,7 +173,7 @@ All sources are merged into `.agents/principles-catalog/` at vendor time. Built-
 
 The `generate_compact_index()` step scans individual principle `.md` files from extra catalog source directories in addition to `$SCRIPT_DIR/principles`, so extra principles appear in `index.tsv` and are visible to `dot-scout`.
 
-See [INSTALL.md §9](INSTALL.md#9-corporate--personal-principles) for setup instructions. A complete working example lives in `examples/personal-principles/`. A starter template lives in `templates/extra-catalog/`.
+See [INSTALL.md §10](INSTALL.md#10-installing-an-extra-catalog) for setup instructions. A complete working example lives in `examples/personal-principles/`. A starter template lives in `templates/extra-catalog/`.
 
 ### `.context-inspect.md` Format
 

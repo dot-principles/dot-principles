@@ -213,7 +213,7 @@ On Windows, use `uninstall.ps1` or `uninstall.cmd` with the same arguments.
 
 ---
 
-## 9. Corporate & Personal Principles
+## 9. Extra Catalogs
 
 You can plug in your own principle namespaces - corporate standards, team conventions, or personal rules - alongside the built-in catalog, without forking this repo.
 
@@ -242,6 +242,29 @@ Three sources are merged automatically when you run `install.sh vendor` or any i
 | **User config** | `~/.principles-extra` - one path per line, applies to all your projects |
 
 All sources are additive. Built-in namespaces (`solid`, `gof`, `ddd`, etc.) are always present and cannot be overridden.
+
+### Using extra principles
+
+After vendoring, use IDs and groups from your extra catalog in any `.principles` file:
+
+```
+# In <project>/.principles  or any subdirectory .principles
+@acme-backend
+ACME-API-STYLE
+PTAC-PLAIN-TEXT-FIRST
+```
+
+### Conflict rules
+
+- **Duplicate namespaces**: the first-registered source wins (built-in > user config > project config > CLI). A warning is printed; the duplicate is skipped.
+- **Duplicate groups**: same rule - first wins.
+- Extra catalogs cannot override built-in namespaces.
+
+---
+
+## 10. Installing an Extra Catalog
+
+Follow the steps below to set up an extra catalog globally, per-project, or both.
 
 ### Corporate setup
 
@@ -320,23 +343,6 @@ Corporate and personal catalogs work simultaneously - just register both:
 
 Both are merged into `.principles-catalog/` at vendor time. As long as namespaces are unique (e.g., `acme/` vs `personal/`), there are no conflicts.
 
-### Using extra principles
-
-After vendoring, use IDs and groups from your extra catalog in any `.principles` file:
-
-```
-# In <project>/.principles  or any subdirectory .principles
-@acme-backend
-ACME-API-STYLE
-PTAC-PLAIN-TEXT-FIRST
-```
-
-### Conflict rules
-
-- **Duplicate namespaces**: the first-registered source wins (built-in > user config > project config > CLI). A warning is printed; the duplicate is skipped.
-- **Duplicate groups**: same rule - first wins.
-- Extra catalogs cannot override built-in namespaces.
-
 ### Versioning your extra catalog
 
 An extra catalog is just a directory - treat it as a git repo:
@@ -349,6 +355,10 @@ git push
 ```
 
 Each developer pulls updates and re-vendors their projects. CI environments clone the repo at a pinned SHA for reproducibility.
+
+---
+
+## 11. CLI Flag and Windows
 
 ### CLI flag (one-off or CI)
 
@@ -382,7 +392,7 @@ Backslashes in `--extra-catalog` paths are converted automatically; backslashes 
 
 ---
 
-## 10. Try it on a branch first
+## 12. Try it on a branch first
 
 Not ready to commit to a project? Install locally into a throwaway branch:
 
@@ -402,7 +412,7 @@ git checkout main && git branch -D try-principles
 
 ---
 
-## 11. After installing
+## 13. After installing
 
 Open your AI tool and run the commands:
 

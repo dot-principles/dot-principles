@@ -429,7 +429,7 @@ Phases 8-10 form a strict state machine. Each gate is a mandatory stop point - t
 
 ## Phase 8 - Fix
 
-**GATE - Requires explicit user approval.**
+**GATE — Requires explicit user approval.**
 
 After Phase 7 output, if there are no findings, stop - skip remaining phases.
 
@@ -470,7 +470,7 @@ After all fixes are applied, briefly summarise what was changed (one line per fi
 
 ## Phase 9 - Commit
 
-**GATE - Requires explicit user approval. Only enter this phase after the user replies to the Phase 8 Step 2 prompt.**
+**GATE — Requires explicit user approval. Only enter this phase after the user replies to the Phase 8 Step 2 prompt.**
 
 Compose the commit message and PR body (see format below). Present both **in full inline** so the user can review before deciding.
 
@@ -506,7 +506,7 @@ git push -u origin fix-<target-slug>
 
 ## Phase 10 - Pull Request
 
-**GATE - Requires explicit user approval.**
+**GATE — Requires explicit user approval.**
 
 Output this question as plain text - call no tools, write nothing else, and end your response:
 

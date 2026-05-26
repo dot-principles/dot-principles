@@ -8,9 +8,9 @@ A curated catalog of engineering principles, organized into a `.principles` hier
 
 > See [DISCLAIMER.md](DISCLAIMER.md) - this is a proof of concept. Groups are opinionated, gaps exist, and adjustments are expected.
 
-> 🌐 **Start with the guided docs:** [Why `.principles`](content/why.md) → [Getting Started](content/getting-started.md) → [How It Works](content/how-it-works.md) → [Commands](content/commands.md) → [Extending](content/extending.md)
+> 🌐 **Guided docs:** [dot-principles.github.io](https://dot-principles.github.io/) — Why → Examples → Getting Started → Commands → How It Works → Extending
 >
-> 📦 **Latest release:** [v0.11.0](https://github.com/dot-principles/dot-principles.github.io/releases/latest) - see [all releases](https://github.com/dot-principles/dot-principles.github.io/releases) and [CHANGELOG](CHANGELOG.md).
+> 📦 **Latest release:** [v0.13.1](https://github.com/dot-principles/dot-principles.github.io/releases/latest) - see [all releases](https://github.com/dot-principles/dot-principles.github.io/releases) and [CHANGELOG](CHANGELOG.md).
 
 ---
 
@@ -25,18 +25,18 @@ That is the gap `.principles` fills.
 - It makes principle selection **plain-text, inspectable, and version-controlled**.
 - It supports a practical loop: **`dot-scout` → `dot-prime` → code → `dot-audit`**.
 
-If you want the fuller narrative, start with [Why `.principles`](content/why.md).
+If you want the fuller narrative, start with [Why `.principles`](https://dot-principles.github.io/why).
 
 ## Start here
 
 | If you want to... | Start here |
 |---|---|
-| Understand the value proposition | [content/why.md](content/why.md) |
-| Install it and try it quickly | [content/getting-started.md](content/getting-started.md) |
-| Understand the hierarchy and artifact model | [content/how-it-works.md](content/how-it-works.md) |
-| Learn what each command does | [content/commands.md](content/commands.md) |
-| Add your own company or domain catalog | [content/extending.md](content/extending.md) |
-| See an end-to-end walkthrough | [content/examples.md](content/examples.md) and [demo/presentation.md](demo/presentation.md) |
+| Understand the value proposition | [Why `.principles`](https://dot-principles.github.io/why) |
+| Install it and try it quickly | [Getting Started](https://dot-principles.github.io/getting-started) |
+| Understand the hierarchy and artifact model | [How It Works](https://dot-principles.github.io/how-it-works) |
+| Learn what each command does | [Commands](https://dot-principles.github.io/commands) |
+| Add your own company or domain catalog | [Extending](https://dot-principles.github.io/extending) |
+| See an end-to-end walkthrough | [Examples](https://dot-principles.github.io/examples) and [demo/presentation.md](demo/presentation.md) |
 
 ## At a glance
 
@@ -66,7 +66,7 @@ my-project/
 
 The root can set broad defaults. Subtrees can add more specific groups or suppress rules where local context differs. The system walks upward from the file being reviewed, merges the active hierarchy, and loads the relevant principle content.
 
-See [content/how-it-works.md](content/how-it-works.md) for the fuller model.
+See [How It Works](https://dot-principles.github.io/how-it-works) for the fuller model.
 
 ---
 

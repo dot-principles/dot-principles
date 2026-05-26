@@ -8,6 +8,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Unreleased]
+
+**Changed**
+
+- **Repo renamed to `dot-principles.github.io`** - the repository was renamed from `dot-principles` to `dot-principles.github.io` so that GitHub Pages serves the docs site at the org root URL `https://dot-principles.github.io/` instead of under a sub-path.
+- **Public docs site live at [dot-principles.github.io](https://dot-principles.github.io/)** - the VitePress site scaffolded in v0.13.1 is now deployed and publicly accessible.
+- **All GitHub URLs updated** - every reference to `github.com/dot-principles/dot-principles` across `README.md`, `CHANGELOG.md`, `INSTALL.md`, `content/`, and `examples/` updated to the new repo name.
+- **`content/INDEX.md` renamed to `content/index.md`** - VitePress requires a lowercase `index.md` as the root entry point; the previous uppercase name worked on Windows but caused a 404 on the Linux GitHub Actions runner.
+- **VitePress `base` removed** - no sub-path base needed now that the site is served from the org root URL.
+- **Sidebar order updated** - VitePress sidebar now follows the intended reading flow: Why → Examples → Getting Started → Commands → How It Works → Extending.
+- **`README.md` and org profile updated** - both now link to the live docs site as the primary entry point.
+
+---
+
 ## [v0.13.1] - 2026-05-26
 
 **Added**
@@ -427,7 +441,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
-[Unreleased]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.13.0...HEAD
+[Unreleased]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.13.1...HEAD
+[v0.13.1]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.13.0...v0.13.1
 [v0.13.0]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.12.0...v0.13.0
 [v0.12.0]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.11.0...v0.12.0
 [v0.11.0]: https://github.com/dot-principles/dot-principles.github.io/compare/v0.10.0...v0.11.0

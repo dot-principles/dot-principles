@@ -1,4 +1,4 @@
-# ⚖️ License Interpretation (Operational Guide)
+# License Interpretation (Operational Guide)
 
 This document explains how to apply the repository's dual-license model in practice.
 
@@ -11,7 +11,7 @@ This document explains how to apply the repository's dual-license model in pract
 - **adaptation**: modified, translated, remixed, transformed, or otherwise changed content.
 - **attribution**: credit that identifies source, license, and whether you changed the material.
 
-## 1) 🗺️ License scope by path
+## 1) License scope by path
 
 The authoritative scope is defined by `LICENSE`:
 
@@ -20,7 +20,7 @@ The authoritative scope is defined by `LICENSE`:
 
 If a file outside `principles/` copies substantial text from `principles/`, treat that copied text as CC BY-SA content.
 
-## 2) ✅ What you are allowed to do
+## 2) What you are allowed to do
 
 You may, including commercially:
 
@@ -30,7 +30,7 @@ You may, including commercially:
 - Use, copy, and redistribute MIT-covered scripts/tooling.
 - Share and adapt CC BY-SA-covered principle texts.
 
-## 3) ⚠️ What you must do
+## 3) What you must do
 
 ### A. If you redistribute MIT-covered parts (outside `principles/`)
 
@@ -43,14 +43,14 @@ You may, including commercially:
 - Indicate whether changes were made.
 - Distribute adaptations under the same license (CC BY-SA 4.0).
 
-## 4) 🏢 Internal use vs distribution
+## 4) Internal use vs distribution
 
 - `internal use` (no sharing outside your organization): you can freely adapt for local workflows.
 - `distribution` (public release or any sharing outside your organization): license obligations apply.
 
 Operational rule: if material leaves your organization, treat it as distribution.
 
-## 5) 📦 Mixed-content repositories
+## 5) Mixed-content repositories
 
 It is valid to distribute a repo containing both licenses.
 
@@ -61,7 +61,7 @@ Recommended approach:
 - Preserve attribution history in modified principle files.
 - Do not relicense adapted `principles/` text under closed-only terms.
 
-## 6) ✅ Practical compliance checklist
+## 6) Practical compliance checklist
 
 ### For developers using this repo
 
@@ -76,7 +76,7 @@ Recommended approach:
 - Ensure adapted principle text remains under CC BY-SA 4.0.
 - Keep scope explicit: `principles/` is CC BY-SA; other files are MIT unless they embed CC BY-SA text.
 
-## 7) 📝 Attribution template (CC BY-SA-derived text)
+## 7) Attribution template (CC BY-SA-derived text)
 
 Use this template when redistributing adapted `principles/` content:
 
@@ -87,7 +87,7 @@ This material includes adapted content from the .principles project
 Changes made: <brief description>.
 ```
 
-## 8) 💡 Examples
+## 8) Examples
 
 ### Example A: Fork + private customization
 
@@ -109,11 +109,11 @@ Changes made: <brief description>.
 - You copy `install.sh` and related tooling into your own project.
 - Outcome: allowed under MIT with MIT notice retained.
 
-## 9) 💬 Maintainer intent
+## 9) Maintainer intent
 
 The line in `DISCLAIMER.md` that encourages forking and adaptation is intentional and compatible with both licenses, as long as the obligations above are followed.
 
-## 10) 🏛️ Ownership and curation scope
+## 10) Ownership and curation scope
 
 This project does not claim ownership of underlying engineering principles as ideas.
 

@@ -8,9 +8,9 @@ A curated catalog of engineering principles, organized into a `.principles` hier
 
 > See [DISCLAIMER.md](DISCLAIMER.md) - this is a proof of concept. Groups are opinionated, gaps exist, and adjustments are expected.
 
-> 🌐 **Guided docs:** [dot-principles.github.io](https://dot-principles.github.io/) — Why → Examples → Getting Started → Commands → How It Works → Extending
+> **Guided docs:** [dot-principles.github.io](https://dot-principles.github.io/) - Why → Examples → Getting Started → Commands → How It Works → Extending
 >
-> 📦 **Latest release:** [v0.13.2](https://github.com/dot-principles/dot-principles.github.io/releases/latest) - see [all releases](https://github.com/dot-principles/dot-principles.github.io/releases) and [CHANGELOG](CHANGELOG.md).
+> **Latest release:** [v0.13.2](https://github.com/dot-principles/dot-principles.github.io/releases/latest) - see [all releases](https://github.com/dot-principles/dot-principles.github.io/releases) and [CHANGELOG](CHANGELOG.md).
 
 ---
 
@@ -70,11 +70,11 @@ See [How It Works](https://dot-principles.github.io/how-it-works) for the fuller
 
 ---
 
-## 🧠 Philosophy
+## Philosophy
 
-`.principles` does **not** teach the AI anything - modern agents already know SOLID, OWASP, DDD, and the rest. It **focuses and triggers** that knowledge: giving the AI context about *which* principles matter for *this* codebase and artifact type. See [DESIGN.md §1](DESIGN.md#️-1-overview) for the full architectural rationale.
+`.principles` does **not** teach the AI anything - modern agents already know SOLID, OWASP, DDD, and the rest. It **focuses and triggers** that knowledge: giving the AI context about *which* principles matter for *this* codebase and artifact type. See [DESIGN.md §1](DESIGN.md#1-overview) for the full architectural rationale.
 
-## ⚙️ How it works
+## How it works
 
 Place a `.principles` file in your project root (and optionally in subdirectories) to declare which principles apply:
 
@@ -91,7 +91,7 @@ CODE-OB-SERVICE-LEVEL-OBJECTIVES
 
 The system walks up from the reviewed file to the git root, collecting `.principles` files and merging them (outermost first, innermost last). The AI then reads the full principle content before coding or reviewing.
 
-### 🗂️ Layer model
+### Layer model
 
 Each artifact type has its own stack of layers in `layers/<type>/`. Within each stack:
 
@@ -102,7 +102,7 @@ Each artifact type has its own stack of layers in `layers/<type>/`. Within each 
 | **Layer 2 - Contextual**    | Based on content signals      | API design, concurrency, data modeling, tutorial vs. reference docs, etc.          |
 | **Layer 3 - Risk-elevated** | Based on risk signals         | Security, performance, backward compatibility (code and infra stacks only)         |
 
-### 🛠️ Three commands
+### Three commands
 
 Because these are AI commands - not CLI tools - you speak to them in natural language. No need to specify exact file paths unless you want to. The AI understands context.
 
@@ -126,7 +126,7 @@ The AI figures out the scope from context:
 /dot-audit clean-arch, solid on src → multiple groups, comma-separated
 ```
 
-## 🚀 Quick start
+## Quick start
 
 **Prerequisites:** Bash 4+ - see [REQUIREMENTS.md](REQUIREMENTS.md) for platform-specific setup. Tested with Claude Haiku 4.5, GPT-4.1, and GPT-5.1-mini (low). Premium models recommended for best review quality and formatting. Local LLMs not supported.
 
@@ -163,7 +163,7 @@ To install into your own project:
 
 See [INSTALL.md](INSTALL.md) for full platform instructions (Linux, macOS, Windows) and all supported tools.
 
-### ➕ Corporate & personal principles
+### Corporate & personal principles
 
 Plug in your own principles alongside the built-in catalog - no fork needed. Create an extra catalog directory following the same structure as `principles/`, then register it:
 
@@ -180,13 +180,13 @@ echo /shared/acme-principles >> my-project/.principles-extra
 
 Corporate and personal catalogs work simultaneously - just list both in `~/.principles-extra`. See [INSTALL.md §10](INSTALL.md#10-installing-an-extra-catalog) for the full setup guide. A starter template lives in [`templates/extra-catalog/`](templates/extra-catalog/). A complete working example lives at [`github.com/dot-principles/example-catalog`](https://github.com/dot-principles/example-catalog) (Plain-Text-as-Code namespace).
 
-## 📚 Principle catalog
+## Principle catalog
 
-**375 principles across 32 namespaces** - `CODE-*`, `SOLID-`, `GOF-`, `DDD-`, `GRASP-`, `OWASP-`, `12FACTOR-`, `EIP-`, `SEC-ARCH-`, `ARCH-`, `INFRA-`, `CD-`, `PIPELINE-`, `SCHEMA-`, `CONFIG-`, `DOC-`, `FP-`, `A11Y-`, `SIMPLE-DESIGN-`, `CLEAN-ARCH-`, `PKG-`, `EFFECTIVE-JAVA-`, and more. See [DESIGN.md §2](DESIGN.md#-2-catalog-structure) for the full namespace reference and [DESIGN.md §7](DESIGN.md#-7-groups) for the 53 shipped groups.
+**375 principles across 32 namespaces** - `CODE-*`, `SOLID-`, `GOF-`, `DDD-`, `GRASP-`, `OWASP-`, `12FACTOR-`, `EIP-`, `SEC-ARCH-`, `ARCH-`, `INFRA-`, `CD-`, `PIPELINE-`, `SCHEMA-`, `CONFIG-`, `DOC-`, `FP-`, `A11Y-`, `SIMPLE-DESIGN-`, `CLEAN-ARCH-`, `PKG-`, `EFFECTIVE-JAVA-`, and more. See [DESIGN.md §2](DESIGN.md#2-catalog-structure) for the full namespace reference and [DESIGN.md §7](DESIGN.md#7-groups) for the 53 shipped groups.
 
 Many principles include **code examples and diagrams** to make the guidance concrete.
 
-## 💡 Example review output
+## Example review output
 
 > **Note:** The output below is illustrative. Formatting, structure, and level of detail will vary between AI models and even between runs of the same model. The principle review itself is performed by the AI - some models produce thorough, well-structured audits; others may miss findings or deviate from the template. The `audit-output.json` file is the most reliable artefact; the text report is best-effort.
 
@@ -215,22 +215,22 @@ Principle source: .principles hierarchy (2 files)
 Generated: C:/projects/app/audit-output.json
 ```
 
-## 🔧 Extending with your own principles
+## Extending with your own principles
 
-Fork this repo and add a `principles/corp/` namespace (or any name) for corporate or domain-specific principles. Reference them with `CORP-0001` in your `.principles` files. See [DESIGN.md](DESIGN.md#-11-adding-a-new-namespace) for the full process.
+Fork this repo and add a `principles/corp/` namespace (or any name) for corporate or domain-specific principles. Reference them with `CORP-0001` in your `.principles` files. See [DESIGN.md](DESIGN.md#11-adding-a-new-namespace) for the full process.
 
-## 🤝 Contributing
+## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for requirements, process, and source guidelines.
 
-## 📄 License
+## License
 
 - **Principle texts:** [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) - use freely, credit required, share-alike
 - **Scripts and tooling:** [MIT](https://opensource.org/licenses/MIT)
 - **How to apply this in practice:** see [LICENSE-INTERPRETATION.md](LICENSE-INTERPRETATION.md) for internal use vs distribution, and what users/developers may do and must do
 - **Ownership boundary:** see [LICENSE-INTERPRETATION.md](LICENSE-INTERPRETATION.md) (section 10: Ownership and curation scope)
 
-## ☕ Support
+## Support
 
 If this project is useful to you, you can support ongoing maintenance and updates:
 

@@ -39,8 +39,8 @@ The opening header of every principle file must follow this order exactly:
 ## Process
 
 1. Copy `principles/TEMPLATE.md` to the appropriate category directory
-2. Fill in all sections - see [DESIGN.md Section 6](DESIGN.md#-6-principle-file-schema) for the full schema
-3. Derive the ID from the file path - see [DESIGN.md Section 5](DESIGN.md#-5-id-derivation)
+2. Fill in all sections - see [DESIGN.md Section 6](DESIGN.md#6-principle-file-schema) for the full schema
+3. Derive the ID from the file path - see [DESIGN.md Section 5](DESIGN.md#5-id-derivation)
 4. Add the principle to relevant groups in `groups/`
 5. If the principle has grep-able violations, add an `## Inspection` section and update the namespace's `.context-inspect.md` - see [DESIGN.md "Inspection - When to Add"](DESIGN.md#-inspection--when-to-add) for guidance
 6. Submit a pull request with:

@@ -4,7 +4,7 @@ This document describes the full architecture of the `.principles` hierarchy sys
 
 ---
 
-## 🗺️ 1. Overview
+## 1. Overview
 
 **What it is:** A portable, project-local configuration system that tells AI agents which engineering principles apply to your project - whether the file being worked on is source code, documentation, infrastructure, configuration, a schema, or a pipeline. Similar in spirit to `.gitignore`, but for engineering guidance.
 
@@ -41,7 +41,7 @@ This follows the same design principle as the rest of the repo: public guidance 
 
 ---
 
-## 📁 2. Catalog Structure
+## 2. Catalog structure
 
 The `principles/` directory is a **namespace container**. Each subdirectory is a namespace with its own catalog.
 
@@ -212,7 +212,7 @@ The namespace is the directory name. IDs are derived from file paths (see Sectio
 
 ---
 
-## 🧱 3. Per-Group Principle Files
+## 3. Per-group principle files
 
 After `dot-scout` writes `.principles` files, Phase 8 emits **per-group principle files** into `.github/instructions/` (for GitHub Copilot Code Review) and `.claude/rules/` (for Claude Code). Each file targets a specific set of file globs using tool-native frontmatter, giving each group its own context budget.
 
@@ -293,7 +293,7 @@ Per-group files act as **tier 1** context - always present, always fast. They ar
 
 ---
 
-## 🗂️ 4. Artifact Types and Stacks
+## 4. Artifact types and stacks
 
 The layer model is not a single three-layer stack - it is a family of stacks, one per artifact type. The correct stack is selected by detecting the artifact type of the file being reviewed.
 
@@ -350,7 +350,7 @@ Principles in the universal set (above) are considered "stack-universal" rather 
 
 ---
 
-## 🔑 5. ID Derivation
+## 5. ID derivation
 
 
 IDs are **derived from file path** - no separate ID field is needed in the file itself.
@@ -395,7 +395,7 @@ IDs are **derived from file path** - no separate ID field is needed in the file 
 
 ---
 
-## 📄 6. Principle File Schema
+## 6. Principle file schema
 
 Every principle file follows this template:
 
@@ -473,7 +473,7 @@ The `## Inspection` section is **optional**. It contains bash commands that `dot
 
 ---
 
-## 🗂️ 7. Groups
+## 7. Groups
 
 Groups bundle related principles under a reusable name. They enable one-line activation of a full principle set for a technology.
 
@@ -550,7 +550,7 @@ principles:
 
 ---
 
-## 📝 8. `.principles` File Format
+## 8. `.principles` file format
 
 Plain text. One entry per line. Filesystem mtime is the implicit last-modified timestamp.
 
@@ -632,9 +632,9 @@ When reviewing `/repo-root/src/payments/PaymentService.java`:
 
 ---
 
-## 🛠️ 9. Commands
+## 9. Commands
 
-### ⚡ `dot-prime`
+### `dot-prime`
 
 Activates principles before writing code. Run it before starting work on a task.
 
@@ -648,7 +648,7 @@ Activates principles before writing code. Run it before starting work on a task.
 | 4     | Load Principle Content        | Reads one `.context-prime.md` per namespace (pre-compiled); for `CODE-<sub>-*` IDs reads per-sub-namespace file under `code/<sub>/`; filters to active IDs |
 | 5     | Output                        | Presents active principles table with source column; states coding frame                       |
 
-### 🔎 `dot-audit`
+### `dot-audit`
 
 Reviews code against activated principles. Outputs findings grouped by severity. Supports explicit principle override via `--with <spec>`, `@<group>`, or `<spec> on <target>` syntax to force a specific principle set regardless of `.principles` files.
 
@@ -675,7 +675,7 @@ Reviews code against activated principles. Outputs findings grouped by severity.
 
 > **Automatic vs. interactive review:** Copilot Code Review and Claude Code's automatic review use the per-group files from `dot-scout` (`.github/instructions/*.instructions.md`, `REVIEW.md`) - these are passive and post findings as review comments. They do not run `dot-audit` and cannot trigger Phases 8-10. The fix gate is intentionally interactive: you invoke `dot-audit` when you are ready to decide whether to apply fixes.
 
-### 🔍 `dot-scout`
+### `dot-scout`
 
 Analyses a project directory and creates or updates `.principles` files, then compiles and injects the active principle set.
 
@@ -694,7 +694,7 @@ Analyses a project directory and creates or updates `.principles` files, then co
 
 ---
 
-## 📦 10. Installer Targets
+## 10. Installer targets
 
 `install.sh` deploys the three commands (`dot-scout`, `dot-prime`, `dot-audit`) to supported AI tool families. The installer is **template-driven** - skill content is defined in `templates/agents/` (canonical); tool-specific wrappers in `templates/claude/`.
 
@@ -717,7 +717,7 @@ Every install (interactive or `vendor`) always writes:
 1. **AI skills** (`<dir>/.agents/skills/<slug>/SKILL.md`) - canonical skill files containing the full prompt. Discovered natively by Copilot CLI, Copilot IDE, Codex, and any tool that reads `.agents/skills/`.
 2. **Vendor catalog** (`<dir>/.agents/principles-catalog/`) - the subset of `principles/` and `groups/` referenced by the project's `.principles` files, plus `index.tsv` (flat `ID|LAYER|SUMMARY` index).
 
-### 🤖 Claude Code wrappers (optional)
+### Claude Code wrappers (optional)
 
 Selected via interactive installer. Writes thin wrapper files to `<dir>/.claude/commands/`:
 
@@ -734,7 +734,7 @@ Claude Code discovers slash commands by scanning `.claude/commands/` for `.md` f
 
 **Per-group files:** `dot-scout` Phase 8 emits per-group principle files into `<dir>/.claude/rules/` with `paths:` frontmatter. These are runtime-generated by `dot-scout` and not installed by `install.sh`.
 
-### 🐙 GitHub Copilot (native, no wrapper needed)
+### GitHub Copilot (native, no wrapper needed)
 
 Both Copilot CLI and Copilot IDE discover `.agents/skills/` natively:
 - **Copilot CLI** - discovers skills by scanning `.agents/skills/` for `SKILL.md` files; exposes them as `@<slug>` in the terminal
@@ -744,15 +744,15 @@ No wrapper files are written. The canonical skill at `.agents/skills/<slug>/SKIL
 
 **Per-group files (Code Review):** `dot-scout` Phase 8 emits per-group principle files into `.github/instructions/` with `applyTo:` frontmatter. Copilot Code Review applies them when reviewing matching paths. Enable this via the review integration step in the interactive installer.
 
-### 🧠 Codex (native, no wrapper needed)
+### Codex (native, no wrapper needed)
 
 Codex discovers repo skills by scanning `.agents/skills/` from the current working directory up to the repo root. No wrapper files are written. The canonical skill at `.agents/skills/<slug>/SKILL.md` is the only file needed.
 
-### 📦 Vendor (`./install.sh vendor <dir>`)
+### Vendor (`./install.sh vendor <dir>`)
 
 Copies the subset of `principles/` and `groups/` referenced by the project's `.principles` files into `<dir>/.agents/principles-catalog/`, and generates `<dir>/.agents/principles-catalog/index.tsv` - a pipe-delimited flat file (`ID|LAYER|SUMMARY`) of every vendored principle. Also reinstalls skills and hub blocks. Commit `.agents/principles-catalog/` to the repo.
 
-### 🗑️ Uninstall (`./uninstall.sh <dir>`)
+### Uninstall (`./uninstall.sh <dir>`)
 
 Removes all assets written by `install.sh`:
 - AI skills from `<dir>/.agents/skills/` (files with `generated-by: .principles` watermark)
@@ -765,7 +765,7 @@ Removes all assets written by `install.sh`:
 
 On Windows, use `uninstall.ps1` or `uninstall.cmd`.
 
-### 🧩 Template System
+### Template system
 
 The installer is template-driven. Each output format is defined by two files in `templates/<tool>/`:
 
@@ -819,7 +819,7 @@ If the tool reads `.agents/skills/` natively (like Copilot CLI/IDE and Codex), n
 
 ---
 
-## ➕ 11. Adding a New Namespace
+## 11. Adding a new namespace
 
 To add a company-specific namespace alongside the shipped `code` catalog:
 
@@ -849,7 +849,7 @@ The system discovers all `principles/*/catalog.yaml` files automatically. The na
 
 ---
 
-## 🏷️ 12. ID Format Guidance
+## 12. ID format guidance
 
 ### Naming Conventions
 
@@ -877,6 +877,6 @@ Add a new category directory when:
 
 ---
 
-## 🤝 13. Contributing Principles
+## 13. Contributing principles
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for requirements, process, and source guidelines.

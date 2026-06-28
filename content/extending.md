@@ -45,6 +45,6 @@ Contribute upstream when the principle belongs to the public software engineerin
 
 - [`templates/extra-catalog/`](https://github.com/dot-principles/dot-principles.github.io/tree/main/templates/extra-catalog)
 - [`example-catalog`](https://github.com/dot-principles/example-catalog)
-- [`INSTALL.md` §9 — Extra Catalogs](https://github.com/dot-principles/dot-principles.github.io/blob/main/INSTALL.md#9-extra-catalogs)
-- [`INSTALL.md` §10 — Installing an Extra Catalog](https://github.com/dot-principles/dot-principles.github.io/blob/main/INSTALL.md#10-installing-an-extra-catalog)
-- [`DESIGN.md` section 11](https://github.com/dot-principles/dot-principles.github.io/blob/main/DESIGN.md#-11-adding-a-new-namespace)
+- [`INSTALL.md` §9 - Extra Catalogs](https://github.com/dot-principles/dot-principles.github.io/blob/main/INSTALL.md#9-extra-catalogs)
+- [`INSTALL.md` §10 - Installing an Extra Catalog](https://github.com/dot-principles/dot-principles.github.io/blob/main/INSTALL.md#10-installing-an-extra-catalog)
+- [`DESIGN.md` section 11](https://github.com/dot-principles/dot-principles.github.io/blob/main/DESIGN.md#11-adding-a-new-namespace)

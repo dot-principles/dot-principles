@@ -8,6 +8,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Unreleased]
+
+**Changed**
+
+- **Version metadata synchronized to `v0.13.2`** - `VERSION`, the generated `.principles` header, shipped `.agents/skills/*/SKILL.md` manifests, Copilot instruction-file markers in `.github/instructions/`, and the `DESIGN.md` version example now all match the latest documented release instead of mixing `0.12.0`, `0.13.0`, and `0.13.2`.
+
 ## [v0.13.2] - 2026-05-27
 
 **Changed**

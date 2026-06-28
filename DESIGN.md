@@ -800,7 +800,7 @@ templates/
 | `description` | "Review a file, directory, or inline code against..." | All |
 | `argument-hint` | "[file\|directory\|inline-code]..." | All |
 | `allowed-tools` | "Read, Write, Glob, Grep, Bash" | All |
-| `version` | "0.13.0" | All |
+| `version` | "0.13.2" | All |
 | `authors` | "Flemming N. Larsen (...)" | All |
 | `generated-by` | `.principles` | All |
 | `name` | "dot-audit" | Agents (canonical skills) |

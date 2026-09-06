@@ -87,7 +87,6 @@ example-catalog/
 ├── principles/
 │   └── ptac/
 │       ├── catalog.yaml
-│       ├── .context-prime.md
 │       ├── .context-audit.md
 │       ├── .context-inspect.md
 │       ├── ptac-plain-text-first.md

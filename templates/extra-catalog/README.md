@@ -16,7 +16,6 @@ my-principles/
 ├── principles/
 │   └── <namespace>/          ← one directory per namespace (your choice of name)
 │       ├── catalog.yaml      ← required: namespace description
-│       ├── .context-prime.md ← compiled guidance for dot-prime  (recommended)
 │       ├── .context-audit.md ← compiled violation patterns for dot-audit  (recommended)
 │       ├── .context-inspect.md ← optional: grep-based pre-scan patterns
 │       └── <namespace>-<slug>.md  ← one file per principle
@@ -56,7 +55,7 @@ Principle IDs are derived from the file path relative to `principles/`:
 
 4. **Add principle files** - use `principles/example/example-principle.md` as a guide.
 
-5. **Update the pre-compiled context files** - copy the relevant content from your principle files into `.context-prime.md` and `.context-audit.md` (see the examples in this template).
+5. **Update the pre-compiled context files** - copy the relevant content from your principle files into `.context-audit.md` (see the examples in this template).
 
 6. **Register your catalog with a project:**
    ```bash
@@ -92,4 +91,3 @@ git commit -m "Initial principles catalog"
 For corporate use: host it in a shared repo (e.g., `github.com/acme/acme-principles`) and have each developer clone it to a known path. Point `.principles-extra` at that path.
 
 For personal use: keep it in your home directory or dotfiles repo.
-

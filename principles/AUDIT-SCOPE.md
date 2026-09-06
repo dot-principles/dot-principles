@@ -4,7 +4,7 @@
 
 The `dot-audit` command reviews a codebase against active principles using LLM reasoning and, where available, grep pre-scans. Not every principle can be meaningfully verified by inspecting a codebase snapshot - some require runtime data, git history, org-structure knowledge, or are purely process-based activities. This document records which principles are excluded or limited, and why.
 
-Principles in either table remain fully valid for `dot-prime` (educational reference) and for human code review. Only `dot-audit` skips or partially applies them.
+Principles in either table remain fully valid for human code review. Only `dot-audit` skips or partially applies them.
 
 ---
 

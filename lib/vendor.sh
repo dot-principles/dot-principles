@@ -57,13 +57,9 @@ vendor_namespace_context_files() {
 
     local dst="$principles_dst/$rel"
     mkdir -p "$dst"
-    for context_file in ".context-audit.md" ".context-prime.md" ".context-inspect.md" ".context-scout.md" "catalog.yaml"; do
+    for context_file in ".context-audit.md" ".context-inspect.md" ".context-scout.md" "catalog.yaml"; do
         [ -f "$ns_dir/$context_file" ] && cp "$ns_dir/$context_file" "$dst/"
     done
-
-    if [ ! -f "$ns_dir/.context-prime.md" ]; then
-        echo -e "    ${YELLOW}⚠${NC} principles/$rel/ has no .context-prime.md — /dot-prime will have limited guidance for these principles"
-    fi
     return 0
 }
 
@@ -221,7 +217,7 @@ install_vendor() {
         rel="${rel%/}"
         local dst="$principles_dst/$rel"
         local copied=false
-        for context_file in ".context-audit.md" ".context-prime.md" ".context-inspect.md" ".context-scout.md" "catalog.yaml"; do
+        for context_file in ".context-audit.md" ".context-inspect.md" ".context-scout.md" "catalog.yaml"; do
             if [ -f "$dir/$context_file" ]; then
                 mkdir -p "$dst"
                 cp "$dir/$context_file" "$dst/"

@@ -104,9 +104,16 @@ else
             install_from_template "$TEMPLATE_DIR/agents" "$DIR_ARG"
             echo ""
 
+            # Remove legacy Copilot-local skills and prompts from pre-native installs.
+            "$SCRIPT_DIR/uninstall.sh" --quiet --target copilot "$DIR_ARG"
+            echo ""
+
+            # Remove stale Claude wrappers even when an older install has no target record.
+            "$SCRIPT_DIR/uninstall.sh" --quiet --target claude "$DIR_ARG"
+            echo ""
+
             # Re-install any previously recorded wrappers
             if [ "${INSTALLED_TARGETS[claude]:-}" = "1" ]; then
-                "$SCRIPT_DIR/uninstall.sh" --quiet --target claude "$DIR_ARG"
                 install_from_template "$TEMPLATE_DIR/claude" "$DIR_ARG"
                 echo ""
             fi

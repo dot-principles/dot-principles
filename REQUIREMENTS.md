@@ -22,7 +22,7 @@ On Windows, use `install.ps1` / `uninstall.ps1` (PowerShell) or `install.cmd` / 
 
 ## AI Model
 
-The `dot-audit`, `dot-prime`, and `dot-scout` commands work with a range of AI models, but premium models are recommended for the best review quality and output formatting.
+The `dot-audit` and `dot-scout` commands work with a range of AI models, but premium models are recommended for the best review quality and output formatting.
 
 | Model | Status | Notes |
 |-------|--------|-------|

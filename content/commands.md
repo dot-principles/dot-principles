@@ -1,6 +1,6 @@
 # Commands
 
-The project revolves around three commands. Together they create a complete quality loop for agent-assisted work.
+The project revolves around two commands. Together they create a complete quality loop for agent-assisted work.
 
 ## `dot-scout`
 
@@ -18,25 +18,6 @@ What it does:
 - detects stacks, artifact types, and domain signals
 - proposes `.principles` files at the right directory levels
 - emits the generated instruction files agents use for fast resolution
-
-## `dot-prime`
-
-**Purpose:** activate the most relevant principles before coding.
-
-Use it when:
-
-- you are about to make a significant change
-- you want the agent to work with the right engineering lens active
-- you need to override the default hierarchy with explicit groups or principle IDs
-
-What it does:
-
-- resolves the active hierarchy
-- expands groups to principle IDs
-- selects a compact, task-relevant subset
-- puts those rules into the working frame
-
-`dot-prime` is the command that makes `.principles` useful during writing, not just after the fact.
 
 ## `dot-audit`
 
@@ -59,7 +40,6 @@ What it does:
 
 ```text
 dot-scout   → set up the repo's principle map
-dot-prime   → load the right rules before coding
 dot-audit   → check whether the result reflects those rules
 ```
 
@@ -70,7 +50,6 @@ These are agent commands, not traditional CLI subcommands. You can usually descr
 ```text
 /dot-audit current changes
 /dot-audit the payment module
-/dot-prime
 /dot-audit @ddd src/orders
 ```
 

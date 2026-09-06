@@ -2,4 +2,4 @@
 
 | Path | Description |
 |---|---|
-| [dot/](dot/) | The `dot-audit`, `dot-prime`, and `dot-scout` slash commands |
+| [dot/](dot/) | The `dot-audit` and `dot-scout` slash commands |

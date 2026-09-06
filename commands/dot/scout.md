@@ -243,14 +243,13 @@ Active groups resolved:
   @docs → DOC-PURPOSE, DOC-MINIMAL, DOC-AUDIENCE, DOC-ACCURACY, DOC-EXAMPLES, DOC-PROGRESSIVE-DISCLOSURE ... (N principles)
 
 Next steps:
-  - Run /dot-prime to activate principles before writing
   - Run /dot-audit <target> to review against these principles
   - Edit .principles files manually to add !exclusions or direct principle IDs
 ```
 
 ## Phase 7 - Emit active.md
 
-Write the canonical prime source to the vendored catalog. This phase runs unconditionally whenever `catalog-available: true`; it does not depend on which review tools are installed.
+Write the canonical active-principles source to the vendored catalog. This phase runs unconditionally whenever `catalog-available: true`; it does not depend on which review tools are installed.
 
 If **catalog-available: false**, report:
 > "⚠️ active.md skipped - catalog not available. Run `./install.sh vendor <git-root>` and re-run /dot-scout."
@@ -439,4 +438,4 @@ Tip: commit {{PRINCIPLES_DIRECTORY}}/ so CI and PR bots can use it without local
 
 Append `scout` to `{{PRINCIPLES_DIRECTORY}}/install.cfg` (create the file if it does not exist). Use one target per line; do not add a duplicate if `scout` is already present.
 
-This marker is kept for compatibility, and `/dot-prime` and `/dot-audit` accept both the legacy `/scout` and current `/dot-scout` generated files.
+This marker is kept for compatibility with existing installations and generated files.

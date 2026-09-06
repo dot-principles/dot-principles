@@ -8,6 +8,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Unreleased]
+
+**Removed**
+
+- **`dot-prime` command and prime-only catalog context** - current installs and product documentation now expose only `dot-scout` and `dot-audit`.
+
+**Fixed**
+
+- **Upgrade cleanup for retired commands** - installer upgrades now remove versioned generated assets, legacy Copilot-local assets, and the namespaced Claude `dot/prime.md` path left by earlier releases.
+
 ## [v0.13.2] - 2026-05-27
 
 **Changed**

@@ -125,17 +125,16 @@ principles/
 
 ### Pre-compiled context files
 
-Each namespace contains three pre-compiled files that consolidate all its principle guidance into a single read per command invocation:
+Each namespace contains two pre-compiled files that consolidate its audit guidance and inspection patterns into a single read per command invocation:
 
 | File | Used by | Contains |
 |------|---------|----------|
-| `.context-prime.md` | `dot-prime` Phase 4 | Principle statement, Why it matters, Good practice - for all principles in the namespace |
 | `.context-audit.md` | `dot-audit` Phase 4 | Principle statement, Violations to detect - for all principles in the namespace |
 | `.context-inspect.md` | `dot-audit` Phase 5 | Machine-executable pre-scan patterns (grep/awk/find commands) - for principles with deterministic inspection patterns |
 
 The command reads one file per namespace and filters to only the entries in the final active set. This avoids reading N individual principle files.
 
-**`code/` sub-namespace split:** Because the `code/` namespace contains 110 principles across 11 sub-namespaces, its context files are split per sub-namespace rather than held in a single file. Each of `code/api/`, `code/ar/`, `code/cc/`, `code/cs/`, `code/dx/`, `code/ob/`, `code/pf/`, `code/rl/`, `code/sec/`, `code/tp/`, and `code/ts/` has its own `.context-prime.md`, `.context-audit.md`, and (where applicable) `.context-inspect.md`. The root `code/.context-*.md` files contain only a pointer comment listing the sub-namespace directories. `dot-prime` and `dot-audit` use a longest-prefix-match table to resolve `CODE-<sub>-*` IDs to the correct sub-namespace file before falling back to `code/` for unrecognised sub-prefixes.
+**`code/` sub-namespace split:** Because the `code/` namespace contains 110 principles across 11 sub-namespaces, its context files are split per sub-namespace rather than held in a single file. Each of `code/api/`, `code/ar/`, `code/cc/`, `code/cs/`, `code/dx/`, `code/ob/`, `code/pf/`, `code/rl/`, `code/sec/`, `code/tp/`, and `code/ts/` has its own `.context-audit.md` and (where applicable) `.context-inspect.md`. The root `code/.context-*.md` files contain only a pointer comment listing the sub-namespace directories. `dot-audit` uses a longest-prefix-match table to resolve `CODE-<sub>-*` IDs to the correct sub-namespace file before falling back to `code/` for unrecognised sub-prefixes.
 
 ### `.agents/principles-catalog/` - vendored project subset
 
@@ -154,7 +153,6 @@ my-principles/
   principles/
     acme/           ← unique namespace (IDs become ACME-*)
       catalog.yaml
-      .context-prime.md
       .context-audit.md
       acme-0001.md
   groups/
@@ -281,15 +279,15 @@ A `principles-core` file is always emitted in both directories with `applyTo: "*
 
 ### Two-tier context system
 
-Per-group files act as **tier 1** context - always present, always fast. They are the primary source for `dot-prime` and `dot-audit` fast paths:
+Per-group files act as **tier 1** context - always present, always fast. They are the primary source for the `dot-audit` fast path and passive code-review integrations:
 
 | Tier | Source | Loaded by |
 |------|--------|-----------|
-| 1 - Per-group files | Emitted to `.github/instructions/` and `.claude/rules/` by `dot-scout` | `dot-prime`, `dot-audit` (always) |
-| 2 - Namespace context | `.context-prime.md` / `.context-audit.md` per namespace | `dot-prime` Phase 4, `dot-audit` Phase 4 |
+| 1 - Per-group files | Emitted to `.github/instructions/` and `.claude/rules/` by `dot-scout` | `dot-audit` and passive code-review integrations |
+| 2 - Namespace context | `.context-audit.md` per namespace | `dot-audit` Phase 4 |
 | 3 - Inspection patterns | `.context-inspect.md` per namespace | `dot-audit` Phase 5 only |
 
-`dot-prime` and `dot-audit` glob for per-group files first (tier 1) then load the relevant namespace context files (tier 2) for full principle guidance. Per-group files avoid tree-walking `.principles` files on every invocation.
+`dot-audit` checks per-group files first (tier 1) then loads the relevant namespace context files (tier 2) for full principle guidance. Per-group files avoid tree-walking `.principles` files on every invocation.
 
 ---
 
@@ -634,20 +632,6 @@ When reviewing `/repo-root/src/payments/PaymentService.java`:
 
 ## 9. Commands
 
-### `dot-prime`
-
-Activates principles before writing code. Run it before starting work on a task.
-
-**Phases:**
-
-| Phase | Name                          | Description                                                                                    |
-|-------|-------------------------------|------------------------------------------------------------------------------------------------|
-| 1     | Scan Context                  | Examines the coding context: language, framework, domain, risk signals                         |
-| 2     | Resolve .principles Hierarchy | Per-group files fast path first; falls back to tree walk, expands groups, builds active ID set  |
-| 3     | Dynamic Detection (fallback)  | Only runs if Phase 2 found no `.principles` files; uses signal-based detection                 |
-| 4     | Load Principle Content        | Reads one `.context-prime.md` per namespace (pre-compiled); for `CODE-<sub>-*` IDs reads per-sub-namespace file under `code/<sub>/`; filters to active IDs |
-| 5     | Output                        | Presents active principles table with source column; states coding frame                       |
-
 ### `dot-audit`
 
 Reviews code against activated principles. Outputs findings grouped by severity. Supports explicit principle override via `--with <spec>`, `@<group>`, or `<spec> on <target>` syntax to force a specific principle set regardless of `.principles` files.
@@ -696,7 +680,7 @@ Analyses a project directory and creates or updates `.principles` files, then co
 
 ## 10. Installer targets
 
-`install.sh` deploys the three commands (`dot-scout`, `dot-prime`, `dot-audit`) to supported AI tool families. The installer is **template-driven** - skill content is defined in `templates/agents/` (canonical); tool-specific wrappers in `templates/claude/`.
+`install.sh` deploys the two commands (`dot-scout`, `dot-audit`) to supported AI tool families. The installer is **template-driven** - skill content is defined in `templates/agents/` (canonical); tool-specific wrappers in `templates/claude/`.
 
 **Prerequisites:** Bash 4+. See [REQUIREMENTS.md](REQUIREMENTS.md). On Windows, use `install.ps1` (PowerShell) or `install.cmd` (CMD) - thin wrappers that detect bash and forward all arguments to `install.sh`. See [INSTALL.md](INSTALL.md) for platform-specific instructions.
 

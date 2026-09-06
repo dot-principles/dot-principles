@@ -179,9 +179,16 @@ interactive_install() {
     install_from_template "$TEMPLATE_DIR/agents" "$project_dir"
     echo ""
 
+    # Remove legacy Copilot-local skills and prompts from pre-native installs.
+    "$SCRIPT_DIR/uninstall.sh" --quiet --target copilot "$project_dir"
+    echo ""
+
+    # Remove stale Claude wrappers even when Claude is not selected this time.
+    "$SCRIPT_DIR/uninstall.sh" --quiet --target claude "$project_dir"
+    echo ""
+
     # ── Install: Claude Code wrappers ────────────────────────────────────
     if [ "$do_claude" = true ]; then
-        "$SCRIPT_DIR/uninstall.sh" --quiet --target claude "$project_dir"
         install_from_template "$TEMPLATE_DIR/claude" "$project_dir"
         mark_targets claude
         echo ""

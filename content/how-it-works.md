@@ -67,13 +67,12 @@ The framework does not assume everything is source code. It detects artifact typ
 ## 5. The command workflow applies the rules
 
 - `dot-scout` helps create and refresh the hierarchy.
-- `dot-prime` loads the most relevant rules before coding.
 - `dot-audit` reviews the result against those rules after coding.
 
 That is the practical loop:
 
 ```text
-configure intent → load intent → write → review against intent
+configure intent → write → review against intent
 ```
 
 ## Deep reference

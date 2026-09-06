@@ -33,7 +33,6 @@ These are the kinds of problems experienced reviewers catch from judgment rather
 - Principles live as Markdown files in a catalog.
 - Projects activate them with `.principles` files in the repo tree.
 - `dot-scout` helps place those files.
-- `dot-prime` loads the most relevant rules before coding.
 - `dot-audit` reviews the result against the active set.
 
 The project is open, practical, and deliberately modest in its claims. It does not pretend to solve software quality on its own. It gives teams a better way to express engineering intent to AI tools they are already using.

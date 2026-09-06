@@ -4,13 +4,12 @@
 
 > Want the shorter public narrative first? Start with the guided docs in [`content/`](../content/README.md), then come back here for the end-to-end workflow.
 
-`.principles` ships three commands that form a complete workflow:
+`.principles` ships two commands that form a complete workflow:
 
 | Command | Purpose |
 |---------|---------|
 | `dot-scout` | Analyse a project, detect its stack, and create `.principles` files |
 | `dot-audit` | Review code against activated principles - find, fix, commit, and open a PR |
-| `dot-prime` | Activate principles before writing or editing code |
 
 ---
 
@@ -22,7 +21,7 @@ Before using any commands, install `.principles` into your project. This demo us
 ./install.sh copilot C:\Code\tank-royale
 ```
 
-This installs the `dot-scout`, `dot-prime`, and `dot-audit` skills into the target project and vendors the principle catalog. See [INSTALL.md](../INSTALL.md) for the full guide (Claude Code, Codex, interactive mode, etc.). If you are still evaluating the project rather than running the demo, the visitor-oriented pages in [`content/`](../content/README.md) now provide the shorter path from concept to first use.
+This installs the `dot-scout` and `dot-audit` skills into the target project and vendors the principle catalog. See [INSTALL.md](../INSTALL.md) for the full guide (Claude Code, Codex, interactive mode, etc.). If you are still evaluating the project rather than running the demo, the visitor-oriented pages in [`content/`](../content/README.md) now provide the shorter path from concept to first use.
 
 ---
 
@@ -293,54 +292,10 @@ The generated PR includes a structured summary explaining every change:
 >
 > `RecorderRuntime` uses two threads sharing mutable state with no documentation. Added a class-level KDoc describing the two-thread model and the `@Volatile` visibility guarantee.
 
----
-
-## 3 · `dot-prime` - Activate Before Coding
-
-**What it does:** Loads the resolved `.principles` hierarchy and distills it into a compact set of 5-10 rules that the AI agent keeps in its active context while writing or editing code.
-
-Unlike `dot-scout` (which writes files) and `dot-audit` (which produces visible findings and fixes), `dot-prime` works *behind the scenes* - it shapes how the AI thinks, not what it outputs. That makes it hard to demo visually, but it's arguably the most impactful command for day-to-day coding.
-
-**Run it:**
-
-```
-> dot-prime
-```
-
-**Sample output:**
-
-```
-Active rules:
-- CODE-CS-DRY: Give every piece of knowledge one authoritative home.
-- CODE-CS-KISS: Prefer the simplest solution that works.
-- CODE-DX-NAMING: Name things by what they represent, not how they're stored.
-- SOLID-SRP: Give each module exactly one reason to change.
-- CODE-CS-FAIL-FAST: Detect errors immediately and report them loudly.
-- CODE-CC-SYNC-SHARED-STATE: Guard every cross-thread field with synchronization.
-- EFFECTIVE-JAVA-MINIMIZE-ACCESSIBILITY: Make each class and member as inaccessible as possible.
-- CODE-CS-YAGNI: Delete code you don't need today.
-
-Apply these rules to all code you generate. Proceed.
-```
-
-From this point on, every line of code the AI writes or reviews is filtered through these principles - no extra prompting needed.
-
-### When to use it
-
-| Scenario | Command |
-|----------|---------|
-| Starting a new coding task | `dot-prime` - loads principles for the current directory |
-| Working on a specific file | `dot-prime src/server/Recorder.kt` - tailored to that file's position in the hierarchy |
-| Overriding with specific groups | `dot-prime @security-focused @kotlin` - explicit principle selection |
-| Quick focused review | `dot-prime CODE-CC-SYNC-SHARED-STATE CODE-CS-FAIL-FAST` - just these two principles |
-
----
-
 ## The Full Workflow
 
 ```
 dot-scout          →  analyse project, create .principles files
-dot-prime          →  activate principles before coding
 dot-audit <target> →  review, fix, commit, and ship
 ```
 

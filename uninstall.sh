@@ -109,6 +109,13 @@ cleanup_dir_if_empty() {
     fi
 }
 
+# Match both the original unversioned watermark and current versioned forms.
+# This keeps upgrades able to remove generated assets from any prior release.
+is_principles_generated_file() {
+    local file="$1"
+    grep -qE '^generated-by: "?\.principles( v[^"]+)?"?$' "$file" 2>/dev/null
+}
+
 print_header() {
     qecho ""
     qecho "${BOLD}.principles uninstaller${NC}"
@@ -149,7 +156,7 @@ uninstall_claude() {
     if [ -d "$target_dir" ]; then
         while IFS= read -r file; do
             [ -f "$file" ] || continue
-            if grep -q "^generated-by: \.principles$" "$file" 2>/dev/null; then
+            if is_principles_generated_file "$file"; then
                 rm "$file"
                 count=$((count + 1))
                 local rel="${file#$target_dir/}"; rel="${rel%.md}"
@@ -166,6 +173,17 @@ uninstall_claude() {
             rm "$legacy_file"
             count=$((count + 1))
             qecho "  ${GREEN}✓${NC} /$legacy_name (legacy)"
+        fi
+    done
+
+    # Current namespaced layout from releases that predate retired-command cleanup.
+    local retired_path
+    for retired_path in "dot/prime.md"; do
+        local retired_file="$target_dir/$retired_path"
+        if [ -f "$retired_file" ]; then
+            rm "$retired_file"
+            count=$((count + 1))
+            qecho "  ${GREEN}✓${NC} /${retired_path%.md} (retired)"
         fi
     done
 
@@ -242,7 +260,7 @@ uninstall_copilot_local() {
     if [ -d "$skills_dir" ]; then
         for file in "$skills_dir"/*/SKILL.md; do
             [ -f "$file" ] || continue
-            if grep -q "^generated-by: \.principles$" "$file" 2>/dev/null; then
+            if is_principles_generated_file "$file"; then
                 local skill_dir
                 skill_dir="$(dirname "$file")"
                 rm -rf "$skill_dir"
@@ -276,7 +294,7 @@ uninstall_copilot_local() {
     if [ -d "$prompts_dir" ]; then
         for file in "$prompts_dir/"*.prompt.md; do
             [ -f "$file" ] || continue
-            if grep -q "^generated-by: \.principles$" "$file" 2>/dev/null; then
+            if is_principles_generated_file "$file"; then
                 rm "$file"
                 prompt_count=$((prompt_count + 1))
                 qecho "  ${GREEN}✓${NC} .github/prompts/$(basename "$file")"
@@ -316,7 +334,7 @@ uninstall_agents_skills() {
     if [ -d "$skills_dir" ]; then
         for file in "$skills_dir"/*/SKILL.md; do
             [ -f "$file" ] || continue
-            if grep -q "^generated-by: \.principles$" "$file" 2>/dev/null; then
+            if is_principles_generated_file "$file"; then
                 local skill_dir
                 skill_dir="$(dirname "$file")"
                 rm -rf "$skill_dir"

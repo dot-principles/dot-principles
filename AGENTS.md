@@ -1,7 +1,7 @@
 # AI Agent Instructions
 
 This is the **dot-principles** repository - a curated catalog of software engineering
-principles and the tooling (`dot-scout`, `dot-audit`, `dot-prime`) that makes them
+principles and the tooling (`dot-scout`, `dot-audit`) that makes them
 accessible to AI coding agents across all artifact types.
 
 > **Taste your own medicine.** This repo enforces its own principles on itself.
@@ -71,14 +71,15 @@ All findings must be resolved or explicitly accepted (with rationale) before mer
 
 ## Tests
 
-Run the audit gate regression test before pushing:
+Run the regression tests before pushing:
 
 ```bash
 ./tests/check-audit-gates.sh
+bash tests/check-retired-prime.sh
 ```
 
-All checks must pass (exit 0). This test verifies that the interactive audit workflow
-gates (Phases 8-10) are intact in all audit command files.
+All checks must pass (exit 0). These tests verify that the interactive audit workflow
+gates (Phases 8-10) remain intact and retired command assets are removed on upgrade.
 
 ---
 
@@ -86,12 +87,5 @@ gates (Phases 8-10) are intact in all audit command files.
 
 This repo has `.principles` files that define which principles govern AI-assisted work
 here. The generated Copilot review instruction files live in `.github/instructions/`.
-
-Run `dot-prime` before starting any significant change to load the active rule set:
-
-```
-/dot-prime       # Claude / Copilot
-$dot-prime       # Codex
-```
 
 The active set covers: documentation quality (`@docs`), shell script hygiene (`@source-code`), and plain-text practices (`@ptac`).

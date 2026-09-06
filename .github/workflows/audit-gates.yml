@@ -14,3 +14,5 @@ jobs:
         run: bash install.sh vendor .
       - name: Verify audit gate markers (Phases 8–10)
         run: ./tests/check-audit-gates.sh
+      - name: Verify retired command migration
+        run: bash ./tests/check-retired-prime.sh

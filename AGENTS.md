@@ -51,6 +51,11 @@ Every change must update the relevant documentation files:
 
 3. Bump `VERSION`, update `CHANGELOG.md`, and tag the release.
 
+4. Update the [dot-principles organization profile](https://github.com/dot-principles):
+   - In the `dot-principles/.github` repository, update `profile/README.md` with the
+     new release version, status, and any other public-facing changes.
+   - Commit and push the organization-profile update alongside the release.
+
 ---
 
 ## Before merging changes to `principles/` or `commands/`

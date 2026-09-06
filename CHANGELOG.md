@@ -8,6 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ---
 
+## [Unreleased]
+
+**Changed**
+
+- **Release checklist includes the organization profile** - future releases now update the `dot-principles/.github` repository and its public `profile/README.md` alongside the catalog release.
+
+---
+
 ## [v0.14.0] - 2026-09-06
 
 **Removed**

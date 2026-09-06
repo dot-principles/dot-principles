@@ -37,6 +37,8 @@ Every change must update the relevant documentation files:
 
 ## Before any release
 
+Complete every step below; a pushed tag is not a published GitHub Release.
+
 1. Run `dot-scout` to re-analyse this repo and refresh the generated principle files:
 
    ```
@@ -49,12 +51,51 @@ Every change must update the relevant documentation files:
    - `REVIEW.md` (if Claude is active)
    - `.principles` files at any updated paths
 
-3. Bump `VERSION`, update `CHANGELOG.md`, and tag the release.
+3. Prepare the main-repository release:
+   - Bump `VERSION`.
+   - Move the completed `Unreleased` entries into `## [vVERSION] - YYYY-MM-DD` in
+     `CHANGELOG.md` and update its comparison links.
+   - Update the README's latest-release reference and all generated version markers.
+   - Run the required checks, commit the release changes, and create the annotated
+     `vVERSION` tag.
 
-4. Update the [dot-principles organization profile](https://github.com/dot-principles):
-   - In the `dot-principles/.github` repository, update `profile/README.md` with the
-     new release version, status, and any other public-facing changes.
-   - Commit and push the organization-profile update alongside the release.
+4. Push the main repository commit and tag:
+
+   ```bash
+   VERSION="$(tr -d '[:space:]' < VERSION)"
+   TAG="v$VERSION"
+   git push origin main "$TAG"
+   ```
+
+5. Publish the GitHub Release object for the tag. A tag alone does not update the
+   repository's latest-release badge:
+
+   ```bash
+   VERSION="$(tr -d '[:space:]' < VERSION)"
+   TAG="v$VERSION"
+   gh release create "$TAG" \
+     --repo dot-principles/dot-principles.github.io \
+     --title "$TAG" \
+     --generate-notes
+   test "$(gh api repos/dot-principles/dot-principles.github.io/releases/latest --jq '.tag_name')" = "$TAG"
+   ```
+
+   If `gh` is unavailable or either command fails, stop and report the release as
+   incomplete; do not claim that pushing the tag completed it.
+
+6. Update the [dot-principles organization profile](https://github.com/dot-principles):
+   - In the `dot-principles/.github` repository (the sibling checkout is
+     `../dot-principles-github` when working from this repository), run `dot-scout`.
+   - Update `profile/README.md` with the new release version, status, workflow, and
+     any other public-facing changes; remove references to retired commands.
+   - Commit and push the organization-profile update to its `main` branch.
+
+7. Verify the handoff:
+   - `gh api repos/dot-principles/dot-principles.github.io/releases/latest --jq '.tag_name'`
+     returns `vVERSION`.
+   - The organization profile source at
+     `https://raw.githubusercontent.com/dot-principles/.github/main/profile/README.md`
+     contains `vVERSION` and no retired-command references.
 
 ---
 

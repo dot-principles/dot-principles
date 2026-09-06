@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 **Changed**
 
 - **Release checklist includes the organization profile** - future releases now update the `dot-principles/.github` repository and its public `profile/README.md` alongside the catalog release.
+- **Release checklist publishes GitHub Releases** - future releases now create and verify the published GitHub Release object after pushing the tag, so the latest-release badge is updated reliably.
 
 ---
 
